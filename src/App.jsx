@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import {
   achievements,
-  certifications,
   experience,
   profile,
   projects,
@@ -72,7 +71,7 @@ function App() {
         </div>
       </section>
 
-      <Section id="about" eyebrow="About" title="Engineering systems that stay calm under pressure.">
+      <Section id="about" eyebrow="About" title="Building infrastructure that stays calm under pressure.">
         <p className="lede">{profile.summary}</p>
       </Section>
 
@@ -132,23 +131,13 @@ function App() {
         </div>
       </Section>
 
-      <div className="split-sections">
-        <Section id="certifications" eyebrow="Proof" title="Certifications">
-          <ul className="clean-list">
-            {certifications.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section id="achievements" eyebrow="Milestones" title="Achievements">
-          <ul className="clean-list">
-            {achievements.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </Section>
-      </div>
+      <Section id="achievements" eyebrow="Milestones" title="Achievements">
+        <ul className="clean-list">
+          {achievements.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </Section>
 
       <Section id="contact" eyebrow="Contact" title="Let’s build systems people can rely on.">
         <div className="contact-card">
