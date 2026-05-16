@@ -6,7 +6,7 @@ export const profile = {
   location: "New Delhi, India",
   summary:
     "DevOps engineer with 3+ years of experience designing deployment pipelines, automating cloud infrastructure, and improving delivery reliability across Azure and AWS. My work spans Azure DevOps, GitHub Actions, GitLab, Terraform, Ansible, Kubernetes, Docker, and DevSecOps tooling, with a bias toward systems that are repeatable, observable, and easier for teams to trust.",
-  photo: "/profile-placeholder.svg",
+  photo: "/profile-placeholder.jpg",
   resumeUrl: "/Divyam_Matia_Resume.pdf"
 };
 
