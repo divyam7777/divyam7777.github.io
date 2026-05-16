@@ -21,3 +21,13 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## GitHub Pages deployment
+
+This project includes a GitHub Actions workflow that builds the React app and publishes the `dist` folder to GitHub Pages on every push to `main`.
+
+In the GitHub repository settings:
+
+1. Open **Settings → Pages**
+2. Under **Build and deployment**, choose **GitHub Actions**
+3. Push the repository to the `main` branch
