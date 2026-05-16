@@ -5,7 +5,7 @@ export const profile = {
     "Designing faster, safer delivery systems across cloud infrastructure, Kubernetes, and CI/CD.",
   location: "New Delhi, India",
   summary:
-    "DevOps and infrastructure engineer with 3+ years of experience designing deployment pipelines, automating cloud infrastructure, and improving delivery reliability across Azure and AWS. My work spans Azure DevOps, GitHub Actions, GitLab, Terraform, Ansible, Kubernetes, Docker, and DevSecOps tooling, with a bias toward infrastructure that is repeatable, observable, and easier for teams to trust.",
+    "DevOps and infrastructure engineer with 4+ years of experience designing deployment pipelines, automating cloud infrastructure, and improving delivery reliability across Azure and AWS. My work spans Azure DevOps, GitHub Actions, GitLab, Terraform, Ansible, Kubernetes, Docker, and DevSecOps tooling, with a bias toward infrastructure that is repeatable, observable, and easier for teams to trust.",
   photo: "/profile-placeholder.jpg",
   resumeUrl: "/Divyam_Matia_Resume.pdf"
 };

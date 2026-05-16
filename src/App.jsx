@@ -118,7 +118,7 @@ function App() {
           <p className="hero-tagline">{profile.tagline}</p>
           <div className="hero-stats" aria-label="Career highlights">
             <span>
-              <strong>3+</strong>
+              <strong>4+</strong>
               Years
             </span>
             <span>
