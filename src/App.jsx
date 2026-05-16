@@ -42,7 +42,7 @@ function App() {
 
       <section id="top" className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">DevOps • Cloud • Delivery Systems</p>
+          <p className="eyebrow">DevOps • Cloud Infrastructure • Platform Engineering</p>
           <h1>{profile.name}</h1>
           <p className="hero-role">{profile.role}</p>
           <p className="hero-tagline">{profile.tagline}</p>
