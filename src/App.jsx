@@ -1,4 +1,5 @@
 import {
+  ArrowUp,
   ArrowUpRight,
   Download,
   Github,
@@ -160,6 +161,10 @@ function App() {
           </div>
         </div>
       </Section>
+
+      <a href="#top" className="back-to-top" aria-label="Back to top">
+        <ArrowUp size={20} />
+      </a>
     </main>
   );
 }
