@@ -7,6 +7,7 @@ import {
   Mail,
   MapPin
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   achievements,
   experience,
@@ -27,8 +28,29 @@ function Section({ id, eyebrow, title, children }) {
 }
 
 function App() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress =
+        scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+
+      setScrollProgress(progress);
+      setShowBackToTop(window.scrollY > 420);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <main className="page-shell">
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
       <nav className="nav">
         <a href="#top" className="brand">
           DM
@@ -47,6 +69,20 @@ function App() {
           <h1>{profile.name}</h1>
           <p className="hero-role">{profile.role}</p>
           <p className="hero-tagline">{profile.tagline}</p>
+          <div className="hero-stats" aria-label="Career highlights">
+            <span>
+              <strong>3+</strong>
+              Years
+            </span>
+            <span>
+              <strong>40%</strong>
+              Faster deploys
+            </span>
+            <span>
+              <strong>60%</strong>
+              Fewer errors
+            </span>
+          </div>
           <div className="hero-actions">
             <a href="#projects" className="button button-primary">
               View Projects
@@ -162,7 +198,11 @@ function App() {
         </div>
       </Section>
 
-      <a href="#top" className="back-to-top" aria-label="Back to top">
+      <a
+        href="#top"
+        className={`back-to-top ${showBackToTop ? "is-visible" : ""}`}
+        aria-label="Back to top"
+      >
         <ArrowUp size={20} />
       </a>
     </main>
