@@ -110,6 +110,34 @@ a {
   font-size: 0.95rem;
 }
 
+.nav-links a {
+  position: relative;
+  transition: color 180ms ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  background: var(--accent);
+  transition: transform 180ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a.is-active {
+  color: var(--text);
+}
+
+.nav-links a:hover::after,
+.nav-links a.is-active::after {
+  transform: scaleX(1);
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
@@ -203,6 +231,16 @@ h2 {
   gap: 10px;
   border-radius: 999px;
   padding: 13px 18px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.button:hover,
+.contact-links a:hover {
+  transform: translateY(-2px);
 }
 
 .button-primary {
@@ -214,6 +252,11 @@ h2 {
 .contact-links a {
   border: 1px solid var(--line);
   background: var(--surface);
+}
+
+.contact-links .contact-primary {
+  background: var(--text);
+  color: var(--bg);
 }
 
 .hero-meta {
@@ -235,14 +278,56 @@ h2 {
   box-shadow: var(--shadow);
 }
 
+.hero-visual {
+  overflow: hidden;
+}
+
 .hero-visual img {
   display: block;
   width: 100%;
   border-radius: 22px;
+  transition: transform 420ms ease;
+}
+
+.hero-visual:hover img {
+  transform: scale(1.03);
 }
 
 .section {
   margin-bottom: 72px;
+  scroll-margin-top: 120px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.section-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+.reveal-section {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .timeline {
@@ -304,7 +389,16 @@ h2 {
 
 .project-card,
 .skill-card {
+  position: relative;
   padding: 24px;
+}
+
+.project-index {
+  margin-bottom: 18px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
 
 .timeline-item:hover,
@@ -333,6 +427,42 @@ h2 {
   background: var(--accent-soft);
   color: var(--text);
   font-size: 0.85rem;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease;
+}
+
+.tag-row span:hover {
+  transform: translateY(-2px);
+  background: rgba(142, 165, 255, 0.22);
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.achievement-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 22px;
+  background: var(--surface);
+}
+
+.achievement-card span {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.achievement-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .contact-card {
@@ -348,7 +478,8 @@ h2 {
 @media (max-width: 900px) {
   .hero,
   .card-grid,
-  .skills-grid {
+  .skills-grid,
+  .achievement-grid {
     grid-template-columns: 1fr;
   }
 
@@ -438,7 +569,18 @@ h2 {
   .project-card,
   .skill-card,
   .contact-card,
-  .back-to-top {
+  .back-to-top,
+  .reveal-section,
+  .button,
+  .contact-links a,
+  .hero-visual img,
+  .tag-row span {
     transition: none;
   }
+}
+
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }

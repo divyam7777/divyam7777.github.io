@@ -19,9 +19,11 @@ import {
 
 function Section({ id, eyebrow, title, children }) {
   return (
-    <section id={id} className="section">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
+    <section id={id} className="section reveal-section">
+      <div className="section-heading">
+        <p className="eyebrow">{eyebrow}</p>
+        <h2>{title}</h2>
+      </div>
       {children}
     </section>
   );
@@ -30,6 +32,7 @@ function Section({ id, eyebrow, title, children }) {
 function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +51,49 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const sections = document.querySelectorAll(".reveal-section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const ids = ["about", "experience", "projects", "skills", "achievements", "contact"];
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-35% 0px -55%",
+        threshold: 0.01
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="page-shell">
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
@@ -56,10 +102,11 @@ function App() {
           DM
         </a>
         <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <a href="#about" className={activeSection === "about" ? "is-active" : ""}>About</a>
+          <a href="#experience" className={activeSection === "experience" ? "is-active" : ""}>Experience</a>
+          <a href="#projects" className={activeSection === "projects" ? "is-active" : ""}>Projects</a>
+          <a href="#skills" className={activeSection === "skills" ? "is-active" : ""}>Skills</a>
+          <a href="#contact" className={activeSection === "contact" ? "is-active" : ""}>Contact</a>
         </div>
       </nav>
 
@@ -133,13 +180,16 @@ function App() {
 
       <Section id="projects" eyebrow="Projects" title="Selected work across automation and platform engineering.">
         <div className="card-grid">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <article className="project-card" key={project.title}>
+              <div className="project-index">0{index + 1}</div>
               <div className="project-heading">
                 <h3>{project.title}</h3>
-                <a href={project.link} aria-label={`Open ${project.title}`}>
-                  <ArrowUpRight size={18} />
-                </a>
+                {project.link !== "#" && (
+                  <a href={project.link} aria-label={`Open ${project.title}`}>
+                    <ArrowUpRight size={18} />
+                  </a>
+                )}
               </div>
               <p className="project-problem">{project.problem}</p>
               <p>{project.details}</p>
@@ -169,11 +219,14 @@ function App() {
       </Section>
 
       <Section id="achievements" eyebrow="Milestones" title="Achievements">
-        <ul className="clean-list">
-          {achievements.map((item) => (
-            <li key={item}>{item}</li>
+        <div className="achievement-grid">
+          {achievements.map((item, index) => (
+            <article className="achievement-card" key={item}>
+              <span>0{index + 1}</span>
+              <p>{item}</p>
+            </article>
           ))}
-        </ul>
+        </div>
       </Section>
 
       <Section id="contact" eyebrow="Contact" title="Let’s build systems people can rely on.">
@@ -182,7 +235,7 @@ function App() {
             Open to conversations around DevOps engineering, cloud delivery, and platform reliability.
           </p>
           <div className="contact-links">
-            <a href={socialLinks.email}>
+            <a href={socialLinks.email} className="contact-primary">
               <Mail size={18} />
               Email
             </a>
