@@ -280,6 +280,24 @@ h2 {
   gap: 8px;
 }
 
+.devops-command {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 11px 14px;
+  background: rgba(7, 11, 22, 0.48);
+  color: var(--muted);
+}
+
+.devops-command code {
+  color: var(--text);
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88rem;
+}
+
 .hero-visual {
   padding: 12px;
   border: 1px solid var(--line);
@@ -476,55 +494,6 @@ h2 {
 }
 
 
-.terminal-card {
-  position: absolute;
-  right: -16px;
-  bottom: 22px;
-  width: min(280px, calc(100% - 32px));
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 14px;
-  background: rgba(7, 11, 22, 0.82);
-  box-shadow: var(--shadow);
-  color: #edf2ff;
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.terminal-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #8ea5ff;
-}
-
-.terminal-dots span:nth-child(2) {
-  background: #6ee7b7;
-}
-
-.terminal-dots span:nth-child(3) {
-  background: #fbbf24;
-}
-
-.terminal-card code,
-.terminal-card small {
-  display: block;
-  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
-}
-
-.terminal-card code {
-  margin-bottom: 8px;
-  color: #ffffff;
-  font-size: 0.88rem;
-}
-
-.terminal-card small {
-  color: #a7b0c5;
-}
 
 .ops-strip {
   display: grid;
@@ -645,12 +614,6 @@ h2 {
 }
 
 @media (max-width: 640px) {
-  .terminal-card {
-    position: static;
-    width: 100%;
-    margin-top: 12px;
-  }
-
   .page-shell {
     width: min(100% - 28px, 1180px);
   }

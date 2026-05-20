@@ -140,6 +140,7 @@ function App() {
           </div>
           <div className="hero-actions">
             <a href="#projects" className="button button-primary">
+              <ServerCog size={18} />
               View Projects
             </a>
             <a href={profile.resumeUrl} className="button button-secondary" download>
@@ -150,6 +151,10 @@ function App() {
               <BookOpen size={18} />
               Blog
             </a>
+          </div>
+          <div className="devops-command" aria-label="DevOps workflow summary">
+            <Terminal size={17} />
+            <code>$ deploy --reliable --observable</code>
           </div>
           <div className="hero-meta">
             <span>
@@ -164,15 +169,6 @@ function App() {
         </div>
         <div className="hero-visual">
           <img src={profile.photo} alt="Portrait of Divyam Matia" />
-          <div className="terminal-card" aria-label="DevOps workflow summary">
-            <div className="terminal-dots">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <code>$ deploy --reliable --observable</code>
-            <small>pipelines | infra | kubernetes</small>
-          </div>
         </div>
       </section>
 
