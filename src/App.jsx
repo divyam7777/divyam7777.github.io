@@ -1,12 +1,15 @@
 import {
   ArrowUp,
   ArrowUpRight,
+  BriefcaseBusiness,
   BookOpen,
+  CircleUserRound,
   Download,
   Github,
   Linkedin,
   Mail,
   MapPin,
+  Milestone,
   ServerCog,
   Terminal
 } from "lucide-react";
@@ -106,15 +109,30 @@ function App() {
           DM
         </a>
         <div className="nav-links">
-          <a href="#about" className={activeSection === "about" ? "is-active" : ""}>About</a>
-          <a href="#experience" className={activeSection === "experience" ? "is-active" : ""}>Experience</a>
-          <a href="#projects" className={activeSection === "projects" ? "is-active" : ""}>Projects</a>
-          <a href="#skills" className={activeSection === "skills" ? "is-active" : ""}>Skills</a>
-          <a href="#blog" className={`nav-blog ${activeSection === "blog" ? "is-active" : ""}`} aria-label="View blog section">
+          <a href="#about" className={activeSection === "about" ? "is-active" : ""}>
+            <CircleUserRound size={16} />
+            About
+          </a>
+          <a href="#experience" className={activeSection === "experience" ? "is-active" : ""}>
+            <BriefcaseBusiness size={16} />
+            Experience
+          </a>
+          <a href="#projects" className={activeSection === "projects" ? "is-active" : ""}>
+            <ServerCog size={16} />
+            Projects
+          </a>
+          <a href="#skills" className={activeSection === "skills" ? "is-active" : ""}>
+            <Milestone size={16} />
+            Skills
+          </a>
+          <a href="#blog" className={activeSection === "blog" ? "is-active" : ""} aria-label="View blog section">
             <BookOpen size={16} />
             Blog
           </a>
-          <a href="#contact" className={activeSection === "contact" ? "is-active" : ""}>Contact</a>
+          <a href="#contact" className={activeSection === "contact" ? "is-active" : ""}>
+            <Mail size={16} />
+            Contact
+          </a>
         </div>
       </nav>
 

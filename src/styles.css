@@ -109,20 +109,24 @@ a {
 
 .nav-links {
   display: flex;
-  gap: 22px;
+  align-items: center;
+  gap: 10px;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
 .nav-links a {
   position: relative;
-  transition: color 180ms ease;
-}
-
-.nav-blog {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 7px;
+  min-width: 106px;
+  border-radius: 999px;
+  padding: 9px 10px;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
 }
 
 .nav-links a::after {
@@ -140,6 +144,7 @@ a {
 
 .nav-links a:hover,
 .nav-links a.is-active {
+  background: var(--accent-soft);
   color: var(--text);
 }
 
@@ -628,7 +633,11 @@ h2 {
 
   .nav-links {
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    min-width: auto;
   }
 
   .section {
