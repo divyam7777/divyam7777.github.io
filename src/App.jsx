@@ -171,7 +171,7 @@ function App() {
               <span></span>
             </div>
             <code>$ deploy --reliable --observable</code>
-            <small>pipelines ? infra ? kubernetes</small>
+            <small>pipelines | infra | kubernetes</small>
           </div>
         </div>
       </section>
@@ -252,7 +252,7 @@ function App() {
             <a className="blog-card" href={`/blog/${post.slug}/`} key={post.slug}>
               <span className="blog-number">0{index + 1}</span>
               <div>
-                <p className="blog-meta">{post.date} ? {post.readTime}</p>
+                <p className="blog-meta">{post.date} | {post.readTime}</p>
                 <h3>{post.title}</h3>
                 <p>{post.summary}</p>
               </div>
