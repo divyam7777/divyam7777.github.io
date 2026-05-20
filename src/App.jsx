@@ -6,11 +6,14 @@ import {
   Github,
   Linkedin,
   Mail,
-  MapPin
+  MapPin,
+  ServerCog,
+  Terminal
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   achievements,
+  blogPosts,
   experience,
   profile,
   projects,
@@ -71,7 +74,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const ids = ["about", "experience", "projects", "skills", "achievements", "contact"];
+    const ids = ["about", "experience", "projects", "skills", "blog", "achievements", "contact"];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean);
@@ -107,7 +110,7 @@ function App() {
           <a href="#experience" className={activeSection === "experience" ? "is-active" : ""}>Experience</a>
           <a href="#projects" className={activeSection === "projects" ? "is-active" : ""}>Projects</a>
           <a href="#skills" className={activeSection === "skills" ? "is-active" : ""}>Skills</a>
-          <a href="/blog" className="nav-blog" aria-label="Open blog">
+          <a href="#blog" className={`nav-blog ${activeSection === "blog" ? "is-active" : ""}`} aria-label="View blog section">
             <BookOpen size={16} />
             Blog
           </a>
@@ -161,11 +164,27 @@ function App() {
         </div>
         <div className="hero-visual">
           <img src={profile.photo} alt="Portrait of Divyam Matia" />
+          <div className="terminal-card" aria-label="DevOps workflow summary">
+            <div className="terminal-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <code>$ deploy --reliable --observable</code>
+            <small>pipelines ? infra ? kubernetes</small>
+          </div>
         </div>
       </section>
 
       <Section id="about" eyebrow="About" title="Building infrastructure that stays calm under pressure.">
         <p className="lede">{profile.summary}</p>
+        <div className="ops-strip" aria-label="DevOps operating model">
+          <span><Terminal size={16} /> Code</span>
+          <span>Validate</span>
+          <span><ServerCog size={16} /> Provision</span>
+          <span>Deploy</span>
+          <span>Observe</span>
+        </div>
       </Section>
 
       <Section id="experience" eyebrow="Experience" title="A career built around dependable delivery.">
@@ -225,6 +244,30 @@ function App() {
             </article>
           ))}
         </div>
+      </Section>
+
+      <Section id="blog" eyebrow="Writing" title="DevOps notes from real delivery work.">
+        <div className="blog-grid">
+          {blogPosts.map((post, index) => (
+            <a className="blog-card" href={`/blog/${post.slug}/`} key={post.slug}>
+              <span className="blog-number">0{index + 1}</span>
+              <div>
+                <p className="blog-meta">{post.date} ? {post.readTime}</p>
+                <h3>{post.title}</h3>
+                <p>{post.summary}</p>
+              </div>
+              <div className="tag-row">
+                {post.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+        <a href="/blog" className="blog-index-link">
+          <BookOpen size={18} />
+          Open full blog
+        </a>
       </Section>
 
       <Section id="achievements" eyebrow="Milestones" title="Achievements">

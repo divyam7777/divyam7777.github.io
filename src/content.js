@@ -131,3 +131,52 @@ export const achievements = [
   "50% reduction in Azure DevOps environment setup time through Ansible automation",
   "40% faster infrastructure deployments with 60% fewer manual errors using Terraform-based IaC pipelines"
 ];
+
+
+export const blogPosts = [
+  {
+    title: "From Manual Deployments to Reliable Release Engineering",
+    slug: "manual-deployments-to-release-engineering",
+    date: "May 20, 2026",
+    readTime: "5 min read",
+    summary:
+      "How repeatable release pipelines reduce deployment time, prevent manual mistakes, and create trust between DevOps and application teams.",
+    tags: ["Azure DevOps", "Release Engineering", "CI/CD"]
+  },
+  {
+    title: "Automating Azure DevOps Project Setup with Ansible",
+    slug: "automating-azure-devops-with-ansible",
+    date: "May 20, 2026",
+    readTime: "6 min read",
+    summary:
+      "A practical look at turning project creation, service connections, extensions, and pipeline setup into repeatable automation.",
+    tags: ["Ansible", "Azure DevOps", "Automation"]
+  },
+  {
+    title: "Terraform Pipelines for Safer Azure Infrastructure Changes",
+    slug: "terraform-pipelines-for-azure-infrastructure",
+    date: "May 20, 2026",
+    readTime: "6 min read",
+    summary:
+      "Why infrastructure delivery needs validation, review, repeatability, and clear promotion paths instead of ad-hoc cloud changes.",
+    tags: ["Terraform", "Azure", "IaC"]
+  },
+  {
+    title: "Designing DevSecOps Gates Without Slowing Teams Down",
+    slug: "designing-devsecops-gates",
+    date: "May 20, 2026",
+    readTime: "5 min read",
+    summary:
+      "How tools like SonarQube, Snyk, Trivy, Checkov, OWASP ZAP, and Terratest can become a clean engineering feedback loop.",
+    tags: ["DevSecOps", "Security", "Testing"]
+  },
+  {
+    title: "Operating Kubernetes Services with Calm Infrastructure Habits",
+    slug: "kubernetes-services-calm-infrastructure",
+    date: "May 20, 2026",
+    readTime: "5 min read",
+    summary:
+      "The operational habits behind healthier Kubernetes deployments: observability, environment discipline, and escalation clarity.",
+    tags: ["Kubernetes", "Observability", "Operations"]
+  }
+];
