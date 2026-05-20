@@ -46,6 +46,7 @@ body {
     var(--bg);
   background-size: 34px 34px, 34px 34px, auto, auto, auto;
   color: var(--text);
+  overflow-x: hidden;
 }
 
 a {
@@ -548,12 +549,14 @@ h2 {
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   gap: 16px;
 }
 
 .blog-card {
-  display: grid;
-  gap: 18px;
+  display: flex;
+  min-height: 284px;
+  flex-direction: column;
   border: 1px solid var(--line);
   border-radius: 24px;
   padding: 24px;
@@ -577,6 +580,18 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.blog-number {
+  margin-bottom: 18px;
+}
+
+.blog-card > div:not(.tag-row) {
+  flex: 1;
+}
+
+.blog-card .tag-row {
+  margin-top: 22px;
 }
 
 .blog-card h3 {
