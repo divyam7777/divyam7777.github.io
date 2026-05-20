@@ -1,6 +1,7 @@
 import {
   ArrowUp,
   ArrowUpRight,
+  BookOpen,
   Download,
   Github,
   Linkedin,
@@ -106,6 +107,10 @@ function App() {
           <a href="#experience" className={activeSection === "experience" ? "is-active" : ""}>Experience</a>
           <a href="#projects" className={activeSection === "projects" ? "is-active" : ""}>Projects</a>
           <a href="#skills" className={activeSection === "skills" ? "is-active" : ""}>Skills</a>
+          <a href="/blog" className="nav-blog" aria-label="Open blog">
+            <BookOpen size={16} />
+            Blog
+          </a>
           <a href="#contact" className={activeSection === "contact" ? "is-active" : ""}>Contact</a>
         </div>
       </nav>
@@ -137,6 +142,10 @@ function App() {
             <a href={profile.resumeUrl} className="button button-secondary" download>
               <Download size={18} />
               Resume
+            </a>
+            <a href="/blog" className="button button-secondary">
+              <BookOpen size={18} />
+              Blog
             </a>
           </div>
           <div className="hero-meta">
