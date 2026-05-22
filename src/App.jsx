@@ -9,8 +9,10 @@ import {
   Linkedin,
   Mail,
   MapPin,
+  Moon,
   Milestone,
   ServerCog,
+  Sun,
   Terminal
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -40,6 +42,19 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "dark";
+    return localStorage.getItem("theme") || "dark";
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -134,6 +149,15 @@ function App() {
             Contact
           </a>
         </div>
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+        >
+          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          <span>{theme === "dark" ? "Light" : "Dark"}</span>
+        </button>
       </nav>
 
       <section id="top" className="hero">

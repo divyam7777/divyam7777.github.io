@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   --bg: #f6f7fb;
   --surface: rgba(255, 255, 255, 0.78);
   --surface-strong: #ffffff;
@@ -11,18 +11,17 @@
   --shadow: 0 24px 80px rgba(18, 24, 40, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #070b16;
-    --surface: rgba(15, 20, 35, 0.78);
-    --surface-strong: #0e1528;
-    --text: #edf2ff;
-    --muted: #a7b0c5;
-    --line: rgba(237, 242, 255, 0.12);
-    --accent: #8ea5ff;
-    --accent-soft: rgba(142, 165, 255, 0.14);
-    --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #070b16;
+  --surface: rgba(15, 20, 35, 0.78);
+  --surface-strong: #0e1528;
+  --text: #edf2ff;
+  --muted: #a7b0c5;
+  --line: rgba(237, 242, 255, 0.12);
+  --accent: #8ea5ff;
+  --accent-soft: rgba(142, 165, 255, 0.14);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -85,7 +84,9 @@ a {
   position: sticky;
   top: 18px;
   z-index: 10;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 56px;
@@ -110,6 +111,7 @@ a {
 .nav-links {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
   color: var(--muted);
   font-size: 0.95rem;
@@ -151,6 +153,30 @@ a {
 .nav-links a:hover::after,
 .nav-links a.is-active::after {
   transform: scaleX(1);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 92px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
 }
 
 .hero {
@@ -624,9 +650,9 @@ h2 {
   }
 
   .nav {
+    grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 18px;
-    flex-direction: column;
     margin-bottom: 40px;
     border-radius: 24px;
   }
@@ -695,6 +721,7 @@ h2 {
   }
 
   .scroll-progress,
+  .theme-toggle,
   .blog-card,
   .timeline-item,
   .project-card,

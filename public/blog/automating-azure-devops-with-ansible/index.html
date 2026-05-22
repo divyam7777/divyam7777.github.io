@@ -1,8 +1,174 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="description" content="Project setup becomes expensive when every new Azure DevOps environment depends on manual clicks: service connections, extensions, repositories, pipelines, permissions, and release definitions. Automation is the difference between &quot;we remember how to do it&quot; and &quot;the platform knows how to do it.&quot;"/><title>Automating Azure DevOps Project Setup with Ansible | Divyam Matia</title><style>
-:root { color-scheme: light dark; --bg:#070b16; --surface:rgba(15,20,35,.78); --text:#edf2ff; --muted:#a7b0c5; --line:rgba(237,242,255,.12); --accent:#8ea5ff; }
-*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(rgba(142,165,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(142,165,255,.04) 1px,transparent 1px),radial-gradient(circle at top left,rgba(142,165,255,.2),transparent 32%),var(--bg);background-size:34px 34px,34px 34px,auto,auto;color:var(--text)}
-.shell{width:min(960px,calc(100% - 40px));margin:0 auto;padding:34px 0 80px}.nav{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:70px}.brand{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:999px;color:var(--text);text-decoration:none}.back{border:1px solid var(--line);border-radius:999px;padding:12px 16px;color:var(--text);text-decoration:none;background:var(--surface)}.eyebrow,.meta{color:var(--accent);font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}h1{margin:0 0 18px;font-size:clamp(2.35rem,7vw,5rem);line-height:.96;letter-spacing:-.07em}p{color:var(--muted);font-size:1.04rem;line-height:1.85}.grid{display:grid;gap:16px;margin-top:36px}.card,article{border:1px solid var(--line);border-radius:28px;padding:28px;background:var(--surface);backdrop-filter:blur(18px)}.card{display:grid;gap:14px;color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.card:hover{transform:translateY(-4px);border-color:rgba(142,165,255,.45)}.tags{display:flex;flex-wrap:wrap;gap:8px}.tags span{border-radius:999px;padding:8px 11px;background:rgba(142,165,255,.14);font-size:.84rem}.post-body{display:grid;gap:12px;margin-top:32px}footer{margin-top:34px;color:var(--muted)}
-</style></head><body><main class="shell"><nav class="nav"><a class="brand" href="/">DM</a><a class="back" href="/blog/">All posts</a></nav><article><p class="eyebrow">May 20, 2026 | 6 min read</p><h1>Automating Azure DevOps Project Setup with Ansible</h1><div class="tags"><span>Ansible</span><span>Azure DevOps</span><span>Automation</span></div><div class="post-body"><p>Project setup becomes expensive when every new Azure DevOps environment depends on manual clicks: service connections, extensions, repositories, pipelines, permissions, and release definitions. Automation is the difference between &quot;we remember how to do it&quot; and &quot;the platform knows how to do it.&quot;</p>
-<p>Using Ansible for Azure DevOps setup helped me think about delivery platforms as infrastructure. The same discipline that applies to servers and networks should apply to pipeline systems: define the desired state, make it repeatable, and remove configuration drift.</p>
-<p>The strongest automation is not just a script. It is an onboarding path. A team should be able to create a new project or delivery workflow without rediscovering every integration detail from scratch.</p>
-<p>The business value shows up quickly: faster setup, fewer inconsistent environments, and cleaner handover between DevOps and application teams. For me, that is the real promise of platform automation.</p></div><footer>Written from Divyam Matia's DevOps and infrastructure engineering experience.</footer></article></main></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Project setup becomes expensive when every new Azure DevOps environment depends on manual clicks: service connections, extensions, repositories, pipelines, permissions, and release definitions. Automation is the difference between &quot;we remember how to do it&quot; and &quot;the platform knows how to do it.&quot;" />
+    <title>Automating Azure DevOps Project Setup with Ansible | Divyam Matia</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #070b16;
+            --surface: rgba(15, 20, 35, .78);
+            --text: #edf2ff;
+            --muted: #a7b0c5;
+            --line: rgba(237, 242, 255, .12);
+            --accent: #8ea5ff;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(rgba(142, 165, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(142, 165, 255, .04) 1px, transparent 1px), radial-gradient(circle at top left, rgba(142, 165, 255, .2), transparent 32%), var(--bg);
+            background-size: 34px 34px, 34px 34px, auto, auto;
+            color: var(--text)
+        }
+
+        .shell {
+            width: min(960px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 34px 0 80px
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 70px
+        }
+
+        .brand {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--text);
+            text-decoration: none
+        }
+
+        .back {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 12px 16px;
+            color: var(--text);
+            text-decoration: none;
+            background: var(--surface)
+        }
+
+        .eyebrow,
+        .meta {
+            color: var(--accent);
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font-size: clamp(2.35rem, 7vw, 5rem);
+            line-height: .96;
+            letter-spacing: -.07em
+        }
+
+        p {
+            color: var(--muted);
+            font-size: 1.04rem;
+            line-height: 1.85
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+            margin-top: 36px
+        }
+
+        .card,
+        article {
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 28px;
+            background: var(--surface);
+            backdrop-filter: blur(18px)
+        }
+
+        .card {
+            display: grid;
+            gap: 14px;
+            color: inherit;
+            text-decoration: none;
+            transition: transform .18s ease, border-color .18s ease
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(142, 165, 255, .45)
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .tags span {
+            border-radius: 999px;
+            padding: 8px 11px;
+            background: rgba(142, 165, 255, .14);
+            font-size: .84rem
+        }
+
+        .post-body {
+            display: grid;
+            gap: 12px;
+            margin-top: 32px
+        }
+
+        footer {
+            margin-top: 34px;
+            color: var(--muted)
+        }
+    </style>
+</head>
+
+<body>
+    <main class="shell">
+        <nav class="nav"><a class="brand" href="/">DM</a><a class="back" href="/blog/">All posts</a></nav>
+        <article>
+            <p class="eyebrow">May 20, 2026 | 6 min read</p>
+            <h1>Automating Azure DevOps Project Setup with Ansible</h1>
+            <div class="tags"><span>Ansible</span><span>Azure DevOps</span><span>Automation</span></div>
+            <div class="post-body">
+                <p>Project setup becomes expensive when every new Azure DevOps environment depends on manual clicks:
+                    service connections, extensions, repositories, pipelines, permissions, and release definitions.
+                    Automation is the difference between &quot;we remember how to do it&quot; and &quot;the platform
+                    knows how to do it.&quot;</p>
+                <p>Using Ansible for Azure DevOps setup helped me think about delivery platforms as infrastructure. The
+                    same discipline that applies to servers and networks should apply to pipeline systems: define the
+                    desired state, make it repeatable, and remove configuration drift.</p>
+                <p>The strongest automation is not just a script. It is an onboarding path. A team should be able to
+                    create a new project or delivery workflow without rediscovering every integration detail from
+                    scratch.</p>
+                <p>The business value shows up quickly: faster setup, fewer inconsistent environments, and cleaner
+                    handover between DevOps and application teams. For me, that is the real promise of platform
+                    automation.</p>
+            </div>
+            <footer>Written from Divyam Matia's DevOps and infrastructure engineering experience.</footer>
+        </article>
+    </main>
+</body>
+
+</html>
