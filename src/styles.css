@@ -875,7 +875,7 @@ a:focus-visible {
 .pipeline-beam::before {
   content: "";
   position: absolute;
-  top: 32px;
+  top: 22px;
   right: 0;
   left: 0;
   height: 2px;
@@ -885,9 +885,9 @@ a:focus-visible {
 
 .pipeline-beam span {
   position: absolute;
-  top: 24px;
-  width: 16px;
-  height: 16px;
+  top: 14px;
+  width: 14px;
+  height: 14px;
   border: 2px solid var(--accent);
   border-radius: 999px;
   background: var(--bg);
