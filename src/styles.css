@@ -9,6 +9,10 @@
   --accent: #3157ff;
   --accent-soft: rgba(49, 87, 255, 0.12);
   --shadow: 0 24px 80px rgba(18, 24, 40, 0.1);
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --terminal: #0a0f1d;
 }
 
 :root[data-theme="dark"] {
@@ -22,6 +26,10 @@
   --accent: #8ea5ff;
   --accent-soft: rgba(142, 165, 255, 0.14);
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  --success: #6ee7b7;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+  --terminal: #050814;
 }
 
 * {
@@ -267,21 +275,37 @@ h2 {
 
 .button,
 .contact-links a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
   border-radius: 999px;
   padding: 13px 18px;
+  font-weight: 700;
   transition:
     transform 180ms ease,
     border-color 180ms ease,
     background-color 180ms ease,
-    color 180ms ease;
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.button::before,
+.contact-links a::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--success);
+  box-shadow: 0 0 12px var(--success);
+  flex: 0 0 auto;
 }
 
 .button:hover,
 .contact-links a:hover {
   transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
 }
 
 .button-primary {
@@ -319,8 +343,9 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 11px 14px;
-  background: rgba(7, 11, 22, 0.48);
+  background: linear-gradient(135deg, var(--terminal), rgba(142, 165, 255, 0.12));
   color: var(--muted);
+  box-shadow: inset 0 0 0 1px rgba(142, 165, 255, 0.08);
 }
 
 .devops-command code {
@@ -390,25 +415,89 @@ h2 {
 }
 
 .timeline {
+  position: relative;
   display: grid;
   gap: 16px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 13px;
+  width: 2px;
+  background: linear-gradient(var(--accent), transparent);
+  opacity: 0.45;
 }
 
 .timeline-item,
 .project-card,
 .skill-card,
-.contact-card {
+.contact-card,
+.achievement-card,
+.blog-card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 24px;
-  background: var(--surface);
+  background:
+    linear-gradient(180deg, rgba(142, 165, 255, 0.06), transparent 42px),
+    var(--surface);
   transition:
     transform 180ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease;
 }
 
+.timeline-item::before,
+.project-card::before,
+.skill-card::before,
+.contact-card::before,
+.achievement-card::before,
+.blog-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--success), var(--accent), var(--warning));
+}
+
+.timeline-item::after,
+.project-card::after,
+.skill-card::after,
+.contact-card::after,
+.achievement-card::after,
+.blog-card::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--success);
+  box-shadow:
+    -14px 0 0 var(--accent),
+    -28px 0 0 var(--warning);
+  opacity: 0.9;
+}
+
 .timeline-item {
-  padding: 24px;
+  padding: 24px 24px 24px 44px;
+}
+
+.timeline-item .timeline-heading::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--success);
+  box-shadow: 0 0 16px var(--success);
 }
 
 .timeline-heading,
@@ -453,11 +542,21 @@ h2 {
 }
 
 .project-index {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 18px;
   color: var(--accent);
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
+}
+
+.project-index::before {
+  content: "stage";
+  color: var(--muted);
+  letter-spacing: 0.08em;
 }
 
 .timeline-item:hover,
@@ -481,18 +580,22 @@ h2 {
 }
 
 .tag-row span {
+  border: 1px solid rgba(142, 165, 255, 0.18);
   border-radius: 999px;
   padding: 8px 11px;
   background: var(--accent-soft);
   color: var(--text);
-  font-size: 0.85rem;
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
   transition:
     transform 180ms ease,
-    background-color 180ms ease;
+    background-color 180ms ease,
+    border-color 180ms ease;
 }
 
 .tag-row span:hover {
   transform: translateY(-2px);
+  border-color: var(--accent);
   background: rgba(142, 165, 255, 0.22);
 }
 
@@ -503,10 +606,7 @@ h2 {
 }
 
 .achievement-card {
-  border: 1px solid var(--line);
-  border-radius: 24px;
   padding: 22px;
-  background: var(--surface);
 }
 
 .achievement-card span {
@@ -527,13 +627,27 @@ h2 {
 
 
 .ops-strip {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   margin-top: 28px;
 }
 
+.ops-strip::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  left: 6%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--success), var(--accent), var(--warning));
+  opacity: 0.22;
+}
+
 .ops-strip span {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -541,9 +655,10 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 14px 12px;
-  background: var(--surface);
+  background: var(--surface-strong);
   color: var(--muted);
-  font-size: 0.92rem;
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86rem;
 }
 
 .blog-grid {
