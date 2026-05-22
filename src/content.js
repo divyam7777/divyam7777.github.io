@@ -58,7 +58,7 @@ export const projects = [
     details:
       "Built Azure DevOps release pipelines for Windows services and Kubernetes services, improving deployment speed by 40% while cutting manual errors by 60%.",
     stack: ["Azure DevOps", "Kubernetes", "Release Engineering"],
-    link: "#"
+    link: "/projects/release-automation/"
   },
   {
     title: "Azure DevOps Environment Provisioning Automation",
@@ -67,7 +67,7 @@ export const projects = [
     details:
       "Developed an Ansible playbook that automated Azure DevOps project creation, pipeline setup, release configuration, and execution, reducing deployment time by 50%.",
     stack: ["Ansible", "Azure DevOps", "Automation"],
-    link: "#"
+    link: "/projects/azure-devops-automation/"
   },
   {
     title: "IaC Delivery Pipelines for Azure Infrastructure",
@@ -76,7 +76,7 @@ export const projects = [
     details:
       "Engineered Terraform Cloud pipelines with Azure DevOps and GitLab for Azure infrastructure, delivering 40% faster deployments and 60% fewer manual errors.",
     stack: ["Terraform", "GitLab", "Azure", "IaC"],
-    link: "#"
+    link: "/projects/iac-delivery-pipelines/"
   },
   {
     title: "Restricted-Network Data Platform Pipelines",
@@ -85,7 +85,7 @@ export const projects = [
     details:
       "Created Azure DevOps data pipelines that supported private-resource deployment workflows for locked-down environments.",
     stack: ["Azure Data Factory", "Azure Databricks", "Azure DevOps"],
-    link: "#"
+    link: "/projects/restricted-network-data-pipelines/"
   },
   {
     title: "Integrated DevSecOps Quality Pipeline",
@@ -94,7 +94,7 @@ export const projects = [
     details:
       "Implemented a streamlined pipeline integrating code quality, SCA, container scanning, IaC validation, dynamic testing, infra cost checks, and automated tests.",
     stack: ["SonarQube", "Snyk", "Trivy", "Checkov", "OWASP ZAP", "Selenium"],
-    link: "#"
+    link: "/projects/devsecops-quality-pipeline/"
   }
 ];
 
