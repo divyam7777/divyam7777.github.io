@@ -1225,54 +1225,80 @@ body,
 }
 
 .section-pipeline {
-  position: sticky;
-  top: 94px;
-  z-index: 9;
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  z-index: 12;
+  display: flex;
+  width: 58px;
+  flex-direction: column;
   gap: 8px;
-  margin: -28px auto 42px;
-  padding: 10px;
+  padding: 10px 8px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-50%);
+  overflow: visible;
 }
 
 .section-pipeline-fill {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  top: 14px;
+  bottom: 14px;
+  left: 50%;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(110, 231, 183, 0.16), rgba(142, 165, 255, 0.16));
-  transition: width 260ms ease;
+  width: 2px !important;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--success), var(--accent));
+  opacity: 0.35;
 }
 
 .section-pipeline a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
-  padding: 9px 8px;
-  color: var(--muted);
+  color: transparent;
+  font-size: 0;
+}
+
+.section-pipeline a::after {
+  content: attr(href);
+  position: absolute;
+  right: 52px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(8px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: var(--surface-strong);
+  color: var(--text);
   font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.72rem;
   white-space: nowrap;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.section-pipeline a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .section-pipeline a span {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-strong);
+  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-.section-pipeline a.is-complete {
-  color: var(--text);
+.section-pipeline a:hover span {
+  transform: scale(1.25);
 }
 
 .section-pipeline a.is-complete span {
@@ -1464,10 +1490,13 @@ body,
   font: inherit;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .section-pipeline {
     display: none;
   }
+}
+
+@media (max-width: 900px) {
 
   .skill-graph {
     min-height: 520px;
