@@ -15,6 +15,7 @@ import {
   MapPin,
   Moon,
   Network,
+  Search,
   ServerCog,
   ShieldCheck,
   Sun,
@@ -55,6 +56,28 @@ const architectureFlows = [
 
 const constellation = ["Terraform", "AKS", "Azure DevOps", "Ansible", "Trivy", "GitLab", "Helm", "Monitor"];
 
+const terminalCommands = [
+  "terraform plan -out=tfplan",
+  "ansible-playbook deploy.yml",
+  "kubectl rollout status deployment/api",
+  "az pipelines run --branch main"
+];
+
+const sectionStages = [
+  { id: "about", label: "Profile" },
+  { id: "resume", label: "Signals" },
+  { id: "experience", label: "Runtime" },
+  { id: "projects", label: "Projects" },
+  { id: "architecture", label: "Flows" },
+  { id: "stack", label: "Stack" },
+  { id: "blog", label: "Notes" },
+  { id: "contact", label: "Connect" }
+];
+
+const blogCategories = ["All", "CI/CD", "IaC", "Kubernetes", "DevSecOps", "Azure DevOps"];
+
+const deployStages = ["queued", "building", "scanning", "deployed"];
+
 function Section({ id, eyebrow, title, children }) {
   return (
     <section id={id} className="section reveal-section">
@@ -72,6 +95,10 @@ function App() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [commandOpen, setCommandOpen] = useState(false);
+  const [commandQuery, setCommandQuery] = useState("");
+  const [blogFilter, setBlogFilter] = useState("All");
+  const [terminalLine, setTerminalLine] = useState("");
+  const [terminalIndex, setTerminalIndex] = useState(0);
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") return "dark";
     return localStorage.getItem("theme") || "dark";
@@ -104,6 +131,24 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const command = terminalCommands[terminalIndex % terminalCommands.length];
+
+    if (terminalLine.length < command.length) {
+      const timer = window.setTimeout(() => {
+        setTerminalLine(command.slice(0, terminalLine.length + 1));
+      }, 58);
+      return () => window.clearTimeout(timer);
+    }
+
+    const pause = window.setTimeout(() => {
+      setTerminalLine("");
+      setTerminalIndex((index) => index + 1);
+    }, 1200);
+
+    return () => window.clearTimeout(pause);
+  }, [terminalIndex, terminalLine]);
+
+  useEffect(() => {
     const handleKeyDown = (event) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
@@ -132,7 +177,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const ids = ["about", "experience", "projects", "architecture", "skills", "stack", "blog", "achievements", "contact"];
+    const ids = sectionStages.map((stage) => stage.id);
     const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
     const observer = new IntersectionObserver(
       (entries) => {
@@ -150,14 +195,41 @@ function App() {
   const commandItems = [
     { label: "Open resume", href: profile.resumeUrl, icon: FileText },
     { label: "View projects", href: "#projects", icon: ServerCog },
+    { label: "Inspect stack", href: "#stack", icon: Layers3 },
     { label: "Read blog", href: "/blog", icon: BookOpen },
     { label: "Email Divyam", href: socialLinks.email, icon: Mail },
     { label: "Open GitHub", href: socialLinks.github, icon: Github }
   ];
 
+  const activeStageIndex = Math.max(
+    0,
+    sectionStages.findIndex((stage) => stage.id === activeSection)
+  );
+
+  const filteredCommandItems = commandItems.filter((item) =>
+    item.label.toLowerCase().includes(commandQuery.toLowerCase())
+  );
+
+  const visibleBlogPosts = blogFilter === "All"
+    ? blogPosts
+    : blogPosts.filter((post) => post.tags.includes(blogFilter));
+
   return (
     <main className="page-shell">
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
+      <aside className="section-pipeline" aria-label="Scroll-linked site pipeline">
+        <div className="section-pipeline-fill" style={{ width: `${(activeStageIndex / (sectionStages.length - 1)) * 100}%` }} />
+        {sectionStages.map((stage, index) => (
+          <a
+            href={`#${stage.id}`}
+            key={stage.id}
+            className={index <= activeStageIndex ? "is-complete" : ""}
+          >
+            <span></span>
+            {stage.label}
+          </a>
+        ))}
+      </aside>
       <div className="tool-constellation" aria-hidden="true">
         {constellation.map((tool, index) => (
           <span key={tool} className={`tool-float tool-${index + 1}`}>{tool}</span>
@@ -197,7 +269,7 @@ function App() {
             <a href={profile.resumeUrl} className="button button-secondary" download><Download size={18} />Resume</a>
             <a href="/blog" className="button button-secondary"><BookOpen size={18} />Blog</a>
           </div>
-          <div className="devops-command" aria-label="DevOps workflow summary"><Terminal size={17} /><code>$ deploy --reliable --observable</code></div>
+          <div className="devops-command live-terminal" aria-label="Live DevOps terminal"><Terminal size={17} /><code>$ {terminalLine}<span className="cursor">_</span></code></div>
           <div className="hero-meta">
             <span><MapPin size={16} />{profile.location}</span>
             <a href={socialLinks.linkedin} target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn</a>
@@ -242,6 +314,9 @@ function App() {
               <div className="project-index">0{index + 1}</div>
               <div className="project-heading"><h3>{project.title}</h3><ArrowUpRight size={18} /></div>
               <p className="project-status">queued -&gt; validating -&gt; deployed</p>
+              <div className="mini-pipeline" aria-label="Interactive deploy run">
+                {deployStages.map((stage) => <span key={stage}>{stage}</span>)}
+              </div>
               <p className="project-problem">{project.problem}</p>
               <p>{project.details}</p>
               <div className="tag-row">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
@@ -273,6 +348,15 @@ function App() {
       </Section>
 
       <Section id="stack" eyebrow="Stack Map" title="A DevOps stack organized by delivery stage.">
+        <div className="skill-graph" aria-label="Animated DevOps tool graph">
+          {stackGroups.map(({ label, icon: Icon }, index) => (
+            <div className={`skill-node node-${index + 1}`} key={label}>
+              <Icon size={18} />
+              <span>{label}</span>
+            </div>
+          ))}
+          <div className="graph-core"><Terminal size={20} /> delivery</div>
+        </div>
         <div className="stack-map">
           {stackGroups.map(({ label, icon: Icon, tools }) => (
             <article className="stack-node" key={label}>
@@ -284,8 +368,20 @@ function App() {
       </Section>
 
       <Section id="blog" eyebrow="Writing" title="DevOps notes from real delivery work.">
+        <div className="blog-filters" aria-label="Filter blog posts">
+          {blogCategories.map((category) => (
+            <button
+              className={blogFilter === category ? "is-active" : ""}
+              key={category}
+              type="button"
+              onClick={() => setBlogFilter(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
         <div className="blog-grid">
-          {blogPosts.map((post, index) => (
+          {visibleBlogPosts.map((post, index) => (
             <a className="blog-card" href={`/blog/${post.slug}/`} key={post.slug}>
               <span className="blog-number">0{index + 1}</span>
               <div><p className="blog-meta">{post.date} | {post.readTime}</p><h3>{post.title}</h3><p>{post.summary}</p></div>
@@ -320,7 +416,16 @@ function App() {
           <button className="command-backdrop" type="button" onClick={() => setCommandOpen(false)} aria-label="Close command palette" />
           <div className="command-panel">
             <div className="command-panel-header"><Command size={18} /><span>Run action</span><kbd>Esc</kbd></div>
-            {commandItems.map(({ label, href, icon: Icon }) => (
+            <label className="command-search">
+              <Search size={16} />
+              <input
+                autoFocus
+                placeholder="Search actions..."
+                value={commandQuery}
+                onChange={(event) => setCommandQuery(event.target.value)}
+              />
+            </label>
+            {filteredCommandItems.map(({ label, href, icon: Icon }) => (
               <a className="command-item" href={href} key={label} onClick={() => setCommandOpen(false)}><Icon size={18} /><span>{label}</span><small>execute</small></a>
             ))}
           </div>

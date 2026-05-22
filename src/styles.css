@@ -864,12 +864,13 @@ a:focus-visible {
 
 .pipeline-beam {
   position: absolute;
-  top: -28px;
+  top: -78px;
   left: -24px;
+  z-index: -1;
   width: min(640px, 100%);
   height: 68px;
   pointer-events: none;
-  opacity: 0.72;
+  opacity: 0.34;
 }
 
 .pipeline-beam::before {
@@ -1086,8 +1087,8 @@ a:focus-visible {
 
 .command-button {
   position: fixed;
-  right: 24px;
-  bottom: 88px;
+  left: 24px;
+  bottom: 24px;
   z-index: 20;
   display: grid;
   place-items: center;
@@ -1189,14 +1190,316 @@ a:focus-visible {
   }
 
   .command-button {
-    right: 16px;
-    bottom: 78px;
+    left: 16px;
+    bottom: 16px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pipeline-beam::before,
   .tool-float {
+    animation: none;
+  }
+}
+
+
+body,
+.nav,
+.section,
+.hero-visual,
+.button,
+.theme-toggle,
+.project-card,
+.skill-card,
+.blog-card,
+.resume-card,
+.architecture-card,
+.stack-node,
+.command-panel {
+  transition:
+    background-color 280ms ease,
+    color 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    transform 180ms ease;
+}
+
+.section-pipeline {
+  position: sticky;
+  top: 94px;
+  z-index: 9;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
+  margin: -28px auto 42px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.section-pipeline-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(110, 231, 183, 0.16), rgba(142, 165, 255, 0.16));
+  transition: width 260ms ease;
+}
+
+.section-pipeline a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 999px;
+  padding: 9px 8px;
+  color: var(--muted);
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.section-pipeline a span {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+}
+
+.section-pipeline a.is-complete {
+  color: var(--text);
+}
+
+.section-pipeline a.is-complete span {
+  background: var(--success);
+  box-shadow: 0 0 14px var(--success);
+}
+
+.live-terminal code {
+  min-width: min(390px, 72vw);
+}
+
+.cursor {
+  color: var(--success);
+  animation: cursor-blink 900ms steps(2, jump-none) infinite;
+}
+
+@keyframes cursor-blink {
+  50% { opacity: 0; }
+}
+
+.mini-pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: -4px 0 16px;
+}
+
+.mini-pipeline span {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 8px;
+  background: var(--surface-strong);
+  color: var(--muted);
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.mini-pipeline span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(110, 231, 183, 0.24), transparent);
+}
+
+.project-card:hover .mini-pipeline span {
+  border-color: rgba(110, 231, 183, 0.45);
+  color: var(--text);
+}
+
+.project-card:hover .mini-pipeline span::before {
+  animation: scan-stage 950ms ease forwards;
+}
+
+.project-card:hover .mini-pipeline span:nth-child(2)::before { animation-delay: 180ms; }
+.project-card:hover .mini-pipeline span:nth-child(3)::before { animation-delay: 360ms; }
+.project-card:hover .mini-pipeline span:nth-child(4)::before { animation-delay: 540ms; }
+
+@keyframes scan-stage {
+  to { transform: translateX(100%); }
+}
+
+.skill-graph {
+  position: relative;
+  min-height: 380px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at center, rgba(142, 165, 255, 0.16), transparent 34%),
+    var(--surface);
+  overflow: hidden;
+}
+
+.skill-graph::before,
+.skill-graph::after {
+  content: "";
+  position: absolute;
+  inset: 70px 14%;
+  border: 1px dashed rgba(142, 165, 255, 0.24);
+  border-radius: 999px;
+  animation: graph-spin 22s linear infinite;
+}
+
+.skill-graph::after {
+  inset: 108px 24%;
+  animation-duration: 16s;
+  animation-direction: reverse;
+}
+
+.graph-core,
+.skill-node {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 12px 14px;
+  background: var(--surface-strong);
+  box-shadow: var(--shadow);
+  font-family: "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.84rem;
+}
+
+.graph-core {
+  top: 50%;
+  left: 50%;
+  color: var(--text);
+  transform: translate(-50%, -50%);
+}
+
+.skill-node {
+  color: var(--muted);
+  animation: node-float 5s ease-in-out infinite;
+}
+
+.node-1 { top: 12%; left: 44%; }
+.node-2 { top: 28%; right: 12%; animation-delay: 0.3s; }
+.node-3 { bottom: 24%; right: 16%; animation-delay: 0.6s; }
+.node-4 { bottom: 10%; left: 43%; animation-delay: 0.9s; }
+.node-5 { bottom: 24%; left: 12%; animation-delay: 1.2s; }
+.node-6 { top: 28%; left: 12%; animation-delay: 1.5s; }
+
+@keyframes graph-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes node-float {
+  50% { transform: translateY(-8px); }
+}
+
+.blog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.blog-filters button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 13px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, background-color 180ms ease;
+}
+
+.blog-filters button:hover,
+.blog-filters button.is-active {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.blog-card {
+  animation: card-enter 260ms ease both;
+}
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.command-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.command-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+@media (max-width: 900px) {
+  .section-pipeline {
+    display: none;
+  }
+
+  .skill-graph {
+    min-height: 520px;
+  }
+
+  .node-1 { top: 8%; left: 38%; }
+  .node-2 { top: 24%; right: 8%; }
+  .node-3 { bottom: 26%; right: 8%; }
+  .node-4 { bottom: 8%; left: 38%; }
+  .node-5 { bottom: 26%; left: 8%; }
+  .node-6 { top: 24%; left: 8%; }
+}
+
+@media (max-width: 640px) {
+  .mini-pipeline {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skill-node,
+  .graph-core {
+    font-size: 0.72rem;
+    padding: 10px 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor,
+  .mini-pipeline span::before,
+  .skill-graph::before,
+  .skill-graph::after,
+  .skill-node,
+  .blog-card {
     animation: none;
   }
 }
