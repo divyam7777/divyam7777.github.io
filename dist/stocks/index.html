@@ -40,8 +40,22 @@
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
+      body::before {
+        content: "";
+        position: fixed;
+        inset: -20% -10% auto;
+        z-index: -1;
+        height: 520px;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 18% 48%, rgba(99, 246, 178, 0.16), transparent 18rem),
+          radial-gradient(circle at 78% 30%, rgba(246, 200, 95, 0.10), transparent 16rem);
+        filter: blur(4px);
+        animation: marketGlow 12s ease-in-out infinite alternate;
+      }
+
       a { color: inherit; text-decoration: none; }
-      button, input { font: inherit; }
+      button, input, select { font: inherit; }
       main, .nav { width: min(1180px, calc(100% - 42px)); margin: 0 auto; }
       main { padding: 42px 0 96px; }
 
@@ -76,6 +90,17 @@
       .nav-links { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
       .nav-links a { border-radius: 999px; padding: 10px 14px; transition: 180ms ease; }
       .nav-links a:hover { background: rgba(142, 165, 255, 0.12); color: var(--text); }
+      .market-clock {
+        border: 1px solid rgba(99, 246, 178, 0.22);
+        border-radius: 999px;
+        padding: 9px 12px;
+        color: var(--green);
+        background: rgba(99, 246, 178, 0.07);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.78rem;
+        font-weight: 900;
+        white-space: nowrap;
+      }
 
       .hero {
         display: grid;
@@ -135,6 +160,15 @@
           linear-gradient(145deg, rgba(99, 246, 178, 0.16), rgba(142, 165, 255, 0.04)),
           repeating-linear-gradient(to right, transparent 0 34px, rgba(255, 255, 255, 0.04) 35px);
       }
+      .chart-lines span {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(transparent, var(--green), transparent);
+        opacity: 0.75;
+        animation: scanSweep 2.8s linear infinite;
+      }
       .chart-lines::before, .chart-lines::after {
         content: "";
         position: absolute;
@@ -160,6 +194,24 @@
       }
       .metric strong { display: block; margin-bottom: 5px; font-size: 1.1rem; }
       .metric span { color: var(--muted); font-size: 0.83rem; }
+      .ticker-tape {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+        overflow: hidden;
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.78rem;
+      }
+      .ticker-tape span {
+        display: inline-flex;
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(255, 255, 255, 0.035);
+        animation: tickerDrift 18s linear infinite;
+      }
 
       section { margin-top: 76px; scroll-margin-top: 120px; }
       .section-heading { display: flex; align-items: flex-end; gap: 18px; margin-bottom: 20px; }
@@ -223,6 +275,41 @@
 
       .scanner-shell { display: grid; gap: 18px; }
       .status-panel { padding: 18px; }
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .dashboard-grid[hidden] { display: none; }
+      .stat-tile {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(15, 22, 42, 0.74);
+        box-shadow: var(--shadow);
+      }
+      .stat-tile span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .stat-tile strong {
+        display: block;
+        margin-top: 8px;
+        font-size: clamp(1.35rem, 3vw, 2rem);
+        line-height: 1;
+      }
+      .toolbar-panel {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px;
+      }
       .search-panel {
         display: grid;
         grid-template-columns: minmax(260px, 1fr) auto;
@@ -262,9 +349,23 @@
         background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
         transition: width 380ms ease;
       }
+      .progress-track span.is-loading {
+        width: 100% !important;
+        background-size: 220% 100%;
+        animation: progressFlow 1.25s linear infinite;
+      }
 
       .results-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-      .result-card { padding: 22px; }
+      .result-card {
+        padding: 22px;
+        transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+        animation: cardIn 420ms ease both;
+      }
+      .result-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(99, 246, 178, 0.42);
+        background: rgba(19, 29, 55, 0.9);
+      }
       .result-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
       .symbol { font-size: 1.45rem; font-weight: 950; letter-spacing: -0.04em; }
       .price-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
@@ -278,8 +379,47 @@
       .mini-stat strong { display: block; margin-top: 4px; }
       .result-actions { margin-top: 18px; }
       .result-actions a { padding: 10px 13px; font-size: 0.85rem; }
+      .result-actions button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 13px;
+        background: rgba(15, 22, 42, 0.82);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 900;
+        font-size: 0.85rem;
+      }
       .gold { color: var(--gold); }
-      .empty { padding: 28px; color: var(--muted); background: rgba(255, 255, 255, 0.025); }
+      .empty { grid-column: 1 / -1; padding: 28px; color: var(--muted); background: rgba(255, 255, 255, 0.025); }
+      .skeleton-grid { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .skeleton-card {
+        min-height: 230px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: linear-gradient(90deg, rgba(142, 165, 255, 0.08), rgba(99, 246, 178, 0.13), rgba(142, 165, 255, 0.08));
+        background-size: 220% 100%;
+        animation: shimmer 1.35s linear infinite;
+      }
+      .hotlist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .hotlist[hidden] { display: none; }
+      .quick-chip {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 12px;
+        background: rgba(142, 165, 255, 0.08);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 900;
+        transition: 180ms ease;
+      }
+      .quick-chip:hover { border-color: var(--green); transform: translateY(-2px); }
 
       .universe-tools {
         display: flex;
@@ -298,6 +438,16 @@
         outline: none;
       }
       .search:focus { border-color: var(--green); }
+      .sort-select {
+        min-width: 210px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 13px 16px;
+        background: rgba(15, 22, 42, 0.82);
+        color: var(--text);
+        outline: none;
+      }
+      .sort-select:focus { border-color: var(--green); }
       .search-clear {
         min-width: 108px;
         border: 1px solid var(--line);
@@ -339,11 +489,44 @@
 
       @media (max-width: 980px) {
         main, .nav { width: min(100% - 28px, 1180px); }
-        .hero, .scan-grid, .results-grid { grid-template-columns: 1fr; }
+        .hero, .scan-grid, .results-grid, .dashboard-grid, .skeleton-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
         .nav-links { width: 100%; overflow-x: auto; }
         .search-panel { grid-template-columns: 1fr; }
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
+      }
+
+      @keyframes marketGlow {
+        from { transform: translate3d(-1%, -1%, 0) scale(1); opacity: 0.74; }
+        to { transform: translate3d(1%, 2%, 0) scale(1.06); opacity: 1; }
+      }
+      @keyframes scanSweep {
+        from { left: 0%; }
+        to { left: 100%; }
+      }
+      @keyframes tickerDrift {
+        from { transform: translateX(0); }
+        to { transform: translateX(-160px); }
+      }
+      @keyframes progressFlow {
+        from { background-position: 0% 50%; }
+        to { background-position: 220% 50%; }
+      }
+      @keyframes shimmer {
+        from { background-position: 220% 0; }
+        to { background-position: -220% 0; }
+      }
+      @keyframes cardIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
       }
     </style>
   </head>
@@ -359,6 +542,7 @@
         <a href="#universe">Universe</a>
         <a href="/">Portfolio</a>
       </nav>
+      <span class="market-clock" id="marketClock">IST --:--:--</span>
     </header>
 
     <main>
@@ -380,11 +564,17 @@
         <aside class="panel scanner-visual" aria-label="EMA scanner visual">
           <div class="screen">
             <p class="eyebrow">EMA logic</p>
-            <div class="chart-lines"></div>
+            <div class="chart-lines"><span></span></div>
             <div class="metric-grid">
               <div class="metric"><strong>100 / 200</strong><span>Trend cross</span></div>
               <div class="metric"><strong>50 / 100</strong><span>Momentum cross</span></div>
               <div class="metric"><strong>15</strong><span>Session window</span></div>
+            </div>
+            <div class="ticker-tape" aria-hidden="true">
+              <span>NSE universe</span>
+              <span>EMA engine</span>
+              <span>fresh 15 sessions</span>
+              <span>TradingView links</span>
             </div>
           </div>
         </aside>
@@ -437,12 +627,30 @@
               <span class="badge" id="scanStatus">Waiting for scanner selection</span>
               <span class="badge" id="scanCount">0 scanned</span>
               <span class="badge" id="scanTime">No scan loaded</span>
+              <span class="badge" id="nextRefresh">Next refresh: weekdays 5:15 PM IST</span>
             </div>
             <div class="progress-track"><span id="progressBar"></span></div>
+          </div>
+          <div class="dashboard-grid" id="dashboardGrid" hidden>
+            <article class="stat-tile"><span>Total matches</span><strong id="summaryTotal">0</strong></article>
+            <article class="stat-tile"><span>Bullish</span><strong id="summaryBullish">0</strong></article>
+            <article class="stat-tile"><span>Bearish</span><strong id="summaryBearish">0</strong></article>
+            <article class="stat-tile"><span>Fresh today</span><strong id="summaryFresh">0</strong></article>
+            <article class="stat-tile"><span>Coverage</span><strong id="summaryCoverage">0%</strong></article>
           </div>
           <div class="panel search-panel">
             <input class="search" id="stockSearch" type="search" placeholder="Search stock symbol or company, e.g. RELIANCE, TCS, HDFC" autocomplete="off" />
             <button class="search-clear" id="clearSearch" type="button">Clear</button>
+          </div>
+          <div class="panel toolbar-panel">
+            <select class="sort-select" id="sortSelect" aria-label="Sort scan results">
+              <option value="fresh">Sort: Freshest cross first</option>
+              <option value="symbol">Sort: Symbol A-Z</option>
+              <option value="bullish">Sort: Bullish first</option>
+              <option value="bearish">Sort: Bearish first</option>
+              <option value="closeHigh">Sort: Highest close</option>
+            </select>
+            <div class="hotlist" id="hotlist" hidden aria-label="Quick focus stocks"></div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
             <button class="is-active" data-cap-filter="all" type="button"><span>All market</span><span class="filter-count">0</span></button>
@@ -504,13 +712,22 @@
       const scanStatus = document.getElementById("scanStatus");
       const scanCount = document.getElementById("scanCount");
       const scanTime = document.getElementById("scanTime");
+      const marketClock = document.getElementById("marketClock");
       const progressBar = document.getElementById("progressBar");
+      const dashboardGrid = document.getElementById("dashboardGrid");
+      const summaryTotal = document.getElementById("summaryTotal");
+      const summaryBullish = document.getElementById("summaryBullish");
+      const summaryBearish = document.getElementById("summaryBearish");
+      const summaryFresh = document.getElementById("summaryFresh");
+      const summaryCoverage = document.getElementById("summaryCoverage");
       const universeList = document.getElementById("universeList");
       const universeTitle = document.getElementById("universeTitle");
       const universeMeta = document.getElementById("universeMeta");
       const universeSearch = document.getElementById("universeSearch");
       const stockSearch = document.getElementById("stockSearch");
       const clearSearch = document.getElementById("clearSearch");
+      const sortSelect = document.getElementById("sortSelect");
+      const hotlist = document.getElementById("hotlist");
       const filterButtons = document.querySelectorAll("[data-filter]");
       const capFilterButtons = document.querySelectorAll("[data-cap-filter]");
       const scanCards = document.querySelectorAll("[data-scan-card]");
@@ -523,6 +740,20 @@
       let activeFilter = "all";
       let activeCapFilter = "all";
       let universeQuery = "";
+      let activeSort = "fresh";
+
+      function updateClock() {
+        marketClock.textContent = new Intl.DateTimeFormat("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false
+        }).format(new Date()) + " IST";
+      }
+
+      updateClock();
+      window.setInterval(updateClock, 1000);
 
       function capLabel(value) {
         if (value === "large") return "Large cap";
@@ -546,8 +777,17 @@
       }
 
       function updateUrl(scanId) {
+        if (!scanId) return;
         const nextUrl = new URL(window.location.href);
         nextUrl.searchParams.set("scan", scanId);
+        if (universeQuery.trim()) nextUrl.searchParams.set("q", universeQuery.trim());
+        else nextUrl.searchParams.delete("q");
+        if (activeCapFilter !== "all") nextUrl.searchParams.set("cap", activeCapFilter);
+        else nextUrl.searchParams.delete("cap");
+        if (activeFilter !== "all") nextUrl.searchParams.set("type", activeFilter);
+        else nextUrl.searchParams.delete("type");
+        if (activeSort !== "fresh") nextUrl.searchParams.set("sort", activeSort);
+        else nextUrl.searchParams.delete("sort");
         history.pushState({ scanId }, "", nextUrl);
       }
 
@@ -580,6 +820,68 @@
         if (source !== universeSearch) universeSearch.value = universeQuery;
       }
 
+      function showLoadingSkeleton() {
+        resultsGrid.innerHTML = `
+          <div class="skeleton-grid" aria-label="Loading scanner results">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        `;
+      }
+
+      function updateSummary() {
+        if (!latestPayload) {
+          dashboardGrid.hidden = true;
+          return;
+        }
+
+        dashboardGrid.hidden = false;
+        const visible = latestResults.filter(resultMatches);
+        const bullish = visible.filter((item) => item.type === "bullish").length;
+        const bearish = visible.filter((item) => item.type === "bearish").length;
+        const fresh = visible.filter((item) => item.sessionsAgo === 0).length;
+        const coverage = latestPayload.universeSize
+          ? Math.round(((latestPayload.pricedUniverseSize || 0) / latestPayload.universeSize) * 100)
+          : 0;
+
+        summaryTotal.textContent = visible.length;
+        summaryBullish.textContent = bullish;
+        summaryBearish.textContent = bearish;
+        summaryFresh.textContent = fresh;
+        summaryCoverage.textContent = `${coverage}%`;
+      }
+
+      function sortResults(items) {
+        const typeRank = { bullish: 0, bearish: 1 };
+        const sorted = [...items];
+        if (activeSort === "symbol") return sorted.sort((a, b) => a.symbol.localeCompare(b.symbol));
+        if (activeSort === "bullish") {
+          return sorted.sort((a, b) => (typeRank[a.type] ?? 9) - (typeRank[b.type] ?? 9) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+        }
+        if (activeSort === "bearish") {
+          return sorted.sort((a, b) => (typeRank[b.type] ?? 9) - (typeRank[a.type] ?? 9) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+        }
+        if (activeSort === "closeHigh") return sorted.sort((a, b) => Number(b.close) - Number(a.close));
+        return sorted.sort((a, b) => a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+      }
+
+      function renderHotlist() {
+        if (!latestPayload || !latestResults.length) {
+          hotlist.hidden = true;
+          hotlist.innerHTML = "";
+          return;
+        }
+
+        const chips = sortResults(latestResults)
+          .slice(0, 6)
+          .map((item) => `<button class="quick-chip" type="button" data-hot-symbol="${item.symbol}">${item.symbol}</button>`)
+          .join("");
+        hotlist.hidden = false;
+        hotlist.innerHTML = chips;
+      }
+
       async function loadScan(scanId, shouldUpdateUrl = true) {
         const config = SCANS[scanId];
         if (!config) return;
@@ -589,12 +891,16 @@
         latestPayload = null;
         latestResults = [];
         latestUniverse = [];
+        dashboardGrid.hidden = true;
+        hotlist.hidden = true;
         renderResults();
         renderUniverse();
         scanStatus.textContent = `Loading latest ${config.label} dataset`;
         scanCount.textContent = "Loading";
         scanTime.textContent = "Please wait";
+        progressBar.classList.add("is-loading");
         progressBar.style.width = "34%";
+        showLoadingSkeleton();
 
         try {
           const response = await fetch(`${config.file}?ts=${Date.now()}`);
@@ -603,6 +909,7 @@
           latestPayload = payload;
           latestResults = payload.results || [];
           latestUniverse = payload.universe || [];
+          progressBar.classList.remove("is-loading");
           progressBar.style.width = "100%";
           scanStatus.textContent = `Loaded ${payload.label}`;
           scanCount.textContent = `${payload.pricedUniverseSize || payload.universeSize || 0} scanned`;
@@ -612,11 +919,14 @@
           scanStatus.textContent = `Unable to load scan: ${error.message}`;
           scanCount.textContent = "0 scanned";
           scanTime.textContent = "Load failed";
+          progressBar.classList.remove("is-loading");
           progressBar.style.width = "0%";
         }
 
         renderResults();
         renderUniverse();
+        renderHotlist();
+        updateSummary();
         document.getElementById("scanner").scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
@@ -629,6 +939,7 @@
       function renderResults() {
         const config = activeScanId ? SCANS[activeScanId] : null;
         const filtered = latestResults.filter(resultMatches);
+        updateSummary();
 
         if (!activeScanId) {
           resultTitle.textContent = "Choose a scanner to load results.";
@@ -638,7 +949,7 @@
 
         if (!latestPayload) {
           resultTitle.textContent = `${config.label} selected.`;
-          resultsGrid.innerHTML = '<div class="empty">Scanner selected. Waiting for generated data to load.</div>';
+          showLoadingSkeleton();
           return;
         }
 
@@ -652,8 +963,7 @@
           return;
         }
 
-        resultsGrid.innerHTML = filtered
-          .sort((a, b) => a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol))
+        resultsGrid.innerHTML = sortResults(filtered)
           .map((item) => {
             const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
             const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
@@ -681,6 +991,7 @@
                   <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
                   <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
                   <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
+                  <button type="button" data-copy-symbol="${item.symbol}">Copy symbol</button>
                 </div>
               </article>
             `;
@@ -721,6 +1032,7 @@
           button.classList.add("is-active");
           activeFilter = button.dataset.filter;
           renderResults();
+          updateUrl(activeScanId);
         });
       });
 
@@ -731,6 +1043,7 @@
           activeCapFilter = button.dataset.capFilter;
           renderResults();
           renderUniverse();
+          updateUrl(activeScanId);
         });
       });
 
@@ -746,16 +1059,47 @@
         syncSearchInputs(event.target);
         renderResults();
         renderUniverse();
+        updateUrl(activeScanId);
       }
 
       stockSearch.addEventListener("input", handleSearchInput);
       universeSearch.addEventListener("input", handleSearchInput);
+      sortSelect.addEventListener("change", () => {
+        activeSort = sortSelect.value;
+        renderResults();
+        updateUrl(activeScanId);
+      });
       clearSearch.addEventListener("click", () => {
         universeQuery = "";
         syncSearchInputs(null);
         renderResults();
         renderUniverse();
+        updateUrl(activeScanId);
         stockSearch.focus();
+      });
+
+      hotlist.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-hot-symbol]");
+        if (!button) return;
+        universeQuery = button.dataset.hotSymbol;
+        syncSearchInputs(null);
+        renderResults();
+        renderUniverse();
+        updateUrl(activeScanId);
+        stockSearch.focus();
+      });
+
+      resultsGrid.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-copy-symbol]");
+        if (!button) return;
+        const symbol = `${button.dataset.copySymbol}.NS`;
+        try {
+          await navigator.clipboard.writeText(symbol);
+          button.textContent = "Copied";
+          window.setTimeout(() => { button.textContent = "Copy symbol"; }, 1100);
+        } catch {
+          button.textContent = symbol;
+        }
       });
 
       window.addEventListener("popstate", () => {
@@ -763,7 +1107,25 @@
         if (SCANS[scanId]) loadScan(scanId, false);
       });
 
-      const initialScanId = new URLSearchParams(window.location.search).get("scan");
+      const params = new URLSearchParams(window.location.search);
+      const initialScanId = params.get("scan");
+      const initialCap = params.get("cap");
+      const initialType = params.get("type");
+      const initialSort = params.get("sort");
+      universeQuery = params.get("q") || "";
+      syncSearchInputs(null);
+      if (["large", "mid", "small", "other"].includes(initialCap)) {
+        activeCapFilter = initialCap;
+        capFilterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.capFilter === initialCap));
+      }
+      if (["bullish", "bearish"].includes(initialType)) {
+        activeFilter = initialType;
+        filterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.filter === initialType));
+      }
+      if (["fresh", "symbol", "bullish", "bearish", "closeHigh"].includes(initialSort)) {
+        activeSort = initialSort;
+        sortSelect.value = initialSort;
+      }
       if (SCANS[initialScanId]) {
         loadScan(initialScanId, false);
       } else {
