@@ -40,6 +40,7 @@ class Stock:
     symbol: str
     name: str
     market_cap: str
+    sector: str = "Unclassified"
     isin: str = ""
 
 
@@ -53,32 +54,43 @@ def normalise_row(row: dict[str, str]) -> dict[str, str]:
     return {str(key).strip(): str(value).strip() for key, value in row.items()}
 
 
-def fetch_index_symbols(url: str) -> set[str]:
+def fetch_index_metadata(url: str) -> dict[str, dict[str, str]]:
     try:
         text = fetch_text(url)
         reader = csv.DictReader(text.splitlines())
-        return {normalise_row(row).get("Symbol", "").upper() for row in reader if normalise_row(row).get("Symbol")}
+        metadata = {}
+        for raw_row in reader:
+            row = normalise_row(raw_row)
+            symbol = row.get("Symbol", "").upper()
+            if not symbol:
+                continue
+            metadata[symbol] = {
+                "sector": row.get("Industry") or "Unclassified",
+            }
+        return metadata
     except Exception:
-        return set()
+        return {}
 
 
-def fetch_market_cap_sets() -> dict[str, set[str]]:
-    return {bucket: fetch_index_symbols(url) for bucket, url in INDEX_URLS.items()}
+def fetch_market_metadata() -> dict[str, dict[str, str]]:
+    metadata = {}
+    for bucket, url in INDEX_URLS.items():
+        for symbol, details in fetch_index_metadata(url).items():
+            metadata[symbol] = {**details, "marketCap": bucket}
+    return metadata
 
 
-def classify_symbol(symbol: str, cap_sets: dict[str, set[str]]) -> str:
-    if symbol in cap_sets.get("large", set()):
-        return "large"
-    if symbol in cap_sets.get("mid", set()):
-        return "mid"
-    if symbol in cap_sets.get("small", set()):
-        return "small"
-    return "other"
+def classify_symbol(symbol: str, market_metadata: dict[str, dict[str, str]]) -> str:
+    return market_metadata.get(symbol, {}).get("marketCap", "other")
+
+
+def sector_for_symbol(symbol: str, market_metadata: dict[str, dict[str, str]]) -> str:
+    return market_metadata.get(symbol, {}).get("sector", "Unclassified")
 
 
 def fetch_nse_universe(limit: int | None = None) -> list[Stock]:
     text = fetch_text(NSE_EQUITY_URL)
-    cap_sets = fetch_market_cap_sets()
+    market_metadata = fetch_market_metadata()
     stocks: list[Stock] = []
 
     for raw_row in csv.DictReader(text.splitlines()):
@@ -92,7 +104,8 @@ def fetch_nse_universe(limit: int | None = None) -> list[Stock]:
             Stock(
                 symbol=symbol,
                 name=row.get("NAME OF COMPANY", symbol),
-                market_cap=classify_symbol(symbol, cap_sets),
+                market_cap=classify_symbol(symbol, market_metadata),
+                sector=sector_for_symbol(symbol, market_metadata),
                 isin=row.get("ISIN NUMBER", ""),
             )
         )
@@ -108,20 +121,26 @@ def chunked(items: list[Stock], size: int) -> Iterable[list[Stock]]:
         yield items[index : index + size]
 
 
-def parse_price_response(response: dict) -> tuple[list[float], list[int]] | None:
+def parse_price_response(response: dict) -> dict[str, list[float] | list[int]] | None:
     timestamps = response.get("timestamp") or []
     quote_data = (response.get("indicators", {}).get("quote") or [{}])[0]
     closes = quote_data.get("close") or []
+    volumes = quote_data.get("volume") or []
     rows = []
     for index, close in enumerate(closes):
         if close is None or index >= len(timestamps):
             continue
         value = float(close)
         if math.isfinite(value):
-            rows.append((value, int(timestamps[index])))
+            volume = volumes[index] if index < len(volumes) and volumes[index] is not None else 0
+            rows.append((value, int(timestamps[index]), int(volume)))
     if not rows:
         return None
-    return [row[0] for row in rows], [row[1] for row in rows]
+    return {
+        "closes": [row[0] for row in rows],
+        "timestamps": [row[1] for row in rows],
+        "volumes": [row[2] for row in rows],
+    }
 
 
 def yahoo_symbol_to_nse(raw_symbol: str) -> str:
@@ -129,11 +148,11 @@ def yahoo_symbol_to_nse(raw_symbol: str) -> str:
     return decoded[:-3].upper() if decoded.upper().endswith(".NS") else decoded.upper()
 
 
-def fetch_yahoo_batch(stocks: list[Stock]) -> tuple[dict[str, tuple[list[float], list[int]]], list[dict[str, str]]]:
+def fetch_yahoo_batch(stocks: list[Stock]) -> tuple[dict[str, dict[str, list[float] | list[int]]], list[dict[str, str]]]:
     encoded_symbols = ",".join(quote(f"{stock.symbol}.NS", safe=".-") for stock in stocks)
     url = f"https://query1.finance.yahoo.com/v7/finance/spark?symbols={encoded_symbols}&range=2y&interval=1d"
     request = Request(url, headers={"User-Agent": REQUEST_HEADERS["User-Agent"], "Accept": "application/json,*/*"})
-    price_data: dict[str, tuple[list[float], list[int]]] = {}
+    price_data: dict[str, dict[str, list[float] | list[int]]] = {}
     failures: list[dict[str, str]] = []
 
     try:
@@ -165,8 +184,8 @@ def fetch_yahoo_batch(stocks: list[Stock]) -> tuple[dict[str, tuple[list[float],
     return price_data, failures
 
 
-def fetch_all_prices(universe: list[Stock], batch_size: int = 20) -> tuple[dict[str, tuple[list[float], list[int]]], list[dict[str, str]]]:
-    all_prices: dict[str, tuple[list[float], list[int]]] = {}
+def fetch_all_prices(universe: list[Stock], batch_size: int = 20) -> tuple[dict[str, dict[str, list[float] | list[int]]], list[dict[str, str]]]:
+    all_prices: dict[str, dict[str, list[float] | list[int]]] = {}
     failures: list[dict[str, str]] = []
 
     batches = list(chunked(universe, batch_size))
@@ -195,7 +214,79 @@ def ema(values: list[float], period: int) -> list[float | None]:
     return output
 
 
-def find_cross(closes: list[float], timestamps: list[int], fast_period: int, slow_period: int, window: int = 15) -> dict | None:
+def average(values: list[int], count: int) -> float:
+    sample = values[-count:]
+    return sum(sample) / len(sample) if sample else 0
+
+
+def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
+    score = 42
+    reasons = []
+    sessions_ago = cross["sessionsAgo"]
+    close = float(cross["close"])
+    fast = float(cross["fastEma"])
+    slow = float(cross["slowEma"])
+    volume = int(cross.get("volume", 0) or 0)
+    average_volume = float(cross.get("averageVolume20", 0) or 0)
+    spread_pct = abs(fast - slow) / close * 100 if close else 0
+
+    if sessions_ago == 0:
+        score += 24
+        reasons.append("Fresh crossover in the latest daily candle")
+    elif sessions_ago <= 5:
+        score += 17
+        reasons.append("Crossover happened within the last 5 sessions")
+    else:
+        score += 9
+        reasons.append("Crossover is still inside the 15-session window")
+
+    if spread_pct >= 2:
+        score += 14
+        reasons.append("EMA spread is expanding strongly")
+    elif spread_pct >= 1:
+        score += 10
+        reasons.append("EMA spread is meaningfully separated")
+    elif spread_pct >= 0.35:
+        score += 6
+        reasons.append("EMA spread has started to separate")
+
+    aligned = (
+        close > fast > slow if cross["type"] == "bullish"
+        else close < fast < slow
+    )
+    if aligned:
+        score += 13
+        reasons.append(f"Close confirms the {fast_period}/{slow_period} EMA direction")
+    else:
+        score += 5
+        reasons.append("Close is near the moving-average zone")
+
+    if average_volume and volume >= average_volume * 1.25:
+        score += 12
+        reasons.append("Volume is above the 20-session average")
+    elif average_volume and volume >= average_volume:
+        score += 7
+        reasons.append("Volume is at or above its 20-session average")
+
+    value = max(0, min(100, round(score)))
+    if value >= 82:
+        grade = "A"
+    elif value >= 68:
+        grade = "B"
+    elif value >= 54:
+        grade = "C"
+    else:
+        grade = "D"
+
+    return {
+        "value": value,
+        "grade": grade,
+        "emaSpreadPct": round(spread_pct, 2),
+        "reasons": reasons[:4],
+    }
+
+
+def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], fast_period: int, slow_period: int, window: int = 15) -> dict | None:
     fast_ema = ema(closes, fast_period)
     slow_ema = ema(closes, slow_period)
     start = max(1, len(closes) - window)
@@ -206,34 +297,50 @@ def find_cross(closes: list[float], timestamps: list[int], fast_period: int, slo
         previous = float(fast_ema[index - 1]) - float(slow_ema[index - 1])
         current = float(fast_ema[index]) - float(slow_ema[index])
         if previous <= 0 and current > 0:
-            return {
+            cross = {
                 "type": "bullish",
                 "sessionsAgo": len(closes) - 1 - index,
                 "fastEma": fast_ema[index],
                 "slowEma": slow_ema[index],
                 "close": closes[index],
+                "volume": volumes[index] if index < len(volumes) else 0,
+                "averageVolume20": average(volumes[: index + 1], 20),
                 "timestamp": timestamps[index],
+                "sparkline": [round(value, 2) for value in closes[max(0, index - 35) : index + 1]],
             }
+            cross["score"] = signal_score(cross, fast_period, slow_period)
+            return cross
         if previous >= 0 and current < 0:
-            return {
+            cross = {
                 "type": "bearish",
                 "sessionsAgo": len(closes) - 1 - index,
                 "fastEma": fast_ema[index],
                 "slowEma": slow_ema[index],
                 "close": closes[index],
+                "volume": volumes[index] if index < len(volumes) else 0,
+                "averageVolume20": average(volumes[: index + 1], 20),
                 "timestamp": timestamps[index],
+                "sparkline": [round(value, 2) for value in closes[max(0, index - 35) : index + 1]],
             }
+            cross["score"] = signal_score(cross, fast_period, slow_period)
+            return cross
     return None
 
 
 def stock_to_json(stock: Stock) -> dict[str, str]:
-    return {"symbol": stock.symbol, "name": stock.name, "marketCap": stock.market_cap, "isin": stock.isin}
+    return {
+        "symbol": stock.symbol,
+        "name": stock.name,
+        "marketCap": stock.market_cap,
+        "sector": stock.sector,
+        "isin": stock.isin,
+    }
 
 
 def build_scan_payload(
     scan_id: str,
     universe: list[Stock],
-    price_data: dict[str, tuple[list[float], list[int]]],
+    price_data: dict[str, dict[str, list[float] | list[int]]],
     fetch_failures: list[dict[str, str]],
     generated_at: str,
 ) -> dict:
@@ -247,11 +354,13 @@ def build_scan_payload(
         candles = price_data.get(stock.symbol)
         if not candles:
             continue
-        closes, timestamps = candles
+        closes = candles.get("closes", [])
+        timestamps = candles.get("timestamps", [])
+        volumes = candles.get("volumes", [])
         if len(closes) < slow_period + 15:
             skipped.append({"symbol": stock.symbol, "reason": f"needs at least {slow_period + 15} daily candles"})
             continue
-        cross = find_cross(closes, timestamps, fast_period, slow_period)
+        cross = find_cross(closes, timestamps, volumes, fast_period, slow_period)
         if cross:
             results.append({**stock_to_json(stock), **cross})
 
@@ -259,6 +368,9 @@ def build_scan_payload(
         bucket: sum(1 for stock in universe if stock.market_cap == bucket)
         for bucket in ("large", "mid", "small", "other")
     }
+    sector_counts = {}
+    for stock in universe:
+        sector_counts[stock.sector] = sector_counts.get(stock.sector, 0) + 1
 
     return {
         "market": "NSE India",
@@ -278,6 +390,7 @@ def build_scan_payload(
         "pricedUniverseSize": len(price_data),
         "universe": [stock_to_json(stock) for stock in universe],
         "marketCapBuckets": bucket_counts,
+        "sectorBuckets": dict(sorted(sector_counts.items())),
         "resultCount": len(results),
         "failureCount": len(fetch_failures),
         "skippedCount": len(skipped),

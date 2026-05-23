@@ -369,6 +369,23 @@
         gap: 12px;
         padding: 14px;
       }
+      .advanced-panel {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 12px;
+        padding: 14px;
+      }
+      .filter-field {
+        display: grid;
+        gap: 7px;
+      }
+      .filter-field span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
       .search-panel {
         display: grid;
         grid-template-columns: minmax(260px, 1fr) auto;
@@ -426,7 +443,52 @@
         background: var(--card-hover);
       }
       .result-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+      .result-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+      }
       .symbol { font-size: 1.45rem; font-weight: 950; letter-spacing: -0.04em; }
+      .score-pill {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(142, 165, 255, 0.08);
+        font-size: 0.82rem;
+        font-weight: 950;
+      }
+      .score-pill.grade-a { color: var(--green); border-color: color-mix(in srgb, var(--green) 55%, transparent); }
+      .score-pill.grade-b { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 55%, transparent); }
+      .score-pill.grade-c { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 55%, transparent); }
+      .score-pill.grade-d { color: var(--red); border-color: color-mix(in srgb, var(--red) 55%, transparent); }
+      .sparkline {
+        width: 100%;
+        height: 74px;
+        margin: 14px 0 2px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background:
+          linear-gradient(color-mix(in srgb, var(--blue) 6%, transparent) 1px, transparent 1px),
+          var(--subtle);
+        background-size: 100% 24px;
+      }
+      .sparkline polyline {
+        fill: none;
+        stroke-width: 3.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .sparkline.bullish polyline { stroke: var(--green); }
+      .sparkline.bearish polyline { stroke: var(--red); }
+      .reason-list {
+        margin: 12px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
       .price-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
       .mini-stat {
         border: 1px solid var(--line);
@@ -450,6 +512,10 @@
         cursor: pointer;
         font-weight: 900;
         font-size: 0.85rem;
+      }
+      .result-actions button.is-watchlisted {
+        border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+        color: var(--gold);
       }
       .gold { color: var(--gold); }
       .empty { grid-column: 1 / -1; padding: 28px; color: var(--muted); background: var(--empty-bg); }
@@ -497,7 +563,7 @@
         outline: none;
       }
       .search:focus { border-color: var(--green); }
-      .sort-select {
+      .sort-select, .filter-select, .filter-input {
         min-width: 210px;
         border: 1px solid var(--line);
         border-radius: 999px;
@@ -505,8 +571,9 @@
         background: var(--control-bg);
         color: var(--text);
         outline: none;
+        width: 100%;
       }
-      .sort-select:focus { border-color: var(--green); }
+      .sort-select:focus, .filter-select:focus, .filter-input:focus { border-color: var(--green); }
       .search-clear {
         min-width: 108px;
         border: 1px solid var(--line);
@@ -522,6 +589,22 @@
         border-color: var(--green);
         color: var(--text);
         background: rgba(99, 246, 178, 0.1);
+      }
+      .utility-button {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 13px 16px;
+        background: var(--control-bg);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 900;
+        transition: 180ms ease;
+      }
+      .utility-button:hover,
+      .utility-button.is-active {
+        border-color: var(--green);
+        background: rgba(99, 246, 178, 0.1);
+        transform: translateY(-2px);
       }
       .universe { display: flex; flex-wrap: wrap; gap: 8px; }
       .universe span {
@@ -545,10 +628,46 @@
         color: var(--muted);
         font-size: 0.92rem;
       }
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: rgba(2, 6, 23, 0.72);
+        backdrop-filter: blur(12px);
+      }
+      .modal[hidden] { display: none; }
+      .modal-card {
+        width: min(860px, 100%);
+        max-height: min(86vh, 820px);
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 24px;
+        background: var(--panel-strong);
+        box-shadow: var(--shadow);
+      }
+      .modal-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+      .modal-title { font-size: clamp(2rem, 5vw, 3.4rem); }
+      .modal-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin: 18px 0;
+      }
 
       @media (max-width: 980px) {
         main, .nav { width: min(100% - 28px, 1180px); }
         .hero, .scan-grid, .results-grid, .dashboard-grid, .skeleton-grid { grid-template-columns: 1fr; }
+        .advanced-panel, .modal-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
         .nav-links { width: 100%; overflow-x: auto; }
         .theme-toggle, .market-clock { width: 100%; justify-content: center; }
@@ -710,11 +829,53 @@
             <select class="sort-select" id="sortSelect" aria-label="Sort scan results">
               <option value="fresh">Sort: Freshest cross first</option>
               <option value="symbol">Sort: Symbol A-Z</option>
+              <option value="score">Sort: Strongest score</option>
               <option value="bullish">Sort: Bullish first</option>
               <option value="bearish">Sort: Bearish first</option>
               <option value="closeHigh">Sort: Highest close</option>
             </select>
             <div class="hotlist" id="hotlist" hidden aria-label="Quick focus stocks"></div>
+          </div>
+          <div class="panel advanced-panel" aria-label="Advanced scanner filters">
+            <label class="filter-field">
+              <span>Sector</span>
+              <select class="filter-select" id="sectorSelect">
+                <option value="all">All sectors</option>
+              </select>
+            </label>
+            <label class="filter-field">
+              <span>Freshness</span>
+              <select class="filter-select" id="sessionSelect">
+                <option value="15">Last 15 sessions</option>
+                <option value="5">Last 5 sessions</option>
+                <option value="0">Fresh today</option>
+              </select>
+            </label>
+            <label class="filter-field">
+              <span>Score</span>
+              <select class="filter-select" id="scoreSelect">
+                <option value="all">All scores</option>
+                <option value="A">A only</option>
+                <option value="AB">A or B</option>
+                <option value="ABC">A/B/C</option>
+              </select>
+            </label>
+            <label class="filter-field">
+              <span>Min close</span>
+              <input class="filter-input" id="minPrice" type="number" min="0" step="1" placeholder="0" />
+            </label>
+            <label class="filter-field">
+              <span>Max close</span>
+              <input class="filter-input" id="maxPrice" type="number" min="0" step="1" placeholder="No limit" />
+            </label>
+            <label class="filter-field">
+              <span>Utilities</span>
+              <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
+            </label>
+            <label class="filter-field">
+              <span>Export</span>
+              <button class="utility-button" id="exportCsv" type="button">Export CSV</button>
+            </label>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
             <button class="is-active" data-cap-filter="all" type="button"><span>All market</span><span class="filter-count">0</span></button>
@@ -753,6 +914,19 @@
           Universe source: NSE securities available for equity trading. Cap buckets use NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250, and Other for the remaining NSE EQ securities.
         </p>
       </section>
+
+      <div class="modal" id="detailModal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+          <div class="modal-head">
+            <div>
+              <p class="eyebrow">Signal detail</p>
+              <h2 class="modal-title" id="modalTitle">Stock detail</h2>
+            </div>
+            <button class="utility-button" id="modalClose" type="button">Close</button>
+          </div>
+          <div id="modalContent"></div>
+        </div>
+      </div>
     </main>
 
     <script>
@@ -794,7 +968,19 @@
       const stockSearch = document.getElementById("stockSearch");
       const clearSearch = document.getElementById("clearSearch");
       const sortSelect = document.getElementById("sortSelect");
+      const sectorSelect = document.getElementById("sectorSelect");
+      const sessionSelect = document.getElementById("sessionSelect");
+      const scoreSelect = document.getElementById("scoreSelect");
+      const minPrice = document.getElementById("minPrice");
+      const maxPrice = document.getElementById("maxPrice");
+      const watchlistToggle = document.getElementById("watchlistToggle");
+      const watchlistCount = document.getElementById("watchlistCount");
+      const exportCsv = document.getElementById("exportCsv");
       const hotlist = document.getElementById("hotlist");
+      const detailModal = document.getElementById("detailModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalContent = document.getElementById("modalContent");
+      const modalClose = document.getElementById("modalClose");
       const filterButtons = document.querySelectorAll("[data-filter]");
       const capFilterButtons = document.querySelectorAll("[data-cap-filter]");
       const scanCards = document.querySelectorAll("[data-scan-card]");
@@ -808,6 +994,32 @@
       let activeCapFilter = "all";
       let universeQuery = "";
       let activeSort = "fresh";
+      let activeSector = "all";
+      let activeSessionWindow = 15;
+      let activeScoreFilter = "all";
+      let activeMinPrice = "";
+      let activeMaxPrice = "";
+      let watchlistOnly = false;
+      let watchlist = new Set(loadWatchlist());
+
+      function loadWatchlist() {
+        try {
+          const saved = JSON.parse(localStorage.getItem("stocks-watchlist") || "[]");
+          return Array.isArray(saved) ? saved : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveWatchlist() {
+        localStorage.setItem("stocks-watchlist", JSON.stringify([...watchlist].sort()));
+        updateWatchlistCount();
+      }
+
+      function updateWatchlistCount() {
+        watchlistCount.textContent = watchlist.size;
+        watchlistToggle.classList.toggle("is-active", watchlistOnly);
+      }
 
       function getInitialTheme() {
         const savedTheme = localStorage.getItem("stocks-theme");
@@ -820,7 +1032,7 @@
       function applyTheme(theme) {
         document.documentElement.dataset.theme = theme;
         localStorage.setItem("stocks-theme", theme);
-        themeIcon.textContent = theme === "light" ? "☀" : "☾";
+        themeIcon.textContent = theme === "light" ? "Sun" : "Moon";
         themeText.textContent = theme === "light" ? "Light" : "Dark";
         themeToggle.setAttribute("aria-label", `Switch to ${theme === "light" ? "dark" : "light"} mode`);
       }
@@ -877,6 +1089,18 @@
         else nextUrl.searchParams.delete("type");
         if (activeSort !== "fresh") nextUrl.searchParams.set("sort", activeSort);
         else nextUrl.searchParams.delete("sort");
+        if (activeSector !== "all") nextUrl.searchParams.set("sector", activeSector);
+        else nextUrl.searchParams.delete("sector");
+        if (activeSessionWindow !== 15) nextUrl.searchParams.set("days", String(activeSessionWindow));
+        else nextUrl.searchParams.delete("days");
+        if (activeScoreFilter !== "all") nextUrl.searchParams.set("score", activeScoreFilter);
+        else nextUrl.searchParams.delete("score");
+        if (activeMinPrice !== "") nextUrl.searchParams.set("min", activeMinPrice);
+        else nextUrl.searchParams.delete("min");
+        if (activeMaxPrice !== "") nextUrl.searchParams.set("max", activeMaxPrice);
+        else nextUrl.searchParams.delete("max");
+        if (watchlistOnly) nextUrl.searchParams.set("watchlist", "1");
+        else nextUrl.searchParams.delete("watchlist");
         history.pushState({ scanId }, "", nextUrl);
       }
 
@@ -907,6 +1131,88 @@
       function syncSearchInputs(source) {
         if (source !== stockSearch) stockSearch.value = universeQuery;
         if (source !== universeSearch) universeSearch.value = universeQuery;
+      }
+
+      function formatNumber(value) {
+        return Number(value || 0).toLocaleString("en-IN");
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function scoreGrade(item) {
+        return (item.score && item.score.grade) || "D";
+      }
+
+      function scoreValue(item) {
+        return Number((item.score && item.score.value) || 0);
+      }
+
+      function scoreMatches(item) {
+        const grade = scoreGrade(item);
+        if (activeScoreFilter === "A") return grade === "A";
+        if (activeScoreFilter === "AB") return ["A", "B"].includes(grade);
+        if (activeScoreFilter === "ABC") return ["A", "B", "C"].includes(grade);
+        return true;
+      }
+
+      function priceMatches(item) {
+        const close = Number(item.close);
+        const min = activeMinPrice === "" ? null : Number(activeMinPrice);
+        const max = activeMaxPrice === "" ? null : Number(activeMaxPrice);
+        if (min !== null && close < min) return false;
+        if (max !== null && close > max) return false;
+        return true;
+      }
+
+      function sectorMatches(item) {
+        return activeSector === "all" || item.sector === activeSector;
+      }
+
+      function sessionMatches(item) {
+        return Number(item.sessionsAgo) <= Number(activeSessionWindow);
+      }
+
+      function watchlistMatches(item) {
+        return !watchlistOnly || watchlist.has(item.symbol);
+      }
+
+      function currentFilteredResults() {
+        return sortResults(latestResults.filter(resultMatches));
+      }
+
+      function sparklineSvg(values = [], type = "bullish") {
+        const points = Array.isArray(values) ? values.map(Number).filter(Number.isFinite) : [];
+        if (points.length < 2) return "";
+        const width = 320;
+        const height = 74;
+        const pad = 9;
+        const min = Math.min(...points);
+        const max = Math.max(...points);
+        const span = max - min || 1;
+        const polyline = points
+          .map((value, index) => {
+            const x = pad + (index / (points.length - 1)) * (width - pad * 2);
+            const y = height - pad - ((value - min) / span) * (height - pad * 2);
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+          })
+          .join(" ");
+        return `<svg class="sparkline ${type}" viewBox="0 0 ${width} ${height}" aria-hidden="true"><polyline points="${polyline}"></polyline></svg>`;
+      }
+
+      function populateSectorFilter() {
+        const sectors = [...new Set(latestUniverse.map((item) => item.sector).filter(Boolean))].sort();
+        sectorSelect.innerHTML = '<option value="all">All sectors</option>' + sectors
+          .map((sector) => `<option value="${escapeHtml(sector)}">${escapeHtml(sector)}</option>`)
+          .join("");
+        sectorSelect.value = sectors.includes(activeSector) ? activeSector : "all";
+        if (sectorSelect.value === "all") activeSector = "all";
       }
 
       function showLoadingSkeleton() {
@@ -946,6 +1252,7 @@
         const typeRank = { bullish: 0, bearish: 1 };
         const sorted = [...items];
         if (activeSort === "symbol") return sorted.sort((a, b) => a.symbol.localeCompare(b.symbol));
+        if (activeSort === "score") return sorted.sort((a, b) => scoreValue(b) - scoreValue(a) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
         if (activeSort === "bullish") {
           return sorted.sort((a, b) => (typeRank[a.type] ?? 9) - (typeRank[b.type] ?? 9) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
         }
@@ -998,6 +1305,7 @@
           latestPayload = payload;
           latestResults = payload.results || [];
           latestUniverse = payload.universe || [];
+          populateSectorFilter();
           progressBar.classList.remove("is-loading");
           progressBar.style.width = "100%";
           scanStatus.textContent = `Loaded ${payload.label}`;
@@ -1016,13 +1324,23 @@
         renderUniverse();
         renderHotlist();
         updateSummary();
+        updateWatchlistCount();
         document.getElementById("scanner").scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       function resultMatches(item) {
         const typeMatch = activeFilter === "all" || item.type === activeFilter;
         const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
-        return typeMatch && capMatch && stockMatchesQuery(item);
+        return (
+          typeMatch &&
+          capMatch &&
+          stockMatchesQuery(item) &&
+          sectorMatches(item) &&
+          sessionMatches(item) &&
+          scoreMatches(item) &&
+          priceMatches(item) &&
+          watchlistMatches(item)
+        );
       }
 
       function renderResults() {
@@ -1057,30 +1375,39 @@
             const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
             const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
             const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
+            const grade = scoreGrade(item).toLowerCase();
+            const primaryReason = item.score?.reasons?.[0] || "EMA crossover signal is inside the scan window";
+            const isSaved = watchlist.has(item.symbol);
             return `
-              <article class="result-card">
+              <article class="result-card" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
                 <div class="result-head">
                   <div>
-                    <div class="symbol">${item.symbol}.NS</div>
-                    <p>${item.name}</p>
+                    <div class="symbol">${escapeHtml(item.symbol)}.NS</div>
+                    <p>${escapeHtml(item.name)}</p>
                   </div>
-                  <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
+                  <div class="result-meta">
+                    <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
+                    <span class="score-pill grade-${grade}">Score ${scoreValue(item)} - ${scoreGrade(item)}</span>
+                  </div>
                 </div>
+                ${sparklineSvg(item.sparkline, item.type)}
                 <p>
                   ${latestPayload.fastPeriod} EMA ${item.type === "bullish" ? "crossed above" : "crossed below"} ${latestPayload.slowPeriod} EMA
                   <strong>${item.sessionsAgo}</strong> session${item.sessionsAgo === 1 ? "" : "s"} ago.
                 </p>
+                <p>${escapeHtml(primaryReason)}</p>
                 <div class="price-row">
                   <div class="mini-stat"><span>Close</span><strong>Rs. ${Number(item.close).toFixed(2)}</strong></div>
                   <div class="mini-stat"><span>EMA ${latestPayload.fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
                   <div class="mini-stat"><span>EMA ${latestPayload.slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
                 </div>
-                <p class="gold">Cross date: ${formatDate(item.timestamp)}</p>
+                <p class="gold">Cross date: ${formatDate(item.timestamp)} | Sector: ${escapeHtml(item.sector || "Unclassified")}</p>
                 <div class="result-actions" aria-label="Open ${item.symbol} links">
                   <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
                   <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
                   <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
                   <button type="button" data-copy-symbol="${item.symbol}">Copy symbol</button>
+                  <button type="button" class="${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}">${isSaved ? "Saved" : "Watchlist"}</button>
                 </div>
               </article>
             `;
@@ -1101,7 +1428,7 @@
         const visibleUniverse = latestUniverse.filter((item) => {
           const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
           const queryMatch = !query || stockMatchesQuery(item);
-          return capMatch && queryMatch;
+          return capMatch && queryMatch && sectorMatches(item) && watchlistMatches(item);
         });
         const rendered = visibleUniverse.slice(0, 320);
         const hiddenCount = Math.max(visibleUniverse.length - rendered.length, 0);
@@ -1111,7 +1438,7 @@
           ? `Showing ${rendered.length} of ${visibleUniverse.length}. Use search or filters to narrow.`
           : `Showing ${rendered.length} of ${visibleUniverse.length}`;
         universeList.innerHTML = rendered
-          .map((item) => `<span class="${item.marketCap}">${item.symbol}.NS - ${capLabel(item.marketCap)}</span>`)
+          .map((item) => `<span class="${item.marketCap}">${escapeHtml(item.symbol)}.NS - ${capLabel(item.marketCap)}</span>`)
           .join("");
       }
 
@@ -1158,6 +1485,69 @@
         renderResults();
         updateUrl(activeScanId);
       });
+      sectorSelect.addEventListener("change", () => {
+        activeSector = sectorSelect.value;
+        renderResults();
+        renderUniverse();
+        updateUrl(activeScanId);
+      });
+      sessionSelect.addEventListener("change", () => {
+        activeSessionWindow = Number(sessionSelect.value);
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      scoreSelect.addEventListener("change", () => {
+        activeScoreFilter = scoreSelect.value;
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      minPrice.addEventListener("input", () => {
+        activeMinPrice = minPrice.value;
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      maxPrice.addEventListener("input", () => {
+        activeMaxPrice = maxPrice.value;
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      watchlistToggle.addEventListener("click", () => {
+        watchlistOnly = !watchlistOnly;
+        updateWatchlistCount();
+        renderResults();
+        renderUniverse();
+        updateUrl(activeScanId);
+      });
+      exportCsv.addEventListener("click", () => {
+        const rows = currentFilteredResults();
+        if (!rows.length) return;
+        const headers = [
+          "symbol", "name", "sector", "marketCap", "type", "score", "grade",
+          "sessionsAgo", "close", "fastEma", "slowEma", "volume", "averageVolume20", "crossDate"
+        ];
+        const csvRows = [
+          headers.join(","),
+          ...rows.map((item) => headers.map((header) => {
+            const value = header === "crossDate"
+              ? formatDate(item.timestamp)
+              : header === "score"
+                ? scoreValue(item)
+                : header === "grade"
+                  ? scoreGrade(item)
+                  : item[header];
+            return `"${String(value ?? "").replaceAll('"', '""')}"`;
+          }).join(","))
+        ];
+        const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${activeScanId || "nse"}-ema-results.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      });
       clearSearch.addEventListener("click", () => {
         universeQuery = "";
         syncSearchInputs(null);
@@ -1179,16 +1569,86 @@
       });
 
       resultsGrid.addEventListener("click", async (event) => {
-        const button = event.target.closest("[data-copy-symbol]");
-        if (!button) return;
-        const symbol = `${button.dataset.copySymbol}.NS`;
-        try {
-          await navigator.clipboard.writeText(symbol);
-          button.textContent = "Copied";
-          window.setTimeout(() => { button.textContent = "Copy symbol"; }, 1100);
-        } catch {
-          button.textContent = symbol;
+        const watchButton = event.target.closest("[data-watch-symbol]");
+        if (watchButton) {
+          const symbol = watchButton.dataset.watchSymbol;
+          if (watchlist.has(symbol)) watchlist.delete(symbol);
+          else watchlist.add(symbol);
+          saveWatchlist();
+          renderResults();
+          renderUniverse();
+          return;
         }
+
+        const button = event.target.closest("[data-copy-symbol]");
+        if (button) {
+          const symbol = `${button.dataset.copySymbol}.NS`;
+          try {
+            await navigator.clipboard.writeText(symbol);
+            button.textContent = "Copied";
+            window.setTimeout(() => { button.textContent = "Copy symbol"; }, 1100);
+          } catch {
+            button.textContent = symbol;
+          }
+          return;
+        }
+
+        if (event.target.closest("a, button")) return;
+        const card = event.target.closest("[data-result-symbol]");
+        if (card) openDetail(card.dataset.resultSymbol);
+      });
+
+      resultsGrid.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const card = event.target.closest("[data-result-symbol]");
+        if (!card) return;
+        event.preventDefault();
+        openDetail(card.dataset.resultSymbol);
+      });
+
+      function openDetail(symbol) {
+        const item = latestResults.find((result) => result.symbol === symbol);
+        if (!item || !latestPayload) return;
+        const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
+        const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
+        const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
+        modalTitle.textContent = `${item.symbol}.NS`;
+        modalContent.innerHTML = `
+          <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)}</p>
+          ${sparklineSvg(item.sparkline, item.type)}
+          <div class="modal-grid">
+            <div class="mini-stat"><span>Signal</span><strong>${item.type}</strong></div>
+            <div class="mini-stat"><span>Score</span><strong>${scoreValue(item)} - ${scoreGrade(item)}</strong></div>
+            <div class="mini-stat"><span>Sessions ago</span><strong>${item.sessionsAgo}</strong></div>
+            <div class="mini-stat"><span>Cross date</span><strong>${formatDate(item.timestamp)}</strong></div>
+            <div class="mini-stat"><span>Close</span><strong>Rs. ${Number(item.close).toFixed(2)}</strong></div>
+            <div class="mini-stat"><span>EMA ${latestPayload.fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
+            <div class="mini-stat"><span>EMA ${latestPayload.slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
+            <div class="mini-stat"><span>Volume</span><strong>${formatNumber(item.volume)}</strong></div>
+          </div>
+          <p class="eyebrow">Why this matched</p>
+          <ul class="reason-list">
+            ${(item.score?.reasons || ["EMA crossover is inside the selected scan window"]).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
+          </ul>
+          <div class="result-actions">
+            <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
+            <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
+            <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
+          </div>
+        `;
+        detailModal.hidden = false;
+      }
+
+      function closeDetail() {
+        detailModal.hidden = true;
+      }
+
+      modalClose.addEventListener("click", closeDetail);
+      detailModal.addEventListener("click", (event) => {
+        if (event.target === detailModal) closeDetail();
+      });
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeDetail();
       });
 
       window.addEventListener("popstate", () => {
@@ -1201,6 +1661,9 @@
       const initialCap = params.get("cap");
       const initialType = params.get("type");
       const initialSort = params.get("sort");
+      const initialSector = params.get("sector");
+      const initialDays = params.get("days");
+      const initialScore = params.get("score");
       universeQuery = params.get("q") || "";
       syncSearchInputs(null);
       if (["large", "mid", "small", "other"].includes(initialCap)) {
@@ -1211,10 +1674,25 @@
         activeFilter = initialType;
         filterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.filter === initialType));
       }
-      if (["fresh", "symbol", "bullish", "bearish", "closeHigh"].includes(initialSort)) {
+      if (["fresh", "symbol", "score", "bullish", "bearish", "closeHigh"].includes(initialSort)) {
         activeSort = initialSort;
         sortSelect.value = initialSort;
       }
+      if (initialSector) activeSector = initialSector;
+      if (["0", "5", "15"].includes(initialDays)) {
+        activeSessionWindow = Number(initialDays);
+        sessionSelect.value = initialDays;
+      }
+      if (["A", "AB", "ABC"].includes(initialScore)) {
+        activeScoreFilter = initialScore;
+        scoreSelect.value = initialScore;
+      }
+      activeMinPrice = params.get("min") || "";
+      activeMaxPrice = params.get("max") || "";
+      minPrice.value = activeMinPrice;
+      maxPrice.value = activeMaxPrice;
+      watchlistOnly = params.get("watchlist") === "1";
+      updateWatchlistCount();
       if (SCANS[initialScanId]) {
         loadScan(initialScanId, false);
       } else {
