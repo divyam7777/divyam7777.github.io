@@ -5,134 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Indian market NSE scanner for stocks where the 100 EMA and 200 EMA crossed within the last 15 trading sessions."
+      content="NSE India EMA crossover scanner for 100/200 and 50/100 EMA crosses across the full equity universe."
     />
     <title>NSE EMA Scanner | Divyam Matia</title>
     <style>
       :root {
         color-scheme: dark;
-        --bg: #050812;
-        --panel: rgba(11, 17, 32, 0.84);
-        --panel-strong: #0c1324;
-        --text: #edf2ff;
-        --muted: #a7b0c5;
-        --line: rgba(237, 242, 255, 0.12);
+        --bg: #050914;
+        --panel: rgba(15, 22, 42, 0.82);
+        --panel-strong: rgba(17, 26, 48, 0.96);
+        --text: #f3f7ff;
+        --muted: #a8b3ca;
+        --line: rgba(159, 178, 255, 0.22);
         --green: #63f6b2;
-        --red: #fb7185;
-        --gold: #fbbf24;
         --blue: #8ea5ff;
-        --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+        --gold: #f6c85f;
+        --red: #fb7185;
+        --shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
       }
 
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
       body {
         margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        min-height: 100vh;
         background:
-          linear-gradient(rgba(142, 165, 255, 0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(142, 165, 255, 0.035) 1px, transparent 1px),
-          radial-gradient(circle at 15% 8%, rgba(99, 246, 178, 0.16), transparent 26%),
-          radial-gradient(circle at 85% 12%, rgba(142, 165, 255, 0.2), transparent 24%),
+          radial-gradient(circle at top left, rgba(99, 246, 178, 0.10), transparent 28rem),
+          radial-gradient(circle at top right, rgba(142, 165, 255, 0.12), transparent 30rem),
+          linear-gradient(rgba(142, 165, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(142, 165, 255, 0.04) 1px, transparent 1px),
           var(--bg);
-        background-size: 34px 34px, 34px 34px, auto, auto, auto;
+        background-size: auto, auto, 52px 52px, 52px 52px, auto;
         color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       a { color: inherit; text-decoration: none; }
-      button { font: inherit; }
-
-      .shell {
-        width: min(1220px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 28px 0 80px;
-      }
+      button, input { font: inherit; }
+      main, .nav { width: min(1180px, calc(100% - 42px)); margin: 0 auto; }
+      main { padding: 42px 0 96px; }
 
       .nav {
         position: sticky;
         top: 18px;
-        z-index: 10;
+        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 18px;
+        margin-top: 18px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        padding: 12px 14px;
-        background: rgba(8, 12, 24, 0.84);
-        backdrop-filter: blur(18px);
+        padding: 12px 16px;
+        background: rgba(8, 12, 25, 0.76);
+        backdrop-filter: blur(20px);
         box-shadow: var(--shadow);
       }
 
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 900;
-      }
-
-      .brand span {
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 950; }
+      .mark {
         display: grid;
+        width: 34px;
+        height: 34px;
         place-items: center;
-        width: 42px;
-        height: 42px;
         border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--panel-strong);
+        border-radius: 50%;
+        background: rgba(142, 165, 255, 0.13);
+        font-size: 0.78rem;
       }
-
-      .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        color: var(--muted);
-      }
-
-      .nav-links a {
-        border-radius: 999px;
-        padding: 10px 13px;
-      }
-
-      .nav-links a:hover {
-        background: rgba(142, 165, 255, 0.12);
-        color: var(--text);
-      }
+      .nav-links { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+      .nav-links a { border-radius: 999px; padding: 10px 14px; transition: 180ms ease; }
+      .nav-links a:hover { background: rgba(142, 165, 255, 0.12); color: var(--text); }
 
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 390px;
-        gap: 36px;
+        grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+        gap: 56px;
         align-items: center;
-        padding: 80px 0 54px;
+        padding-top: 76px;
       }
-
       .eyebrow {
         margin: 0 0 14px;
         color: var(--green);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
         font-size: 0.78rem;
         font-weight: 900;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
       }
+      h1, h2, h3 { margin: 0; letter-spacing: -0.06em; line-height: 0.96; }
+      h1 { max-width: 840px; font-size: clamp(3.9rem, 9vw, 7.9rem); }
+      h2 { font-size: clamp(2rem, 4vw, 3.65rem); }
+      h3 { font-size: 1.25rem; letter-spacing: -0.04em; }
+      p { color: var(--muted); line-height: 1.75; }
+      .hero-copy { max-width: 780px; font-size: 1.06rem; }
 
-      h1 {
-        margin: 0 0 18px;
-        font-size: clamp(3rem, 8vw, 6.6rem);
-        line-height: 0.9;
-        letter-spacing: -0.08em;
-      }
-
-      h2 {
-        margin: 0 0 18px;
-        font-size: clamp(1.7rem, 3vw, 2.45rem);
-        letter-spacing: -0.05em;
-      }
-
-      h3 { margin: 0 0 10px; }
-      p { color: var(--muted); line-height: 1.8; }
-      .hero-copy { max-width: 760px; font-size: 1.08rem; }
-
-      .panel, .result-card, .stat-card {
+      .panel, .scan-card, .result-card, .stat-card, .empty {
         position: relative;
         overflow: hidden;
         border: 1px solid var(--line);
@@ -141,8 +109,7 @@
         box-shadow: var(--shadow);
         backdrop-filter: blur(18px);
       }
-
-      .panel::before, .result-card::before, .stat-card::before {
+      .panel::before, .scan-card::before, .result-card::before, .stat-card::before {
         content: "";
         position: absolute;
         top: 0;
@@ -152,72 +119,84 @@
         background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
       }
 
-      .scanner-card { padding: 22px; }
-      .scanner-screen {
+      .scanner-visual { padding: 24px; }
+      .screen {
         border: 1px solid var(--line);
-        border-radius: 22px;
-        padding: 18px;
+        border-radius: 24px;
+        padding: 20px;
         background: #070b16;
       }
-
-      .scan-line {
-        height: 160px;
-        margin: 14px 0;
+      .chart-lines {
+        position: relative;
+        height: 170px;
+        margin: 16px 0;
         border-radius: 18px;
         background:
           linear-gradient(145deg, rgba(99, 246, 178, 0.16), rgba(142, 165, 255, 0.04)),
-          repeating-linear-gradient(to right, transparent 0 34px, rgba(255, 255, 255, 0.04) 35px),
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'%3E%3Cpath d='M0 162 C80 120 98 168 160 132 S260 92 330 112 420 172 500 92 575 72 640 42' fill='none' stroke='%2363f6b2' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M0 124 C88 156 118 112 172 138 S268 176 344 124 430 86 510 116 596 136 640 98' fill='none' stroke='%238ea5ff' stroke-width='7' stroke-linecap='round' opacity='.82'/%3E%3C/svg%3E");
-        background-size: cover;
+          repeating-linear-gradient(to right, transparent 0 34px, rgba(255, 255, 255, 0.04) 35px);
       }
-
-      .metric-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 18px;
+      .chart-lines::before, .chart-lines::after {
+        content: "";
+        position: absolute;
+        inset: 26px 0 auto;
+        height: 5px;
+        border-radius: 999px;
+        background: var(--green);
+        transform: rotate(-8deg);
+        box-shadow: 0 0 26px rgba(99, 246, 178, 0.35);
       }
-
+      .chart-lines::after {
+        inset: auto 0 42px;
+        background: var(--blue);
+        transform: rotate(10deg);
+        box-shadow: 0 0 26px rgba(142, 165, 255, 0.35);
+      }
+      .metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
       .metric {
         border: 1px solid var(--line);
         border-radius: 18px;
         padding: 14px;
         background: rgba(255, 255, 255, 0.035);
       }
+      .metric strong { display: block; margin-bottom: 5px; font-size: 1.1rem; }
+      .metric span { color: var(--muted); font-size: 0.83rem; }
 
-      .metric strong {
-        display: block;
-        margin-bottom: 6px;
-        font-size: 1.2rem;
+      section { margin-top: 76px; scroll-margin-top: 120px; }
+      .section-heading { display: flex; align-items: flex-end; gap: 18px; margin-bottom: 20px; }
+      .section-heading::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
+
+      .scan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .scan-card { display: grid; gap: 18px; padding: 24px; }
+      .scan-card.is-active { border-color: rgba(99, 246, 178, 0.62); background: rgba(99, 246, 178, 0.075); }
+      .scan-title-row { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+      .scan-badge {
+        border: 1px solid rgba(99, 246, 178, 0.32);
+        border-radius: 999px;
+        padding: 7px 10px;
+        color: var(--green);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.75rem;
+        font-weight: 900;
+        white-space: nowrap;
       }
 
-      .up { color: var(--green); }
-      .down { color: var(--red); }
-      .gold { color: var(--gold); }
-
-      .actions, .filters, .status-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .actions { margin-top: 26px; }
-
-      .button, .filters button {
+      .actions, .filters, .status-row, .result-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+      .button, .filters button, .result-actions a {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 18px;
-        background: var(--panel);
+        background: rgba(15, 22, 42, 0.82);
         color: var(--text);
         font-weight: 900;
         cursor: pointer;
         transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
       }
-
-      .button::before, .filters button::before {
+      .button.primary { background: var(--text); color: #08101f; border-color: var(--text); }
+      .button::before, .filters button::before, .result-actions a::before {
         content: "";
         width: 8px;
         height: 8px;
@@ -225,95 +204,25 @@
         background: var(--green);
         box-shadow: 0 0 16px var(--green);
       }
-
-      .button:hover, .filters button:hover, .filters button.is-active {
+      .button:hover, .filters button:hover, .filters button.is-active, .result-actions a:hover {
         transform: translateY(-2px);
         border-color: var(--green);
         background: rgba(99, 246, 178, 0.1);
       }
-
-      .filters button .filter-count {
-        min-width: 26px;
+      .button.primary:hover { background: var(--text); }
+      .filters button:disabled { cursor: not-allowed; opacity: 0.48; transform: none; }
+      .filter-count {
+        min-width: 28px;
         border: 1px solid rgba(142, 165, 255, 0.24);
         border-radius: 999px;
         padding: 2px 8px;
         background: rgba(142, 165, 255, 0.1);
         color: var(--muted);
         font-size: 0.72rem;
-        line-height: 1.4;
       }
 
-      section { margin-top: 72px; scroll-margin-top: 120px; }
-
-      .section-heading {
-        display: flex;
-        align-items: flex-end;
-        gap: 18px;
-        margin-bottom: 18px;
-      }
-
-      .section-heading::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(90deg, var(--line), transparent);
-      }
-
-      .scanner-shell {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-
-      .status-panel {
-        padding: 18px;
-      }
-
-      .progress-track {
-        height: 9px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        overflow: hidden;
-        margin-top: 12px;
-      }
-
-      .progress-track span {
-        display: block;
-        width: 0%;
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, var(--green), var(--blue));
-        transition: width 180ms ease;
-      }
-
-      .results-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      .result-card {
-        padding: 22px;
-        transition: transform 180ms ease, border-color 180ms ease;
-      }
-
-      .result-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--green);
-      }
-
-      .result-head {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 16px;
-      }
-
-      .symbol {
-        font-size: 1.45rem;
-        font-weight: 950;
-      }
-
+      .scanner-shell { display: grid; gap: 18px; }
+      .status-panel { padding: 18px; }
       .badge {
         display: inline-flex;
         align-items: center;
@@ -324,49 +233,65 @@
         color: var(--muted);
         font-size: 0.82rem;
       }
-
       .badge.bullish { color: var(--green); border-color: rgba(99, 246, 178, 0.32); }
       .badge.bearish { color: var(--red); border-color: rgba(251, 113, 133, 0.32); }
+      .badge.large { border-color: rgba(99, 246, 178, 0.35); }
+      .badge.mid { border-color: rgba(142, 165, 255, 0.38); }
+      .badge.small { border-color: rgba(246, 200, 95, 0.42); }
+      .badge.other { border-color: rgba(168, 179, 202, 0.28); }
 
-      .price-row {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
+      .progress-track {
+        height: 9px;
         margin-top: 16px;
+        border-radius: 999px;
+        background: rgba(142, 165, 255, 0.14);
+        overflow: hidden;
+      }
+      .progress-track span {
+        display: block;
+        width: 0%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
+        transition: width 380ms ease;
       }
 
+      .results-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .result-card { padding: 22px; }
+      .result-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+      .symbol { font-size: 1.45rem; font-weight: 950; letter-spacing: -0.04em; }
+      .price-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
       .mini-stat {
         border: 1px solid var(--line);
         border-radius: 16px;
         padding: 12px;
         background: rgba(255, 255, 255, 0.035);
       }
+      .mini-stat span { display: block; color: var(--muted); font-size: 0.75rem; }
+      .mini-stat strong { display: block; margin-top: 4px; }
+      .result-actions { margin-top: 18px; }
+      .result-actions a { padding: 10px 13px; font-size: 0.85rem; }
+      .gold { color: var(--gold); }
+      .empty { padding: 28px; color: var(--muted); background: rgba(255, 255, 255, 0.025); }
 
-      .mini-stat span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.75rem;
-      }
-
-      .mini-stat strong {
-        display: block;
-        margin-top: 4px;
-      }
-
-      .empty {
-        border: 1px dashed var(--line);
-        border-radius: 24px;
-        padding: 28px;
-        color: var(--muted);
-        background: rgba(255, 255, 255, 0.025);
-      }
-
-      .universe {
+      .universe-tools {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
       }
-
+      .search {
+        min-width: min(100%, 360px);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 13px 16px;
+        background: rgba(15, 22, 42, 0.82);
+        color: var(--text);
+        outline: none;
+      }
+      .search:focus { border-color: var(--green); }
+      .universe { display: flex; flex-wrap: wrap; gap: 8px; }
       .universe span {
         border: 1px solid var(--line);
         border-radius: 999px;
@@ -375,88 +300,128 @@
         color: var(--muted);
         font-size: 0.82rem;
       }
-
-      .universe span.large { border-color: rgba(99, 246, 178, 0.28); }
-      .universe span.mid { border-color: rgba(142, 165, 255, 0.32); }
-      .universe span.small { border-color: rgba(251, 191, 36, 0.30); }
-
+      .universe span.large { border-color: rgba(99, 246, 178, 0.32); }
+      .universe span.mid { border-color: rgba(142, 165, 255, 0.38); }
+      .universe span.small { border-color: rgba(246, 200, 95, 0.38); }
+      .universe span.other { border-color: rgba(168, 179, 202, 0.28); }
       .disclaimer {
         margin-top: 20px;
-        border: 1px solid rgba(251, 191, 36, 0.28);
+        border: 1px solid rgba(246, 200, 95, 0.28);
         border-radius: 20px;
         padding: 16px;
-        background: rgba(251, 191, 36, 0.08);
+        background: rgba(246, 200, 95, 0.08);
         color: var(--muted);
         font-size: 0.92rem;
       }
 
       @media (max-width: 980px) {
-        .hero { grid-template-columns: 1fr; }
-        .results-grid, .metric-grid { grid-template-columns: 1fr; }
+        main, .nav { width: min(100% - 28px, 1180px); }
+        .hero, .scan-grid, .results-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
+        .nav-links { width: 100%; overflow-x: auto; }
+        h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
       }
     </style>
   </head>
   <body>
-    <main class="shell">
-      <nav class="nav">
-        <a href="/" class="brand"><span>DM</span> NSE EMA Scanner</a>
-        <div class="nav-links">
-          <a href="#scanner">Scanner</a>
-          <a href="#results">Results</a>
-          <a href="#universe">Universe</a>
-        </div>
+    <header class="nav">
+      <a class="brand" href="/stocks/" aria-label="NSE EMA Scanner home">
+        <span class="mark">DM</span>
+        <span>NSE EMA Scanner</span>
+      </a>
+      <nav class="nav-links" aria-label="Stocks navigation">
+        <a href="#choose">Scanners</a>
+        <a href="#scanner">Results</a>
+        <a href="#universe">Universe</a>
+        <a href="/">Portfolio</a>
       </nav>
+    </header>
 
+    <main>
       <section class="hero">
         <div>
           <p class="eyebrow">Indian market only | NSE daily candles</p>
-          <h1>100 / 200 EMA cross scanner.</h1>
+          <h1>Full-market EMA cross scanner.</h1>
           <p class="hero-copy">
-            This page loads a generated NSE scan and shows only symbols where the 100-day EMA and 200-day EMA crossed within the last 15 trading sessions.
+            Choose a scanner first. The page does not load results on plain page open; it only loads the latest generated dataset after you select the 100/200 or 50/100 EMA crossover scan.
           </p>
           <div class="actions">
-            <button class="button" id="scanButton" type="button">Refresh scan data</button>
+            <a class="button primary" href="#choose">Choose scanner</a>
             <a class="button" href="/">Back to portfolio</a>
           </div>
           <p class="disclaimer">
-            Educational scanner only. Scan data is generated into this static site and should be verified on your broker/charting platform before taking any decision.
+            Educational scanner only. Signals are generated for research and should be verified on your broker or charting platform before taking any decision.
           </p>
         </div>
-        <aside class="panel scanner-card">
-          <div class="scanner-screen">
+        <aside class="panel scanner-visual" aria-label="EMA scanner visual">
+          <div class="screen">
             <p class="eyebrow">EMA logic</p>
-            <div class="scan-line"></div>
+            <div class="chart-lines"></div>
             <div class="metric-grid">
-              <div class="metric"><strong>100 EMA</strong><span>Fast trend</span></div>
-              <div class="metric"><strong>200 EMA</strong><span>Base trend</span></div>
-              <div class="metric"><strong>15</strong><span>Sessions window</span></div>
+              <div class="metric"><strong>100 / 200</strong><span>Trend cross</span></div>
+              <div class="metric"><strong>50 / 100</strong><span>Momentum cross</span></div>
+              <div class="metric"><strong>15</strong><span>Session window</span></div>
             </div>
           </div>
         </aside>
       </section>
 
+      <section id="choose">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Scanner selection</p>
+            <h2>Pick the crossover rule to run.</h2>
+          </div>
+        </div>
+        <div class="scan-grid">
+          <article class="scan-card" data-scan-card="100-200">
+            <div class="scan-title-row">
+              <div>
+                <p class="eyebrow">Trend scanner</p>
+                <h3>100 / 200 EMA cross</h3>
+              </div>
+              <span class="scan-badge">EMA 100 x EMA 200</span>
+            </div>
+            <p>Best for slower, higher-conviction trend changes where the medium trend crosses the long-term base trend.</p>
+            <a class="button primary" href="/stocks/?scan=100-200" data-scan-trigger="100-200">Run 100 / 200 scan</a>
+          </article>
+
+          <article class="scan-card" data-scan-card="50-100">
+            <div class="scan-title-row">
+              <div>
+                <p class="eyebrow">Momentum scanner</p>
+                <h3>50 / 100 EMA cross</h3>
+              </div>
+              <span class="scan-badge">EMA 50 x EMA 100</span>
+            </div>
+            <p>Best for earlier trend rotation signals where price momentum is changing before the slower 100/200 crossover.</p>
+            <a class="button primary" href="/stocks/?scan=50-100" data-scan-trigger="50-100">Run 50 / 100 scan</a>
+          </article>
+        </div>
+      </section>
+
       <section id="scanner">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Scanner</p>
-            <h2>Only fresh 100/200 EMA crosses are shown.</h2>
+            <p class="eyebrow">Scanner console</p>
+            <h2 id="resultTitle">Choose a scanner to load results.</h2>
           </div>
         </div>
         <div class="scanner-shell">
           <div class="panel status-panel">
             <div class="status-row">
-              <span class="badge" id="scanStatus">Loading generated NSE scan...</span>
+              <span class="badge" id="scanStatus">Waiting for scanner selection</span>
               <span class="badge" id="scanCount">0 scanned</span>
-              <span class="badge" id="scanTime">No scan yet</span>
+              <span class="badge" id="scanTime">No scan loaded</span>
             </div>
             <div class="progress-track"><span id="progressBar"></span></div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
-            <button class="is-active" data-cap-filter="all" type="button"><span>All caps</span><span class="filter-count">0</span></button>
+            <button class="is-active" data-cap-filter="all" type="button"><span>All market</span><span class="filter-count">0</span></button>
             <button data-cap-filter="large" type="button"><span>Large cap</span><span class="filter-count">0</span></button>
             <button data-cap-filter="mid" type="button"><span>Mid cap</span><span class="filter-count">0</span></button>
             <button data-cap-filter="small" type="button"><span>Small cap</span><span class="filter-count">0</span></button>
+            <button data-cap-filter="other" type="button"><span>Other NSE EQ</span><span class="filter-count">0</span></button>
           </div>
           <div class="filters" aria-label="Filter crossover results">
             <button class="is-active" data-filter="all" type="button">All crosses</button>
@@ -467,14 +432,8 @@
       </section>
 
       <section id="results">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Results</p>
-            <h2 id="resultTitle">Loading latest Indian EMA crosses.</h2>
-          </div>
-        </div>
         <div class="results-grid" id="resultsGrid">
-          <div class="empty">Loading generated NSE 100/200 EMA crossover scan...</div>
+          <div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>
         </div>
       </section>
 
@@ -482,468 +441,36 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Universe</p>
-            <h2>NSE scan universe by market-cap bucket.</h2>
+            <h2 id="universeTitle">Full NSE equity universe loads after scanner selection.</h2>
           </div>
         </div>
+        <div class="universe-tools">
+          <input class="search" id="universeSearch" type="search" placeholder="Search symbol or company after scan loads" />
+          <span class="badge" id="universeMeta">0 symbols loaded</span>
+        </div>
         <div class="universe" id="universeList"></div>
+        <p class="disclaimer" id="sourceNote">
+          Universe source: NSE securities available for equity trading. Cap buckets use NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250, and Other for the remaining NSE EQ securities.
+        </p>
       </section>
     </main>
 
     <script>
-      const NSE_UNIVERSE = [
-        {
-                "symbol": "RELIANCE",
-                "name": "Reliance Industries",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "TCS",
-                "name": "Tata Consultancy Services",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "HDFCBANK",
-                "name": "HDFC Bank",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ICICIBANK",
-                "name": "ICICI Bank",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "INFY",
-                "name": "Infosys",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "BHARTIARTL",
-                "name": "Bharti Airtel",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "SBIN",
-                "name": "State Bank of India",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ITC",
-                "name": "ITC",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "HINDUNILVR",
-                "name": "Hindustan Unilever",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "LT",
-                "name": "Larsen & Toubro",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "BAJFINANCE",
-                "name": "Bajaj Finance",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "HCLTECH",
-                "name": "HCL Technologies",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "KOTAKBANK",
-                "name": "Kotak Mahindra Bank",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "AXISBANK",
-                "name": "Axis Bank",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ASIANPAINT",
-                "name": "Asian Paints",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "MARUTI",
-                "name": "Maruti Suzuki",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "SUNPHARMA",
-                "name": "Sun Pharma",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "TITAN",
-                "name": "Titan",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ULTRACEMCO",
-                "name": "UltraTech Cement",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "NTPC",
-                "name": "NTPC",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "TATASTEEL",
-                "name": "Tata Steel",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "POWERGRID",
-                "name": "Power Grid",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "M&M",
-                "name": "Mahindra & Mahindra",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "NESTLEIND",
-                "name": "Nestle India",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "TECHM",
-                "name": "Tech Mahindra",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ADANIENT",
-                "name": "Adani Enterprises",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ADANIPORTS",
-                "name": "Adani Ports",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "WIPRO",
-                "name": "Wipro",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ONGC",
-                "name": "ONGC",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "COALINDIA",
-                "name": "Coal India",
-                "marketCap": "large"
-        },
-        {
-                "symbol": "ABB",
-                "name": "ABB India",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "AUBANK",
-                "name": "AU Small Finance Bank",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "ASTRAL",
-                "name": "Astral",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BALKRISIND",
-                "name": "Balkrishna Industries",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BANDHANBNK",
-                "name": "Bandhan Bank",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BANKBARODA",
-                "name": "Bank of Baroda",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BEL",
-                "name": "Bharat Electronics",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BHARATFORG",
-                "name": "Bharat Forge",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BHEL",
-                "name": "BHEL",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "BIOCON",
-                "name": "Biocon",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "CANBK",
-                "name": "Canara Bank",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "CHOLAFIN",
-                "name": "Cholamandalam Investment",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "CONCOR",
-                "name": "Container Corporation",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "CUMMINSIND",
-                "name": "Cummins India",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "DABUR",
-                "name": "Dabur",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "FEDERALBNK",
-                "name": "Federal Bank",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "GODREJCP",
-                "name": "Godrej Consumer Products",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "HAVELLS",
-                "name": "Havells India",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "IDFCFIRSTB",
-                "name": "IDFC First Bank",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "INDHOTEL",
-                "name": "Indian Hotels",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "IRCTC",
-                "name": "IRCTC",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "JINDALSTEL",
-                "name": "Jindal Steel",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "LUPIN",
-                "name": "Lupin",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "MUTHOOTFIN",
-                "name": "Muthoot Finance",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "NAUKRI",
-                "name": "Info Edge",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "PERSISTENT",
-                "name": "Persistent Systems",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "POLYCAB",
-                "name": "Polycab India",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "RECLTD",
-                "name": "REC",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "TVSMOTOR",
-                "name": "TVS Motor",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "VBL",
-                "name": "Varun Beverages",
-                "marketCap": "mid"
-        },
-        {
-                "symbol": "AARTIIND",
-                "name": "Aarti Industries",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "AFFLE",
-                "name": "Affle India",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "ANGELONE",
-                "name": "Angel One",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "APLAPOLLO",
-                "name": "APL Apollo Tubes",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "BATAINDIA",
-                "name": "Bata India",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "BLUESTARCO",
-                "name": "Blue Star",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "CDSL",
-                "name": "CDSL",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "CHAMBLFERT",
-                "name": "Chambal Fertilisers",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "DEEPAKNTR",
-                "name": "Deepak Nitrite",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "EIDPARRY",
-                "name": "EID Parry",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "EQUITASBNK",
-                "name": "Equitas Small Finance Bank",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "EXIDEIND",
-                "name": "Exide Industries",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "FINEORG",
-                "name": "Fine Organic Industries",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "GLENMARK",
-                "name": "Glenmark Pharma",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "GNFC",
-                "name": "GNFC",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "GRANULES",
-                "name": "Granules India",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "GUJGASLTD",
-                "name": "Gujarat Gas",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "HAPPSTMNDS",
-                "name": "Happiest Minds",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "IEX",
-                "name": "Indian Energy Exchange",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "INDIACEM",
-                "name": "India Cements",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "INTELLECT",
-                "name": "Intellect Design",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "KPITTECH",
-                "name": "KPIT Technologies",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "LALPATHLAB",
-                "name": "Dr Lal PathLabs",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "LAURUSLABS",
-                "name": "Laurus Labs",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "MANAPPURAM",
-                "name": "Manappuram Finance",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "METROPOLIS",
-                "name": "Metropolis Healthcare",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "NATIONALUM",
-                "name": "NALCO",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "PVRINOX",
-                "name": "PVR INOX",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "RBLBANK",
-                "name": "RBL Bank",
-                "marketCap": "small"
-        },
-        {
-                "symbol": "TANLA",
-                "name": "Tanla Platforms",
-                "marketCap": "small"
+      const SCANS = {
+        "100-200": {
+          label: "100 / 200 EMA cross",
+          file: "/stocks/data/ema-100-200-crosses.json",
+          fast: 100,
+          slow: 200
+        },
+        "50-100": {
+          label: "50 / 100 EMA cross",
+          file: "/stocks/data/ema-50-100-crosses.json",
+          fast: 50,
+          slow: 100
         }
-];
+      };
 
-      const scanButton = document.getElementById("scanButton");
       const resultsGrid = document.getElementById("resultsGrid");
       const resultTitle = document.getElementById("resultTitle");
       const scanStatus = document.getElementById("scanStatus");
@@ -951,45 +478,28 @@
       const scanTime = document.getElementById("scanTime");
       const progressBar = document.getElementById("progressBar");
       const universeList = document.getElementById("universeList");
+      const universeTitle = document.getElementById("universeTitle");
+      const universeMeta = document.getElementById("universeMeta");
+      const universeSearch = document.getElementById("universeSearch");
       const filterButtons = document.querySelectorAll("[data-filter]");
       const capFilterButtons = document.querySelectorAll("[data-cap-filter]");
+      const scanCards = document.querySelectorAll("[data-scan-card]");
+      const scanTriggers = document.querySelectorAll("[data-scan-trigger]");
 
+      let activeScanId = null;
+      let latestPayload = null;
       let latestResults = [];
+      let latestUniverse = [];
       let activeFilter = "all";
       let activeCapFilter = "all";
-      let latestUniverse = NSE_UNIVERSE;
+      let universeQuery = "";
 
-      renderUniverse();
-
-      async function runScan() {
-        scanButton.disabled = true;
-        latestResults = [];
-        renderResults();
-        scanStatus.textContent = "Loading generated NSE scan...";
-        scanCount.textContent = "Loading";
-        progressBar.style.width = "28%";
-
-        try {
-          const response = await fetch(`/stocks/data/ema-crosses.json?ts=${Date.now()}`);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const payload = await response.json();
-          latestResults = payload.results || [];
-          latestUniverse = payload.universe || NSE_UNIVERSE;
-          renderUniverse();
-          progressBar.style.width = "100%";
-          scanStatus.textContent = payload.failureCount
-            ? `Loaded scan with ${payload.failureCount} provider miss${payload.failureCount === 1 ? "" : "es"}`
-            : "Loaded latest generated scan";
-          scanCount.textContent = `${payload.universeSize} scanned`;
-          scanTime.textContent = new Date(payload.generatedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-        } catch (error) {
-          scanStatus.textContent = `Unable to load scan: ${error.message}`;
-          scanCount.textContent = "0 scanned";
-          progressBar.style.width = "0%";
-        } finally {
-          scanButton.disabled = false;
-          renderResults();
-        }
+      function capLabel(value) {
+        if (value === "large") return "Large cap";
+        if (value === "mid") return "Mid cap";
+        if (value === "small") return "Small cap";
+        if (value === "other") return "Other NSE EQ";
+        return "All market";
       }
 
       function formatDate(timestamp) {
@@ -1001,11 +511,19 @@
         });
       }
 
-      function capLabel(value) {
-        if (value === "large") return "Large cap";
-        if (value === "mid") return "Mid cap";
-        if (value === "small") return "Small cap";
-        return "All caps";
+      function formatScanTime(value) {
+        return new Date(value).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+      }
+
+      function updateUrl(scanId) {
+        const nextUrl = new URL(window.location.href);
+        nextUrl.searchParams.set("scan", scanId);
+        history.pushState({ scanId }, "", nextUrl);
+      }
+
+      function setActiveScan(scanId) {
+        activeScanId = scanId;
+        scanCards.forEach((card) => card.classList.toggle("is-active", card.dataset.scanCard === scanId));
       }
 
       function updateCapCounts() {
@@ -1013,7 +531,7 @@
           acc.all += 1;
           acc[item.marketCap] = (acc[item.marketCap] || 0) + 1;
           return acc;
-        }, { all: 0, large: 0, mid: 0, small: 0 });
+        }, { all: 0, large: 0, mid: 0, small: 0, other: 0 });
 
         capFilterButtons.forEach((button) => {
           const count = button.querySelector(".filter-count");
@@ -1021,58 +539,137 @@
         });
       }
 
-      function renderUniverse() {
-        updateCapCounts();
-        const visibleUniverse = activeCapFilter === "all"
-          ? latestUniverse
-          : latestUniverse.filter((item) => item.marketCap === activeCapFilter);
+      async function loadScan(scanId, shouldUpdateUrl = true) {
+        const config = SCANS[scanId];
+        if (!config) return;
 
-        universeList.innerHTML = visibleUniverse
-          .map((item) => `<span class="${item.marketCap}">${item.symbol}.NS - ${capLabel(item.marketCap)}</span>`)
-          .join("");
+        setActiveScan(scanId);
+        if (shouldUpdateUrl) updateUrl(scanId);
+        latestPayload = null;
+        latestResults = [];
+        latestUniverse = [];
+        renderResults();
+        renderUniverse();
+        scanStatus.textContent = `Loading latest ${config.label} dataset`;
+        scanCount.textContent = "Loading";
+        scanTime.textContent = "Please wait";
+        progressBar.style.width = "34%";
+
+        try {
+          const response = await fetch(`${config.file}?ts=${Date.now()}`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const payload = await response.json();
+          latestPayload = payload;
+          latestResults = payload.results || [];
+          latestUniverse = payload.universe || [];
+          progressBar.style.width = "100%";
+          scanStatus.textContent = `Loaded ${payload.label}`;
+          scanCount.textContent = `${payload.pricedUniverseSize || payload.universeSize || 0} scanned`;
+          scanTime.textContent = formatScanTime(payload.generatedAt);
+        } catch (error) {
+          latestPayload = null;
+          scanStatus.textContent = `Unable to load scan: ${error.message}`;
+          scanCount.textContent = "0 scanned";
+          scanTime.textContent = "Load failed";
+          progressBar.style.width = "0%";
+        }
+
+        renderResults();
+        renderUniverse();
+        document.getElementById("scanner").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function resultMatches(item) {
+        const typeMatch = activeFilter === "all" || item.type === activeFilter;
+        const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+        return typeMatch && capMatch;
       }
 
       function renderResults() {
-        const filtered = latestResults.filter((item) => {
-          const typeMatch = activeFilter === "all" || item.type === activeFilter;
-          const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
-          return typeMatch && capMatch;
-        });
+        const config = activeScanId ? SCANS[activeScanId] : null;
+        const filtered = latestResults.filter(resultMatches);
+
+        if (!activeScanId) {
+          resultTitle.textContent = "Choose a scanner to load results.";
+          resultsGrid.innerHTML = '<div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>';
+          return;
+        }
+
+        if (!latestPayload) {
+          resultTitle.textContent = `${config.label} selected.`;
+          resultsGrid.innerHTML = '<div class="empty">Scanner selected. Waiting for generated data to load.</div>';
+          return;
+        }
 
         const typeText = activeFilter === "all" ? "EMA cross" : `${activeFilter} EMA cross`;
         const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
-        resultTitle.textContent = latestResults.length
-          ? `${filtered.length} ${capText}${typeText} result${filtered.length === 1 ? "" : "s"}`
-          : "No EMA 100/200 crosses found yet.";
+        resultTitle.textContent = `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}`;
 
         if (!filtered.length) {
-          resultsGrid.innerHTML = `<div class="empty">${latestResults.length ? "No results for this market-cap / crossover filter." : "No stocks currently match the EMA 100/200 crossover rule in the scanned NSE universe."}</div>`;
+          resultsGrid.innerHTML = '<div class="empty">No stocks match this market-cap and crossover filter in the latest generated scan.</div>';
           return;
         }
 
         resultsGrid.innerHTML = filtered
-          .sort((a, b) => a.sessionsAgo - b.sessionsAgo)
-          .map((item) => `
-            <article class="result-card">
-              <div class="result-head">
-                <div>
-                  <div class="symbol">${item.symbol}.NS</div>
-                  <p>${item.name}</p>
+          .sort((a, b) => a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol))
+          .map((item) => {
+            const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
+            const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
+            const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
+            return `
+              <article class="result-card">
+                <div class="result-head">
+                  <div>
+                    <div class="symbol">${item.symbol}.NS</div>
+                    <p>${item.name}</p>
+                  </div>
+                  <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
                 </div>
-                <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
-              </div>
-              <p>
-                100 EMA ${item.type === "bullish" ? "crossed above" : "crossed below"} 200 EMA
-                <strong>${item.sessionsAgo}</strong> session${item.sessionsAgo === 1 ? "" : "s"} ago.
-              </p>
-              <div class="price-row">
-                <div class="mini-stat"><span>Close</span><strong>Rs. ${item.close.toFixed(2)}</strong></div>
-                <div class="mini-stat"><span>EMA 100</span><strong>Rs. ${item.ema100.toFixed(2)}</strong></div>
-                <div class="mini-stat"><span>EMA 200</span><strong>Rs. ${item.ema200.toFixed(2)}</strong></div>
-              </div>
-              <p class="gold">Cross date: ${formatDate(item.timestamp)}</p>
-            </article>
-          `)
+                <p>
+                  ${latestPayload.fastPeriod} EMA ${item.type === "bullish" ? "crossed above" : "crossed below"} ${latestPayload.slowPeriod} EMA
+                  <strong>${item.sessionsAgo}</strong> session${item.sessionsAgo === 1 ? "" : "s"} ago.
+                </p>
+                <div class="price-row">
+                  <div class="mini-stat"><span>Close</span><strong>Rs. ${Number(item.close).toFixed(2)}</strong></div>
+                  <div class="mini-stat"><span>EMA ${latestPayload.fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
+                  <div class="mini-stat"><span>EMA ${latestPayload.slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
+                </div>
+                <p class="gold">Cross date: ${formatDate(item.timestamp)}</p>
+                <div class="result-actions" aria-label="Open ${item.symbol} links">
+                  <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
+                  <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
+                  <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      function renderUniverse() {
+        updateCapCounts();
+        if (!latestUniverse.length) {
+          universeTitle.textContent = "Full NSE equity universe loads after scanner selection.";
+          universeMeta.textContent = "0 symbols loaded";
+          universeList.innerHTML = "";
+          return;
+        }
+
+        const query = universeQuery.trim().toUpperCase();
+        const visibleUniverse = latestUniverse.filter((item) => {
+          const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+          const queryMatch = !query || item.symbol.includes(query) || item.name.toUpperCase().includes(query);
+          return capMatch && queryMatch;
+        });
+        const rendered = visibleUniverse.slice(0, 320);
+        const hiddenCount = Math.max(visibleUniverse.length - rendered.length, 0);
+
+        universeTitle.textContent = `${latestUniverse.length} NSE equity symbols in this scan.`;
+        universeMeta.textContent = hiddenCount
+          ? `Showing ${rendered.length} of ${visibleUniverse.length}. Use search or filters to narrow.`
+          : `Showing ${rendered.length} of ${visibleUniverse.length}`;
+        universeList.innerHTML = rendered
+          .map((item) => `<span class="${item.marketCap}">${item.symbol}.NS - ${capLabel(item.marketCap)}</span>`)
           .join("");
       }
 
@@ -1090,13 +687,35 @@
           capFilterButtons.forEach((item) => item.classList.remove("is-active"));
           button.classList.add("is-active");
           activeCapFilter = button.dataset.capFilter;
-          renderUniverse();
           renderResults();
+          renderUniverse();
         });
       });
 
-      scanButton.addEventListener("click", runScan);
-      runScan();
+      scanTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+          event.preventDefault();
+          loadScan(trigger.dataset.scanTrigger, true);
+        });
+      });
+
+      universeSearch.addEventListener("input", (event) => {
+        universeQuery = event.target.value || "";
+        renderUniverse();
+      });
+
+      window.addEventListener("popstate", () => {
+        const scanId = new URLSearchParams(window.location.search).get("scan");
+        if (SCANS[scanId]) loadScan(scanId, false);
+      });
+
+      const initialScanId = new URLSearchParams(window.location.search).get("scan");
+      if (SCANS[initialScanId]) {
+        loadScan(initialScanId, false);
+      } else {
+        renderResults();
+        renderUniverse();
+      }
     </script>
   </body>
 </html>
