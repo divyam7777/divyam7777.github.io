@@ -30,12 +30,6 @@ jobs:
       - name: Generate full-market scanner data
         run: python scripts/scan-nse-ema.py
 
-      - name: Commit updated scanner data
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update NSE EMA scanner data"
-          file_pattern: public/stocks/data/*.json
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -47,6 +41,12 @@ jobs:
 
       - name: Build site with latest scanner data
         run: npm run build
+
+      - name: Commit updated scanner data and Pages fallback
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update NSE EMA scanner data"
+          file_pattern: public/stocks/data/*.json dist/stocks/data/*.json stocks/data/*.json
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

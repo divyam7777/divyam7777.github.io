@@ -1,0 +1,23 @@
+{
+  "market": "NSE India",
+  "generatedAt": "2026-05-23T07:25:26.672381+00:00",
+  "universeSize": 2144,
+  "pricedUniverseSize": 2144,
+  "failureCount": 0,
+  "availableScans": [
+    {
+      "scanId": "100-200",
+      "label": "100 / 200 EMA cross",
+      "file": "ema-100-200-crosses.json",
+      "resultCount": 102,
+      "rule": "100 EMA / 200 EMA crossover within last 15 daily sessions"
+    },
+    {
+      "scanId": "50-100",
+      "label": "50 / 100 EMA cross",
+      "file": "ema-50-100-crosses.json",
+      "resultCount": 334,
+      "rule": "50 EMA / 100 EMA crossover within last 15 daily sessions"
+    }
+  ]
+}

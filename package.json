@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/prepare-vite-index.mjs && vite",
+    "build": "node scripts/prepare-vite-index.mjs && vite build && node scripts/sync-pages-root.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
