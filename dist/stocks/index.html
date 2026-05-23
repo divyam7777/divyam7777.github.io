@@ -433,7 +433,7 @@
         animation: progressFlow 1.25s linear infinite;
       }
 
-      .results-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .results-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
       .result-card {
         padding: 22px;
         transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
@@ -452,6 +452,167 @@
         justify-content: flex-end;
       }
       .symbol { font-size: 1.45rem; font-weight: 950; letter-spacing: -0.04em; }
+      .result-table-shell {
+        grid-column: 1 / -1;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 12px;
+        background:
+          radial-gradient(circle at 10% 0%, rgba(99, 246, 178, 0.12), transparent 34%),
+          radial-gradient(circle at 92% 0%, rgba(246, 200, 95, 0.11), transparent 30%),
+          var(--panel);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+      }
+      .result-table-shell::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
+      }
+      .result-table-head,
+      .result-row {
+        display: grid;
+        grid-template-columns:
+          minmax(180px, 1.55fr)
+          minmax(118px, 0.9fr)
+          minmax(96px, 0.7fr)
+          minmax(92px, 0.64fr)
+          minmax(132px, 0.92fr)
+          minmax(86px, 0.56fr)
+          minmax(112px, 0.72fr)
+          minmax(160px, 0.9fr);
+        gap: 12px;
+        align-items: center;
+      }
+      .result-table-head {
+        padding: 2px 14px 10px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .result-table-body { display: grid; gap: 10px; }
+      .result-row {
+        position: relative;
+        overflow: hidden;
+        min-width: 0;
+        border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
+        border-radius: 22px;
+        padding: 14px;
+        background:
+          linear-gradient(135deg, rgba(142, 165, 255, 0.08), transparent 42%),
+          var(--control-bg);
+        cursor: pointer;
+        transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+        animation: cardIn 340ms ease both;
+      }
+      .result-row::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 3px;
+        background: var(--blue);
+        opacity: 0.92;
+      }
+      .result-row.bullish::before { background: var(--green); }
+      .result-row.bearish::before { background: var(--red); }
+      .result-row:hover,
+      .result-row:focus-visible {
+        transform: translateY(-2px);
+        border-color: color-mix(in srgb, var(--green) 52%, transparent);
+        background: var(--card-hover);
+        box-shadow: 0 18px 48px rgba(2, 6, 23, 0.22);
+        outline: none;
+      }
+      .result-cell {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .cell-label {
+        display: none;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 950;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .row-symbol {
+        display: block;
+        overflow: hidden;
+        color: var(--text);
+        font-size: 1.03rem;
+        font-weight: 950;
+        letter-spacing: -0.03em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .row-subtext,
+      .row-value-muted {
+        overflow: hidden;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.35;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .row-value {
+        color: var(--text);
+        font-weight: 950;
+        white-space: nowrap;
+      }
+      .ema-pair {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .row-actions {
+        min-width: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .row-action,
+      .row-open {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 9px 11px;
+        background: rgba(142, 165, 255, 0.08);
+        color: var(--text);
+        font-size: 0.78rem;
+        font-weight: 950;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .row-action {
+        cursor: pointer;
+        transition: 160ms ease;
+      }
+      .row-action:hover {
+        border-color: var(--green);
+        background: rgba(99, 246, 178, 0.12);
+        transform: translateY(-1px);
+      }
+      .row-action.is-watchlisted {
+        border-color: color-mix(in srgb, var(--gold) 58%, transparent);
+        color: var(--gold);
+      }
+      .row-open {
+        color: var(--muted);
+      }
       .score-pill {
         display: inline-flex;
         align-items: center;
@@ -653,6 +814,14 @@
         margin: 18px 0;
       }
 
+      @media (max-width: 1140px) {
+        .result-table-head { display: none; }
+        .result-row { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 16px; }
+        .stock-cell, .row-actions { grid-column: 1 / -1; }
+        .row-actions { justify-content: flex-start; }
+        .cell-label { display: block; }
+      }
+
       @media (max-width: 980px) {
         main, .nav { width: min(100% - 28px, 1180px); }
         .hero, .scan-grid, .results-grid, .dashboard-grid, .skeleton-grid { grid-template-columns: 1fr; }
@@ -661,6 +830,13 @@
         .nav-links { width: 100%; overflow-x: auto; }
         .theme-toggle, .market-clock { width: 100%; justify-content: center; }
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
+      }
+
+      @media (max-width: 620px) {
+        .result-table-shell { border-radius: 24px; padding: 10px; }
+        .result-row { grid-template-columns: 1fr; border-radius: 20px; }
+        .row-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .row-action, .row-open { width: 100%; padding-inline: 8px; }
       }
 
       @keyframes marketGlow {
@@ -1338,7 +1514,6 @@
           return;
         }
 
-        const typeText = activeFilter === "all" ? "EMA cross" : `${activeFilter} EMA cross`;
         const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
         const searchText = universeQuery.trim() ? ` matching "${universeQuery.trim()}"` : "";
         resultTitle.textContent = `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}${searchText}`;
@@ -1348,49 +1523,70 @@
           return;
         }
 
-        resultsGrid.innerHTML = sortResults(filtered)
+        const rows = sortResults(filtered)
           .map((item) => {
-            const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
-            const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
-            const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
             const grade = scoreGrade(item).toLowerCase();
-            const primaryReason = item.score?.reasons?.[0] || "EMA crossover signal is inside the scan window";
             const isSaved = watchlist.has(item.symbol);
+            const actionText = item.type === "bullish" ? "Above" : "Below";
             return `
-              <article class="result-card" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
-                <div class="result-head">
-                  <div>
-                    <div class="symbol">${escapeHtml(item.symbol)}.NS</div>
-                    <p>${escapeHtml(item.name)}</p>
-                  </div>
-                  <div class="result-meta">
-                    <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
-                    <span class="score-pill grade-${grade}">Score ${scoreValue(item)} - ${scoreGrade(item)}</span>
-                  </div>
+              <article class="result-row ${item.type}" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
+                <div class="result-cell stock-cell">
+                  <span class="cell-label">Stock</span>
+                  <strong class="row-symbol">${escapeHtml(item.symbol)}.NS</strong>
+                  <span class="row-subtext">${escapeHtml(item.name)}</span>
                 </div>
-                ${sparklineSvg(item.sparkline, item.type)}
-                <p>
-                  ${latestPayload.fastPeriod} EMA ${item.type === "bullish" ? "crossed above" : "crossed below"} ${latestPayload.slowPeriod} EMA
-                  <strong>${item.sessionsAgo}</strong> session${item.sessionsAgo === 1 ? "" : "s"} ago.
-                </p>
-                <p>${escapeHtml(primaryReason)}</p>
-                <div class="price-row">
-                  <div class="mini-stat"><span>Close</span><strong>Rs. ${Number(item.close).toFixed(2)}</strong></div>
-                  <div class="mini-stat"><span>EMA ${latestPayload.fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
-                  <div class="mini-stat"><span>EMA ${latestPayload.slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
+                <div class="result-cell">
+                  <span class="cell-label">Signal</span>
+                  <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
+                  <span class="row-value-muted">${escapeHtml(item.sector || "Unclassified")}</span>
                 </div>
-                <p class="gold">Cross date: ${formatDate(item.timestamp)} | Sector: ${escapeHtml(item.sector || "Unclassified")}</p>
-                <div class="result-actions" aria-label="Open ${item.symbol} links">
-                  <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
-                  <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
-                  <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
-                  <button type="button" data-copy-symbol="${item.symbol}">Copy symbol</button>
-                  <button type="button" class="${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}">${isSaved ? "Saved" : "Watchlist"}</button>
+                <div class="result-cell">
+                  <span class="cell-label">Score</span>
+                  <span class="score-pill grade-${grade}">${scoreValue(item)} - ${scoreGrade(item)}</span>
+                </div>
+                <div class="result-cell">
+                  <span class="cell-label">Close</span>
+                  <span class="row-value">Rs. ${Number(item.close).toFixed(2)}</span>
+                </div>
+                <div class="result-cell ema-pair">
+                  <span class="cell-label">EMAs</span>
+                  <span class="row-value-muted">${latestPayload.fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}</span>
+                  <span class="row-value-muted">${latestPayload.slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}</span>
+                </div>
+                <div class="result-cell">
+                  <span class="cell-label">Freshness</span>
+                  <span class="row-value">${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}</span>
+                  <span class="row-value-muted">${actionText} ${latestPayload.slowPeriod}</span>
+                </div>
+                <div class="result-cell">
+                  <span class="cell-label">Cross date</span>
+                  <span class="row-value">${formatDate(item.timestamp)}</span>
+                </div>
+                <div class="row-actions" aria-label="${item.symbol} quick actions">
+                  <button type="button" class="row-action" data-copy-symbol="${item.symbol}" aria-label="Copy ${item.symbol}.NS">Copy</button>
+                  <button type="button" class="row-action ${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}" aria-label="${isSaved ? "Remove from" : "Add to"} watchlist">${isSaved ? "Saved" : "Watch"}</button>
+                  <span class="row-open">Details</span>
                 </div>
               </article>
             `;
           })
           .join("");
+
+        resultsGrid.innerHTML = `
+          <div class="result-table-shell" aria-label="EMA crossover row results">
+            <div class="result-table-head" aria-hidden="true">
+              <span>Stock</span>
+              <span>Signal</span>
+              <span>Score</span>
+              <span>Close</span>
+              <span>EMAs</span>
+              <span>Freshness</span>
+              <span>Cross date</span>
+              <span>Actions</span>
+            </div>
+            <div class="result-table-body">${rows}</div>
+          </div>
+        `;
       }
 
       function renderUniverse() {
@@ -1567,6 +1763,7 @@
 
       resultsGrid.addEventListener("keydown", (event) => {
         if (event.key !== "Enter" && event.key !== " ") return;
+        if (event.target.closest("a, button, input, select")) return;
         const card = event.target.closest("[data-result-symbol]");
         if (!card) return;
         event.preventDefault();
