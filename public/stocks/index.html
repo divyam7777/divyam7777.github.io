@@ -361,19 +361,27 @@
         font-size: clamp(1.35rem, 3vw, 2rem);
         line-height: 1;
       }
-      .toolbar-panel {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 14px;
-      }
-      .advanced-panel {
+      .control-deck {
         display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 18px;
+        padding: 18px;
+      }
+      .control-deck::before {
+        height: 4px;
+      }
+      .control-top {
+        display: grid;
+        grid-template-columns: minmax(280px, 1fr) minmax(220px, 0.34fr) auto auto;
         gap: 12px;
-        padding: 14px;
+        align-items: end;
+      }
+      .control-filters {
+        display: grid;
+        grid-template-columns: 1.35fr 0.95fr 0.9fr 0.8fr 0.8fr 0.95fr;
+        gap: 12px;
+        align-items: end;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
       }
       .filter-field {
         display: grid;
@@ -385,13 +393,6 @@
         font-weight: 900;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-      }
-      .search-panel {
-        display: grid;
-        grid-template-columns: minmax(260px, 1fr) auto;
-        gap: 12px;
-        align-items: center;
-        padding: 14px;
       }
       .badge {
         display: inline-flex;
@@ -532,6 +533,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        padding-top: 2px;
       }
       .hotlist[hidden] { display: none; }
       .quick-chip {
@@ -667,11 +669,10 @@
       @media (max-width: 980px) {
         main, .nav { width: min(100% - 28px, 1180px); }
         .hero, .scan-grid, .results-grid, .dashboard-grid, .skeleton-grid { grid-template-columns: 1fr; }
-        .advanced-panel, .modal-grid { grid-template-columns: 1fr; }
+        .control-top, .control-filters, .modal-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
         .nav-links { width: 100%; overflow-x: auto; }
         .theme-toggle, .market-clock { width: 100%; justify-content: center; }
-        .search-panel { grid-template-columns: 1fr; }
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
       }
 
@@ -821,61 +822,70 @@
             <article class="stat-tile"><span>Fresh today</span><strong id="summaryFresh">0</strong></article>
             <article class="stat-tile"><span>Coverage</span><strong id="summaryCoverage">0%</strong></article>
           </div>
-          <div class="panel search-panel">
-            <input class="search" id="stockSearch" type="search" placeholder="Search stock symbol or company, e.g. RELIANCE, TCS, HDFC" autocomplete="off" />
-            <button class="search-clear" id="clearSearch" type="button">Clear</button>
-          </div>
-          <div class="panel toolbar-panel">
-            <select class="sort-select" id="sortSelect" aria-label="Sort scan results">
-              <option value="fresh">Sort: Freshest cross first</option>
-              <option value="symbol">Sort: Symbol A-Z</option>
-              <option value="score">Sort: Strongest score</option>
-              <option value="bullish">Sort: Bullish first</option>
-              <option value="bearish">Sort: Bearish first</option>
-              <option value="closeHigh">Sort: Highest close</option>
-            </select>
+          <div class="panel control-deck" aria-label="Scanner controls">
+            <div class="control-top">
+              <label class="filter-field">
+                <span>Stock search</span>
+                <input class="search" id="stockSearch" type="search" placeholder="Search symbol or company, e.g. RELIANCE, TCS, HDFC" autocomplete="off" />
+              </label>
+              <label class="filter-field">
+                <span>Sort</span>
+                <select class="sort-select" id="sortSelect" aria-label="Sort scan results">
+                  <option value="fresh">Freshest cross first</option>
+                  <option value="symbol">Symbol A-Z</option>
+                  <option value="score">Strongest score</option>
+                  <option value="bullish">Bullish first</option>
+                  <option value="bearish">Bearish first</option>
+                  <option value="closeHigh">Highest close</option>
+                </select>
+              </label>
+              <label class="filter-field">
+                <span>Reset</span>
+                <button class="search-clear" id="clearSearch" type="button">Clear</button>
+              </label>
+              <label class="filter-field">
+                <span>Export</span>
+                <button class="utility-button" id="exportCsv" type="button">Export CSV</button>
+              </label>
+            </div>
             <div class="hotlist" id="hotlist" hidden aria-label="Quick focus stocks"></div>
-          </div>
-          <div class="panel advanced-panel" aria-label="Advanced scanner filters">
-            <label class="filter-field">
-              <span>Sector</span>
-              <select class="filter-select" id="sectorSelect">
-                <option value="all">All sectors</option>
-              </select>
-            </label>
-            <label class="filter-field">
-              <span>Freshness</span>
-              <select class="filter-select" id="sessionSelect">
-                <option value="15">Last 15 sessions</option>
-                <option value="5">Last 5 sessions</option>
-                <option value="0">Fresh today</option>
-              </select>
-            </label>
-            <label class="filter-field">
-              <span>Score</span>
-              <select class="filter-select" id="scoreSelect">
-                <option value="all">All scores</option>
-                <option value="A">A only</option>
-                <option value="AB">A or B</option>
-                <option value="ABC">A/B/C</option>
-              </select>
-            </label>
-            <label class="filter-field">
-              <span>Min close</span>
-              <input class="filter-input" id="minPrice" type="number" min="0" step="1" placeholder="0" />
-            </label>
-            <label class="filter-field">
-              <span>Max close</span>
-              <input class="filter-input" id="maxPrice" type="number" min="0" step="1" placeholder="No limit" />
-            </label>
-            <label class="filter-field">
-              <span>Utilities</span>
-              <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
-            </label>
-            <label class="filter-field">
-              <span>Export</span>
-              <button class="utility-button" id="exportCsv" type="button">Export CSV</button>
-            </label>
+            <div class="control-filters" aria-label="Advanced scanner filters">
+              <label class="filter-field">
+                <span>Sector</span>
+                <select class="filter-select" id="sectorSelect">
+                  <option value="all">All sectors</option>
+                </select>
+              </label>
+              <label class="filter-field">
+                <span>Freshness</span>
+                <select class="filter-select" id="sessionSelect">
+                  <option value="15">Last 15 sessions</option>
+                  <option value="5">Last 5 sessions</option>
+                  <option value="0">Fresh today</option>
+                </select>
+              </label>
+              <label class="filter-field">
+                <span>Score</span>
+                <select class="filter-select" id="scoreSelect">
+                  <option value="all">All scores</option>
+                  <option value="A">A only</option>
+                  <option value="AB">A or B</option>
+                  <option value="ABC">A/B/C</option>
+                </select>
+              </label>
+              <label class="filter-field">
+                <span>Min close</span>
+                <input class="filter-input" id="minPrice" type="number" min="0" step="1" placeholder="0" />
+              </label>
+              <label class="filter-field">
+                <span>Max close</span>
+                <input class="filter-input" id="maxPrice" type="number" min="0" step="1" placeholder="No limit" />
+              </label>
+              <label class="filter-field">
+                <span>Watchlist</span>
+                <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
+              </label>
+            </div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
             <button class="is-active" data-cap-filter="all" type="button"><span>All market</span><span class="filter-count">0</span></button>
