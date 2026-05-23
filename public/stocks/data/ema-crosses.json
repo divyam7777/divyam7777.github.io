@@ -1,26 +1,501 @@
 {
   "market": "NSE India",
   "rule": "100 EMA / 200 EMA crossover within last 15 daily sessions",
-  "generatedAt": "2026-05-23T05:36:14.018930+00:00",
-  "universeSize": 48,
-  "resultCount": 1,
-  "failureCount": 1,
-  "results": [
+  "generatedAt": "2026-05-23T05:47:38.943495+00:00",
+  "universeSize": 90,
+  "universe": [
     {
-      "symbol": "BRITANNIA",
-      "name": "Britannia",
-      "type": "bearish",
-      "sessionsAgo": 7,
-      "ema100": 5769.274696480527,
-      "ema200": 5770.981851138783,
-      "close": 5336.0,
-      "timestamp": 1778643900
+      "symbol": "RELIANCE",
+      "name": "Reliance Industries",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "TCS",
+      "name": "Tata Consultancy Services",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "HDFCBANK",
+      "name": "HDFC Bank",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ICICIBANK",
+      "name": "ICICI Bank",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "INFY",
+      "name": "Infosys",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "BHARTIARTL",
+      "name": "Bharti Airtel",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "SBIN",
+      "name": "State Bank of India",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ITC",
+      "name": "ITC",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "name": "Hindustan Unilever",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "LT",
+      "name": "Larsen & Toubro",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "name": "Bajaj Finance",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "HCLTECH",
+      "name": "HCL Technologies",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "name": "Kotak Mahindra Bank",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "AXISBANK",
+      "name": "Axis Bank",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "name": "Asian Paints",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "MARUTI",
+      "name": "Maruti Suzuki",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "name": "Sun Pharma",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "TITAN",
+      "name": "Titan",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "name": "UltraTech Cement",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "NTPC",
+      "name": "NTPC",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "TATASTEEL",
+      "name": "Tata Steel",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "POWERGRID",
+      "name": "Power Grid",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "M&M",
+      "name": "Mahindra & Mahindra",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "NESTLEIND",
+      "name": "Nestle India",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "TECHM",
+      "name": "Tech Mahindra",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ADANIENT",
+      "name": "Adani Enterprises",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "name": "Adani Ports",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "WIPRO",
+      "name": "Wipro",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ONGC",
+      "name": "ONGC",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "COALINDIA",
+      "name": "Coal India",
+      "marketCap": "large"
+    },
+    {
+      "symbol": "ABB",
+      "name": "ABB India",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "AUBANK",
+      "name": "AU Small Finance Bank",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "ASTRAL",
+      "name": "Astral",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BALKRISIND",
+      "name": "Balkrishna Industries",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BANDHANBNK",
+      "name": "Bandhan Bank",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BANKBARODA",
+      "name": "Bank of Baroda",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BEL",
+      "name": "Bharat Electronics",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BHARATFORG",
+      "name": "Bharat Forge",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BHEL",
+      "name": "BHEL",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "BIOCON",
+      "name": "Biocon",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "CANBK",
+      "name": "Canara Bank",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "CHOLAFIN",
+      "name": "Cholamandalam Investment",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "CONCOR",
+      "name": "Container Corporation",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "CUMMINSIND",
+      "name": "Cummins India",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "DABUR",
+      "name": "Dabur",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "FEDERALBNK",
+      "name": "Federal Bank",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "GODREJCP",
+      "name": "Godrej Consumer Products",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "HAVELLS",
+      "name": "Havells India",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "IDFCFIRSTB",
+      "name": "IDFC First Bank",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "INDHOTEL",
+      "name": "Indian Hotels",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "IRCTC",
+      "name": "IRCTC",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "JINDALSTEL",
+      "name": "Jindal Steel",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "LUPIN",
+      "name": "Lupin",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "MUTHOOTFIN",
+      "name": "Muthoot Finance",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "NAUKRI",
+      "name": "Info Edge",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "PERSISTENT",
+      "name": "Persistent Systems",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "POLYCAB",
+      "name": "Polycab India",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "RECLTD",
+      "name": "REC",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "TVSMOTOR",
+      "name": "TVS Motor",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "VBL",
+      "name": "Varun Beverages",
+      "marketCap": "mid"
+    },
+    {
+      "symbol": "AARTIIND",
+      "name": "Aarti Industries",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "AFFLE",
+      "name": "Affle India",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "ANGELONE",
+      "name": "Angel One",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "APLAPOLLO",
+      "name": "APL Apollo Tubes",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "BATAINDIA",
+      "name": "Bata India",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "BLUESTARCO",
+      "name": "Blue Star",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "CDSL",
+      "name": "CDSL",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "CHAMBLFERT",
+      "name": "Chambal Fertilisers",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "DEEPAKNTR",
+      "name": "Deepak Nitrite",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "EIDPARRY",
+      "name": "EID Parry",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "EQUITASBNK",
+      "name": "Equitas Small Finance Bank",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "EXIDEIND",
+      "name": "Exide Industries",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "FINEORG",
+      "name": "Fine Organic Industries",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "GLENMARK",
+      "name": "Glenmark Pharma",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "GNFC",
+      "name": "GNFC",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "GRANULES",
+      "name": "Granules India",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "GUJGASLTD",
+      "name": "Gujarat Gas",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "HAPPSTMNDS",
+      "name": "Happiest Minds",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "IEX",
+      "name": "Indian Energy Exchange",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "INDIACEM",
+      "name": "India Cements",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "INTELLECT",
+      "name": "Intellect Design",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "KPITTECH",
+      "name": "KPIT Technologies",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "LALPATHLAB",
+      "name": "Dr Lal PathLabs",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "LAURUSLABS",
+      "name": "Laurus Labs",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "MANAPPURAM",
+      "name": "Manappuram Finance",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "METROPOLIS",
+      "name": "Metropolis Healthcare",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "NATIONALUM",
+      "name": "NALCO",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "PVRINOX",
+      "name": "PVR INOX",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "RBLBANK",
+      "name": "RBL Bank",
+      "marketCap": "small"
+    },
+    {
+      "symbol": "TANLA",
+      "name": "Tanla Platforms",
+      "marketCap": "small"
     }
   ],
-  "failures": [
+  "marketCapBuckets": {
+    "large": 30,
+    "mid": 30,
+    "small": 30
+  },
+  "resultCount": 3,
+  "failureCount": 0,
+  "results": [
     {
-      "symbol": "TATAMOTORS",
-      "error": "HTTP Error 404: Not Found"
+      "symbol": "CHOLAFIN",
+      "name": "Cholamandalam Investment",
+      "marketCap": "mid",
+      "type": "bearish",
+      "sessionsAgo": 0,
+      "ema100": 1591.7771989369267,
+      "ema200": 1592.0735598440576,
+      "close": 1539.800048828125,
+      "timestamp": 1779421500
+    },
+    {
+      "symbol": "METROPOLIS",
+      "name": "Metropolis Healthcare",
+      "marketCap": "small",
+      "type": "bullish",
+      "sessionsAgo": 6,
+      "ema100": 479.90129450361735,
+      "ema200": 479.6866748845519,
+      "close": 540.7000122070312,
+      "timestamp": 1778730300
+    },
+    {
+      "symbol": "EQUITASBNK",
+      "name": "Equitas Small Finance Bank",
+      "marketCap": "small",
+      "type": "bullish",
+      "sessionsAgo": 10,
+      "ema100": 63.29726706037552,
+      "ema200": 63.27373917833753,
+      "close": 72.44999694824219,
+      "timestamp": 1778211900
     }
-  ]
+  ],
+  "failures": []
 }

@@ -232,6 +232,17 @@
         background: rgba(99, 246, 178, 0.1);
       }
 
+      .filters button .filter-count {
+        min-width: 26px;
+        border: 1px solid rgba(142, 165, 255, 0.24);
+        border-radius: 999px;
+        padding: 2px 8px;
+        background: rgba(142, 165, 255, 0.1);
+        color: var(--muted);
+        font-size: 0.72rem;
+        line-height: 1.4;
+      }
+
       section { margin-top: 72px; scroll-margin-top: 120px; }
 
       .section-heading {
@@ -365,6 +376,10 @@
         font-size: 0.82rem;
       }
 
+      .universe span.large { border-color: rgba(99, 246, 178, 0.28); }
+      .universe span.mid { border-color: rgba(142, 165, 255, 0.32); }
+      .universe span.small { border-color: rgba(251, 191, 36, 0.30); }
+
       .disclaimer {
         margin-top: 20px;
         border: 1px solid rgba(251, 191, 36, 0.28);
@@ -437,6 +452,12 @@
             </div>
             <div class="progress-track"><span id="progressBar"></span></div>
           </div>
+          <div class="filters" aria-label="Filter by market-cap segment">
+            <button class="is-active" data-cap-filter="all" type="button"><span>All caps</span><span class="filter-count">0</span></button>
+            <button data-cap-filter="large" type="button"><span>Large cap</span><span class="filter-count">0</span></button>
+            <button data-cap-filter="mid" type="button"><span>Mid cap</span><span class="filter-count">0</span></button>
+            <button data-cap-filter="small" type="button"><span>Small cap</span><span class="filter-count">0</span></button>
+          </div>
           <div class="filters" aria-label="Filter crossover results">
             <button class="is-active" data-filter="all" type="button">All crosses</button>
             <button data-filter="bullish" type="button">Bullish only</button>
@@ -461,7 +482,7 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Universe</p>
-            <h2>NSE large-cap scan list.</h2>
+            <h2>NSE scan universe by market-cap bucket.</h2>
           </div>
         </div>
         <div class="universe" id="universeList"></div>
@@ -470,23 +491,457 @@
 
     <script>
       const NSE_UNIVERSE = [
-        ["RELIANCE", "Reliance Industries"], ["TCS", "Tata Consultancy Services"], ["HDFCBANK", "HDFC Bank"],
-        ["ICICIBANK", "ICICI Bank"], ["INFY", "Infosys"], ["BHARTIARTL", "Bharti Airtel"],
-        ["SBIN", "State Bank of India"], ["ITC", "ITC"], ["HINDUNILVR", "Hindustan Unilever"],
-        ["LT", "Larsen & Toubro"], ["BAJFINANCE", "Bajaj Finance"], ["HCLTECH", "HCL Technologies"],
-        ["KOTAKBANK", "Kotak Mahindra Bank"], ["AXISBANK", "Axis Bank"], ["ASIANPAINT", "Asian Paints"],
-        ["MARUTI", "Maruti Suzuki"], ["SUNPHARMA", "Sun Pharma"], ["TITAN", "Titan"],
-        ["ULTRACEMCO", "UltraTech Cement"], ["NTPC", "NTPC"], ["TATASTEEL", "Tata Steel"],
-        ["POWERGRID", "Power Grid"], ["M&M", "Mahindra & Mahindra"], ["NESTLEIND", "Nestle India"],
-        ["TECHM", "Tech Mahindra"], ["ADANIENT", "Adani Enterprises"], ["ADANIPORTS", "Adani Ports"],
-        ["WIPRO", "Wipro"], ["ONGC", "ONGC"], ["COALINDIA", "Coal India"],
-        ["JSWSTEEL", "JSW Steel"], ["GRASIM", "Grasim"], ["HINDALCO", "Hindalco"],
-        ["BAJAJFINSV", "Bajaj Finserv"], ["TATAMOTORS", "Tata Motors"], ["EICHERMOT", "Eicher Motors"],
-        ["CIPLA", "Cipla"], ["DRREDDY", "Dr. Reddy's"], ["DIVISLAB", "Divi's Laboratories"],
-        ["BRITANNIA", "Britannia"], ["HEROMOTOCO", "Hero MotoCorp"], ["BPCL", "BPCL"],
-        ["APOLLOHOSP", "Apollo Hospitals"], ["SBILIFE", "SBI Life"], ["HDFCLIFE", "HDFC Life"],
-        ["BAJAJ-AUTO", "Bajaj Auto"], ["TATACONSUM", "Tata Consumer"], ["INDUSINDBK", "IndusInd Bank"]
-      ];
+        {
+                "symbol": "RELIANCE",
+                "name": "Reliance Industries",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "TCS",
+                "name": "Tata Consultancy Services",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "HDFCBANK",
+                "name": "HDFC Bank",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ICICIBANK",
+                "name": "ICICI Bank",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "INFY",
+                "name": "Infosys",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "BHARTIARTL",
+                "name": "Bharti Airtel",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "SBIN",
+                "name": "State Bank of India",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ITC",
+                "name": "ITC",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "HINDUNILVR",
+                "name": "Hindustan Unilever",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "LT",
+                "name": "Larsen & Toubro",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "BAJFINANCE",
+                "name": "Bajaj Finance",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "HCLTECH",
+                "name": "HCL Technologies",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "KOTAKBANK",
+                "name": "Kotak Mahindra Bank",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "AXISBANK",
+                "name": "Axis Bank",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ASIANPAINT",
+                "name": "Asian Paints",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "MARUTI",
+                "name": "Maruti Suzuki",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "SUNPHARMA",
+                "name": "Sun Pharma",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "TITAN",
+                "name": "Titan",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ULTRACEMCO",
+                "name": "UltraTech Cement",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "NTPC",
+                "name": "NTPC",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "TATASTEEL",
+                "name": "Tata Steel",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "POWERGRID",
+                "name": "Power Grid",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "M&M",
+                "name": "Mahindra & Mahindra",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "NESTLEIND",
+                "name": "Nestle India",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "TECHM",
+                "name": "Tech Mahindra",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ADANIENT",
+                "name": "Adani Enterprises",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ADANIPORTS",
+                "name": "Adani Ports",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "WIPRO",
+                "name": "Wipro",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ONGC",
+                "name": "ONGC",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "COALINDIA",
+                "name": "Coal India",
+                "marketCap": "large"
+        },
+        {
+                "symbol": "ABB",
+                "name": "ABB India",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "AUBANK",
+                "name": "AU Small Finance Bank",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "ASTRAL",
+                "name": "Astral",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BALKRISIND",
+                "name": "Balkrishna Industries",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BANDHANBNK",
+                "name": "Bandhan Bank",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BANKBARODA",
+                "name": "Bank of Baroda",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BEL",
+                "name": "Bharat Electronics",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BHARATFORG",
+                "name": "Bharat Forge",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BHEL",
+                "name": "BHEL",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "BIOCON",
+                "name": "Biocon",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "CANBK",
+                "name": "Canara Bank",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "CHOLAFIN",
+                "name": "Cholamandalam Investment",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "CONCOR",
+                "name": "Container Corporation",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "CUMMINSIND",
+                "name": "Cummins India",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "DABUR",
+                "name": "Dabur",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "FEDERALBNK",
+                "name": "Federal Bank",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "GODREJCP",
+                "name": "Godrej Consumer Products",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "HAVELLS",
+                "name": "Havells India",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "IDFCFIRSTB",
+                "name": "IDFC First Bank",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "INDHOTEL",
+                "name": "Indian Hotels",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "IRCTC",
+                "name": "IRCTC",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "JINDALSTEL",
+                "name": "Jindal Steel",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "LUPIN",
+                "name": "Lupin",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "MUTHOOTFIN",
+                "name": "Muthoot Finance",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "NAUKRI",
+                "name": "Info Edge",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "PERSISTENT",
+                "name": "Persistent Systems",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "POLYCAB",
+                "name": "Polycab India",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "RECLTD",
+                "name": "REC",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "TVSMOTOR",
+                "name": "TVS Motor",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "VBL",
+                "name": "Varun Beverages",
+                "marketCap": "mid"
+        },
+        {
+                "symbol": "AARTIIND",
+                "name": "Aarti Industries",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "AFFLE",
+                "name": "Affle India",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "ANGELONE",
+                "name": "Angel One",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "APLAPOLLO",
+                "name": "APL Apollo Tubes",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "BATAINDIA",
+                "name": "Bata India",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "BLUESTARCO",
+                "name": "Blue Star",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "CDSL",
+                "name": "CDSL",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "CHAMBLFERT",
+                "name": "Chambal Fertilisers",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "DEEPAKNTR",
+                "name": "Deepak Nitrite",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "EIDPARRY",
+                "name": "EID Parry",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "EQUITASBNK",
+                "name": "Equitas Small Finance Bank",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "EXIDEIND",
+                "name": "Exide Industries",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "FINEORG",
+                "name": "Fine Organic Industries",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "GLENMARK",
+                "name": "Glenmark Pharma",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "GNFC",
+                "name": "GNFC",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "GRANULES",
+                "name": "Granules India",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "GUJGASLTD",
+                "name": "Gujarat Gas",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "HAPPSTMNDS",
+                "name": "Happiest Minds",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "IEX",
+                "name": "Indian Energy Exchange",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "INDIACEM",
+                "name": "India Cements",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "INTELLECT",
+                "name": "Intellect Design",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "KPITTECH",
+                "name": "KPIT Technologies",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "LALPATHLAB",
+                "name": "Dr Lal PathLabs",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "LAURUSLABS",
+                "name": "Laurus Labs",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "MANAPPURAM",
+                "name": "Manappuram Finance",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "METROPOLIS",
+                "name": "Metropolis Healthcare",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "NATIONALUM",
+                "name": "NALCO",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "PVRINOX",
+                "name": "PVR INOX",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "RBLBANK",
+                "name": "RBL Bank",
+                "marketCap": "small"
+        },
+        {
+                "symbol": "TANLA",
+                "name": "Tanla Platforms",
+                "marketCap": "small"
+        }
+];
 
       const scanButton = document.getElementById("scanButton");
       const resultsGrid = document.getElementById("resultsGrid");
@@ -497,11 +952,14 @@
       const progressBar = document.getElementById("progressBar");
       const universeList = document.getElementById("universeList");
       const filterButtons = document.querySelectorAll("[data-filter]");
+      const capFilterButtons = document.querySelectorAll("[data-cap-filter]");
 
       let latestResults = [];
       let activeFilter = "all";
+      let activeCapFilter = "all";
+      let latestUniverse = NSE_UNIVERSE;
 
-      universeList.innerHTML = NSE_UNIVERSE.map(([symbol]) => `<span>${symbol}.NS</span>`).join("");
+      renderUniverse();
 
       async function runScan() {
         scanButton.disabled = true;
@@ -516,6 +974,8 @@
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const payload = await response.json();
           latestResults = payload.results || [];
+          latestUniverse = payload.universe || NSE_UNIVERSE;
+          renderUniverse();
           progressBar.style.width = "100%";
           scanStatus.textContent = payload.failureCount
             ? `Loaded scan with ${payload.failureCount} provider miss${payload.failureCount === 1 ? "" : "es"}`
@@ -541,17 +1001,52 @@
         });
       }
 
-      function renderResults() {
-        const filtered = activeFilter === "all"
-          ? latestResults
-          : latestResults.filter((item) => item.type === activeFilter);
+      function capLabel(value) {
+        if (value === "large") return "Large cap";
+        if (value === "mid") return "Mid cap";
+        if (value === "small") return "Small cap";
+        return "All caps";
+      }
 
+      function updateCapCounts() {
+        const counts = latestUniverse.reduce((acc, item) => {
+          acc.all += 1;
+          acc[item.marketCap] = (acc[item.marketCap] || 0) + 1;
+          return acc;
+        }, { all: 0, large: 0, mid: 0, small: 0 });
+
+        capFilterButtons.forEach((button) => {
+          const count = button.querySelector(".filter-count");
+          if (count) count.textContent = counts[button.dataset.capFilter] || 0;
+        });
+      }
+
+      function renderUniverse() {
+        updateCapCounts();
+        const visibleUniverse = activeCapFilter === "all"
+          ? latestUniverse
+          : latestUniverse.filter((item) => item.marketCap === activeCapFilter);
+
+        universeList.innerHTML = visibleUniverse
+          .map((item) => `<span class="${item.marketCap}">${item.symbol}.NS - ${capLabel(item.marketCap)}</span>`)
+          .join("");
+      }
+
+      function renderResults() {
+        const filtered = latestResults.filter((item) => {
+          const typeMatch = activeFilter === "all" || item.type === activeFilter;
+          const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+          return typeMatch && capMatch;
+        });
+
+        const typeText = activeFilter === "all" ? "EMA cross" : `${activeFilter} EMA cross`;
+        const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
         resultTitle.textContent = latestResults.length
-          ? `${filtered.length} ${activeFilter === "all" ? "" : activeFilter} EMA cross result${filtered.length === 1 ? "" : "s"}`
+          ? `${filtered.length} ${capText}${typeText} result${filtered.length === 1 ? "" : "s"}`
           : "No EMA 100/200 crosses found yet.";
 
         if (!filtered.length) {
-          resultsGrid.innerHTML = `<div class="empty">${latestResults.length ? "No results for this filter." : "No stocks currently match the EMA 100/200 crossover rule in the scanned NSE universe."}</div>`;
+          resultsGrid.innerHTML = `<div class="empty">${latestResults.length ? "No results for this market-cap / crossover filter." : "No stocks currently match the EMA 100/200 crossover rule in the scanned NSE universe."}</div>`;
           return;
         }
 
@@ -564,16 +1059,16 @@
                   <div class="symbol">${item.symbol}.NS</div>
                   <p>${item.name}</p>
                 </div>
-                <span class="badge ${item.type}">${item.type}</span>
+                <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
               </div>
               <p>
                 100 EMA ${item.type === "bullish" ? "crossed above" : "crossed below"} 200 EMA
                 <strong>${item.sessionsAgo}</strong> session${item.sessionsAgo === 1 ? "" : "s"} ago.
               </p>
               <div class="price-row">
-                <div class="mini-stat"><span>Close</span><strong>₹${item.close.toFixed(2)}</strong></div>
-                <div class="mini-stat"><span>EMA 100</span><strong>₹${item.ema100.toFixed(2)}</strong></div>
-                <div class="mini-stat"><span>EMA 200</span><strong>₹${item.ema200.toFixed(2)}</strong></div>
+                <div class="mini-stat"><span>Close</span><strong>Rs. ${item.close.toFixed(2)}</strong></div>
+                <div class="mini-stat"><span>EMA 100</span><strong>Rs. ${item.ema100.toFixed(2)}</strong></div>
+                <div class="mini-stat"><span>EMA 200</span><strong>Rs. ${item.ema200.toFixed(2)}</strong></div>
               </div>
               <p class="gold">Cross date: ${formatDate(item.timestamp)}</p>
             </article>
@@ -586,6 +1081,16 @@
           filterButtons.forEach((item) => item.classList.remove("is-active"));
           button.classList.add("is-active");
           activeFilter = button.dataset.filter;
+          renderResults();
+        });
+      });
+
+      capFilterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          capFilterButtons.forEach((item) => item.classList.remove("is-active"));
+          button.classList.add("is-active");
+          activeCapFilter = button.dataset.capFilter;
+          renderUniverse();
           renderResults();
         });
       });

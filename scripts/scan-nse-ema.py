@@ -9,22 +9,96 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 NSE_UNIVERSE = [
-    ("RELIANCE", "Reliance Industries"), ("TCS", "Tata Consultancy Services"), ("HDFCBANK", "HDFC Bank"),
-    ("ICICIBANK", "ICICI Bank"), ("INFY", "Infosys"), ("BHARTIARTL", "Bharti Airtel"),
-    ("SBIN", "State Bank of India"), ("ITC", "ITC"), ("HINDUNILVR", "Hindustan Unilever"),
-    ("LT", "Larsen & Toubro"), ("BAJFINANCE", "Bajaj Finance"), ("HCLTECH", "HCL Technologies"),
-    ("KOTAKBANK", "Kotak Mahindra Bank"), ("AXISBANK", "Axis Bank"), ("ASIANPAINT", "Asian Paints"),
-    ("MARUTI", "Maruti Suzuki"), ("SUNPHARMA", "Sun Pharma"), ("TITAN", "Titan"),
-    ("ULTRACEMCO", "UltraTech Cement"), ("NTPC", "NTPC"), ("TATASTEEL", "Tata Steel"),
-    ("POWERGRID", "Power Grid"), ("M&M", "Mahindra & Mahindra"), ("NESTLEIND", "Nestle India"),
-    ("TECHM", "Tech Mahindra"), ("ADANIENT", "Adani Enterprises"), ("ADANIPORTS", "Adani Ports"),
-    ("WIPRO", "Wipro"), ("ONGC", "ONGC"), ("COALINDIA", "Coal India"),
-    ("JSWSTEEL", "JSW Steel"), ("GRASIM", "Grasim"), ("HINDALCO", "Hindalco"),
-    ("BAJAJFINSV", "Bajaj Finserv"), ("TATAMOTORS", "Tata Motors"), ("EICHERMOT", "Eicher Motors"),
-    ("CIPLA", "Cipla"), ("DRREDDY", "Dr. Reddy's"), ("DIVISLAB", "Divi's Laboratories"),
-    ("BRITANNIA", "Britannia"), ("HEROMOTOCO", "Hero MotoCorp"), ("BPCL", "BPCL"),
-    ("APOLLOHOSP", "Apollo Hospitals"), ("SBILIFE", "SBI Life"), ("HDFCLIFE", "HDFC Life"),
-    ("BAJAJ-AUTO", "Bajaj Auto"), ("TATACONSUM", "Tata Consumer"), ("INDUSINDBK", "IndusInd Bank")
+    ("RELIANCE", "Reliance Industries", "large"),
+    ("TCS", "Tata Consultancy Services", "large"),
+    ("HDFCBANK", "HDFC Bank", "large"),
+    ("ICICIBANK", "ICICI Bank", "large"),
+    ("INFY", "Infosys", "large"),
+    ("BHARTIARTL", "Bharti Airtel", "large"),
+    ("SBIN", "State Bank of India", "large"),
+    ("ITC", "ITC", "large"),
+    ("HINDUNILVR", "Hindustan Unilever", "large"),
+    ("LT", "Larsen & Toubro", "large"),
+    ("BAJFINANCE", "Bajaj Finance", "large"),
+    ("HCLTECH", "HCL Technologies", "large"),
+    ("KOTAKBANK", "Kotak Mahindra Bank", "large"),
+    ("AXISBANK", "Axis Bank", "large"),
+    ("ASIANPAINT", "Asian Paints", "large"),
+    ("MARUTI", "Maruti Suzuki", "large"),
+    ("SUNPHARMA", "Sun Pharma", "large"),
+    ("TITAN", "Titan", "large"),
+    ("ULTRACEMCO", "UltraTech Cement", "large"),
+    ("NTPC", "NTPC", "large"),
+    ("TATASTEEL", "Tata Steel", "large"),
+    ("POWERGRID", "Power Grid", "large"),
+    ("M&M", "Mahindra & Mahindra", "large"),
+    ("NESTLEIND", "Nestle India", "large"),
+    ("TECHM", "Tech Mahindra", "large"),
+    ("ADANIENT", "Adani Enterprises", "large"),
+    ("ADANIPORTS", "Adani Ports", "large"),
+    ("WIPRO", "Wipro", "large"),
+    ("ONGC", "ONGC", "large"),
+    ("COALINDIA", "Coal India", "large"),
+    ("ABB", "ABB India", "mid"),
+    ("AUBANK", "AU Small Finance Bank", "mid"),
+    ("ASTRAL", "Astral", "mid"),
+    ("BALKRISIND", "Balkrishna Industries", "mid"),
+    ("BANDHANBNK", "Bandhan Bank", "mid"),
+    ("BANKBARODA", "Bank of Baroda", "mid"),
+    ("BEL", "Bharat Electronics", "mid"),
+    ("BHARATFORG", "Bharat Forge", "mid"),
+    ("BHEL", "BHEL", "mid"),
+    ("BIOCON", "Biocon", "mid"),
+    ("CANBK", "Canara Bank", "mid"),
+    ("CHOLAFIN", "Cholamandalam Investment", "mid"),
+    ("CONCOR", "Container Corporation", "mid"),
+    ("CUMMINSIND", "Cummins India", "mid"),
+    ("DABUR", "Dabur", "mid"),
+    ("FEDERALBNK", "Federal Bank", "mid"),
+    ("GODREJCP", "Godrej Consumer Products", "mid"),
+    ("HAVELLS", "Havells India", "mid"),
+    ("IDFCFIRSTB", "IDFC First Bank", "mid"),
+    ("INDHOTEL", "Indian Hotels", "mid"),
+    ("IRCTC", "IRCTC", "mid"),
+    ("JINDALSTEL", "Jindal Steel", "mid"),
+    ("LUPIN", "Lupin", "mid"),
+    ("MUTHOOTFIN", "Muthoot Finance", "mid"),
+    ("NAUKRI", "Info Edge", "mid"),
+    ("PERSISTENT", "Persistent Systems", "mid"),
+    ("POLYCAB", "Polycab India", "mid"),
+    ("RECLTD", "REC", "mid"),
+    ("TVSMOTOR", "TVS Motor", "mid"),
+    ("VBL", "Varun Beverages", "mid"),
+    ("AARTIIND", "Aarti Industries", "small"),
+    ("AFFLE", "Affle India", "small"),
+    ("ANGELONE", "Angel One", "small"),
+    ("APLAPOLLO", "APL Apollo Tubes", "small"),
+    ("BATAINDIA", "Bata India", "small"),
+    ("BLUESTARCO", "Blue Star", "small"),
+    ("CDSL", "CDSL", "small"),
+    ("CHAMBLFERT", "Chambal Fertilisers", "small"),
+    ("DEEPAKNTR", "Deepak Nitrite", "small"),
+    ("EIDPARRY", "EID Parry", "small"),
+    ("EQUITASBNK", "Equitas Small Finance Bank", "small"),
+    ("EXIDEIND", "Exide Industries", "small"),
+    ("FINEORG", "Fine Organic Industries", "small"),
+    ("GLENMARK", "Glenmark Pharma", "small"),
+    ("GNFC", "GNFC", "small"),
+    ("GRANULES", "Granules India", "small"),
+    ("GUJGASLTD", "Gujarat Gas", "small"),
+    ("HAPPSTMNDS", "Happiest Minds", "small"),
+    ("IEX", "Indian Energy Exchange", "small"),
+    ("INDIACEM", "India Cements", "small"),
+    ("INTELLECT", "Intellect Design", "small"),
+    ("KPITTECH", "KPIT Technologies", "small"),
+    ("LALPATHLAB", "Dr Lal PathLabs", "small"),
+    ("LAURUSLABS", "Laurus Labs", "small"),
+    ("MANAPPURAM", "Manappuram Finance", "small"),
+    ("METROPOLIS", "Metropolis Healthcare", "small"),
+    ("NATIONALUM", "NALCO", "small"),
+    ("PVRINOX", "PVR INOX", "small"),
+    ("RBLBANK", "RBL Bank", "small"),
+    ("TANLA", "Tanla Platforms", "small")
 ]
 
 
@@ -86,14 +160,14 @@ def main():
     results = []
     failures = []
 
-    for symbol, name in NSE_UNIVERSE:
+    for symbol, name, market_cap in NSE_UNIVERSE:
         try:
             closes, timestamps = fetch_yahoo(symbol)
             cross = find_cross(closes, timestamps)
             if cross:
-                results.append({"symbol": symbol, "name": name, **cross})
+                results.append({"symbol": symbol, "name": name, "marketCap": market_cap, **cross})
         except Exception as exc:
-            failures.append({"symbol": symbol, "error": str(exc)})
+            failures.append({"symbol": symbol, "marketCap": market_cap, "error": str(exc)})
         time.sleep(0.08)
 
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -102,6 +176,12 @@ def main():
         "rule": "100 EMA / 200 EMA crossover within last 15 daily sessions",
         "generatedAt": generated_at,
         "universeSize": len(NSE_UNIVERSE),
+        "universe": [{"symbol": symbol, "name": name, "marketCap": market_cap} for symbol, name, market_cap in NSE_UNIVERSE],
+        "marketCapBuckets": {
+            "large": sum(1 for _, _, cap in NSE_UNIVERSE if cap == "large"),
+            "mid": sum(1 for _, _, cap in NSE_UNIVERSE if cap == "mid"),
+            "small": sum(1 for _, _, cap in NSE_UNIVERSE if cap == "small")
+        },
         "resultCount": len(results),
         "failureCount": len(failures),
         "results": sorted(results, key=lambda item: (item["sessionsAgo"], item["symbol"])),
