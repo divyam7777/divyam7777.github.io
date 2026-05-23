@@ -1,0 +1,26 @@
+{
+  "market": "NSE India",
+  "rule": "100 EMA / 200 EMA crossover within last 15 daily sessions",
+  "generatedAt": "2026-05-23T05:36:14.018930+00:00",
+  "universeSize": 48,
+  "resultCount": 1,
+  "failureCount": 1,
+  "results": [
+    {
+      "symbol": "BRITANNIA",
+      "name": "Britannia",
+      "type": "bearish",
+      "sessionsAgo": 7,
+      "ema100": 5769.274696480527,
+      "ema200": 5770.981851138783,
+      "close": 5336.0,
+      "timestamp": 1778643900
+    }
+  ],
+  "failures": [
+    {
+      "symbol": "TATAMOTORS",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}

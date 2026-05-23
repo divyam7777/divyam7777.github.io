@@ -398,14 +398,14 @@
           <p class="eyebrow">Indian market only | NSE daily candles</p>
           <h1>100 / 200 EMA cross scanner.</h1>
           <p class="hero-copy">
-            This page scans Indian NSE stocks and shows only symbols where the 100-day EMA and 200-day EMA crossed within the last 15 trading sessions.
+            This page loads a generated NSE scan and shows only symbols where the 100-day EMA and 200-day EMA crossed within the last 15 trading sessions.
           </p>
           <div class="actions">
-            <button class="button" id="scanButton" type="button">Scan NSE universe</button>
+            <button class="button" id="scanButton" type="button">Load latest scan</button>
             <a class="button" href="/">Back to portfolio</a>
           </div>
           <p class="disclaimer">
-            Educational scanner only. Data is fetched in-browser from Yahoo Finance chart data when available. Verify all signals on your broker/charting platform before taking any decision.
+            Educational scanner only. Scan data is generated into this static site and should be verified on your broker/charting platform before taking any decision.
           </p>
         </div>
         <aside class="panel scanner-card">
@@ -431,7 +431,7 @@
         <div class="scanner-shell">
           <div class="panel status-panel">
             <div class="status-row">
-              <span class="badge" id="scanStatus">Ready to scan NSE symbols</span>
+              <span class="badge" id="scanStatus">Ready to load generated scan</span>
               <span class="badge" id="scanCount">0 scanned</span>
               <span class="badge" id="scanTime">No scan yet</span>
             </div>
@@ -453,7 +453,7 @@
           </div>
         </div>
         <div class="results-grid" id="resultsGrid">
-          <div class="empty">Click “Scan NSE universe” to calculate EMA 100/200 crosses from daily candles.</div>
+          <div class="empty">Click “Load latest scan” to show NSE 100/200 EMA crossover results.</div>
         </div>
       </section>
 
@@ -503,105 +503,33 @@
 
       universeList.innerHTML = NSE_UNIVERSE.map(([symbol]) => `<span>${symbol}.NS</span>`).join("");
 
-      function calculateEma(values, period) {
-        const output = Array(values.length).fill(null);
-        if (values.length < period) return output;
-
-        let seed = 0;
-        for (let index = 0; index < period; index += 1) seed += values[index];
-        output[period - 1] = seed / period;
-
-        const multiplier = 2 / (period + 1);
-        for (let index = period; index < values.length; index += 1) {
-          output[index] = (values[index] - output[index - 1]) * multiplier + output[index - 1];
-        }
-        return output;
-      }
-
-      function findCross(closes, timestamps) {
-        const ema100 = calculateEma(closes, 100);
-        const ema200 = calculateEma(closes, 200);
-        const start = Math.max(1, closes.length - 15);
-
-        for (let index = start; index < closes.length; index += 1) {
-          if (ema100[index - 1] == null || ema200[index - 1] == null || ema100[index] == null || ema200[index] == null) continue;
-
-          const previousDiff = ema100[index - 1] - ema200[index - 1];
-          const currentDiff = ema100[index] - ema200[index];
-
-          if (previousDiff <= 0 && currentDiff > 0) {
-            return { type: "bullish", index, sessionsAgo: closes.length - 1 - index, ema100: ema100[index], ema200: ema200[index], close: closes[index], timestamp: timestamps[index] };
-          }
-
-          if (previousDiff >= 0 && currentDiff < 0) {
-            return { type: "bearish", index, sessionsAgo: closes.length - 1 - index, ema100: ema100[index], ema200: ema200[index], close: closes[index], timestamp: timestamps[index] };
-          }
-        }
-        return null;
-      }
-
-      async function fetchCandles(symbol) {
-        const yahooSymbol = `${symbol}.NS`;
-        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?range=2y&interval=1d`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const payload = await response.json();
-        const result = payload.chart?.result?.[0];
-        const quote = result?.indicators?.quote?.[0];
-        if (!result?.timestamp || !quote?.close) throw new Error("No candle data");
-
-        const rows = quote.close
-          .map((close, index) => ({ close, timestamp: result.timestamp[index] }))
-          .filter((row) => typeof row.close === "number" && Number.isFinite(row.close));
-
-        return {
-          closes: rows.map((row) => row.close),
-          timestamps: rows.map((row) => row.timestamp)
-        };
-      }
-
-      async function scanSymbol([symbol, name]) {
-        const { closes, timestamps } = await fetchCandles(symbol);
-        const cross = findCross(closes, timestamps);
-        if (!cross) return null;
-        return { symbol, name, ...cross };
-      }
-
       async function runScan() {
         scanButton.disabled = true;
         latestResults = [];
         renderResults();
-        scanStatus.textContent = "Scanning NSE daily candles...";
-        scanCount.textContent = `0 / ${NSE_UNIVERSE.length} scanned`;
-        progressBar.style.width = "0%";
+        scanStatus.textContent = "Loading generated NSE scan...";
+        scanCount.textContent = "Loading";
+        progressBar.style.width = "28%";
 
-        let scanned = 0;
-        const failures = [];
-        const queue = [...NSE_UNIVERSE];
-        const workers = Array.from({ length: 5 }, async () => {
-          while (queue.length) {
-            const item = queue.shift();
-            try {
-              const result = await scanSymbol(item);
-              if (result) latestResults.push(result);
-            } catch (error) {
-              failures.push(`${item[0]}: ${error.message}`);
-            } finally {
-              scanned += 1;
-              scanCount.textContent = `${scanned} / ${NSE_UNIVERSE.length} scanned`;
-              progressBar.style.width = `${(scanned / NSE_UNIVERSE.length) * 100}%`;
-              renderResults();
-            }
-          }
-        });
-
-        await Promise.all(workers);
-        scanButton.disabled = false;
-        scanStatus.textContent = failures.length
-          ? `Scan complete with ${failures.length} provider misses`
-          : "Scan complete";
-        scanTime.textContent = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-        renderResults();
+        try {
+          const response = await fetch(`/stocks/data/ema-crosses.json?ts=${Date.now()}`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const payload = await response.json();
+          latestResults = payload.results || [];
+          progressBar.style.width = "100%";
+          scanStatus.textContent = payload.failureCount
+            ? `Loaded scan with ${payload.failureCount} provider miss${payload.failureCount === 1 ? "" : "es"}`
+            : "Loaded latest generated scan";
+          scanCount.textContent = `${payload.universeSize} scanned`;
+          scanTime.textContent = new Date(payload.generatedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+        } catch (error) {
+          scanStatus.textContent = `Unable to load scan: ${error.message}`;
+          scanCount.textContent = "0 scanned";
+          progressBar.style.width = "0%";
+        } finally {
+          scanButton.disabled = false;
+          renderResults();
+        }
       }
 
       function formatDate(timestamp) {

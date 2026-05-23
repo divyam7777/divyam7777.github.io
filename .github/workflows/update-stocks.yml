@@ -1,0 +1,30 @@
+name: Update NSE EMA scanner data
+
+on:
+  schedule:
+    - cron: "45 11 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate scanner data
+        run: python scripts/scan-nse-ema.py
+
+      - name: Commit updated scanner data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update NSE EMA scanner data"
+          file_pattern: public/stocks/data/ema-crosses.json
