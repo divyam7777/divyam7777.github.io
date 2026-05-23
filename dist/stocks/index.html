@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A premium stock market dashboard by Divyam Matia with watchlists, market widgets, sector views, and research notes."
+      content="Indian market NSE scanner for stocks where the 100 EMA and 200 EMA crossed within the last 15 trading sessions."
     />
-    <title>Stocks | Divyam Matia</title>
+    <title>NSE EMA Scanner | Divyam Matia</title>
     <style>
       :root {
         color-scheme: dark;
         --bg: #050812;
-        --panel: rgba(11, 17, 32, 0.82);
+        --panel: rgba(11, 17, 32, 0.84);
         --panel-strong: #0c1324;
         --text: #edf2ff;
         --muted: #a7b0c5;
@@ -25,9 +25,7 @@
       }
 
       * { box-sizing: border-box; }
-
       html { scroll-behavior: smooth; }
-
       body {
         margin: 0;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -42,6 +40,7 @@
       }
 
       a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
 
       .shell {
         width: min(1220px, calc(100% - 40px));
@@ -60,7 +59,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 12px 14px;
-        background: rgba(8, 12, 24, 0.82);
+        background: rgba(8, 12, 24, 0.84);
         backdrop-filter: blur(18px);
         box-shadow: var(--shadow);
       }
@@ -69,7 +68,7 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        font-weight: 800;
+        font-weight: 900;
       }
 
       .brand span {
@@ -111,71 +110,29 @@
         margin: 0 0 14px;
         color: var(--green);
         font-size: 0.78rem;
-        font-weight: 800;
+        font-weight: 900;
         letter-spacing: 0.14em;
         text-transform: uppercase;
       }
 
       h1 {
         margin: 0 0 18px;
-        font-size: clamp(3rem, 8vw, 6.8rem);
+        font-size: clamp(3rem, 8vw, 6.6rem);
         line-height: 0.9;
         letter-spacing: -0.08em;
       }
 
       h2 {
         margin: 0 0 18px;
-        font-size: clamp(1.7rem, 3vw, 2.5rem);
+        font-size: clamp(1.7rem, 3vw, 2.45rem);
         letter-spacing: -0.05em;
       }
 
       h3 { margin: 0 0 10px; }
+      p { color: var(--muted); line-height: 1.8; }
+      .hero-copy { max-width: 760px; font-size: 1.08rem; }
 
-      p {
-        color: var(--muted);
-        line-height: 1.8;
-      }
-
-      .hero p.hero-copy {
-        max-width: 730px;
-        font-size: 1.08rem;
-      }
-
-      .actions, .ticker-row, .filter-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .actions { margin-top: 26px; }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 13px 18px;
-        background: var(--panel);
-        font-weight: 800;
-        transition: transform 180ms ease, border-color 180ms ease;
-      }
-
-      .button::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: var(--green);
-        box-shadow: 0 0 16px var(--green);
-      }
-
-      .button:hover {
-        transform: translateY(-2px);
-        border-color: var(--green);
-      }
-
-      .market-card, .panel, .stock-card, .note-card {
+      .panel, .result-card, .stat-card {
         position: relative;
         overflow: hidden;
         border: 1px solid var(--line);
@@ -185,7 +142,7 @@
         backdrop-filter: blur(18px);
       }
 
-      .market-card::before, .panel::before, .stock-card::before, .note-card::before {
+      .panel::before, .result-card::before, .stat-card::before {
         content: "";
         position: absolute;
         top: 0;
@@ -195,23 +152,22 @@
         background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
       }
 
-      .market-card { padding: 22px; }
-
-      .market-screen {
+      .scanner-card { padding: 22px; }
+      .scanner-screen {
         border: 1px solid var(--line);
         border-radius: 22px;
         padding: 18px;
         background: #070b16;
       }
 
-      .chart-line {
+      .scan-line {
         height: 160px;
         margin: 14px 0;
         border-radius: 18px;
         background:
           linear-gradient(145deg, rgba(99, 246, 178, 0.16), rgba(142, 165, 255, 0.04)),
           repeating-linear-gradient(to right, transparent 0 34px, rgba(255, 255, 255, 0.04) 35px),
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'%3E%3Cpath d='M0 162 C80 120 98 168 160 132 S260 92 330 112 420 172 500 92 575 72 640 42' fill='none' stroke='%2363f6b2' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E");
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'%3E%3Cpath d='M0 162 C80 120 98 168 160 132 S260 92 330 112 420 172 500 92 575 72 640 42' fill='none' stroke='%2363f6b2' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M0 124 C88 156 118 112 172 138 S268 176 344 124 430 86 510 116 596 136 640 98' fill='none' stroke='%238ea5ff' stroke-width='7' stroke-linecap='round' opacity='.82'/%3E%3C/svg%3E");
         background-size: cover;
       }
 
@@ -237,6 +193,44 @@
 
       .up { color: var(--green); }
       .down { color: var(--red); }
+      .gold { color: var(--gold); }
+
+      .actions, .filters, .status-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .actions { margin-top: 26px; }
+
+      .button, .filters button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 13px 18px;
+        background: var(--panel);
+        color: var(--text);
+        font-weight: 900;
+        cursor: pointer;
+        transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+      }
+
+      .button::before, .filters button::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--green);
+        box-shadow: 0 0 16px var(--green);
+      }
+
+      .button:hover, .filters button:hover, .filters button.is-active {
+        transform: translateY(-2px);
+        border-color: var(--green);
+        background: rgba(99, 246, 178, 0.1);
+      }
 
       section { margin-top: 72px; scroll-margin-top: 120px; }
 
@@ -254,125 +248,125 @@
         background: linear-gradient(90deg, var(--line), transparent);
       }
 
-      .ticker-row span, .filter-row button, .tag {
-        border: 1px solid var(--line);
+      .scanner-shell {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .status-panel {
+        padding: 18px;
+      }
+
+      .progress-track {
+        height: 9px;
         border-radius: 999px;
-        padding: 9px 12px;
-        background: rgba(142, 165, 255, 0.08);
-        color: var(--muted);
-        font: inherit;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        margin-top: 12px;
       }
 
-      .filter-row button {
-        cursor: pointer;
+      .progress-track span {
+        display: block;
+        width: 0%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--green), var(--blue));
+        transition: width 180ms ease;
       }
 
-      .filter-row button.is-active,
-      .filter-row button:hover {
-        border-color: var(--green);
-        color: var(--text);
-      }
-
-      .watchlist {
+      .results-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
-        margin-top: 18px;
       }
 
-      .stock-card {
+      .result-card {
         padding: 22px;
         transition: transform 180ms ease, border-color 180ms ease;
       }
 
-      .stock-card:hover {
+      .result-card:hover {
         transform: translateY(-5px);
         border-color: var(--green);
       }
 
-      .stock-head {
+      .result-head {
         display: flex;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
       }
 
       .symbol {
         font-size: 1.45rem;
-        font-weight: 900;
+        font-weight: 950;
       }
 
-      .price {
-        font-size: 1.65rem;
-        font-weight: 900;
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(142, 165, 255, 0.08);
+        color: var(--muted);
+        font-size: 0.82rem;
       }
 
-      .spark {
-        height: 66px;
-        margin-top: 18px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, rgba(99, 246, 178, 0.16), transparent);
-        position: relative;
-        overflow: hidden;
-      }
+      .badge.bullish { color: var(--green); border-color: rgba(99, 246, 178, 0.32); }
+      .badge.bearish { color: var(--red); border-color: rgba(251, 113, 133, 0.32); }
 
-      .spark::after {
-        content: "";
-        position: absolute;
-        inset: 14px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 80'%3E%3Cpath d='M0 54 C38 30 50 70 90 42 S150 22 178 44 230 58 280 14' fill='none' stroke='%2363f6b2' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
-      }
-
-      .grid-2 {
+      .price-row {
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
       }
 
-      .panel { padding: 22px; }
-
-      .sector-list, .notes-grid {
-        display: grid;
-        gap: 12px;
-      }
-
-      .sector {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 12px;
+      .mini-stat {
         border: 1px solid var(--line);
         border-radius: 16px;
-        padding: 14px;
+        padding: 12px;
         background: rgba(255, 255, 255, 0.035);
       }
 
-      .bar {
-        grid-column: 1 / -1;
-        height: 7px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        overflow: hidden;
-      }
-
-      .bar span {
+      .mini-stat span {
         display: block;
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, var(--green), var(--blue));
+        color: var(--muted);
+        font-size: 0.75rem;
       }
 
-      .note-card { padding: 22px; }
+      .mini-stat strong {
+        display: block;
+        margin-top: 4px;
+      }
 
-      .widget-frame {
-        min-height: 440px;
-        border: 1px solid var(--line);
+      .empty {
+        border: 1px dashed var(--line);
         border-radius: 24px;
-        overflow: hidden;
-        background: var(--panel-strong);
+        padding: 28px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .universe {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .universe span {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(142, 165, 255, 0.08);
+        color: var(--muted);
+        font-size: 0.82rem;
       }
 
       .disclaimer {
-        margin-top: 28px;
+        margin-top: 20px;
         border: 1px solid rgba(251, 191, 36, 0.28);
         border-radius: 20px;
         padding: 16px;
@@ -381,9 +375,9 @@
         font-size: 0.92rem;
       }
 
-      @media (max-width: 900px) {
-        .hero, .grid-2 { grid-template-columns: 1fr; }
-        .watchlist, .metric-grid { grid-template-columns: 1fr; }
+      @media (max-width: 980px) {
+        .hero { grid-template-columns: 1fr; }
+        .results-grid, .metric-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
       }
     </style>
@@ -391,143 +385,284 @@
   <body>
     <main class="shell">
       <nav class="nav">
-        <a href="/" class="brand"><span>DM</span> Stocks</a>
+        <a href="/" class="brand"><span>DM</span> NSE EMA Scanner</a>
         <div class="nav-links">
-          <a href="#watchlist">Watchlist</a>
-          <a href="#sectors">Sectors</a>
-          <a href="#live">Live Widget</a>
-          <a href="#notes">Notes</a>
+          <a href="#scanner">Scanner</a>
+          <a href="#results">Results</a>
+          <a href="#universe">Universe</a>
         </div>
       </nav>
 
       <section class="hero">
         <div>
-          <p class="eyebrow">Market dashboard | research console</p>
-          <h1>Stocks command center.</h1>
+          <p class="eyebrow">Indian market only | NSE daily candles</p>
+          <h1>100 / 200 EMA cross scanner.</h1>
           <p class="hero-copy">
-            A premium dashboard shell for tracking watchlists, market structure, sector momentum, and research notes. Built as a static GitHub Pages website with optional live widgets loaded in the browser.
+            This page scans Indian NSE stocks and shows only symbols where the 100-day EMA and 200-day EMA crossed within the last 15 trading sessions.
           </p>
           <div class="actions">
-            <a class="button" href="#watchlist">Open Watchlist</a>
-            <a class="button" href="#live">View Live Chart</a>
+            <button class="button" id="scanButton" type="button">Scan NSE universe</button>
+            <a class="button" href="/">Back to portfolio</a>
           </div>
-          <p class="disclaimer">Educational UI only. This page is not financial advice and does not guarantee real-time data accuracy.</p>
+          <p class="disclaimer">
+            Educational scanner only. Data is fetched in-browser from Yahoo Finance chart data when available. Verify all signals on your broker/charting platform before taking any decision.
+          </p>
         </div>
-        <aside class="market-card">
-          <div class="market-screen">
-            <p class="eyebrow">Portfolio pulse</p>
-            <div class="chart-line"></div>
+        <aside class="panel scanner-card">
+          <div class="scanner-screen">
+            <p class="eyebrow">EMA logic</p>
+            <div class="scan-line"></div>
             <div class="metric-grid">
-              <div class="metric"><strong class="up">+1.84%</strong><span>Momentum</span></div>
-              <div class="metric"><strong>12</strong><span>Watchlist</span></div>
-              <div class="metric"><strong class="down">-0.42%</strong><span>Risk</span></div>
+              <div class="metric"><strong>100 EMA</strong><span>Fast trend</span></div>
+              <div class="metric"><strong>200 EMA</strong><span>Base trend</span></div>
+              <div class="metric"><strong>15</strong><span>Sessions window</span></div>
             </div>
           </div>
         </aside>
       </section>
 
-      <section id="watchlist">
+      <section id="scanner">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Watchlist</p>
-            <h2>Tracked names with research-ready signals.</h2>
+            <p class="eyebrow">Scanner</p>
+            <h2>Only fresh 100/200 EMA crosses are shown.</h2>
           </div>
         </div>
-        <div class="filter-row" aria-label="Filter stocks">
-          <button class="is-active" data-filter="all">All</button>
-          <button data-filter="tech">Tech</button>
-          <button data-filter="finance">Finance</button>
-          <button data-filter="india">India</button>
-        </div>
-        <div class="watchlist">
-          <article class="stock-card" data-sector="tech"><div class="stock-head"><div><div class="symbol">AAPL</div><p>Apple Inc.</p></div><span class="tag">Tech</span></div><div class="price">$189.98</div><p class="up">+0.92% session</p><div class="spark"></div></article>
-          <article class="stock-card" data-sector="tech"><div class="stock-head"><div><div class="symbol">MSFT</div><p>Microsoft</p></div><span class="tag">Cloud</span></div><div class="price">$421.44</div><p class="up">+1.20% session</p><div class="spark"></div></article>
-          <article class="stock-card" data-sector="tech"><div class="stock-head"><div><div class="symbol">NVDA</div><p>NVIDIA</p></div><span class="tag">AI</span></div><div class="price">$924.79</div><p class="down">-0.38% session</p><div class="spark"></div></article>
-          <article class="stock-card" data-sector="finance"><div class="stock-head"><div><div class="symbol">JPM</div><p>JPMorgan Chase</p></div><span class="tag">Banking</span></div><div class="price">$198.12</div><p class="up">+0.41% session</p><div class="spark"></div></article>
-          <article class="stock-card" data-sector="india"><div class="stock-head"><div><div class="symbol">RELIANCE</div><p>Reliance Industries</p></div><span class="tag">India</span></div><div class="price">?2,934</div><p class="up">+0.76% session</p><div class="spark"></div></article>
-          <article class="stock-card" data-sector="india"><div class="stock-head"><div><div class="symbol">TCS</div><p>Tata Consultancy</p></div><span class="tag">India IT</span></div><div class="price">?3,892</div><p class="down">-0.22% session</p><div class="spark"></div></article>
-        </div>
-      </section>
-
-      <section id="sectors">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Sectors</p>
-            <h2>Momentum map for quick orientation.</h2>
+        <div class="scanner-shell">
+          <div class="panel status-panel">
+            <div class="status-row">
+              <span class="badge" id="scanStatus">Ready to scan NSE symbols</span>
+              <span class="badge" id="scanCount">0 scanned</span>
+              <span class="badge" id="scanTime">No scan yet</span>
+            </div>
+            <div class="progress-track"><span id="progressBar"></span></div>
           </div>
-        </div>
-        <div class="grid-2">
-          <div class="panel sector-list">
-            <div class="sector"><strong>Technology</strong><span class="up">78%</span><div class="bar"><span style="width:78%"></span></div></div>
-            <div class="sector"><strong>Financials</strong><span class="up">61%</span><div class="bar"><span style="width:61%"></span></div></div>
-            <div class="sector"><strong>Energy</strong><span>49%</span><div class="bar"><span style="width:49%"></span></div></div>
-            <div class="sector"><strong>Healthcare</strong><span class="down">42%</span><div class="bar"><span style="width:42%"></span></div></div>
-          </div>
-          <div class="panel">
-            <p class="eyebrow">Research rule</p>
-            <h3>Track price, but decide on process.</h3>
-            <p>Use this page as a decision journal: thesis, risk, entry logic, invalidation point, and review cadence.</p>
-            <div class="ticker-row"><span>Thesis</span><span>Risk</span><span>Levels</span><span>Review</span></div>
+          <div class="filters" aria-label="Filter crossover results">
+            <button class="is-active" data-filter="all" type="button">All crosses</button>
+            <button data-filter="bullish" type="button">Bullish only</button>
+            <button data-filter="bearish" type="button">Bearish only</button>
           </div>
         </div>
       </section>
 
-      <section id="live">
+      <section id="results">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Live widget</p>
-            <h2>Optional market chart embed.</h2>
+            <p class="eyebrow">Results</p>
+            <h2 id="resultTitle">Run scanner to find Indian EMA crosses.</h2>
           </div>
         </div>
-        <div class="widget-frame">
-          <div class="tradingview-widget-container" style="height:100%;width:100%">
-            <div class="tradingview-widget-container__widget" style="height:440px;width:100%"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-            {
-              "autosize": true,
-              "symbol": "NASDAQ:AAPL",
-              "interval": "D",
-              "timezone": "Asia/Kolkata",
-              "theme": "dark",
-              "style": "1",
-              "locale": "en",
-              "allow_symbol_change": true,
-              "calendar": false,
-              "support_host": "https://www.tradingview.com"
-            }
-            </script>
-          </div>
+        <div class="results-grid" id="resultsGrid">
+          <div class="empty">Click “Scan NSE universe” to calculate EMA 100/200 crosses from daily candles.</div>
         </div>
       </section>
 
-      <section id="notes">
+      <section id="universe">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Research notes</p>
-            <h2>Make the dashboard useful, not noisy.</h2>
+            <p class="eyebrow">Universe</p>
+            <h2>NSE large-cap scan list.</h2>
           </div>
         </div>
-        <div class="notes-grid">
-          <article class="note-card"><h3>1. Define the thesis</h3><p>Why does this stock deserve attention? Growth, margin expansion, sector trend, valuation reset, or technical setup?</p></article>
-          <article class="note-card"><h3>2. Mark invalidation</h3><p>Every watchlist item should have a reason to remove it. This keeps the dashboard clean.</p></article>
-          <article class="note-card"><h3>3. Review cadence</h3><p>Separate daily price movement from weekly thesis review so volatility does not become the strategy.</p></article>
-        </div>
+        <div class="universe" id="universeList"></div>
       </section>
     </main>
 
     <script>
-      const buttons = document.querySelectorAll('[data-filter]');
-      const cards = document.querySelectorAll('.stock-card');
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          buttons.forEach((item) => item.classList.remove('is-active'));
-          button.classList.add('is-active');
-          const filter = button.dataset.filter;
-          cards.forEach((card) => {
-            card.style.display = filter === 'all' || card.dataset.sector === filter ? 'block' : 'none';
-          });
+      const NSE_UNIVERSE = [
+        ["RELIANCE", "Reliance Industries"], ["TCS", "Tata Consultancy Services"], ["HDFCBANK", "HDFC Bank"],
+        ["ICICIBANK", "ICICI Bank"], ["INFY", "Infosys"], ["BHARTIARTL", "Bharti Airtel"],
+        ["SBIN", "State Bank of India"], ["ITC", "ITC"], ["HINDUNILVR", "Hindustan Unilever"],
+        ["LT", "Larsen & Toubro"], ["BAJFINANCE", "Bajaj Finance"], ["HCLTECH", "HCL Technologies"],
+        ["KOTAKBANK", "Kotak Mahindra Bank"], ["AXISBANK", "Axis Bank"], ["ASIANPAINT", "Asian Paints"],
+        ["MARUTI", "Maruti Suzuki"], ["SUNPHARMA", "Sun Pharma"], ["TITAN", "Titan"],
+        ["ULTRACEMCO", "UltraTech Cement"], ["NTPC", "NTPC"], ["TATASTEEL", "Tata Steel"],
+        ["POWERGRID", "Power Grid"], ["M&M", "Mahindra & Mahindra"], ["NESTLEIND", "Nestle India"],
+        ["TECHM", "Tech Mahindra"], ["ADANIENT", "Adani Enterprises"], ["ADANIPORTS", "Adani Ports"],
+        ["WIPRO", "Wipro"], ["ONGC", "ONGC"], ["COALINDIA", "Coal India"],
+        ["JSWSTEEL", "JSW Steel"], ["GRASIM", "Grasim"], ["HINDALCO", "Hindalco"],
+        ["BAJAJFINSV", "Bajaj Finserv"], ["TATAMOTORS", "Tata Motors"], ["EICHERMOT", "Eicher Motors"],
+        ["CIPLA", "Cipla"], ["DRREDDY", "Dr. Reddy's"], ["DIVISLAB", "Divi's Laboratories"],
+        ["BRITANNIA", "Britannia"], ["HEROMOTOCO", "Hero MotoCorp"], ["BPCL", "BPCL"],
+        ["APOLLOHOSP", "Apollo Hospitals"], ["SBILIFE", "SBI Life"], ["HDFCLIFE", "HDFC Life"],
+        ["BAJAJ-AUTO", "Bajaj Auto"], ["TATACONSUM", "Tata Consumer"], ["INDUSINDBK", "IndusInd Bank"]
+      ];
+
+      const scanButton = document.getElementById("scanButton");
+      const resultsGrid = document.getElementById("resultsGrid");
+      const resultTitle = document.getElementById("resultTitle");
+      const scanStatus = document.getElementById("scanStatus");
+      const scanCount = document.getElementById("scanCount");
+      const scanTime = document.getElementById("scanTime");
+      const progressBar = document.getElementById("progressBar");
+      const universeList = document.getElementById("universeList");
+      const filterButtons = document.querySelectorAll("[data-filter]");
+
+      let latestResults = [];
+      let activeFilter = "all";
+
+      universeList.innerHTML = NSE_UNIVERSE.map(([symbol]) => `<span>${symbol}.NS</span>`).join("");
+
+      function calculateEma(values, period) {
+        const output = Array(values.length).fill(null);
+        if (values.length < period) return output;
+
+        let seed = 0;
+        for (let index = 0; index < period; index += 1) seed += values[index];
+        output[period - 1] = seed / period;
+
+        const multiplier = 2 / (period + 1);
+        for (let index = period; index < values.length; index += 1) {
+          output[index] = (values[index] - output[index - 1]) * multiplier + output[index - 1];
+        }
+        return output;
+      }
+
+      function findCross(closes, timestamps) {
+        const ema100 = calculateEma(closes, 100);
+        const ema200 = calculateEma(closes, 200);
+        const start = Math.max(1, closes.length - 15);
+
+        for (let index = start; index < closes.length; index += 1) {
+          if (ema100[index - 1] == null || ema200[index - 1] == null || ema100[index] == null || ema200[index] == null) continue;
+
+          const previousDiff = ema100[index - 1] - ema200[index - 1];
+          const currentDiff = ema100[index] - ema200[index];
+
+          if (previousDiff <= 0 && currentDiff > 0) {
+            return { type: "bullish", index, sessionsAgo: closes.length - 1 - index, ema100: ema100[index], ema200: ema200[index], close: closes[index], timestamp: timestamps[index] };
+          }
+
+          if (previousDiff >= 0 && currentDiff < 0) {
+            return { type: "bearish", index, sessionsAgo: closes.length - 1 - index, ema100: ema100[index], ema200: ema200[index], close: closes[index], timestamp: timestamps[index] };
+          }
+        }
+        return null;
+      }
+
+      async function fetchCandles(symbol) {
+        const yahooSymbol = `${symbol}.NS`;
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?range=2y&interval=1d`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        const result = payload.chart?.result?.[0];
+        const quote = result?.indicators?.quote?.[0];
+        if (!result?.timestamp || !quote?.close) throw new Error("No candle data");
+
+        const rows = quote.close
+          .map((close, index) => ({ close, timestamp: result.timestamp[index] }))
+          .filter((row) => typeof row.close === "number" && Number.isFinite(row.close));
+
+        return {
+          closes: rows.map((row) => row.close),
+          timestamps: rows.map((row) => row.timestamp)
+        };
+      }
+
+      async function scanSymbol([symbol, name]) {
+        const { closes, timestamps } = await fetchCandles(symbol);
+        const cross = findCross(closes, timestamps);
+        if (!cross) return null;
+        return { symbol, name, ...cross };
+      }
+
+      async function runScan() {
+        scanButton.disabled = true;
+        latestResults = [];
+        renderResults();
+        scanStatus.textContent = "Scanning NSE daily candles...";
+        scanCount.textContent = `0 / ${NSE_UNIVERSE.length} scanned`;
+        progressBar.style.width = "0%";
+
+        let scanned = 0;
+        const failures = [];
+        const queue = [...NSE_UNIVERSE];
+        const workers = Array.from({ length: 5 }, async () => {
+          while (queue.length) {
+            const item = queue.shift();
+            try {
+              const result = await scanSymbol(item);
+              if (result) latestResults.push(result);
+            } catch (error) {
+              failures.push(`${item[0]}: ${error.message}`);
+            } finally {
+              scanned += 1;
+              scanCount.textContent = `${scanned} / ${NSE_UNIVERSE.length} scanned`;
+              progressBar.style.width = `${(scanned / NSE_UNIVERSE.length) * 100}%`;
+              renderResults();
+            }
+          }
+        });
+
+        await Promise.all(workers);
+        scanButton.disabled = false;
+        scanStatus.textContent = failures.length
+          ? `Scan complete with ${failures.length} provider misses`
+          : "Scan complete";
+        scanTime.textContent = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+        renderResults();
+      }
+
+      function formatDate(timestamp) {
+        return new Date(timestamp * 1000).toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          timeZone: "Asia/Kolkata"
+        });
+      }
+
+      function renderResults() {
+        const filtered = activeFilter === "all"
+          ? latestResults
+          : latestResults.filter((item) => item.type === activeFilter);
+
+        resultTitle.textContent = latestResults.length
+          ? `${filtered.length} ${activeFilter === "all" ? "" : activeFilter} EMA cross result${filtered.length === 1 ? "" : "s"}`
+          : "No EMA 100/200 crosses found yet.";
+
+        if (!filtered.length) {
+          resultsGrid.innerHTML = `<div class="empty">${latestResults.length ? "No results for this filter." : "No stocks currently match the EMA 100/200 crossover rule in the scanned NSE universe."}</div>`;
+          return;
+        }
+
+        resultsGrid.innerHTML = filtered
+          .sort((a, b) => a.sessionsAgo - b.sessionsAgo)
+          .map((item) => `
+            <article class="result-card">
+              <div class="result-head">
+                <div>
+                  <div class="symbol">${item.symbol}.NS</div>
+                  <p>${item.name}</p>
+                </div>
+                <span class="badge ${item.type}">${item.type}</span>
+              </div>
+              <p>
+                100 EMA ${item.type === "bullish" ? "crossed above" : "crossed below"} 200 EMA
+                <strong>${item.sessionsAgo}</strong> session${item.sessionsAgo === 1 ? "" : "s"} ago.
+              </p>
+              <div class="price-row">
+                <div class="mini-stat"><span>Close</span><strong>₹${item.close.toFixed(2)}</strong></div>
+                <div class="mini-stat"><span>EMA 100</span><strong>₹${item.ema100.toFixed(2)}</strong></div>
+                <div class="mini-stat"><span>EMA 200</span><strong>₹${item.ema200.toFixed(2)}</strong></div>
+              </div>
+              <p class="gold">Cross date: ${formatDate(item.timestamp)}</p>
+            </article>
+          `)
+          .join("");
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          filterButtons.forEach((item) => item.classList.remove("is-active"));
+          button.classList.add("is-active");
+          activeFilter = button.dataset.filter;
+          renderResults();
         });
       });
+
+      scanButton.addEventListener("click", runScan);
     </script>
   </body>
 </html>
