@@ -371,13 +371,13 @@
       }
       .control-top {
         display: grid;
-        grid-template-columns: minmax(280px, 1fr) minmax(220px, 0.34fr) auto auto;
+        grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px) minmax(96px, 120px) minmax(104px, 130px);
         gap: 12px;
         align-items: end;
       }
       .control-filters {
         display: grid;
-        grid-template-columns: 1.35fr 0.95fr 0.9fr 0.8fr 0.8fr 0.95fr;
+        grid-template-columns: minmax(170px, 1.25fr) minmax(150px, 0.9fr) minmax(130px, 0.78fr) minmax(120px, 0.7fr) minmax(120px, 0.7fr) minmax(148px, 0.82fr);
         gap: 12px;
         align-items: end;
         padding-top: 16px;
@@ -386,6 +386,7 @@
       .filter-field {
         display: grid;
         gap: 7px;
+        min-width: 0;
       }
       .filter-field span {
         color: var(--muted);
@@ -537,7 +538,7 @@
         margin-bottom: 16px;
       }
       .search {
-        min-width: min(100%, 360px);
+        min-width: 0;
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 16px;
@@ -547,7 +548,7 @@
       }
       .search:focus { border-color: var(--green); }
       .sort-select, .filter-select, .filter-input {
-        min-width: 210px;
+        min-width: 0;
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 16px;
@@ -558,7 +559,8 @@
       }
       .sort-select:focus, .filter-select:focus, .filter-input:focus { border-color: var(--green); }
       .search-clear {
-        min-width: 108px;
+        min-width: 0;
+        width: 100%;
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 16px;
@@ -582,6 +584,10 @@
         cursor: pointer;
         font-weight: 900;
         transition: 180ms ease;
+        width: 100%;
+        min-width: 0;
+        white-space: normal;
+        line-height: 1.15;
       }
       .utility-button:hover,
       .utility-button.is-active {
