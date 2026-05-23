@@ -223,6 +223,13 @@
 
       .scanner-shell { display: grid; gap: 18px; }
       .status-panel { padding: 18px; }
+      .search-panel {
+        display: grid;
+        grid-template-columns: minmax(260px, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        padding: 14px;
+      }
       .badge {
         display: inline-flex;
         align-items: center;
@@ -291,6 +298,22 @@
         outline: none;
       }
       .search:focus { border-color: var(--green); }
+      .search-clear {
+        min-width: 108px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 13px 16px;
+        background: rgba(15, 22, 42, 0.82);
+        color: var(--muted);
+        cursor: pointer;
+        font-weight: 900;
+        transition: 180ms ease;
+      }
+      .search-clear:hover {
+        border-color: var(--green);
+        color: var(--text);
+        background: rgba(99, 246, 178, 0.1);
+      }
       .universe { display: flex; flex-wrap: wrap; gap: 8px; }
       .universe span {
         border: 1px solid var(--line);
@@ -319,6 +342,7 @@
         .hero, .scan-grid, .results-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
         .nav-links { width: 100%; overflow-x: auto; }
+        .search-panel { grid-template-columns: 1fr; }
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
       }
     </style>
@@ -416,6 +440,10 @@
             </div>
             <div class="progress-track"><span id="progressBar"></span></div>
           </div>
+          <div class="panel search-panel">
+            <input class="search" id="stockSearch" type="search" placeholder="Search stock symbol or company, e.g. RELIANCE, TCS, HDFC" autocomplete="off" />
+            <button class="search-clear" id="clearSearch" type="button">Clear</button>
+          </div>
           <div class="filters" aria-label="Filter by market-cap segment">
             <button class="is-active" data-cap-filter="all" type="button"><span>All market</span><span class="filter-count">0</span></button>
             <button data-cap-filter="large" type="button"><span>Large cap</span><span class="filter-count">0</span></button>
@@ -481,6 +509,8 @@
       const universeTitle = document.getElementById("universeTitle");
       const universeMeta = document.getElementById("universeMeta");
       const universeSearch = document.getElementById("universeSearch");
+      const stockSearch = document.getElementById("stockSearch");
+      const clearSearch = document.getElementById("clearSearch");
       const filterButtons = document.querySelectorAll("[data-filter]");
       const capFilterButtons = document.querySelectorAll("[data-cap-filter]");
       const scanCards = document.querySelectorAll("[data-scan-card]");
@@ -539,6 +569,17 @@
         });
       }
 
+      function stockMatchesQuery(item) {
+        const query = universeQuery.trim().toUpperCase();
+        if (!query) return true;
+        return item.symbol.toUpperCase().includes(query) || item.name.toUpperCase().includes(query);
+      }
+
+      function syncSearchInputs(source) {
+        if (source !== stockSearch) stockSearch.value = universeQuery;
+        if (source !== universeSearch) universeSearch.value = universeQuery;
+      }
+
       async function loadScan(scanId, shouldUpdateUrl = true) {
         const config = SCANS[scanId];
         if (!config) return;
@@ -582,7 +623,7 @@
       function resultMatches(item) {
         const typeMatch = activeFilter === "all" || item.type === activeFilter;
         const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
-        return typeMatch && capMatch;
+        return typeMatch && capMatch && stockMatchesQuery(item);
       }
 
       function renderResults() {
@@ -603,10 +644,11 @@
 
         const typeText = activeFilter === "all" ? "EMA cross" : `${activeFilter} EMA cross`;
         const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
-        resultTitle.textContent = `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}`;
+        const searchText = universeQuery.trim() ? ` matching "${universeQuery.trim()}"` : "";
+        resultTitle.textContent = `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}${searchText}`;
 
         if (!filtered.length) {
-          resultsGrid.innerHTML = '<div class="empty">No stocks match this market-cap and crossover filter in the latest generated scan.</div>';
+          resultsGrid.innerHTML = '<div class="empty">No stocks match this search, market-cap, and crossover filter in the latest generated scan.</div>';
           return;
         }
 
@@ -658,7 +700,7 @@
         const query = universeQuery.trim().toUpperCase();
         const visibleUniverse = latestUniverse.filter((item) => {
           const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
-          const queryMatch = !query || item.symbol.includes(query) || item.name.toUpperCase().includes(query);
+          const queryMatch = !query || stockMatchesQuery(item);
           return capMatch && queryMatch;
         });
         const rendered = visibleUniverse.slice(0, 320);
@@ -699,9 +741,21 @@
         });
       });
 
-      universeSearch.addEventListener("input", (event) => {
+      function handleSearchInput(event) {
         universeQuery = event.target.value || "";
+        syncSearchInputs(event.target);
+        renderResults();
         renderUniverse();
+      }
+
+      stockSearch.addEventListener("input", handleSearchInput);
+      universeSearch.addEventListener("input", handleSearchInput);
+      clearSearch.addEventListener("click", () => {
+        universeQuery = "";
+        syncSearchInputs(null);
+        renderResults();
+        renderUniverse();
+        stockSearch.focus();
       });
 
       window.addEventListener("popstate", () => {
