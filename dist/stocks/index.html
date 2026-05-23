@@ -529,25 +529,6 @@
         background-size: 220% 100%;
         animation: shimmer 1.35s linear infinite;
       }
-      .hotlist {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding-top: 2px;
-      }
-      .hotlist[hidden] { display: none; }
-      .quick-chip {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 10px 12px;
-        background: rgba(142, 165, 255, 0.08);
-        color: var(--text);
-        cursor: pointer;
-        font-weight: 900;
-        transition: 180ms ease;
-      }
-      .quick-chip:hover { border-color: var(--green); transform: translateY(-2px); }
-
       .universe-tools {
         display: flex;
         flex-wrap: wrap;
@@ -848,7 +829,6 @@
                 <button class="utility-button" id="exportCsv" type="button">Export CSV</button>
               </label>
             </div>
-            <div class="hotlist" id="hotlist" hidden aria-label="Quick focus stocks"></div>
             <div class="control-filters" aria-label="Advanced scanner filters">
               <label class="filter-field">
                 <span>Sector</span>
@@ -986,7 +966,6 @@
       const watchlistToggle = document.getElementById("watchlistToggle");
       const watchlistCount = document.getElementById("watchlistCount");
       const exportCsv = document.getElementById("exportCsv");
-      const hotlist = document.getElementById("hotlist");
       const detailModal = document.getElementById("detailModal");
       const modalTitle = document.getElementById("modalTitle");
       const modalContent = document.getElementById("modalContent");
@@ -1273,21 +1252,6 @@
         return sorted.sort((a, b) => a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
       }
 
-      function renderHotlist() {
-        if (!latestPayload || !latestResults.length) {
-          hotlist.hidden = true;
-          hotlist.innerHTML = "";
-          return;
-        }
-
-        const chips = sortResults(latestResults)
-          .slice(0, 6)
-          .map((item) => `<button class="quick-chip" type="button" data-hot-symbol="${item.symbol}">${item.symbol}</button>`)
-          .join("");
-        hotlist.hidden = false;
-        hotlist.innerHTML = chips;
-      }
-
       async function loadScan(scanId, shouldUpdateUrl = true) {
         const config = SCANS[scanId];
         if (!config) return;
@@ -1298,7 +1262,6 @@
         latestResults = [];
         latestUniverse = [];
         dashboardGrid.hidden = true;
-        hotlist.hidden = true;
         renderResults();
         renderUniverse();
         scanStatus.textContent = `Loading latest ${config.label} dataset`;
@@ -1332,7 +1295,6 @@
 
         renderResults();
         renderUniverse();
-        renderHotlist();
         updateSummary();
         updateWatchlistCount();
         document.getElementById("scanner").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1560,17 +1522,6 @@
       });
       clearSearch.addEventListener("click", () => {
         universeQuery = "";
-        syncSearchInputs(null);
-        renderResults();
-        renderUniverse();
-        updateUrl(activeScanId);
-        stockSearch.focus();
-      });
-
-      hotlist.addEventListener("click", (event) => {
-        const button = event.target.closest("[data-hot-symbol]");
-        if (!button) return;
-        universeQuery = button.dataset.hotSymbol;
         syncSearchInputs(null);
         renderResults();
         renderUniverse();
