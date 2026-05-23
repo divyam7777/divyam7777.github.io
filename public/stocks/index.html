@@ -8,12 +8,30 @@
       content="NSE India EMA crossover scanner for 100/200 and 50/100 EMA crosses across the full equity universe."
     />
     <title>NSE EMA Scanner | Divyam Matia</title>
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("stocks-theme");
+          const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.dataset.theme = savedTheme || (prefersLight ? "light" : "dark");
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
     <style>
       :root {
         color-scheme: dark;
         --bg: #050914;
         --panel: rgba(15, 22, 42, 0.82);
         --panel-strong: rgba(17, 26, 48, 0.96);
+        --nav-bg: rgba(8, 12, 25, 0.76);
+        --control-bg: rgba(15, 22, 42, 0.82);
+        --tile-bg: rgba(15, 22, 42, 0.74);
+        --screen-bg: #070b16;
+        --card-hover: rgba(19, 29, 55, 0.9);
+        --subtle: rgba(255, 255, 255, 0.035);
+        --empty-bg: rgba(255, 255, 255, 0.025);
         --text: #f3f7ff;
         --muted: #a8b3ca;
         --line: rgba(159, 178, 255, 0.22);
@@ -21,7 +39,31 @@
         --blue: #8ea5ff;
         --gold: #f6c85f;
         --red: #fb7185;
+        --primary-text: #08101f;
         --shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+      }
+
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --bg: #f4f7fb;
+        --panel: rgba(255, 255, 255, 0.82);
+        --panel-strong: #ffffff;
+        --nav-bg: rgba(255, 255, 255, 0.82);
+        --control-bg: rgba(255, 255, 255, 0.86);
+        --tile-bg: rgba(255, 255, 255, 0.76);
+        --screen-bg: #eef4ff;
+        --card-hover: rgba(255, 255, 255, 0.96);
+        --subtle: rgba(10, 18, 32, 0.045);
+        --empty-bg: rgba(10, 18, 32, 0.035);
+        --text: #0b1220;
+        --muted: #5a6578;
+        --line: rgba(15, 23, 42, 0.13);
+        --green: #047857;
+        --blue: #3157ff;
+        --gold: #b7791f;
+        --red: #dc2626;
+        --primary-text: #ffffff;
+        --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
       }
 
       * { box-sizing: border-box; }
@@ -30,10 +72,10 @@
         margin: 0;
         min-height: 100vh;
         background:
-          radial-gradient(circle at top left, rgba(99, 246, 178, 0.10), transparent 28rem),
-          radial-gradient(circle at top right, rgba(142, 165, 255, 0.12), transparent 30rem),
-          linear-gradient(rgba(142, 165, 255, 0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(142, 165, 255, 0.04) 1px, transparent 1px),
+          radial-gradient(circle at top left, color-mix(in srgb, var(--green) 12%, transparent), transparent 28rem),
+          radial-gradient(circle at top right, color-mix(in srgb, var(--blue) 14%, transparent), transparent 30rem),
+          linear-gradient(color-mix(in srgb, var(--blue) 7%, transparent) 1px, transparent 1px),
+          linear-gradient(90deg, color-mix(in srgb, var(--blue) 7%, transparent) 1px, transparent 1px),
           var(--bg);
         background-size: auto, auto, 52px 52px, 52px 52px, auto;
         color: var(--text);
@@ -48,8 +90,8 @@
         height: 520px;
         pointer-events: none;
         background:
-          radial-gradient(circle at 18% 48%, rgba(99, 246, 178, 0.16), transparent 18rem),
-          radial-gradient(circle at 78% 30%, rgba(246, 200, 95, 0.10), transparent 16rem);
+          radial-gradient(circle at 18% 48%, color-mix(in srgb, var(--green) 20%, transparent), transparent 18rem),
+          radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--gold) 15%, transparent), transparent 16rem);
         filter: blur(4px);
         animation: marketGlow 12s ease-in-out infinite alternate;
       }
@@ -71,7 +113,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 12px 16px;
-        background: rgba(8, 12, 25, 0.76);
+        background: var(--nav-bg);
         backdrop-filter: blur(20px);
         box-shadow: var(--shadow);
       }
@@ -90,6 +132,23 @@
       .nav-links { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
       .nav-links a { border-radius: 999px; padding: 10px 14px; transition: 180ms ease; }
       .nav-links a:hover { background: rgba(142, 165, 255, 0.12); color: var(--text); }
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 9px 12px;
+        background: var(--control-bg);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 900;
+        transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+      }
+      .theme-toggle:hover {
+        transform: translateY(-2px);
+        border-color: var(--green);
+      }
       .market-clock {
         border: 1px solid rgba(99, 246, 178, 0.22);
         border-radius: 999px;
@@ -149,7 +208,7 @@
         border: 1px solid var(--line);
         border-radius: 24px;
         padding: 20px;
-        background: #070b16;
+        background: var(--screen-bg);
       }
       .chart-lines {
         position: relative;
@@ -158,7 +217,7 @@
         border-radius: 18px;
         background:
           linear-gradient(145deg, rgba(99, 246, 178, 0.16), rgba(142, 165, 255, 0.04)),
-          repeating-linear-gradient(to right, transparent 0 34px, rgba(255, 255, 255, 0.04) 35px);
+          repeating-linear-gradient(to right, transparent 0 34px, color-mix(in srgb, var(--text) 6%, transparent) 35px);
       }
       .chart-lines span {
         position: absolute;
@@ -190,7 +249,7 @@
         border: 1px solid var(--line);
         border-radius: 18px;
         padding: 14px;
-        background: rgba(255, 255, 255, 0.035);
+        background: var(--subtle);
       }
       .metric strong { display: block; margin-bottom: 5px; font-size: 1.1rem; }
       .metric span { color: var(--muted); font-size: 0.83rem; }
@@ -209,7 +268,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 8px 10px;
-        background: rgba(255, 255, 255, 0.035);
+        background: var(--subtle);
         animation: tickerDrift 18s linear infinite;
       }
 
@@ -241,13 +300,13 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 18px;
-        background: rgba(15, 22, 42, 0.82);
+        background: var(--control-bg);
         color: var(--text);
         font-weight: 900;
         cursor: pointer;
         transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
       }
-      .button.primary { background: var(--text); color: #08101f; border-color: var(--text); }
+      .button.primary { background: var(--text); color: var(--primary-text); border-color: var(--text); }
       .button::before, .filters button::before, .result-actions a::before {
         content: "";
         width: 8px;
@@ -285,7 +344,7 @@
         padding: 18px;
         border: 1px solid var(--line);
         border-radius: 22px;
-        background: rgba(15, 22, 42, 0.74);
+        background: var(--tile-bg);
         box-shadow: var(--shadow);
       }
       .stat-tile span {
@@ -364,7 +423,7 @@
       .result-card:hover {
         transform: translateY(-4px);
         border-color: rgba(99, 246, 178, 0.42);
-        background: rgba(19, 29, 55, 0.9);
+        background: var(--card-hover);
       }
       .result-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
       .symbol { font-size: 1.45rem; font-weight: 950; letter-spacing: -0.04em; }
@@ -373,7 +432,7 @@
         border: 1px solid var(--line);
         border-radius: 16px;
         padding: 12px;
-        background: rgba(255, 255, 255, 0.035);
+        background: var(--subtle);
       }
       .mini-stat span { display: block; color: var(--muted); font-size: 0.75rem; }
       .mini-stat strong { display: block; margin-top: 4px; }
@@ -386,14 +445,14 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 10px 13px;
-        background: rgba(15, 22, 42, 0.82);
+        background: var(--control-bg);
         color: var(--text);
         cursor: pointer;
         font-weight: 900;
         font-size: 0.85rem;
       }
       .gold { color: var(--gold); }
-      .empty { grid-column: 1 / -1; padding: 28px; color: var(--muted); background: rgba(255, 255, 255, 0.025); }
+      .empty { grid-column: 1 / -1; padding: 28px; color: var(--muted); background: var(--empty-bg); }
       .skeleton-grid { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
       .skeleton-card {
         min-height: 230px;
@@ -433,7 +492,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 16px;
-        background: rgba(15, 22, 42, 0.82);
+        background: var(--control-bg);
         color: var(--text);
         outline: none;
       }
@@ -443,7 +502,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 16px;
-        background: rgba(15, 22, 42, 0.82);
+        background: var(--control-bg);
         color: var(--text);
         outline: none;
       }
@@ -453,7 +512,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 13px 16px;
-        background: rgba(15, 22, 42, 0.82);
+        background: var(--control-bg);
         color: var(--muted);
         cursor: pointer;
         font-weight: 900;
@@ -492,6 +551,7 @@
         .hero, .scan-grid, .results-grid, .dashboard-grid, .skeleton-grid { grid-template-columns: 1fr; }
         .nav { align-items: flex-start; border-radius: 28px; flex-direction: column; }
         .nav-links { width: 100%; overflow-x: auto; }
+        .theme-toggle, .market-clock { width: 100%; justify-content: center; }
         .search-panel { grid-template-columns: 1fr; }
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
       }
@@ -542,6 +602,10 @@
         <a href="#universe">Universe</a>
         <a href="/">Portfolio</a>
       </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">
+        <span id="themeIcon">☾</span>
+        <span id="themeText">Dark</span>
+      </button>
       <span class="market-clock" id="marketClock">IST --:--:--</span>
     </header>
 
@@ -713,6 +777,9 @@
       const scanCount = document.getElementById("scanCount");
       const scanTime = document.getElementById("scanTime");
       const marketClock = document.getElementById("marketClock");
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+      const themeText = document.getElementById("themeText");
       const progressBar = document.getElementById("progressBar");
       const dashboardGrid = document.getElementById("dashboardGrid");
       const summaryTotal = document.getElementById("summaryTotal");
@@ -741,6 +808,28 @@
       let activeCapFilter = "all";
       let universeQuery = "";
       let activeSort = "fresh";
+
+      function getInitialTheme() {
+        const savedTheme = localStorage.getItem("stocks-theme");
+        if (savedTheme === "light" || savedTheme === "dark") return savedTheme;
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark";
+      }
+
+      function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("stocks-theme", theme);
+        themeIcon.textContent = theme === "light" ? "☀" : "☾";
+        themeText.textContent = theme === "light" ? "Light" : "Dark";
+        themeToggle.setAttribute("aria-label", `Switch to ${theme === "light" ? "dark" : "light"} mode`);
+      }
+
+      applyTheme(getInitialTheme());
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+        applyTheme(nextTheme);
+      });
 
       function updateClock() {
         marketClock.textContent = new Intl.DateTimeFormat("en-IN", {
