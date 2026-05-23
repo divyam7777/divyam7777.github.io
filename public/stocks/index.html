@@ -401,7 +401,7 @@
             This page loads a generated NSE scan and shows only symbols where the 100-day EMA and 200-day EMA crossed within the last 15 trading sessions.
           </p>
           <div class="actions">
-            <button class="button" id="scanButton" type="button">Load latest scan</button>
+            <button class="button" id="scanButton" type="button">Refresh scan data</button>
             <a class="button" href="/">Back to portfolio</a>
           </div>
           <p class="disclaimer">
@@ -431,7 +431,7 @@
         <div class="scanner-shell">
           <div class="panel status-panel">
             <div class="status-row">
-              <span class="badge" id="scanStatus">Ready to load generated scan</span>
+              <span class="badge" id="scanStatus">Loading generated NSE scan...</span>
               <span class="badge" id="scanCount">0 scanned</span>
               <span class="badge" id="scanTime">No scan yet</span>
             </div>
@@ -449,11 +449,11 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Results</p>
-            <h2 id="resultTitle">Run scanner to find Indian EMA crosses.</h2>
+            <h2 id="resultTitle">Loading latest Indian EMA crosses.</h2>
           </div>
         </div>
         <div class="results-grid" id="resultsGrid">
-          <div class="empty">Click “Load latest scan” to show NSE 100/200 EMA crossover results.</div>
+          <div class="empty">Loading generated NSE 100/200 EMA crossover scan...</div>
         </div>
       </section>
 
@@ -591,6 +591,7 @@
       });
 
       scanButton.addEventListener("click", runScan);
+      runScan();
     </script>
   </body>
 </html>
