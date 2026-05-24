@@ -131,7 +131,8 @@
       }
       .nav-links { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
       .nav-links a { border-radius: 999px; padding: 10px 14px; transition: 180ms ease; }
-      .nav-links a:hover { background: rgba(142, 165, 255, 0.12); color: var(--text); }
+      .nav-links a:hover, .nav-links a[aria-current="page"] { background: rgba(142, 165, 255, 0.12); color: var(--text); }
+      .nav-count { margin-left: 4px; color: var(--green); font-weight: 950; }
       .theme-toggle {
         display: inline-flex;
         align-items: center;
@@ -523,6 +524,7 @@
       }
       .result-row.bullish::before { background: var(--green); }
       .result-row.bearish::before { background: var(--red); }
+      .result-row.saved::before { background: var(--gold); }
       .result-row:hover,
       .result-row:focus-visible {
         transform: translateY(-2px);
@@ -627,6 +629,7 @@
       .score-pill.grade-b { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 55%, transparent); }
       .score-pill.grade-c { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 55%, transparent); }
       .score-pill.grade-d { color: var(--red); border-color: color-mix(in srgb, var(--red) 55%, transparent); }
+      .score-pill.grade-saved { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 55%, transparent); }
       .sparkline {
         width: 100%;
         height: 74px;
@@ -883,6 +886,7 @@
         <a href="#choose">Scanners</a>
         <a href="#scanner">Results</a>
         <a href="#universe">Universe</a>
+        <a href="/stocks/watchlist/" id="watchlistNavLink">Watchlist <span class="nav-count" id="navWatchlistCount">0</span></a>
         <a href="/">Portfolio</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">
@@ -895,13 +899,14 @@
     <main>
       <section class="hero">
         <div>
-          <p class="eyebrow">Indian market only | NSE daily candles</p>
-          <h1>Full-market EMA cross scanner.</h1>
-          <p class="hero-copy">
+          <p class="eyebrow" id="heroEyebrow">Indian market only | NSE daily candles</p>
+          <h1 id="heroTitle">Full-market EMA cross scanner.</h1>
+          <p class="hero-copy" id="heroCopy">
             Choose a scanner first. The page does not load results on plain page open; it only loads the latest generated dataset after you select the 100/200 or 50/100 EMA crossover scan.
           </p>
-          <div class="actions">
+          <div class="actions" id="heroActions">
             <a class="button primary" href="#choose">Choose scanner</a>
+            <a class="button" href="/stocks/watchlist/">Open watchlist</a>
             <a class="button" href="/">Back to portfolio</a>
           </div>
           <p class="disclaimer">
@@ -1117,6 +1122,16 @@
         }
       };
 
+      const isWatchlistPage = window.location.pathname.replace(/\/+$/, "").endsWith("/stocks/watchlist");
+      const WATCHLIST_KEY = "stocks-watchlist";
+      const WATCHLIST_META_KEY = "stocks-watchlist-meta";
+
+      const heroEyebrow = document.getElementById("heroEyebrow");
+      const heroTitle = document.getElementById("heroTitle");
+      const heroCopy = document.getElementById("heroCopy");
+      const heroActions = document.getElementById("heroActions");
+      const watchlistNavLink = document.getElementById("watchlistNavLink");
+      const navWatchlistCount = document.getElementById("navWatchlistCount");
       const resultsGrid = document.getElementById("resultsGrid");
       const resultTitle = document.getElementById("resultTitle");
       const scanStatus = document.getElementById("scanStatus");
@@ -1171,24 +1186,67 @@
       let activeMinPrice = "";
       let activeMaxPrice = "";
       let watchlistOnly = false;
+      let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
+
+      function normalizeSymbol(symbol) {
+        return String(symbol || "").replace(/\.NS$/i, "").trim().toUpperCase();
+      }
 
       function loadWatchlist() {
         try {
-          const saved = JSON.parse(localStorage.getItem("stocks-watchlist") || "[]");
-          return Array.isArray(saved) ? saved : [];
+          const saved = JSON.parse(localStorage.getItem(WATCHLIST_KEY) || "[]");
+          return Array.isArray(saved) ? saved.map(normalizeSymbol).filter(Boolean) : [];
         } catch {
           return [];
         }
       }
 
+      function loadWatchlistMeta() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(WATCHLIST_META_KEY) || "{}");
+          return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {};
+        } catch {
+          return {};
+        }
+      }
+
+      function saveWatchlistMeta() {
+        localStorage.setItem(WATCHLIST_META_KEY, JSON.stringify(watchlistMeta));
+      }
+
+      function rememberWatchlistItem(item) {
+        const symbol = normalizeSymbol(item.symbol);
+        if (!symbol) return;
+        const existing = watchlistMeta[symbol] || {};
+        watchlistMeta[symbol] = {
+          symbol,
+          name: item.name || existing.name || `${symbol}.NS`,
+          sector: item.sector || existing.sector || "Unclassified",
+          marketCap: item.marketCap || existing.marketCap || "other",
+          isin: item.isin || existing.isin || "",
+          addedAt: existing.addedAt || new Date().toISOString(),
+          lastSeenAt: new Date().toISOString()
+        };
+        saveWatchlistMeta();
+      }
+
+      function forgetWatchlistItem(symbol) {
+        const normalized = normalizeSymbol(symbol);
+        if (watchlistMeta[normalized]) {
+          delete watchlistMeta[normalized];
+          saveWatchlistMeta();
+        }
+      }
+
       function saveWatchlist() {
-        localStorage.setItem("stocks-watchlist", JSON.stringify([...watchlist].sort()));
+        localStorage.setItem(WATCHLIST_KEY, JSON.stringify([...watchlist].map(normalizeSymbol).filter(Boolean).sort()));
         updateWatchlistCount();
       }
 
       function updateWatchlistCount() {
         watchlistCount.textContent = watchlist.size;
+        if (navWatchlistCount) navWatchlistCount.textContent = watchlist.size;
         watchlistToggle.classList.toggle("is-active", watchlistOnly);
       }
 
@@ -1214,6 +1272,25 @@
         applyTheme(nextTheme);
       });
 
+      function setupWatchlistPageUi() {
+        if (!isWatchlistPage) return;
+        document.title = "NSE Watchlist | Divyam Matia";
+        document.body.classList.add("watchlist-page");
+        if (watchlistNavLink) watchlistNavLink.setAttribute("aria-current", "page");
+        heroEyebrow.textContent = "Saved stocks | local browser watchlist";
+        heroTitle.textContent = "Your NSE watchlist.";
+        heroCopy.textContent = "Every stock you save is kept in this browser and refreshed against the latest generated NSE EMA scanner data whenever you open this page.";
+        heroActions.innerHTML = `
+          <a class="button primary" href="#scanner">View saved stocks</a>
+          <a class="button" href="/stocks/?scan=50-100">Run 50 / 100 scan</a>
+          <a class="button" href="/stocks/?scan=100-200">Run 100 / 200 scan</a>
+        `;
+        resultTitle.textContent = "Loading your saved stocks.";
+        scanStatus.textContent = "Watchlist mode";
+      }
+
+      setupWatchlistPageUi();
+
       function updateClock() {
         marketClock.textContent = new Intl.DateTimeFormat("en-IN", {
           timeZone: "Asia/Kolkata",
@@ -1236,6 +1313,7 @@
       }
 
       function formatDate(timestamp) {
+        if (!timestamp) return "Not available";
         return new Date(timestamp * 1000).toLocaleDateString("en-IN", {
           day: "2-digit",
           month: "short",
@@ -1244,14 +1322,49 @@
         });
       }
 
+      function formatIsoDate(value) {
+        if (!value) return "Saved earlier";
+        return new Date(value).toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          timeZone: "Asia/Kolkata"
+        });
+      }
+
       function formatScanTime(value) {
+        if (!value) return "Latest generated dataset";
         return new Date(value).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
       }
 
+      function itemFastPeriod(item) {
+        return item._fastPeriod || latestPayload?.fastPeriod || "-";
+      }
+
+      function itemSlowPeriod(item) {
+        return item._slowPeriod || latestPayload?.slowPeriod || "-";
+      }
+
+      function addScanContext(item, payload, scanId) {
+        return {
+          ...item,
+          symbol: normalizeSymbol(item.symbol),
+          _scanId: scanId,
+          _scanLabel: payload.label,
+          _fastPeriod: payload.fastPeriod,
+          _slowPeriod: payload.slowPeriod,
+          _generatedAt: payload.generatedAt
+        };
+      }
+
       function updateUrl(scanId) {
-        if (!scanId) return;
         const nextUrl = new URL(window.location.href);
-        nextUrl.searchParams.set("scan", scanId);
+        if (isWatchlistPage) {
+          nextUrl.searchParams.delete("scan");
+        } else {
+          if (!scanId) return;
+          nextUrl.searchParams.set("scan", scanId);
+        }
         if (universeQuery.trim()) nextUrl.searchParams.set("q", universeQuery.trim());
         else nextUrl.searchParams.delete("q");
         if (activeCapFilter !== "all") nextUrl.searchParams.set("cap", activeCapFilter);
@@ -1281,7 +1394,8 @@
       }
 
       function updateCapCounts() {
-        const counts = latestUniverse.reduce((acc, item) => {
+        const capSource = isWatchlistPage ? latestResults : latestUniverse;
+        const counts = capSource.reduce((acc, item) => {
           acc.all += 1;
           acc[item.marketCap] = (acc[item.marketCap] || 0) + 1;
           return acc;
@@ -1296,7 +1410,7 @@
       function stockMatchesQuery(item) {
         const query = universeQuery.trim().toUpperCase();
         if (!query) return true;
-        return item.symbol.toUpperCase().includes(query) || item.name.toUpperCase().includes(query);
+        return normalizeSymbol(item.symbol).includes(query) || String(item.name || "").toUpperCase().includes(query);
       }
 
       function syncSearchInputs(source) {
@@ -1318,6 +1432,7 @@
       }
 
       function scoreGrade(item) {
+        if (item._isSavedOnly) return "Saved";
         return (item.score && item.score.grade) || "D";
       }
 
@@ -1334,9 +1449,12 @@
       }
 
       function priceMatches(item) {
-        const close = Number(item.close);
         const min = activeMinPrice === "" ? null : Number(activeMinPrice);
         const max = activeMaxPrice === "" ? null : Number(activeMaxPrice);
+        if (item.close === null || item.close === undefined || Number.isNaN(Number(item.close))) {
+          return min === null && max === null;
+        }
+        const close = Number(item.close);
         if (min !== null && close < min) return false;
         if (max !== null && close > max) return false;
         return true;
@@ -1347,6 +1465,7 @@
       }
 
       function sessionMatches(item) {
+        if (item._isSavedOnly || item.sessionsAgo === null || item.sessionsAgo === undefined) return true;
         return Number(item.sessionsAgo) <= Number(activeSessionWindow);
       }
 
@@ -1378,7 +1497,8 @@
       }
 
       function populateSectorFilter() {
-        const sectors = [...new Set(latestUniverse.map((item) => item.sector).filter(Boolean))].sort();
+        const sectorSource = isWatchlistPage ? latestResults : latestUniverse;
+        const sectors = [...new Set(sectorSource.map((item) => item.sector).filter(Boolean))].sort();
         sectorSelect.innerHTML = '<option value="all">All sectors</option>' + sectors
           .map((sector) => `<option value="${escapeHtml(sector)}">${escapeHtml(sector)}</option>`)
           .join("");
@@ -1420,18 +1540,173 @@
       }
 
       function sortResults(items) {
-        const typeRank = { bullish: 0, bearish: 1 };
+        const typeRank = { bullish: 0, bearish: 1, watchlist: 2 };
+        const sessionRank = (item) => Number.isFinite(Number(item.sessionsAgo)) ? Number(item.sessionsAgo) : 999;
+        const closeRank = (item) => Number.isFinite(Number(item.close)) ? Number(item.close) : -1;
         const sorted = [...items];
         if (activeSort === "symbol") return sorted.sort((a, b) => a.symbol.localeCompare(b.symbol));
-        if (activeSort === "score") return sorted.sort((a, b) => scoreValue(b) - scoreValue(a) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+        if (activeSort === "score") return sorted.sort((a, b) => scoreValue(b) - scoreValue(a) || sessionRank(a) - sessionRank(b) || a.symbol.localeCompare(b.symbol));
         if (activeSort === "bullish") {
-          return sorted.sort((a, b) => (typeRank[a.type] ?? 9) - (typeRank[b.type] ?? 9) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+          return sorted.sort((a, b) => (typeRank[a.type] ?? 9) - (typeRank[b.type] ?? 9) || sessionRank(a) - sessionRank(b) || a.symbol.localeCompare(b.symbol));
         }
         if (activeSort === "bearish") {
-          return sorted.sort((a, b) => (typeRank[b.type] ?? 9) - (typeRank[a.type] ?? 9) || a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+          return sorted.sort((a, b) => (typeRank[b.type] ?? 9) - (typeRank[a.type] ?? 9) || sessionRank(a) - sessionRank(b) || a.symbol.localeCompare(b.symbol));
         }
-        if (activeSort === "closeHigh") return sorted.sort((a, b) => Number(b.close) - Number(a.close));
-        return sorted.sort((a, b) => a.sessionsAgo - b.sessionsAgo || a.symbol.localeCompare(b.symbol));
+        if (activeSort === "closeHigh") return sorted.sort((a, b) => closeRank(b) - closeRank(a) || a.symbol.localeCompare(b.symbol));
+        return sorted.sort((a, b) => sessionRank(a) - sessionRank(b) || scoreValue(b) - scoreValue(a) || a.symbol.localeCompare(b.symbol));
+      }
+
+      async function fetchScanPayload(scanId) {
+        const config = SCANS[scanId];
+        const response = await fetch(`${config.file}?ts=${Date.now()}`);
+        if (!response.ok) throw new Error(`${config.label}: HTTP ${response.status}`);
+        const payload = await response.json();
+        return { scanId, payload };
+      }
+
+      function chooseBetterSignal(current, candidate) {
+        if (!current) return candidate;
+        const currentSessions = Number.isFinite(Number(current.sessionsAgo)) ? Number(current.sessionsAgo) : 999;
+        const candidateSessions = Number.isFinite(Number(candidate.sessionsAgo)) ? Number(candidate.sessionsAgo) : 999;
+        if (candidateSessions !== currentSessions) return candidateSessions < currentSessions ? candidate : current;
+        if (scoreValue(candidate) !== scoreValue(current)) return scoreValue(candidate) > scoreValue(current) ? candidate : current;
+        return candidate._scanId === "50-100" ? candidate : current;
+      }
+
+      function buildSavedOnlyItem(symbol, universeItem = {}) {
+        const meta = watchlistMeta[symbol] || {};
+        return {
+          symbol,
+          name: meta.name || universeItem.name || `${symbol}.NS`,
+          marketCap: meta.marketCap || universeItem.marketCap || "other",
+          sector: meta.sector || universeItem.sector || "Unclassified",
+          isin: meta.isin || universeItem.isin || "",
+          type: "watchlist",
+          sessionsAgo: null,
+          fastEma: null,
+          slowEma: null,
+          close: null,
+          volume: null,
+          averageVolume20: null,
+          timestamp: null,
+          sparkline: [],
+          score: null,
+          _isSavedOnly: true,
+          _scanLabel: "No current EMA cross",
+          _addedAt: meta.addedAt || null,
+          _generatedAt: latestPayload?.generatedAt || null
+        };
+      }
+
+      function buildWatchlistRows(payloadEntries) {
+        const universeMap = new Map();
+        const signalMap = new Map();
+        let newestGeneratedAt = null;
+        let pricedUniverseSize = 0;
+        let universeSize = 0;
+
+        payloadEntries.forEach(({ scanId, payload }) => {
+          if (!newestGeneratedAt || new Date(payload.generatedAt) > new Date(newestGeneratedAt)) newestGeneratedAt = payload.generatedAt;
+          pricedUniverseSize = Math.max(pricedUniverseSize, payload.pricedUniverseSize || 0);
+          universeSize = Math.max(universeSize, payload.universeSize || 0);
+          (payload.universe || []).forEach((item) => {
+            const symbol = normalizeSymbol(item.symbol);
+            if (symbol && !universeMap.has(symbol)) universeMap.set(symbol, { ...item, symbol });
+          });
+          (payload.results || []).forEach((item) => {
+            const symbol = normalizeSymbol(item.symbol);
+            if (!watchlist.has(symbol)) return;
+            const enriched = addScanContext(item, payload, scanId);
+            signalMap.set(symbol, chooseBetterSignal(signalMap.get(symbol), enriched));
+          });
+        });
+
+        let changedMeta = false;
+        const rows = [...watchlist].sort().map((symbol) => {
+          const signal = signalMap.get(symbol);
+          if (signal) {
+            rememberWatchlistItem(signal);
+            return signal;
+          }
+          const universeItem = universeMap.get(symbol) || {};
+          if (!watchlistMeta[symbol] && universeItem.symbol) {
+            watchlistMeta[symbol] = {
+              symbol,
+              name: universeItem.name || `${symbol}.NS`,
+              sector: universeItem.sector || "Unclassified",
+              marketCap: universeItem.marketCap || "other",
+              isin: universeItem.isin || "",
+              addedAt: new Date().toISOString(),
+              lastSeenAt: new Date().toISOString()
+            };
+            changedMeta = true;
+          }
+          return buildSavedOnlyItem(symbol, universeItem);
+        });
+        if (changedMeta) saveWatchlistMeta();
+
+        latestPayload = {
+          label: "Watchlist",
+          fastPeriod: "-",
+          slowPeriod: "-",
+          generatedAt: newestGeneratedAt,
+          pricedUniverseSize,
+          universeSize
+        };
+        latestUniverse = [...universeMap.values()];
+        latestResults = rows;
+      }
+
+      async function loadWatchlistPage() {
+        watchlistOnly = true;
+        setActiveScan(null);
+        dashboardGrid.hidden = true;
+        updateWatchlistCount();
+        scanStatus.textContent = "Loading saved stocks";
+        scanCount.textContent = `${watchlist.size} saved`;
+        scanTime.textContent = "Refreshing scanner context";
+        progressBar.classList.add("is-loading");
+        progressBar.style.width = "35%";
+        showLoadingSkeleton();
+
+        if (!watchlist.size) {
+          latestPayload = { label: "Watchlist", generatedAt: null, universeSize: 0, pricedUniverseSize: 0 };
+          latestResults = [];
+          latestUniverse = [];
+          progressBar.classList.remove("is-loading");
+          progressBar.style.width = "0%";
+          scanStatus.textContent = "Watchlist empty";
+          scanCount.textContent = "0 saved";
+          scanTime.textContent = "Add stocks from scanner rows";
+          renderResults();
+          renderUniverse();
+          updateSummary();
+          return;
+        }
+
+        try {
+          const payloadEntries = await Promise.all(Object.keys(SCANS).map(fetchScanPayload));
+          buildWatchlistRows(payloadEntries);
+          populateSectorFilter();
+          progressBar.classList.remove("is-loading");
+          progressBar.style.width = "100%";
+          scanStatus.textContent = "Watchlist refreshed";
+          scanCount.textContent = `${watchlist.size} saved`;
+          scanTime.textContent = formatScanTime(latestPayload.generatedAt);
+        } catch (error) {
+          latestPayload = null;
+          latestResults = [];
+          latestUniverse = [];
+          progressBar.classList.remove("is-loading");
+          progressBar.style.width = "0%";
+          scanStatus.textContent = `Unable to load watchlist: ${error.message}`;
+          scanCount.textContent = `${watchlist.size} saved`;
+          scanTime.textContent = "Load failed";
+        }
+
+        renderResults();
+        renderUniverse();
+        updateSummary();
       }
 
       async function loadScan(scanId, shouldUpdateUrl = true) {
@@ -1458,8 +1733,8 @@
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const payload = await response.json();
           latestPayload = payload;
-          latestResults = payload.results || [];
-          latestUniverse = payload.universe || [];
+          latestResults = (payload.results || []).map((item) => addScanContext(item, payload, scanId));
+          latestUniverse = (payload.universe || []).map((item) => ({ ...item, symbol: normalizeSymbol(item.symbol) }));
           populateSectorFilter();
           progressBar.classList.remove("is-loading");
           progressBar.style.width = "100%";
@@ -1498,11 +1773,11 @@
       }
 
       function renderResults() {
-        const config = activeScanId ? SCANS[activeScanId] : null;
+        const config = isWatchlistPage ? { label: "Watchlist" } : (activeScanId ? SCANS[activeScanId] : null);
         const filtered = latestResults.filter(resultMatches);
         updateSummary();
 
-        if (!activeScanId) {
+        if (!isWatchlistPage && !activeScanId) {
           resultTitle.textContent = "Choose a scanner to load results.";
           resultsGrid.innerHTML = '<div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>';
           return;
@@ -1514,22 +1789,43 @@
           return;
         }
 
+        if (isWatchlistPage && !watchlist.size) {
+          resultTitle.textContent = "Your watchlist is empty.";
+          resultsGrid.innerHTML = '<div class="empty">No saved stocks yet. Open a scanner, click Watch on any row, and it will appear here automatically.</div>';
+          return;
+        }
+
         const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
         const searchText = universeQuery.trim() ? ` matching "${universeQuery.trim()}"` : "";
-        resultTitle.textContent = `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}${searchText}`;
+        resultTitle.textContent = isWatchlistPage
+          ? `${filtered.length} ${capText}saved stock${filtered.length === 1 ? "" : "s"}${searchText}`
+          : `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}${searchText}`;
 
         if (!filtered.length) {
-          resultsGrid.innerHTML = '<div class="empty">No stocks match this search, market-cap, and crossover filter in the latest generated scan.</div>';
+          resultsGrid.innerHTML = `<div class="empty">${isWatchlistPage ? "No saved stocks match these filters." : "No stocks match this search, market-cap, and crossover filter in the latest generated scan."}</div>`;
           return;
         }
 
         const rows = sortResults(filtered)
           .map((item) => {
-            const grade = scoreGrade(item).toLowerCase();
+            const isSavedOnly = Boolean(item._isSavedOnly);
+            const grade = isSavedOnly ? "saved" : scoreGrade(item).toLowerCase();
             const isSaved = watchlist.has(item.symbol);
-            const actionText = item.type === "bullish" ? "Above" : "Below";
+            const fastPeriod = itemFastPeriod(item);
+            const slowPeriod = itemSlowPeriod(item);
+            const actionText = isSavedOnly ? "Tracking" : (item.type === "bullish" ? "Above" : "Below");
+            const rowType = isSavedOnly ? "saved" : item.type;
+            const badgeType = isSavedOnly ? "watchlist" : item.type;
+            const badgeText = isSavedOnly ? `saved - ${capLabel(item.marketCap)}` : `${item.type} - ${capLabel(item.marketCap)}`;
+            const scoreText = isSavedOnly ? "Saved" : `${scoreValue(item)} - ${scoreGrade(item)}`;
+            const closeText = item.close === null || item.close === undefined ? "Waiting" : `Rs. ${Number(item.close).toFixed(2)}`;
+            const fastText = item.fastEma === null || item.fastEma === undefined ? `${fastPeriod}: No current cross` : `${fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}`;
+            const slowText = item.slowEma === null || item.slowEma === undefined ? `${slowPeriod}: Watching` : `${slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}`;
+            const freshnessText = isSavedOnly ? "No fresh cross" : `${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}`;
+            const dateText = isSavedOnly ? formatIsoDate(item._addedAt) : formatDate(item.timestamp);
+            const watchText = isWatchlistPage ? "Remove" : (isSaved ? "Saved" : "Watch");
             return `
-              <article class="result-row ${item.type}" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
+              <article class="result-row ${rowType}" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
                 <div class="result-cell stock-cell">
                   <span class="cell-label">Stock</span>
                   <strong class="row-symbol">${escapeHtml(item.symbol)}.NS</strong>
@@ -1537,34 +1833,34 @@
                 </div>
                 <div class="result-cell">
                   <span class="cell-label">Signal</span>
-                  <span class="badge ${item.type}">${item.type} - ${capLabel(item.marketCap)}</span>
-                  <span class="row-value-muted">${escapeHtml(item.sector || "Unclassified")}</span>
+                  <span class="badge ${badgeType}">${badgeText}</span>
+                  <span class="row-value-muted">${escapeHtml(item.sector || "Unclassified")}${item._scanLabel && !isSavedOnly ? ` | ${escapeHtml(item._scanLabel)}` : ""}</span>
                 </div>
                 <div class="result-cell">
                   <span class="cell-label">Score</span>
-                  <span class="score-pill grade-${grade}">${scoreValue(item)} - ${scoreGrade(item)}</span>
+                  <span class="score-pill grade-${grade}">${scoreText}</span>
                 </div>
                 <div class="result-cell">
                   <span class="cell-label">Close</span>
-                  <span class="row-value">Rs. ${Number(item.close).toFixed(2)}</span>
+                  <span class="row-value">${closeText}</span>
                 </div>
                 <div class="result-cell ema-pair">
                   <span class="cell-label">EMAs</span>
-                  <span class="row-value-muted">${latestPayload.fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}</span>
-                  <span class="row-value-muted">${latestPayload.slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}</span>
+                  <span class="row-value-muted">${fastText}</span>
+                  <span class="row-value-muted">${slowText}</span>
                 </div>
                 <div class="result-cell">
                   <span class="cell-label">Freshness</span>
-                  <span class="row-value">${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}</span>
-                  <span class="row-value-muted">${actionText} ${latestPayload.slowPeriod}</span>
+                  <span class="row-value">${freshnessText}</span>
+                  <span class="row-value-muted">${actionText} ${slowPeriod}</span>
                 </div>
                 <div class="result-cell">
-                  <span class="cell-label">Cross date</span>
-                  <span class="row-value">${formatDate(item.timestamp)}</span>
+                  <span class="cell-label">${isSavedOnly ? "Saved" : "Cross date"}</span>
+                  <span class="row-value">${dateText}</span>
                 </div>
                 <div class="row-actions" aria-label="${item.symbol} quick actions">
                   <button type="button" class="row-action" data-copy-symbol="${item.symbol}" aria-label="Copy ${item.symbol}.NS">Copy</button>
-                  <button type="button" class="row-action ${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}" aria-label="${isSaved ? "Remove from" : "Add to"} watchlist">${isSaved ? "Saved" : "Watch"}</button>
+                  <button type="button" class="row-action ${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}" aria-label="${isSaved ? "Remove from" : "Add to"} watchlist">${watchText}</button>
                   <span class="row-open">Details</span>
                 </div>
               </article>
@@ -1573,7 +1869,7 @@
           .join("");
 
         resultsGrid.innerHTML = `
-          <div class="result-table-shell" aria-label="EMA crossover row results">
+          <div class="result-table-shell" aria-label="${isWatchlistPage ? "Watchlist row results" : "EMA crossover row results"}">
             <div class="result-table-head" aria-hidden="true">
               <span>Stock</span>
               <span>Signal</span>
@@ -1581,7 +1877,7 @@
               <span>Close</span>
               <span>EMAs</span>
               <span>Freshness</span>
-              <span>Cross date</span>
+              <span>${isWatchlistPage ? "Saved / cross" : "Cross date"}</span>
               <span>Actions</span>
             </div>
             <div class="result-table-body">${rows}</div>
@@ -1591,15 +1887,16 @@
 
       function renderUniverse() {
         updateCapCounts();
-        if (!latestUniverse.length) {
-          universeTitle.textContent = "Full NSE equity universe loads after scanner selection.";
-          universeMeta.textContent = "0 symbols loaded";
+        const universeSource = isWatchlistPage ? latestResults : latestUniverse;
+        if (!universeSource.length) {
+          universeTitle.textContent = isWatchlistPage ? "Saved stock universe is empty." : "Full NSE equity universe loads after scanner selection.";
+          universeMeta.textContent = isWatchlistPage ? `${watchlist.size} saved symbols` : "0 symbols loaded";
           universeList.innerHTML = "";
           return;
         }
 
         const query = universeQuery.trim().toUpperCase();
-        const visibleUniverse = latestUniverse.filter((item) => {
+        const visibleUniverse = universeSource.filter((item) => {
           const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
           const queryMatch = !query || stockMatchesQuery(item);
           return capMatch && queryMatch && sectorMatches(item) && watchlistMatches(item);
@@ -1607,7 +1904,9 @@
         const rendered = visibleUniverse.slice(0, 320);
         const hiddenCount = Math.max(visibleUniverse.length - rendered.length, 0);
 
-        universeTitle.textContent = `${latestUniverse.length} NSE equity symbols in this scan.`;
+        universeTitle.textContent = isWatchlistPage
+          ? `${watchlist.size} saved symbol${watchlist.size === 1 ? "" : "s"} tracked against the latest NSE universe.`
+          : `${latestUniverse.length} NSE equity symbols in this scan.`;
         universeMeta.textContent = hiddenCount
           ? `Showing ${rendered.length} of ${visibleUniverse.length}. Use search or filters to narrow.`
           : `Showing ${rendered.length} of ${visibleUniverse.length}`;
@@ -1639,6 +1938,7 @@
 
       scanTriggers.forEach((trigger) => {
         trigger.addEventListener("click", (event) => {
+          if (isWatchlistPage) return;
           event.preventDefault();
           loadScan(trigger.dataset.scanTrigger, true);
         });
@@ -1686,6 +1986,11 @@
         updateUrl(activeScanId);
       });
       watchlistToggle.addEventListener("click", () => {
+        if (isWatchlistPage) {
+          watchlistOnly = true;
+          updateWatchlistCount();
+          return;
+        }
         watchlistOnly = !watchlistOnly;
         updateWatchlistCount();
         renderResults();
@@ -1734,9 +2039,15 @@
       resultsGrid.addEventListener("click", async (event) => {
         const watchButton = event.target.closest("[data-watch-symbol]");
         if (watchButton) {
-          const symbol = watchButton.dataset.watchSymbol;
-          if (watchlist.has(symbol)) watchlist.delete(symbol);
-          else watchlist.add(symbol);
+          const symbol = normalizeSymbol(watchButton.dataset.watchSymbol);
+          const item = latestResults.find((result) => normalizeSymbol(result.symbol) === symbol) || latestUniverse.find((result) => normalizeSymbol(result.symbol) === symbol);
+          if (watchlist.has(symbol)) {
+            watchlist.delete(symbol);
+            forgetWatchlistItem(symbol);
+          } else {
+            watchlist.add(symbol);
+            if (item) rememberWatchlistItem(item);
+          }
           saveWatchlist();
           renderResults();
           renderUniverse();
@@ -1749,7 +2060,7 @@
           try {
             await navigator.clipboard.writeText(symbol);
             button.textContent = "Copied";
-            window.setTimeout(() => { button.textContent = "Copy symbol"; }, 1100);
+            window.setTimeout(() => { button.textContent = "Copy"; }, 1100);
           } catch {
             button.textContent = symbol;
           }
@@ -1771,14 +2082,43 @@
       });
 
       function openDetail(symbol) {
-        const item = latestResults.find((result) => result.symbol === symbol);
+        const normalized = normalizeSymbol(symbol);
+        const item = latestResults.find((result) => normalizeSymbol(result.symbol) === normalized);
         if (!item || !latestPayload) return;
         const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
         const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
         const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
+        const fastPeriod = itemFastPeriod(item);
+        const slowPeriod = itemSlowPeriod(item);
         modalTitle.textContent = `${item.symbol}.NS`;
+
+        if (item._isSavedOnly) {
+          modalContent.innerHTML = `
+            <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)}</p>
+            <div class="modal-grid">
+              <div class="mini-stat"><span>Status</span><strong>Saved</strong></div>
+              <div class="mini-stat"><span>Current signal</span><strong>No fresh EMA cross</strong></div>
+              <div class="mini-stat"><span>Saved on</span><strong>${formatIsoDate(item._addedAt)}</strong></div>
+              <div class="mini-stat"><span>Latest scan data</span><strong>${formatScanTime(latestPayload.generatedAt)}</strong></div>
+            </div>
+            <p class="eyebrow">How to read this</p>
+            <ul class="reason-list">
+              <li>This symbol is saved in your browser watchlist.</li>
+              <li>It did not appear in the latest 50/100 or 100/200 EMA crossover result set.</li>
+              <li>It will stay here and light up with a fresh signal when future scanner data matches it.</li>
+            </ul>
+            <div class="result-actions">
+              <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
+              <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
+              <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
+            </div>
+          `;
+          detailModal.hidden = false;
+          return;
+        }
+
         modalContent.innerHTML = `
-          <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)}</p>
+          <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)} | ${escapeHtml(item._scanLabel || latestPayload.label || "EMA scan")}</p>
           ${sparklineSvg(item.sparkline, item.type)}
           <div class="modal-grid">
             <div class="mini-stat"><span>Signal</span><strong>${item.type}</strong></div>
@@ -1786,8 +2126,8 @@
             <div class="mini-stat"><span>Sessions ago</span><strong>${item.sessionsAgo}</strong></div>
             <div class="mini-stat"><span>Cross date</span><strong>${formatDate(item.timestamp)}</strong></div>
             <div class="mini-stat"><span>Close</span><strong>Rs. ${Number(item.close).toFixed(2)}</strong></div>
-            <div class="mini-stat"><span>EMA ${latestPayload.fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
-            <div class="mini-stat"><span>EMA ${latestPayload.slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
+            <div class="mini-stat"><span>EMA ${fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
+            <div class="mini-stat"><span>EMA ${slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
             <div class="mini-stat"><span>Volume</span><strong>${formatNumber(item.volume)}</strong></div>
           </div>
           <p class="eyebrow">Why this matched</p>
@@ -1816,6 +2156,10 @@
       });
 
       window.addEventListener("popstate", () => {
+        if (isWatchlistPage) {
+          loadWatchlistPage();
+          return;
+        }
         const scanId = new URLSearchParams(window.location.search).get("scan");
         if (SCANS[scanId]) loadScan(scanId, false);
       });
@@ -1855,9 +2199,11 @@
       activeMaxPrice = params.get("max") || "";
       minPrice.value = activeMinPrice;
       maxPrice.value = activeMaxPrice;
-      watchlistOnly = params.get("watchlist") === "1";
+      watchlistOnly = isWatchlistPage || params.get("watchlist") === "1";
       updateWatchlistCount();
-      if (SCANS[initialScanId]) {
+      if (isWatchlistPage) {
+        loadWatchlistPage();
+      } else if (SCANS[initialScanId]) {
         loadScan(initialScanId, false);
       } else {
         renderResults();

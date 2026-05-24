@@ -27,6 +27,13 @@ const generatedFiles = ["index.html", "Divyam_Matia_Resume.pdf", "profile-placeh
 
 await mkdir(distDir, { recursive: true });
 
+const stocksIndex = resolve(distDir, "stocks", "index.html");
+const watchlistIndex = resolve(distDir, "stocks", "watchlist", "index.html");
+if (await exists(stocksIndex)) {
+  await mkdir(dirname(watchlistIndex), { recursive: true });
+  await cp(stocksIndex, watchlistIndex, { force: true });
+}
+
 for (const dir of generatedDirs) {
   const from = resolve(distDir, dir);
   const to = resolve(repoRoot, dir);
