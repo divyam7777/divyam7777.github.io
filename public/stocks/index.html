@@ -781,6 +781,42 @@
         color: var(--muted);
         font-size: 0.92rem;
       }
+      .watchlist-page .nav-links,
+      .watchlist-page #choose,
+      .watchlist-page #universe,
+      .watchlist-page .scanner-visual,
+      .watchlist-page .status-panel,
+      .watchlist-page .dashboard-grid,
+      .watchlist-page .control-deck,
+      .watchlist-page .scanner-shell,
+      .watchlist-page .hero .disclaimer,
+      .watchlist-page .row-actions,
+      .watchlist-page .result-table-head span:last-child {
+        display: none !important;
+      }
+      .watchlist-page .hero {
+        grid-template-columns: 1fr;
+        min-height: 340px;
+        padding-bottom: 28px;
+      }
+      .watchlist-page .hero-copy { max-width: 760px; }
+      .watchlist-page #scanner { margin-top: 28px; }
+      .watchlist-page #results { margin-top: 18px; }
+      .watchlist-page .result-table-head,
+      .watchlist-page .result-row {
+        grid-template-columns:
+          minmax(180px, 1.6fr)
+          minmax(120px, 0.95fr)
+          minmax(92px, 0.68fr)
+          minmax(92px, 0.68fr)
+          minmax(132px, 0.95fr)
+          minmax(92px, 0.7fr)
+          minmax(112px, 0.8fr);
+      }
+      .watchlist-page .result-row { cursor: default; }
+      .watchlist-page .result-row:hover {
+        transform: none;
+      }
       .modal {
         position: fixed;
         inset: 0;
@@ -969,7 +1005,7 @@
       <section id="scanner">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Scanner console</p>
+            <p class="eyebrow" id="resultEyebrow">Scanner console</p>
             <h2 id="resultTitle">Choose a scanner to load results.</h2>
           </div>
         </div>
@@ -1130,6 +1166,8 @@
       const heroTitle = document.getElementById("heroTitle");
       const heroCopy = document.getElementById("heroCopy");
       const heroActions = document.getElementById("heroActions");
+      const resultEyebrow = document.getElementById("resultEyebrow");
+      const stocksNavLinks = document.querySelector(".nav-links");
       const watchlistNavLink = document.getElementById("watchlistNavLink");
       const navWatchlistCount = document.getElementById("navWatchlistCount");
       const resultsGrid = document.getElementById("resultsGrid");
@@ -1276,15 +1314,13 @@
         if (!isWatchlistPage) return;
         document.title = "NSE Watchlist | Divyam Matia";
         document.body.classList.add("watchlist-page");
+        if (stocksNavLinks) stocksNavLinks.hidden = true;
         if (watchlistNavLink) watchlistNavLink.setAttribute("aria-current", "page");
-        heroEyebrow.textContent = "Saved stocks | local browser watchlist";
+        if (resultEyebrow) resultEyebrow.textContent = "Watchlist";
+        heroEyebrow.textContent = "Saved stocks";
         heroTitle.textContent = "Your NSE watchlist.";
-        heroCopy.textContent = "Every stock you save is kept in this browser and refreshed against the latest generated NSE EMA scanner data whenever you open this page.";
-        heroActions.innerHTML = `
-          <a class="button primary" href="#scanner">View saved stocks</a>
-          <a class="button" href="/stocks/?scan=50-100">Run 50 / 100 scan</a>
-          <a class="button" href="/stocks/?scan=100-200">Run 100 / 200 scan</a>
-        `;
+        heroCopy.textContent = "A simple local list of the stocks you saved from the scanner.";
+        heroActions.innerHTML = '<a class="button primary" href="/stocks/">Back to stocks page</a>';
         resultTitle.textContent = "Loading your saved stocks.";
         scanStatus.textContent = "Watchlist mode";
       }
@@ -2067,13 +2103,13 @@
           return;
         }
 
-        if (event.target.closest("a, button")) return;
+        if (isWatchlistPage || event.target.closest("a, button")) return;
         const card = event.target.closest("[data-result-symbol]");
         if (card) openDetail(card.dataset.resultSymbol);
       });
 
       resultsGrid.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") return;
+        if (isWatchlistPage || (event.key !== "Enter" && event.key !== " ")) return;
         if (event.target.closest("a, button, input, select")) return;
         const card = event.target.closest("[data-result-symbol]");
         if (!card) return;
