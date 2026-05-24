@@ -789,9 +789,7 @@
       .watchlist-page .dashboard-grid,
       .watchlist-page .control-deck,
       .watchlist-page .scanner-shell,
-      .watchlist-page .hero .disclaimer,
-      .watchlist-page .row-actions,
-      .watchlist-page .result-table-head span:last-child {
+      .watchlist-page .hero .disclaimer {
         display: none !important;
       }
       .watchlist-page .hero {
@@ -805,13 +803,14 @@
       .watchlist-page .result-table-head,
       .watchlist-page .result-row {
         grid-template-columns:
-          minmax(180px, 1.6fr)
-          minmax(120px, 0.95fr)
-          minmax(92px, 0.68fr)
-          minmax(92px, 0.68fr)
-          minmax(132px, 0.95fr)
-          minmax(92px, 0.7fr)
-          minmax(112px, 0.8fr);
+          minmax(180px, 1.55fr)
+          minmax(118px, 0.9fr)
+          minmax(96px, 0.7fr)
+          minmax(92px, 0.64fr)
+          minmax(132px, 0.92fr)
+          minmax(86px, 0.56fr)
+          minmax(112px, 0.72fr)
+          minmax(160px, 0.9fr);
       }
       .watchlist-page .result-row { cursor: default; }
       .watchlist-page .result-row:hover {
@@ -1897,7 +1896,7 @@
                 <div class="row-actions" aria-label="${item.symbol} quick actions">
                   <button type="button" class="row-action" data-copy-symbol="${item.symbol}" aria-label="Copy ${item.symbol}.NS">Copy</button>
                   <button type="button" class="row-action ${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}" aria-label="${isSaved ? "Remove from" : "Add to"} watchlist">${watchText}</button>
-                  <span class="row-open">Details</span>
+                  <button type="button" class="row-action row-open" data-detail-symbol="${item.symbol}" aria-label="Open ${item.symbol} details">Details</button>
                 </div>
               </article>
             `;
@@ -2087,6 +2086,12 @@
           saveWatchlist();
           renderResults();
           renderUniverse();
+          return;
+        }
+
+        const detailButton = event.target.closest("[data-detail-symbol]");
+        if (detailButton) {
+          openDetail(detailButton.dataset.detailSymbol);
           return;
         }
 
