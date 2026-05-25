@@ -2,7 +2,7 @@ name: Update NSE EMA scanner data
 
 on:
   schedule:
-    - cron: "45 11 * * 1-5"
+    - cron: "55 13 * * 1-5"
   workflow_dispatch:
 
 permissions:
