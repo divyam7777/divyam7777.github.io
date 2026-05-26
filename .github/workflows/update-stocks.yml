@@ -3,7 +3,7 @@ name: Update NSE EMA scanner data
 on:
   schedule:
     # Runs at 11:10 PM IST, Monday-Friday. GitHub Actions cron is UTC.
-    - cron: "40 17 * * 1-5"
+    - cron: "45 17 * * 1-5"
   workflow_dispatch:
 
 permissions:
