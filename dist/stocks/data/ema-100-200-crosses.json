@@ -6,14 +6,14 @@
   "fastPeriod": 100,
   "slowPeriod": 200,
   "windowSessions": 15,
-  "generatedAt": "2026-05-28T19:56:47.027745+00:00",
+  "generatedAt": "2026-05-29T05:59:25.963268+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
     "capBuckets": "NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250; remaining NSE EQ securities are grouped as Other"
   },
-  "universeSize": 2141,
-  "pricedUniverseSize": 2141,
+  "universeSize": 2136,
+  "pricedUniverseSize": 2136,
   "universe": [
     {
       "symbol": "20MICRONS",
@@ -32,8 +32,8 @@
     {
       "symbol": "360ONE",
       "name": "360 ONE WAM LIMITED",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE466L01038"
     },
     {
@@ -53,8 +53,8 @@
     {
       "symbol": "3MINDIA",
       "name": "3M India Limited",
-      "marketCap": "mid",
-      "sector": "Diversified",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE470A01017"
     },
     {
@@ -172,15 +172,15 @@
     {
       "symbol": "ABBOTINDIA",
       "name": "Abbott India Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE358A01014"
     },
     {
       "symbol": "ABCAPITAL",
       "name": "Aditya Birla Capital Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE674K01013"
     },
     {
@@ -249,8 +249,8 @@
     {
       "symbol": "ACC",
       "name": "ACC Limited",
-      "marketCap": "mid",
-      "sector": "Construction Materials",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE012A01025"
     },
     {
@@ -571,15 +571,15 @@
     {
       "symbol": "AIAENG",
       "name": "AIA Engineering Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE212H01026"
     },
     {
       "symbol": "AIIL",
       "name": "Authum Investment & Infrastructure Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE206F01022"
     },
     {
@@ -599,8 +599,8 @@
     {
       "symbol": "AJANTPHARM",
       "name": "Ajanta Pharma Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE031B01049"
     },
     {
@@ -725,8 +725,8 @@
     {
       "symbol": "ALKEM",
       "name": "Alkem Laboratories Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE540L01014"
     },
     {
@@ -928,8 +928,8 @@
     {
       "symbol": "ANTHEM",
       "name": "Anthem Biosciences Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE0CZ201020"
     },
     {
@@ -956,8 +956,8 @@
     {
       "symbol": "APARINDS",
       "name": "Apar Industries Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE372A01015"
     },
     {
@@ -984,8 +984,8 @@
     {
       "symbol": "APLAPOLLO",
       "name": "APL Apollo Tubes Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE702C01027"
     },
     {
@@ -1019,8 +1019,8 @@
     {
       "symbol": "APOLLOTYRE",
       "name": "Apollo Tyres Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE438A01022"
     },
     {
@@ -1271,8 +1271,8 @@
     {
       "symbol": "ASHOKLEY",
       "name": "Ashok Leyland Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE208A01029"
     },
     {
@@ -1348,8 +1348,8 @@
     {
       "symbol": "ASTRAL",
       "name": "Astral Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE006I01046"
     },
     {
@@ -1383,8 +1383,8 @@
     {
       "symbol": "ATGL",
       "name": "Adani Total Gas Limited",
-      "marketCap": "mid",
-      "sector": "Oil Gas & Consumable Fuels",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE399L01023"
     },
     {
@@ -1439,8 +1439,8 @@
     {
       "symbol": "AUBANK",
       "name": "AU Small Finance Bank Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE949L01017"
     },
     {
@@ -1460,8 +1460,8 @@
     {
       "symbol": "AUROPHARMA",
       "name": "Aurobindo Pharma Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE406A01037"
     },
     {
@@ -1558,8 +1558,8 @@
     {
       "symbol": "AWL",
       "name": "AWL Agri Business Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE699H01024"
     },
     {
@@ -1663,8 +1663,8 @@
     {
       "symbol": "BAJAJHFL",
       "name": "Bajaj Housing Finance Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE377Y01014"
     },
     {
@@ -1740,8 +1740,8 @@
     {
       "symbol": "BALKRISIND",
       "name": "Balkrishna Industries Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE787D01026"
     },
     {
@@ -1817,8 +1817,8 @@
     {
       "symbol": "BANKINDIA",
       "name": "Bank of India",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE084A01016"
     },
     {
@@ -1929,8 +1929,8 @@
     {
       "symbol": "BDL",
       "name": "Bharat Dynamics Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE171Z01026"
     },
     {
@@ -2006,8 +2006,8 @@
     {
       "symbol": "BERGEPAINT",
       "name": "Berger Paints (I) Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE463A01038"
     },
     {
@@ -2062,8 +2062,8 @@
     {
       "symbol": "BHARATFORG",
       "name": "Bharat Forge Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE465A01025"
     },
     {
@@ -2104,15 +2104,15 @@
     {
       "symbol": "BHARTIHEXA",
       "name": "Bharti Hexacom Limited",
-      "marketCap": "mid",
-      "sector": "Telecommunication",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE343G01021"
     },
     {
       "symbol": "BHEL",
       "name": "Bharat Heavy Electricals Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE257A01026"
     },
     {
@@ -2153,8 +2153,8 @@
     {
       "symbol": "BIOCON",
       "name": "Biocon Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE376G01013"
     },
     {
@@ -2272,8 +2272,8 @@
     {
       "symbol": "BLUESTARCO",
       "name": "Blue Star Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE472A01039"
     },
     {
@@ -2405,8 +2405,8 @@
     {
       "symbol": "BSE",
       "name": "BSE Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE118H01025"
     },
     {
@@ -2851,13 +2851,6 @@
       "isin": "INE647U01026"
     },
     {
-      "symbol": "CLEDUCATE",
-      "name": "CL Educate Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE201M01029"
-    },
-    {
       "symbol": "CLSEL",
       "name": "Chaman Lal Setia Exports Limited",
       "marketCap": "other",
@@ -2902,8 +2895,8 @@
     {
       "symbol": "COCHINSHIP",
       "name": "Cochin Shipyard Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE704P01025"
     },
     {
@@ -2923,8 +2916,8 @@
     {
       "symbol": "COFORGE",
       "name": "Coforge Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE591G01025"
     },
     {
@@ -2937,8 +2930,8 @@
     {
       "symbol": "COLPAL",
       "name": "Colgate Palmolive (India) Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE259A01022"
     },
     {
@@ -2965,8 +2958,8 @@
     {
       "symbol": "CONCOR",
       "name": "Container Corporation of India Limited",
-      "marketCap": "mid",
-      "sector": "Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE111A01025"
     },
     {
@@ -3014,8 +3007,8 @@
     {
       "symbol": "COROMANDEL",
       "name": "Coromandel International Limited",
-      "marketCap": "mid",
-      "sector": "Chemicals",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE169A01031"
     },
     {
@@ -3091,8 +3084,8 @@
     {
       "symbol": "CRISIL",
       "name": "CRISIL Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE007A01025"
     },
     {
@@ -3189,8 +3182,8 @@
     {
       "symbol": "DABUR",
       "name": "Dabur India Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE016A01026"
     },
     {
@@ -3203,8 +3196,8 @@
     {
       "symbol": "DALBHARAT",
       "name": "Dalmia Bharat Limited",
-      "marketCap": "mid",
-      "sector": "Construction Materials",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE00R701025"
     },
     {
@@ -3567,8 +3560,8 @@
     {
       "symbol": "DIXON",
       "name": "Dixon Technologies (India) Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE935N01020"
     },
     {
@@ -4022,8 +4015,8 @@
     {
       "symbol": "ENDURANCE",
       "name": "Endurance Technologies Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE913H01037"
     },
     {
@@ -4120,8 +4113,8 @@
     {
       "symbol": "ESCORTS",
       "name": "Escorts Kubota Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE042A01014"
     },
     {
@@ -4218,8 +4211,8 @@
     {
       "symbol": "EXIDEIND",
       "name": "Exide Industries Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE302A01020"
     },
     {
@@ -4288,8 +4281,8 @@
     {
       "symbol": "FEDERALBNK",
       "name": "The Federal Bank  Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE171A01029"
     },
     {
@@ -4400,8 +4393,8 @@
     {
       "symbol": "FLUOROCHEM",
       "name": "Gujarat Fluorochemicals Limited",
-      "marketCap": "mid",
-      "sector": "Chemicals",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE09N301011"
     },
     {
@@ -4435,8 +4428,8 @@
     {
       "symbol": "FORTIS",
       "name": "Fortis Healthcare Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE061F01013"
     },
     {
@@ -4715,8 +4708,8 @@
     {
       "symbol": "GICRE",
       "name": "General Insurance Corporation of India",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE481Y01014"
     },
     {
@@ -4778,15 +4771,15 @@
     {
       "symbol": "GLAXO",
       "name": "GlaxoSmithKline Pharmaceuticals Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE159A01016"
     },
     {
       "symbol": "GLENMARK",
       "name": "Glenmark Pharmaceuticals Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE935A01035"
     },
     {
@@ -4848,8 +4841,8 @@
     {
       "symbol": "GMRAIRPORT",
       "name": "GMR AIRPORTS LIMITED",
-      "marketCap": "mid",
-      "sector": "Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE776C01039"
     },
     {
@@ -4911,8 +4904,8 @@
     {
       "symbol": "GODFRYPHLP",
       "name": "Godfrey Phillips India Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE260B01028"
     },
     {
@@ -4939,15 +4932,15 @@
     {
       "symbol": "GODREJIND",
       "name": "Godrej Industries Limited",
-      "marketCap": "mid",
-      "sector": "Diversified",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE233A01035"
     },
     {
       "symbol": "GODREJPROP",
       "name": "Godrej Properties Limited",
-      "marketCap": "mid",
-      "sector": "Realty",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE484J01027"
     },
     {
@@ -5163,8 +5156,8 @@
     {
       "symbol": "GROWW",
       "name": "Billionbrains Garage Ventures Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE0HOQ01053"
     },
     {
@@ -5317,8 +5310,8 @@
     {
       "symbol": "GVT&D",
       "name": "GE Vernova T&D India Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE200A01026"
     },
     {
@@ -5408,8 +5401,8 @@
     {
       "symbol": "HAVELLS",
       "name": "Havells India Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE176B01034"
     },
     {
@@ -5471,8 +5464,8 @@
     {
       "symbol": "HDBFS",
       "name": "HDB Financial Services Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE756I01012"
     },
     {
@@ -5555,8 +5548,8 @@
     {
       "symbol": "HEROMOTOCO",
       "name": "Hero MotoCorp Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE158A01026"
     },
     {
@@ -5576,8 +5569,8 @@
     {
       "symbol": "HEXT",
       "name": "Hexaware Technologies Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE093A01041"
     },
     {
@@ -5653,8 +5646,8 @@
     {
       "symbol": "HINDPETRO",
       "name": "Hindustan Petroleum Corporation Limited",
-      "marketCap": "mid",
-      "sector": "Oil Gas & Consumable Fuels",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE094A01015"
     },
     {
@@ -5758,8 +5751,8 @@
     {
       "symbol": "HONAUT",
       "name": "Honeywell Automation India Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE671A01010"
     },
     {
@@ -5814,8 +5807,8 @@
     {
       "symbol": "HUDCO",
       "name": "Housing & Urban Development Corporation Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE031A01017"
     },
     {
@@ -5856,8 +5849,8 @@
     {
       "symbol": "ICICIAMC",
       "name": "ICICI Prudential Asset Management Company Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE346A01027"
     },
     {
@@ -5870,15 +5863,15 @@
     {
       "symbol": "ICICIGI",
       "name": "ICICI Lombard General Insurance Company Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE765G01017"
     },
     {
       "symbol": "ICICIPRULI",
       "name": "ICICI Prudential Life Insurance Company Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE726G01019"
     },
     {
@@ -5905,15 +5898,15 @@
     {
       "symbol": "IDEA",
       "name": "Vodafone Idea Limited",
-      "marketCap": "mid",
-      "sector": "Telecommunication",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE669E01016"
     },
     {
       "symbol": "IDFCFIRSTB",
       "name": "IDFC First Bank Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE092T01019"
     },
     {
@@ -6094,8 +6087,8 @@
     {
       "symbol": "INDIANB",
       "name": "Indian Bank",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE562A01011"
     },
     {
@@ -6234,15 +6227,15 @@
     {
       "symbol": "INDUSINDBK",
       "name": "IndusInd Bank Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE095A01012"
     },
     {
       "symbol": "INDUSTOWER",
       "name": "Indus Towers Limited",
-      "marketCap": "mid",
-      "sector": "Telecommunication",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE121J01017"
     },
     {
@@ -6323,13 +6316,6 @@
       "isin": "INE070I01018"
     },
     {
-      "symbol": "INSPIRISYS",
-      "name": "Inspirisys Solutions Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE020G01017"
-    },
-    {
       "symbol": "INTELLECT",
       "name": "Intellect Design Arena Limited",
       "marketCap": "small",
@@ -6402,8 +6388,8 @@
     {
       "symbol": "IPCALAB",
       "name": "IPCA Laboratories Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE571A01038"
     },
     {
@@ -6430,15 +6416,15 @@
     {
       "symbol": "IRCTC",
       "name": "Indian Railway Catering And Tourism Corporation Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE335Y01020"
     },
     {
       "symbol": "IREDA",
       "name": "Indian Renewable Energy Development Agency Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE202E01016"
     },
     {
@@ -6500,8 +6486,8 @@
     {
       "symbol": "ITCHOTELS",
       "name": "ITC Hotels Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE379A01028"
     },
     {
@@ -6759,8 +6745,8 @@
     {
       "symbol": "JKCEMENT",
       "name": "JK Cement Limited",
-      "marketCap": "mid",
-      "sector": "Construction Materials",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE823G01014"
     },
     {
@@ -6850,8 +6836,8 @@
     {
       "symbol": "JSL",
       "name": "Jindal Stainless Limited",
-      "marketCap": "mid",
-      "sector": "Metals & Mining",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE220G01021"
     },
     {
@@ -6878,8 +6864,8 @@
     {
       "symbol": "JSWENERGY",
       "name": "JSW Energy Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE121E01018"
     },
     {
@@ -6892,8 +6878,8 @@
     {
       "symbol": "JSWINFRA",
       "name": "JSW Infrastructure Limited",
-      "marketCap": "mid",
-      "sector": "Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE880J01026"
     },
     {
@@ -6927,8 +6913,8 @@
     {
       "symbol": "JUBLFOOD",
       "name": "Jubilant Foodworks Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE797F01020"
     },
     {
@@ -7025,8 +7011,8 @@
     {
       "symbol": "KALYANKJIL",
       "name": "Kalyan Jewellers India Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE303R01014"
     },
     {
@@ -7165,8 +7151,8 @@
     {
       "symbol": "KEI",
       "name": "KEI Industries Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE878B01027"
     },
     {
@@ -7459,8 +7445,8 @@
     {
       "symbol": "KPITTECH",
       "name": "KPIT Technologies Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE04I401011"
     },
     {
@@ -7473,8 +7459,8 @@
     {
       "symbol": "KPRMILL",
       "name": "K.P.R. Mill Limited",
-      "marketCap": "mid",
-      "sector": "Textiles",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE930H01031"
     },
     {
@@ -7690,8 +7676,8 @@
     {
       "symbol": "LAURUSLABS",
       "name": "Laurus Labs Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE947Q01028"
     },
     {
@@ -7713,7 +7699,7 @@
       "name": "Le Merite Exports Limited",
       "marketCap": "other",
       "sector": "Unclassified",
-      "isin": "INE0G1L01017"
+      "isin": "INE0G1L01025"
     },
     {
       "symbol": "LEMONTREE",
@@ -7725,8 +7711,8 @@
     {
       "symbol": "LENSKART",
       "name": "Lenskart Solutions Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE956O01016"
     },
     {
@@ -7753,8 +7739,8 @@
     {
       "symbol": "LGEINDIA",
       "name": "LG Electronics India Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE324D01010"
     },
     {
@@ -7781,15 +7767,15 @@
     {
       "symbol": "LICHSGFIN",
       "name": "LIC Housing Finance Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE115A01026"
     },
     {
       "symbol": "LICI",
       "name": "Life Insurance Corporation Of India",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE0J1Y01017"
     },
     {
@@ -7809,8 +7795,8 @@
     {
       "symbol": "LINDEINDIA",
       "name": "Linde India Limited",
-      "marketCap": "mid",
-      "sector": "Chemicals",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE473A01011"
     },
     {
@@ -7830,8 +7816,8 @@
     {
       "symbol": "LLOYDSME",
       "name": "Lloyds Metals And Energy Limited",
-      "marketCap": "mid",
-      "sector": "Metals & Mining",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE281B01032"
     },
     {
@@ -7893,8 +7879,8 @@
     {
       "symbol": "LTF",
       "name": "L&T Finance Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE498L01015"
     },
     {
@@ -7914,8 +7900,8 @@
     {
       "symbol": "LTTS",
       "name": "L&T Technology Services Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE010V01017"
     },
     {
@@ -7935,8 +7921,8 @@
     {
       "symbol": "LUPIN",
       "name": "Lupin Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE326A01037"
     },
     {
@@ -7977,8 +7963,8 @@
     {
       "symbol": "M&MFIN",
       "name": "Mahindra & Mahindra Financial Services Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE774D01024"
     },
     {
@@ -8047,8 +8033,8 @@
     {
       "symbol": "MAHABANK",
       "name": "Bank of Maharashtra",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE457A01014"
     },
     {
@@ -8208,8 +8194,8 @@
     {
       "symbol": "MANKIND",
       "name": "Mankind Pharma Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE634S01028"
     },
     {
@@ -8257,8 +8243,8 @@
     {
       "symbol": "MARICO",
       "name": "Marico Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE196A01026"
     },
     {
@@ -8404,15 +8390,15 @@
     {
       "symbol": "MCX",
       "name": "Multi Commodity Exchange of India Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE745G01043"
     },
     {
       "symbol": "MEDANTA",
       "name": "Global Health Limited",
-      "marketCap": "mid",
-      "sector": "Healthcare",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE474Q01031"
     },
     {
@@ -8509,8 +8495,8 @@
     {
       "symbol": "MFSL",
       "name": "Max Financial Services Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE180A01020"
     },
     {
@@ -8747,8 +8733,8 @@
     {
       "symbol": "MOTILALOFS",
       "name": "Motilal Oswal Financial Services Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE338I01027"
     },
     {
@@ -8768,8 +8754,8 @@
     {
       "symbol": "MPHASIS",
       "name": "MphasiS Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE356A01018"
     },
     {
@@ -8782,8 +8768,8 @@
     {
       "symbol": "MRF",
       "name": "MRF Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE883A01011"
     },
     {
@@ -8957,8 +8943,8 @@
     {
       "symbol": "NAM-INDIA",
       "name": "Nippon Life India Asset Management Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE298J01013"
     },
     {
@@ -8992,8 +8978,8 @@
     {
       "symbol": "NATIONALUM",
       "name": "National Aluminium Company Limited",
-      "marketCap": "mid",
-      "sector": "Metals & Mining",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE139A01034"
     },
     {
@@ -9006,8 +8992,8 @@
     {
       "symbol": "NAUKRI",
       "name": "Info Edge (India) Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE663F01032"
     },
     {
@@ -9230,15 +9216,15 @@
     {
       "symbol": "NHPC",
       "name": "NHPC Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE848E01016"
     },
     {
       "symbol": "NIACL",
       "name": "The New India Assurance Company Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE470Y01017"
     },
     {
@@ -9296,13 +9282,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE310A01015"
-    },
-    {
-      "symbol": "NIMBSPROJ",
-      "name": "Nimbus Projects Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE875B01015"
     },
     {
       "symbol": "NIPPOBATRY",
@@ -9370,15 +9349,15 @@
     {
       "symbol": "NLCINDIA",
       "name": "NLC India Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE589A01014"
     },
     {
       "symbol": "NMDC",
       "name": "NMDC Limited",
-      "marketCap": "mid",
-      "sector": "Metals & Mining",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE584A01023"
     },
     {
@@ -9468,8 +9447,8 @@
     {
       "symbol": "NTPCGREEN",
       "name": "NTPC Green Energy Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE0ONG01011"
     },
     {
@@ -9503,8 +9482,8 @@
     {
       "symbol": "NYKAA",
       "name": "FSN E-Commerce Ventures Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE388Y01029"
     },
     {
@@ -9524,8 +9503,8 @@
     {
       "symbol": "OBEROIRLTY",
       "name": "Oberoi Realty Limited",
-      "marketCap": "mid",
-      "sector": "Realty",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE093I01010"
     },
     {
@@ -9545,15 +9524,15 @@
     {
       "symbol": "OFSS",
       "name": "Oracle Financial Services Software Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE881D01027"
     },
     {
       "symbol": "OIL",
       "name": "Oil India Limited",
-      "marketCap": "mid",
-      "sector": "Oil Gas & Consumable Fuels",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE274J01014"
     },
     {
@@ -9790,8 +9769,8 @@
     {
       "symbol": "PAGEIND",
       "name": "Page Industries Limited",
-      "marketCap": "mid",
-      "sector": "Textiles",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE761H01022"
     },
     {
@@ -9916,8 +9895,8 @@
     {
       "symbol": "PATANJALI",
       "name": "Patanjali Foods Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE619A01035"
     },
     {
@@ -9951,8 +9930,8 @@
     {
       "symbol": "PAYTM",
       "name": "One 97 Communications Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE982J01020"
     },
     {
@@ -9993,15 +9972,15 @@
     {
       "symbol": "PERSISTENT",
       "name": "Persistent Systems Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE262H01021"
     },
     {
       "symbol": "PETRONET",
       "name": "Petronet LNG Limited",
-      "marketCap": "mid",
-      "sector": "Oil Gas & Consumable Fuels",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE347G01014"
     },
     {
@@ -10056,8 +10035,8 @@
     {
       "symbol": "PHOENIXLTD",
       "name": "The Phoenix Mills Limited",
-      "marketCap": "mid",
-      "sector": "Realty",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE211B01039"
     },
     {
@@ -10084,8 +10063,8 @@
     {
       "symbol": "PIIND",
       "name": "PI Industries Limited",
-      "marketCap": "mid",
-      "sector": "Chemicals",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE603J01030"
     },
     {
@@ -10238,15 +10217,15 @@
     {
       "symbol": "POLICYBZR",
       "name": "PB Fintech Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE417T01026"
     },
     {
       "symbol": "POLYCAB",
       "name": "Polycab India Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE455K01017"
     },
     {
@@ -10294,8 +10273,8 @@
     {
       "symbol": "POWERINDIA",
       "name": "Hitachi Energy India Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE07Y701011"
     },
     {
@@ -10413,15 +10392,15 @@
     {
       "symbol": "PREMIERENE",
       "name": "Premier Energies Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE0BS701011"
     },
     {
       "symbol": "PRESTIGE",
       "name": "Prestige Estates Projects Limited",
-      "marketCap": "mid",
-      "sector": "Realty",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE811K01011"
     },
     {
@@ -10658,8 +10637,8 @@
     {
       "symbol": "RADICO",
       "name": "Radico Khaitan Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE944F01028"
     },
     {
@@ -11344,8 +11323,8 @@
     {
       "symbol": "RVNL",
       "name": "Rail Vikas Nigam Limited",
-      "marketCap": "mid",
-      "sector": "Construction",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE415G01027"
     },
     {
@@ -11414,8 +11393,8 @@
     {
       "symbol": "SAIL",
       "name": "Steel Authority of India Limited",
-      "marketCap": "mid",
-      "sector": "Metals & Mining",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE114A01011"
     },
     {
@@ -11680,8 +11659,8 @@
     {
       "symbol": "SBICARD",
       "name": "SBI Cards and Payment Services Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE018E01016"
     },
     {
@@ -11708,8 +11687,8 @@
     {
       "symbol": "SCHAEFFLER",
       "name": "Schaeffler India Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE513A01022"
     },
     {
@@ -12303,8 +12282,8 @@
     {
       "symbol": "SJVN",
       "name": "SJVN Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE002L01015"
     },
     {
@@ -12590,8 +12569,8 @@
     {
       "symbol": "SRF",
       "name": "SRF Limited",
-      "marketCap": "mid",
-      "sector": "Chemicals",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE647A01010"
     },
     {
@@ -12842,8 +12821,8 @@
     {
       "symbol": "SUNDARMFIN",
       "name": "Sundaram Finance Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE660A01013"
     },
     {
@@ -12926,8 +12905,8 @@
     {
       "symbol": "SUPREMEIND",
       "name": "Supreme Industries Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE195A01028"
     },
     {
@@ -13038,8 +13017,8 @@
     {
       "symbol": "SUZLON",
       "name": "Suzlon Energy Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE040H01021"
     },
     {
@@ -13073,8 +13052,8 @@
     {
       "symbol": "SWIGGY",
       "name": "Swiggy Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE00H001014"
     },
     {
@@ -13227,8 +13206,8 @@
     {
       "symbol": "TATACOMM",
       "name": "Tata Communications Limited",
-      "marketCap": "mid",
-      "sector": "Telecommunication",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE151A01013"
     },
     {
@@ -13241,15 +13220,15 @@
     {
       "symbol": "TATAELXSI",
       "name": "Tata Elxsi Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE670A01012"
     },
     {
       "symbol": "TATAINVEST",
       "name": "Tata Investment Corporation Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE672A01026"
     },
     {
@@ -13514,8 +13493,8 @@
     {
       "symbol": "THERMAX",
       "name": "Thermax Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE152A01029"
     },
     {
@@ -13563,8 +13542,8 @@
     {
       "symbol": "TIINDIA",
       "name": "Tube Investments of India Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE974X01010"
     },
     {
@@ -13696,8 +13675,8 @@
     {
       "symbol": "TORNTPOWER",
       "name": "Torrent Power Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE813H01021"
     },
     {
@@ -13927,8 +13906,8 @@
     {
       "symbol": "UBL",
       "name": "United Breweries Limited",
-      "marketCap": "mid",
-      "sector": "Fast Moving Consumer Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE686F01025"
     },
     {
@@ -14116,15 +14095,15 @@
     {
       "symbol": "UNOMINDA",
       "name": "UNO Minda Limited",
-      "marketCap": "mid",
-      "sector": "Automobile and Auto Components",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE405E01023"
     },
     {
       "symbol": "UPL",
       "name": "UPL Limited",
-      "marketCap": "mid",
-      "sector": "Chemicals",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE628A01036"
     },
     {
@@ -14322,13 +14301,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE0IQ001011"
-    },
-    {
-      "symbol": "VERTOZ",
-      "name": "Vertoz Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE188Y01031"
     },
     {
       "symbol": "VESUVIUS",
@@ -14529,8 +14501,8 @@
     {
       "symbol": "VMM",
       "name": "Vishal Mega Mart Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE01EA01019"
     },
     {
@@ -14543,8 +14515,8 @@
     {
       "symbol": "VOLTAS",
       "name": "Voltas Limited",
-      "marketCap": "mid",
-      "sector": "Consumer Durables",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE226A01021"
     },
     {
@@ -14599,8 +14571,8 @@
     {
       "symbol": "WAAREEENER",
       "name": "Waaree Energies Limited",
-      "marketCap": "mid",
-      "sector": "Capital Goods",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE377N01017"
     },
     {
@@ -14679,13 +14651,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE625G01013"
-    },
-    {
-      "symbol": "WELINV",
-      "name": "Welspun Investments and Commercials Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE389K01018"
     },
     {
       "symbol": "WELSPLSOL",
@@ -14872,8 +14837,8 @@
     {
       "symbol": "YESBANK",
       "name": "Yes Bank Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE528G01035"
     },
     {
@@ -15005,37 +14970,533 @@
   ],
   "marketCapBuckets": {
     "large": 0,
-    "mid": 150,
+    "mid": 0,
     "small": 250,
-    "other": 1741
+    "other": 1886
   },
   "sectorBuckets": {
-    "Automobile and Auto Components": 29,
-    "Capital Goods": 54,
-    "Chemicals": 24,
-    "Construction": 12,
-    "Construction Materials": 7,
-    "Consumer Durables": 14,
-    "Consumer Services": 25,
-    "Diversified": 3,
-    "Fast Moving Consumer Goods": 20,
-    "Financial Services": 78,
-    "Healthcare": 41,
-    "Information Technology": 21,
+    "Automobile and Auto Components": 19,
+    "Capital Goods": 35,
+    "Chemicals": 18,
+    "Construction": 11,
+    "Construction Materials": 4,
+    "Consumer Durables": 7,
+    "Consumer Services": 17,
+    "Diversified": 1,
+    "Fast Moving Consumer Goods": 12,
+    "Financial Services": 42,
+    "Healthcare": 27,
+    "Information Technology": 13,
     "Media Entertainment & Publication": 4,
-    "Metals & Mining": 11,
-    "Oil Gas & Consumable Fuels": 11,
-    "Power": 11,
-    "Realty": 9,
-    "Services": 12,
-    "Telecommunication": 9,
-    "Textiles": 5,
-    "Unclassified": 1741
+    "Metals & Mining": 6,
+    "Oil Gas & Consumable Fuels": 7,
+    "Power": 5,
+    "Realty": 5,
+    "Services": 9,
+    "Telecommunication": 5,
+    "Textiles": 3,
+    "Unclassified": 1886
   },
-  "resultCount": 100,
+  "resultCount": 101,
   "failureCount": 0,
   "skippedCount": 238,
   "results": [
+    {
+      "symbol": "AEROENTER",
+      "name": "Aeroflex Enterprises Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE065D01027",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 87.65172922184514,
+      "slowEma": 87.5650046901384,
+      "close": 98.27,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        78.27,
+        81.29,
+        84.67,
+        86.51,
+        89.5,
+        88.59,
+        91.98,
+        87.27,
+        88.07,
+        90.95,
+        89.55,
+        92.22,
+        91.95,
+        91.25,
+        90.68,
+        93.34,
+        93.34,
+        93.01,
+        94.48,
+        98.49,
+        111.29,
+        109.45,
+        104.57,
+        101.93,
+        102.21,
+        101.83,
+        101.74,
+        100.79,
+        100.2,
+        99.24,
+        98.08,
+        99.02,
+        98.07,
+        96.9,
+        97.42,
+        98.27
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.09,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "JSWENERGY",
+      "name": "JSW Energy Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE121E01018",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 521.7054620436209,
+      "slowEma": 521.0700607537324,
+      "close": 611.2,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        502.05,
+        489.15,
+        488.85,
+        509.6,
+        528.2,
+        535.95,
+        538.05,
+        543.05,
+        546.65,
+        560.55,
+        561.4,
+        544.95,
+        573.8,
+        580.9,
+        560.4,
+        561.15,
+        561.15,
+        562.3,
+        561.95,
+        567.9,
+        575.9,
+        571.2,
+        556.65,
+        517.95,
+        509.2,
+        512.8,
+        515.05,
+        529.05,
+        533.15,
+        537.1,
+        548.45,
+        551.25,
+        557.05,
+        576.0,
+        602.05,
+        611.2
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.1,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "MANCREDIT",
+      "name": "Mangal Credit and Fincorp Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE545L01039",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 171.44289599886696,
+      "slowEma": 171.39487642342704,
+      "close": 201.11,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        169.17,
+        175.71,
+        176.12,
+        174.78,
+        174.82,
+        172.51,
+        170.67,
+        170.5,
+        171.12,
+        169.11,
+        171.77,
+        173.17,
+        173.02,
+        170.71,
+        175.4,
+        173.88,
+        173.25,
+        172.27,
+        172.29,
+        172.34,
+        170.56,
+        170.19,
+        170.19,
+        167.92,
+        170.37,
+        167.26,
+        166.07,
+        168.67,
+        168.98,
+        169.57,
+        168.05,
+        167.57,
+        168.56,
+        170.87,
+        191.54,
+        201.11
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.02,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "RAIN",
+      "name": "Rain Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE855B01025",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 138.67410961473686,
+      "slowEma": 138.25937503676712,
+      "close": 187.2,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        118.11,
+        120.52,
+        122.67,
+        124.08,
+        127.13,
+        131.97,
+        132.4,
+        133.14,
+        131.13,
+        132.69,
+        132.16,
+        128.2,
+        131.04,
+        131.58,
+        131.72,
+        126.2,
+        126.2,
+        127.62,
+        126.0,
+        130.9,
+        134.61,
+        143.82,
+        163.81,
+        157.71,
+        158.92,
+        160.33,
+        156.99,
+        152.65,
+        153.51,
+        152.84,
+        153.26,
+        156.32,
+        178.98,
+        172.26,
+        176.49,
+        187.2
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.22,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "RML",
+      "name": "Rane (Madras) Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE050H01012",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 814.4322943798161,
+      "slowEma": 813.5812203023848,
+      "close": 915.05,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        710.65,
+        716.05,
+        740.6,
+        743.0,
+        764.9,
+        764.05,
+        767.9,
+        757.05,
+        763.15,
+        786.25,
+        767.6,
+        747.55,
+        774.45,
+        769.65,
+        796.25,
+        809.35,
+        809.35,
+        824.25,
+        858.45,
+        913.5,
+        938.7,
+        917.3,
+        878.2,
+        892.15,
+        906.5,
+        888.5,
+        895.3,
+        887.3,
+        891.15,
+        886.05,
+        927.0,
+        922.7,
+        927.6,
+        924.25,
+        925.25,
+        915.05
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.09,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "STEELXIND",
+      "name": "STEEL EXCHANGE INDIA LIMITED",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE503B01021",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 9.268435500723104,
+      "slowEma": 9.250025213027318,
+      "close": 12.72,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        8.2,
+        8.96,
+        8.8,
+        8.9,
+        8.68,
+        8.9,
+        8.84,
+        8.97,
+        9.76,
+        9.87,
+        10.42,
+        10.54,
+        9.99,
+        9.96,
+        10.0,
+        10.06,
+        9.98,
+        9.98,
+        10.02,
+        10.74,
+        10.83,
+        10.68,
+        10.36,
+        10.01,
+        10.33,
+        10.67,
+        10.37,
+        10.02,
+        10.2,
+        10.13,
+        10.05,
+        10.39,
+        10.37,
+        10.84,
+        11.96,
+        12.72
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.14,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "SUPRIYA",
+      "name": "Supriya Lifescience Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE07RO01027",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 687.3750065993049,
+      "slowEma": 685.2942798101833,
+      "close": 952.6,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        636.95,
+        628.55,
+        638.75,
+        637.55,
+        635.35,
+        628.3,
+        638.5,
+        619.8,
+        620.75,
+        656.0,
+        663.1,
+        642.85,
+        704.45,
+        704.7,
+        698.25,
+        694.9,
+        694.9,
+        691.2,
+        690.75,
+        704.3,
+        701.05,
+        706.7,
+        718.05,
+        675.8,
+        683.85,
+        685.25,
+        688.55,
+        684.0,
+        720.6,
+        725.25,
+        733.9,
+        774.1,
+        766.15,
+        780.95,
+        807.25,
+        952.6
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.22,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "VEDL",
+      "name": "Vedanta Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE205A01025",
+      "type": "bearish",
+      "sessionsAgo": 0,
+      "fastEma": 547.3335085759554,
+      "slowEma": 548.0919443417271,
+      "close": 353.4,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1780026300,
+      "sparkline": [
+        721.4,
+        737.0,
+        745.15,
+        752.55,
+        766.05,
+        782.85,
+        787.5,
+        771.0,
+        766.8,
+        757.0,
+        735.6,
+        720.95,
+        742.5,
+        739.3,
+        773.6,
+        271.55,
+        271.55,
+        294.65,
+        303.9,
+        316.4,
+        305.4,
+        296.45,
+        298.4,
+        305.05,
+        323.35,
+        338.9,
+        331.05,
+        327.0,
+        337.65,
+        333.75,
+        329.75,
+        329.95,
+        332.5,
+        344.9,
+        354.7,
+        353.4
+      ],
+      "score": {
+        "value": 79,
+        "grade": "B",
+        "emaSpreadPct": 0.21,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
     {
       "symbol": "CORDSCABLE",
       "name": "Cords Cable Industries Limited",
@@ -15043,9 +15504,9 @@
       "sector": "Unclassified",
       "isin": "INE792I01017",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 181.23880842086353,
-      "slowEma": 180.85030931901844,
+      "sessionsAgo": 1,
+      "fastEma": 181.2389247501034,
+      "slowEma": 180.86056305330754,
       "close": 243.58,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15089,11 +15550,11 @@
         243.58
       ],
       "score": {
-        "value": 79,
+        "value": 72,
         "grade": "B",
         "emaSpreadPct": 0.16,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -15105,9 +15566,9 @@
       "sector": "Unclassified",
       "isin": "INE045J01034",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 25.407816322075707,
-      "slowEma": 25.35352963405357,
+      "sessionsAgo": 1,
+      "fastEma": 25.407808514945017,
+      "slowEma": 25.356170755909904,
       "close": 38.56,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15151,11 +15612,11 @@
         38.56
       ],
       "score": {
-        "value": 79,
+        "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.14,
+        "emaSpreadPct": 0.13,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -15167,9 +15628,9 @@
       "sector": "Unclassified",
       "isin": "INE863B01029",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 522.2249117013222,
-      "slowEma": 520.5848216152424,
+      "sessionsAgo": 1,
+      "fastEma": 522.2257058189589,
+      "slowEma": 520.6451309664724,
       "close": 717.55,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15213,11 +15674,11 @@
         717.55
       ],
       "score": {
-        "value": 79,
+        "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.23,
+        "emaSpreadPct": 0.22,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -15229,9 +15690,9 @@
       "sector": "Unclassified",
       "isin": "INE488V01015",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 760.7701387270553,
-      "slowEma": 760.6470272371993,
+      "sessionsAgo": 1,
+      "fastEma": 760.7703837614462,
+      "slowEma": 760.6574130600812,
       "close": 869.85,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15275,11 +15736,11 @@
         869.85
       ],
       "score": {
-        "value": 79,
+        "value": 72,
         "grade": "B",
         "emaSpreadPct": 0.01,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -15291,9 +15752,9 @@
       "sector": "Unclassified",
       "isin": "INE231F01020",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 1398.9394640616044,
-      "slowEma": 1395.3323942057257,
+      "sessionsAgo": 1,
+      "fastEma": 1398.9392677899116,
+      "slowEma": 1395.4853247232932,
       "close": 2161.9,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15337,11 +15798,11 @@
         2161.9
       ],
       "score": {
-        "value": 79,
+        "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.17,
+        "emaSpreadPct": 0.16,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -15353,9 +15814,9 @@
       "sector": "Unclassified",
       "isin": "INE285J01028",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 340.66118889329186,
-      "slowEma": 340.3263763245044,
+      "sessionsAgo": 1,
+      "fastEma": 340.66132148157357,
+      "slowEma": 340.34397774805234,
       "close": 394.9,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15399,11 +15860,11 @@
         394.9
       ],
       "score": {
-        "value": 79,
+        "value": 72,
         "grade": "B",
         "emaSpreadPct": 0.08,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -15415,9 +15876,9 @@
       "sector": "Capital Goods",
       "isin": "INE152M01016",
       "type": "bullish",
-      "sessionsAgo": 0,
-      "fastEma": 543.3592618946831,
-      "slowEma": 542.5259873644536,
+      "sessionsAgo": 1,
+      "fastEma": 543.3592910904886,
+      "slowEma": 542.5927833302255,
       "close": 719.15,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15461,71 +15922,9 @@
         719.15
       ],
       "score": {
-        "value": 79,
-        "grade": "B",
-        "emaSpreadPct": 0.12,
-        "reasons": [
-          "Fresh crossover in the latest daily candle",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "EPL",
-      "name": "EPL Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE255A01020",
-      "type": "bullish",
-      "sessionsAgo": 1,
-      "fastEma": 216.18258007289896,
-      "slowEma": 216.1691845953973,
-      "close": 219.1,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1779767100,
-      "sparkline": [
-        217.74,
-        213.94,
-        227.91,
-        229.64,
-        234.01,
-        236.76,
-        234.45,
-        230.32,
-        233.55,
-        236.24,
-        230.78,
-        228.22,
-        223.21,
-        225.84,
-        229.34,
-        225.34,
-        226.94,
-        226.13,
-        226.13,
-        224.99,
-        220.64,
-        228.79,
-        234.36,
-        238.76,
-        236.75,
-        228.31,
-        230.76,
-        229.36,
-        215.29,
-        213.22,
-        217.23,
-        215.66,
-        214.65,
-        216.0,
-        219.25,
-        219.1
-      ],
-      "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.01,
+        "emaSpreadPct": 0.11,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -15539,9 +15938,9 @@
       "sector": "Capital Goods",
       "isin": "INE324A01032",
       "type": "bullish",
-      "sessionsAgo": 1,
-      "fastEma": 206.0974260750456,
-      "slowEma": 205.96651010684323,
+      "sessionsAgo": 2,
+      "fastEma": 206.09746910391743,
+      "slowEma": 205.9818486682877,
       "close": 228.87,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15587,7 +15986,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.06,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -15601,9 +16000,9 @@
       "sector": "Healthcare",
       "isin": "INE600L01024",
       "type": "bullish",
-      "sessionsAgo": 1,
-      "fastEma": 1473.9023762678905,
-      "slowEma": 1473.3742859316353,
+      "sessionsAgo": 2,
+      "fastEma": 1473.9029657673789,
+      "slowEma": 1473.4856922605295,
       "close": 1604.0,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15663,9 +16062,9 @@
       "sector": "Unclassified",
       "isin": "INE0CLI01024",
       "type": "bullish",
-      "sessionsAgo": 1,
-      "fastEma": 594.8834530431883,
-      "slowEma": 594.5230709547889,
+      "sessionsAgo": 2,
+      "fastEma": 594.8836621436446,
+      "slowEma": 594.5937690471587,
       "close": 730.5,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15711,7 +16110,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.05,
+        "emaSpreadPct": 0.04,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -15725,9 +16124,9 @@
       "sector": "Unclassified",
       "isin": "INE232I01014",
       "type": "bullish",
-      "sessionsAgo": 1,
-      "fastEma": 147.14380203047438,
-      "slowEma": 146.26608032659652,
+      "sessionsAgo": 2,
+      "fastEma": 147.14389105081648,
+      "slowEma": 146.28415858946752,
       "close": 235.57,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15773,7 +16172,7 @@
       "score": {
         "value": 78,
         "grade": "B",
-        "emaSpreadPct": 0.37,
+        "emaSpreadPct": 0.36,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "EMA spread has started to separate",
@@ -15788,9 +16187,9 @@
       "sector": "Unclassified",
       "isin": "INE236G01019",
       "type": "bullish",
-      "sessionsAgo": 1,
-      "fastEma": 442.7078238394202,
-      "slowEma": 442.56514389367555,
+      "sessionsAgo": 2,
+      "fastEma": 442.70802342717974,
+      "slowEma": 442.6030355390059,
       "close": 508.85,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15836,7 +16235,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.03,
+        "emaSpreadPct": 0.02,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -15850,9 +16249,9 @@
       "sector": "Unclassified",
       "isin": "INE828A01016",
       "type": "bearish",
-      "sessionsAgo": 2,
-      "fastEma": 757.230360412956,
-      "slowEma": 757.3439068765041,
+      "sessionsAgo": 3,
+      "fastEma": 757.2298675336763,
+      "slowEma": 757.4158257655272,
       "close": 732.6,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15898,7 +16297,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.02,
+        "emaSpreadPct": 0.03,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -15912,9 +16311,9 @@
       "sector": "Unclassified",
       "isin": "INE668G01021",
       "type": "bearish",
-      "sessionsAgo": 2,
-      "fastEma": 845.9061199252272,
-      "slowEma": 846.2591166759962,
+      "sessionsAgo": 3,
+      "fastEma": 845.9064279686885,
+      "slowEma": 846.2812616847827,
       "close": 805.7,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -15960,7 +16359,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -15974,9 +16373,9 @@
       "sector": "Unclassified",
       "isin": "INE737D01021",
       "type": "bullish",
-      "sessionsAgo": 2,
-      "fastEma": 150.57891007096566,
-      "slowEma": 150.33896069801494,
+      "sessionsAgo": 3,
+      "fastEma": 150.57894969594145,
+      "slowEma": 150.35434897674793,
       "close": 209.28,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16036,9 +16435,9 @@
       "sector": "Unclassified",
       "isin": "INE045601023",
       "type": "bullish",
-      "sessionsAgo": 2,
-      "fastEma": 725.8312591910575,
-      "slowEma": 724.9319515022198,
+      "sessionsAgo": 3,
+      "fastEma": 725.8332037755081,
+      "slowEma": 725.0988012541831,
       "close": 855.75,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16084,7 +16483,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.11,
+        "emaSpreadPct": 0.09,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16098,9 +16497,9 @@
       "sector": "Unclassified",
       "isin": "INE301D01026",
       "type": "bullish",
-      "sessionsAgo": 2,
-      "fastEma": 220.6593505667269,
-      "slowEma": 220.57159140821867,
+      "sessionsAgo": 3,
+      "fastEma": 220.65954828462856,
+      "slowEma": 220.59641370327486,
       "close": 273.1,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16146,7 +16545,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.03,
+        "emaSpreadPct": 0.02,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16160,9 +16559,9 @@
       "sector": "Unclassified",
       "isin": "INE00YB01025",
       "type": "bearish",
-      "sessionsAgo": 3,
-      "fastEma": 16.59544927908909,
-      "slowEma": 16.60363518861802,
+      "sessionsAgo": 4,
+      "fastEma": 16.595444076316426,
+      "slowEma": 16.60366945503414,
       "close": 13.02,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16222,9 +16621,9 @@
       "sector": "Fast Moving Consumer Goods",
       "isin": "INE119A01028",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 494.0680050794079,
-      "slowEma": 493.7133810671787,
+      "sessionsAgo": 4,
+      "fastEma": 494.0680549376751,
+      "slowEma": 493.7620727967356,
       "close": 535.1,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16270,7 +16669,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.07,
+        "emaSpreadPct": 0.06,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16284,9 +16683,9 @@
       "sector": "Unclassified",
       "isin": "INE121A01024",
       "type": "bearish",
-      "sessionsAgo": 3,
-      "fastEma": 1591.778977339789,
-      "slowEma": 1592.0951374916663,
+      "sessionsAgo": 4,
+      "fastEma": 1591.7796629420473,
+      "slowEma": 1592.104465806155,
       "close": 1539.8,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16346,9 +16745,9 @@
       "sector": "Unclassified",
       "isin": "INE144D01012",
       "type": "bearish",
-      "sessionsAgo": 3,
-      "fastEma": 96.93419487870857,
-      "slowEma": 96.96927727406488,
+      "sessionsAgo": 4,
+      "fastEma": 96.93423450839968,
+      "slowEma": 96.97559703585411,
       "close": 90.69,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16394,7 +16793,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16408,9 +16807,9 @@
       "sector": "Unclassified",
       "isin": "INE680A01011",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 27.153130384599336,
-      "slowEma": 27.09297106312724,
+      "sessionsAgo": 4,
+      "fastEma": 27.153138078221634,
+      "slowEma": 27.094482893292597,
       "close": 33.71,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16456,7 +16855,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.18,
+        "emaSpreadPct": 0.17,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16470,9 +16869,9 @@
       "sector": "Unclassified",
       "isin": "INE544A01019",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 194.77121343955199,
-      "slowEma": 194.6401701285189,
+      "sessionsAgo": 4,
+      "fastEma": 194.77120244502782,
+      "slowEma": 194.63940923930417,
       "close": 219.58,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16532,9 +16931,9 @@
       "sector": "Power",
       "isin": "INE351F01018",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 17.303376022129545,
-      "slowEma": 17.29020910915494,
+      "sessionsAgo": 4,
+      "fastEma": 17.30337202728054,
+      "slowEma": 17.290875347125073,
       "close": 18.76,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16594,9 +16993,9 @@
       "sector": "Unclassified",
       "isin": "INE879A01019",
       "type": "bearish",
-      "sessionsAgo": 3,
-      "fastEma": 50.335240818260615,
-      "slowEma": 50.35115980013395,
+      "sessionsAgo": 4,
+      "fastEma": 50.33523868652923,
+      "slowEma": 50.35101946659493,
       "close": 46.14,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16656,9 +17055,9 @@
       "sector": "Capital Goods",
       "isin": "INE810G01011",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 851.8754729009728,
-      "slowEma": 851.4093439628913,
+      "sessionsAgo": 4,
+      "fastEma": 851.8755468547606,
+      "slowEma": 851.4358200783852,
       "close": 947.8,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16718,9 +17117,9 @@
       "sector": "Unclassified",
       "isin": "INE325D01025",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 23.44061709601896,
-      "slowEma": 23.426779016169625,
+      "sessionsAgo": 4,
+      "fastEma": 23.440606733700005,
+      "slowEma": 23.42792166432278,
       "close": 27.04,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16780,7 +17179,7 @@
       "sector": "Unclassified",
       "isin": "INE911B01018",
       "type": "bearish",
-      "sessionsAgo": 3,
+      "sessionsAgo": 4,
       "fastEma": 15.150842693468418,
       "slowEma": 15.153859468398062,
       "close": 13.22,
@@ -16842,9 +17241,9 @@
       "sector": "Capital Goods",
       "isin": "INE251B01027",
       "type": "bullish",
-      "sessionsAgo": 3,
-      "fastEma": 1489.7774555016451,
-      "slowEma": 1489.077316620055,
+      "sessionsAgo": 4,
+      "fastEma": 1489.778326139245,
+      "slowEma": 1489.3952384751497,
       "close": 1593.1,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16890,7 +17289,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.02,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16904,9 +17303,9 @@
       "sector": "Unclassified",
       "isin": "INE982B01027",
       "type": "bullish",
-      "sessionsAgo": 4,
-      "fastEma": 222.79644561193626,
-      "slowEma": 222.4231659303476,
+      "sessionsAgo": 5,
+      "fastEma": 222.79640052522976,
+      "slowEma": 222.4470020276559,
       "close": 263.85,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -16952,7 +17351,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.14,
+        "emaSpreadPct": 0.13,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -16966,9 +17365,9 @@
       "sector": "Unclassified",
       "isin": "INE837H01020",
       "type": "bullish",
-      "sessionsAgo": 4,
-      "fastEma": 316.8662043380143,
-      "slowEma": 316.5114220646594,
+      "sessionsAgo": 5,
+      "fastEma": 316.8663287984445,
+      "slowEma": 316.551567942693,
       "close": 386.2,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17014,7 +17413,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.09,
+        "emaSpreadPct": 0.08,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -17028,9 +17427,9 @@
       "sector": "Unclassified",
       "isin": "INE552D01024",
       "type": "bullish",
-      "sessionsAgo": 4,
-      "fastEma": 46.50418857629091,
-      "slowEma": 46.4616117351688,
+      "sessionsAgo": 5,
+      "fastEma": 46.504206600356724,
+      "slowEma": 46.46777356477837,
       "close": 58.6,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17076,7 +17475,7 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.07,
+        "emaSpreadPct": 0.06,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -17090,9 +17489,9 @@
       "sector": "Unclassified",
       "isin": "INE099Z01011",
       "type": "bullish",
-      "sessionsAgo": 4,
-      "fastEma": 361.9036556634148,
-      "slowEma": 361.5906796224409,
+      "sessionsAgo": 5,
+      "fastEma": 361.9038705115762,
+      "slowEma": 361.59986313869496,
       "close": 402.35,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17152,7 +17551,7 @@
       "sector": "Unclassified",
       "isin": "INE953R01016",
       "type": "bearish",
-      "sessionsAgo": 4,
+      "sessionsAgo": 5,
       "fastEma": 605.5200932930329,
       "slowEma": 605.8197831131336,
       "close": 524.95,
@@ -17214,9 +17613,9 @@
       "sector": "Unclassified",
       "isin": "INE278H01035",
       "type": "bullish",
-      "sessionsAgo": 4,
-      "fastEma": 506.35260486895976,
-      "slowEma": 506.26343028333486,
+      "sessionsAgo": 5,
+      "fastEma": 506.35315159995054,
+      "slowEma": 506.3105364185812,
       "close": 586.2,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17262,7 +17661,69 @@
       "score": {
         "value": 72,
         "grade": "B",
-        "emaSpreadPct": 0.02,
+        "emaSpreadPct": 0.01,
+        "reasons": [
+          "Crossover happened within the last 5 sessions",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "TIPSMUSIC",
+      "name": "Tips Music Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE716B01029",
+      "type": "bullish",
+      "sessionsAgo": 5,
+      "fastEma": 579.2841425787448,
+      "slowEma": 578.5390991127716,
+      "close": 658.85,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1779335100,
+      "sparkline": [
+        493.7,
+        514.6,
+        528.5,
+        523.9,
+        541.5,
+        551.95,
+        538.1,
+        539.45,
+        537.8,
+        551.35,
+        574.5,
+        585.55,
+        574.15,
+        600.5,
+        599.6,
+        647.7,
+        665.15,
+        680.75,
+        658.85,
+        653.1,
+        649.7,
+        649.7,
+        645.5,
+        645.65,
+        652.7,
+        643.2,
+        648.35,
+        655.75,
+        641.8,
+        637.15,
+        635.15,
+        646.65,
+        640.85,
+        651.65,
+        659.3,
+        658.85
+      ],
+      "score": {
+        "value": 72,
+        "grade": "B",
+        "emaSpreadPct": 0.11,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "Close confirms the 100/200 EMA direction"
@@ -17276,7 +17737,7 @@
       "sector": "Unclassified",
       "isin": "INE498Q01014",
       "type": "bearish",
-      "sessionsAgo": 4,
+      "sessionsAgo": 5,
       "fastEma": 139.7581264156312,
       "slowEma": 139.78327009576944,
       "close": 132.34,
@@ -17332,15 +17793,77 @@
       }
     },
     {
+      "symbol": "AMBIKCO",
+      "name": "Ambika Cotton Mills Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE540G01014",
+      "type": "bullish",
+      "sessionsAgo": 6,
+      "fastEma": 1398.5301011634604,
+      "slowEma": 1397.3863637591328,
+      "close": 1520.2,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1779248700,
+      "sparkline": [
+        1229.4,
+        1175.6,
+        1129.5,
+        1243.2,
+        1255.0,
+        1301.8,
+        1305.2,
+        1376.0,
+        1404.2,
+        1413.0,
+        1387.9,
+        1428.6,
+        1422.1,
+        1439.9,
+        1428.2,
+        1427.7,
+        1478.6,
+        1467.1,
+        1457.1,
+        1452.2,
+        1501.4,
+        1490.4,
+        1489.7,
+        1565.8,
+        1579.9,
+        1651.9,
+        1655.3,
+        1620.7,
+        1566.6,
+        1524.3,
+        1570.6,
+        1571.0,
+        1578.6,
+        1532.0,
+        1530.2,
+        1520.2
+      ],
+      "score": {
+        "value": 64,
+        "grade": "C",
+        "emaSpreadPct": 0.08,
+        "reasons": [
+          "Crossover is still inside the 15-session window",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
       "symbol": "GENCON",
       "name": "Generic Engineering Construction and Projects Limited",
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE854S01022",
       "type": "bearish",
-      "sessionsAgo": 5,
-      "fastEma": 43.433548940277085,
-      "slowEma": 43.4697963194374,
+      "sessionsAgo": 6,
+      "fastEma": 43.43361105257188,
+      "slowEma": 43.47509226183998,
       "close": 38.73,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17384,11 +17907,11 @@
         38.73
       ],
       "score": {
-        "value": 72,
-        "grade": "B",
-        "emaSpreadPct": 0.09,
+        "value": 64,
+        "grade": "C",
+        "emaSpreadPct": 0.11,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -17400,7 +17923,7 @@
       "sector": "Unclassified",
       "isin": "INE942C01045",
       "type": "bullish",
-      "sessionsAgo": 5,
+      "sessionsAgo": 6,
       "fastEma": 341.00030141367375,
       "slowEma": 340.9112766359819,
       "close": 355.6,
@@ -17446,11 +17969,11 @@
         355.6
       ],
       "score": {
-        "value": 72,
-        "grade": "B",
+        "value": 64,
+        "grade": "C",
         "emaSpreadPct": 0.03,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -17462,9 +17985,9 @@
       "sector": "Unclassified",
       "isin": "INE542C01019",
       "type": "bullish",
-      "sessionsAgo": 5,
-      "fastEma": 65.59382556549264,
-      "slowEma": 65.58200848678868,
+      "sessionsAgo": 6,
+      "fastEma": 65.59387557078044,
+      "slowEma": 65.58611737923904,
       "close": 67.73,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17508,11 +18031,11 @@
         67.73
       ],
       "score": {
-        "value": 72,
-        "grade": "B",
-        "emaSpreadPct": 0.02,
+        "value": 64,
+        "grade": "C",
+        "emaSpreadPct": 0.01,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -17520,13 +18043,13 @@
     {
       "symbol": "SUNDARMFIN",
       "name": "Sundaram Finance Limited",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE660A01013",
       "type": "bearish",
-      "sessionsAgo": 5,
-      "fastEma": 4875.020341934781,
-      "slowEma": 4877.659705924856,
+      "sessionsAgo": 6,
+      "fastEma": 4875.01988222167,
+      "slowEma": 4877.707673352,
       "close": 4480.6,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17570,11 +18093,11 @@
         4480.6
       ],
       "score": {
-        "value": 72,
-        "grade": "B",
+        "value": 64,
+        "grade": "C",
         "emaSpreadPct": 0.06,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
         ]
       }
@@ -17586,7 +18109,7 @@
       "sector": "Consumer Services",
       "isin": "INE0AQ201015",
       "type": "bearish",
-      "sessionsAgo": 5,
+      "sessionsAgo": 6,
       "fastEma": 423.36161516182335,
       "slowEma": 423.3903662051927,
       "close": 406.9,
@@ -17632,133 +18155,71 @@
         406.9
       ],
       "score": {
-        "value": 72,
-        "grade": "B",
+        "value": 64,
+        "grade": "C",
         "emaSpreadPct": 0.01,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
         ]
       }
     },
     {
-      "symbol": "TIPSMUSIC",
-      "name": "Tips Music Limited",
+      "symbol": "WALCHANNAG",
+      "name": "Walchandnagar Industries Limited",
       "marketCap": "other",
       "sector": "Unclassified",
-      "isin": "INE716B01029",
+      "isin": "INE711A01022",
       "type": "bullish",
-      "sessionsAgo": 5,
-      "fastEma": 577.6765909010028,
-      "slowEma": 577.6424098348342,
-      "close": 659.3,
+      "sessionsAgo": 6,
+      "fastEma": 192.9960671892075,
+      "slowEma": 192.55547698152665,
+      "close": 238.24,
       "volume": 0,
       "averageVolume20": 0.0,
       "timestamp": 1779248700,
       "sparkline": [
-        500.45,
-        493.7,
-        514.6,
-        528.5,
-        523.9,
-        541.5,
-        551.95,
-        538.1,
-        539.45,
-        537.8,
-        551.35,
-        574.5,
-        585.55,
-        574.15,
-        600.5,
-        599.6,
-        647.7,
-        665.15,
-        680.75,
-        658.85,
-        653.1,
-        649.7,
-        649.7,
-        645.5,
-        645.65,
-        652.7,
-        643.2,
-        648.35,
-        655.75,
-        641.8,
-        637.15,
-        635.15,
-        646.65,
-        640.85,
-        651.65,
-        659.3
-      ],
-      "score": {
-        "value": 72,
-        "grade": "B",
-        "emaSpreadPct": 0.01,
-        "reasons": [
-          "Crossover happened within the last 5 sessions",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "AMBIKCO",
-      "name": "Ambika Cotton Mills Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE540G01014",
-      "type": "bullish",
-      "sessionsAgo": 6,
-      "fastEma": 1396.070898367708,
-      "slowEma": 1396.0429297532175,
-      "close": 1530.2,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1779162300,
-      "sparkline": [
-        1214.0,
-        1229.4,
-        1175.6,
-        1129.5,
-        1243.2,
-        1255.0,
-        1301.8,
-        1305.2,
-        1376.0,
-        1404.2,
-        1413.0,
-        1387.9,
-        1428.6,
-        1422.1,
-        1439.9,
-        1428.2,
-        1427.7,
-        1478.6,
-        1467.1,
-        1457.1,
-        1452.2,
-        1501.4,
-        1490.4,
-        1489.7,
-        1565.8,
-        1579.9,
-        1651.9,
-        1655.3,
-        1620.7,
-        1566.6,
-        1524.3,
-        1570.6,
-        1571.0,
-        1578.6,
-        1532.0,
-        1530.2
+        139.11,
+        131.65,
+        143.33,
+        143.91,
+        146.97,
+        156.33,
+        166.54,
+        172.51,
+        175.48,
+        177.69,
+        188.82,
+        190.71,
+        192.89,
+        189.83,
+        190.04,
+        213.92,
+        212.36,
+        219.19,
+        219.53,
+        237.96,
+        238.23,
+        235.02,
+        235.02,
+        249.34,
+        260.66,
+        257.91,
+        254.99,
+        254.72,
+        240.55,
+        220.73,
+        239.8,
+        238.8,
+        232.84,
+        233.99,
+        236.49,
+        238.24
       ],
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.0,
+        "emaSpreadPct": 0.18,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -17772,9 +18233,9 @@
       "sector": "Automobile and Auto Components",
       "isin": "INE482A01020",
       "type": "bearish",
-      "sessionsAgo": 6,
-      "fastEma": 3554.1605604316564,
-      "slowEma": 3554.560038808772,
+      "sessionsAgo": 7,
+      "fastEma": 3554.1610823814503,
+      "slowEma": 3554.729136338787,
       "close": 3162.3,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17820,7 +18281,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.01,
+        "emaSpreadPct": 0.02,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -17834,9 +18295,9 @@
       "sector": "Unclassified",
       "isin": "INE0PA801013",
       "type": "bullish",
-      "sessionsAgo": 6,
-      "fastEma": 81.0819299297332,
-      "slowEma": 81.02631505423297,
+      "sessionsAgo": 7,
+      "fastEma": 81.08204397133346,
+      "slowEma": 81.03686899670127,
       "close": 86.88,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17882,7 +18343,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.06,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -17896,9 +18357,9 @@
       "sector": "Healthcare",
       "isin": "INE068V01023",
       "type": "bullish",
-      "sessionsAgo": 6,
-      "fastEma": 1790.1725605703436,
-      "slowEma": 1786.738813186361,
+      "sessionsAgo": 7,
+      "fastEma": 1790.1736832440165,
+      "slowEma": 1786.789356460709,
       "close": 2251.1,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -17954,11 +18415,11 @@
     {
       "symbol": "NTPCGREEN",
       "name": "NTPC Green Energy Limited",
-      "marketCap": "mid",
-      "sector": "Power",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE0ONG01011",
       "type": "bullish",
-      "sessionsAgo": 6,
+      "sessionsAgo": 7,
       "fastEma": 100.60048918351939,
       "slowEma": 100.57029795707898,
       "close": 107.66,
@@ -18020,9 +18481,9 @@
       "sector": "Unclassified",
       "isin": "INE426Z01016",
       "type": "bearish",
-      "sessionsAgo": 6,
-      "fastEma": 55.55028543726746,
-      "slowEma": 55.554650121445185,
+      "sessionsAgo": 7,
+      "fastEma": 55.55028604954783,
+      "slowEma": 55.55565903481894,
       "close": 54.21,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18082,7 +18543,7 @@
       "sector": "Unclassified",
       "isin": "INE912T01018",
       "type": "bullish",
-      "sessionsAgo": 6,
+      "sessionsAgo": 7,
       "fastEma": 743.1407536029665,
       "slowEma": 742.4468712662697,
       "close": 917.0,
@@ -18144,9 +18605,9 @@
       "sector": "Unclassified",
       "isin": "INE382M01027",
       "type": "bullish",
-      "sessionsAgo": 6,
-      "fastEma": 271.44678805382756,
-      "slowEma": 270.9742509130937,
+      "sessionsAgo": 7,
+      "fastEma": 271.4470096525822,
+      "slowEma": 271.0357921968136,
       "close": 334.0,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18192,69 +18653,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.14,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "WALCHANNAG",
-      "name": "Walchandnagar Industries Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE711A01022",
-      "type": "bullish",
-      "sessionsAgo": 6,
-      "fastEma": 192.08165033493714,
-      "slowEma": 192.04698305349092,
-      "close": 236.49,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1779162300,
-      "sparkline": [
-        142.0,
-        139.11,
-        131.65,
-        143.33,
-        143.91,
-        146.97,
-        156.33,
-        166.54,
-        172.51,
-        175.48,
-        177.69,
-        188.82,
-        190.71,
-        192.89,
-        189.83,
-        190.04,
-        213.92,
-        212.36,
-        219.19,
-        219.53,
-        237.96,
-        238.23,
-        235.02,
-        235.02,
-        249.34,
-        260.66,
-        257.91,
-        254.99,
-        254.72,
-        240.55,
-        220.73,
-        239.8,
-        238.8,
-        232.84,
-        233.99,
-        236.49
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.01,
+        "emaSpreadPct": 0.12,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -18268,9 +18667,9 @@
       "sector": "Unclassified",
       "isin": "INE449A01011",
       "type": "bearish",
-      "sessionsAgo": 7,
-      "fastEma": 1808.100812423483,
-      "slowEma": 1808.3478165936097,
+      "sessionsAgo": 8,
+      "fastEma": 1808.1015088242473,
+      "slowEma": 1808.4118773879868,
       "close": 1677.7,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18316,7 +18715,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.01,
+        "emaSpreadPct": 0.02,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -18330,9 +18729,9 @@
       "sector": "Financial Services",
       "isin": "INE531F01023",
       "type": "bullish",
-      "sessionsAgo": 7,
-      "fastEma": 1348.8240076476336,
-      "slowEma": 1348.2887750155173,
+      "sessionsAgo": 8,
+      "fastEma": 1348.8237877479066,
+      "slowEma": 1348.4023629662563,
       "close": 1439.6,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18378,7 +18777,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.03,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -18392,9 +18791,9 @@
       "sector": "Unclassified",
       "isin": "INE323A01026",
       "type": "bullish",
-      "sessionsAgo": 8,
-      "fastEma": 35618.96250316354,
-      "slowEma": 35598.918258315854,
+      "sessionsAgo": 9,
+      "fastEma": 35618.96287066464,
+      "slowEma": 35601.376891906635,
       "close": 37740.0,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18448,15 +18847,77 @@
       }
     },
     {
+      "symbol": "ENTERO",
+      "name": "Entero Healthcare Solutions Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE010601016",
+      "type": "bullish",
+      "sessionsAgo": 9,
+      "fastEma": 1159.8897650443296,
+      "slowEma": 1159.6210817692686,
+      "close": 1192.3,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1778816700,
+      "sparkline": [
+        1120.9,
+        1161.3,
+        1226.0,
+        1237.7,
+        1238.3,
+        1247.8,
+        1246.6,
+        1249.1,
+        1234.4,
+        1161.0,
+        1161.1,
+        1180.9,
+        1197.2,
+        1239.4,
+        1230.9,
+        1249.7,
+        1278.1,
+        1271.9,
+        1260.2,
+        1263.9,
+        1256.9,
+        1250.1,
+        1242.6,
+        1195.5,
+        1191.4,
+        1216.4,
+        1233.4,
+        1207.1,
+        1210.8,
+        1265.7,
+        1224.6,
+        1233.2,
+        1210.3,
+        1178.9,
+        1165.9,
+        1192.3
+      ],
+      "score": {
+        "value": 64,
+        "grade": "C",
+        "emaSpreadPct": 0.02,
+        "reasons": [
+          "Crossover is still inside the 15-session window",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
       "symbol": "EUROTEXIND",
       "name": "Eurotex Industries and Exports Limited",
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE022C01012",
       "type": "bullish",
-      "sessionsAgo": 8,
-      "fastEma": 14.413867850186985,
-      "slowEma": 14.408904495626482,
+      "sessionsAgo": 9,
+      "fastEma": 14.413899502288443,
+      "slowEma": 14.409562148791,
       "close": 16.38,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18510,15 +18971,77 @@
       }
     },
     {
+      "symbol": "INTERARCH",
+      "name": "Interarch Building Solutions Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE00M901018",
+      "type": "bearish",
+      "sessionsAgo": 9,
+      "fastEma": 2000.1192987885972,
+      "slowEma": 2001.8418588999389,
+      "close": 1768.0,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1778816700,
+      "sparkline": [
+        1742.4,
+        1673.6,
+        1711.7,
+        1788.3,
+        1725.5,
+        1665.0,
+        1778.0,
+        1783.0,
+        1828.6,
+        1811.9,
+        1922.0,
+        1889.1,
+        1965.0,
+        1900.6,
+        1931.4,
+        1917.9,
+        1918.2,
+        1991.0,
+        2042.0,
+        2058.2,
+        2064.0,
+        2027.1,
+        2110.2,
+        2091.7,
+        2064.6,
+        2088.3,
+        2205.0,
+        2193.5,
+        2112.1,
+        2178.7,
+        2134.9,
+        2103.1,
+        2026.2,
+        2037.6,
+        1786.9,
+        1768.0
+      ],
+      "score": {
+        "value": 64,
+        "grade": "C",
+        "emaSpreadPct": 0.1,
+        "reasons": [
+          "Crossover is still inside the 15-session window",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
       "symbol": "MARINE",
       "name": "Marine Electricals (India) Limited",
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE01JE01028",
       "type": "bullish",
-      "sessionsAgo": 8,
-      "fastEma": 203.78307122406736,
-      "slowEma": 203.69924710540084,
+      "sessionsAgo": 9,
+      "fastEma": 203.78355683543305,
+      "slowEma": 203.75024287522547,
       "close": 218.75,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18564,7 +19087,69 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.02,
+        "reasons": [
+          "Crossover is still inside the 15-session window",
+          "Close confirms the 100/200 EMA direction"
+        ]
+      }
+    },
+    {
+      "symbol": "METROPOLIS",
+      "name": "Metropolis Healthcare Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE112L01020",
+      "type": "bullish",
+      "sessionsAgo": 9,
+      "fastEma": 480.8744246173468,
+      "slowEma": 480.40668801222347,
+      "close": 528.85,
+      "volume": 0,
+      "averageVolume20": 0.0,
+      "timestamp": 1778816700,
+      "sparkline": [
+        450.2,
+        443.0,
+        438.8,
+        430.8,
+        434.0,
+        424.25,
+        421.75,
+        430.75,
+        434.4,
+        456.0,
+        456.9,
+        468.1,
+        462.35,
+        477.55,
+        472.25,
+        471.7,
+        475.4,
+        484.3,
+        476.65,
+        472.2,
+        467.1,
+        476.5,
+        480.85,
+        478.8,
+        476.5,
+        476.5,
+        492.4,
+        506.3,
+        506.4,
+        505.6,
+        549.5,
+        559.9,
+        548.1,
+        548.0,
+        540.7,
+        528.85
+      ],
+      "score": {
+        "value": 64,
+        "grade": "C",
+        "emaSpreadPct": 0.09,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -18578,9 +19163,9 @@
       "sector": "Unclassified",
       "isin": "INE136S01016",
       "type": "bullish",
-      "sessionsAgo": 8,
-      "fastEma": 1430.525893348352,
-      "slowEma": 1430.2966483137236,
+      "sessionsAgo": 9,
+      "fastEma": 1430.525900743983,
+      "slowEma": 1430.4694761883918,
       "close": 1664.8,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18626,7 +19211,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.01,
+        "emaSpreadPct": 0.0,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -18640,9 +19225,9 @@
       "sector": "Unclassified",
       "isin": "INE840Y01029",
       "type": "bullish",
-      "sessionsAgo": 8,
-      "fastEma": 51.898095546396654,
-      "slowEma": 51.84045021180304,
+      "sessionsAgo": 9,
+      "fastEma": 51.89814837070054,
+      "slowEma": 51.845519186166186,
       "close": 61.59,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18702,9 +19287,9 @@
       "sector": "Unclassified",
       "isin": "INE187D01029",
       "type": "bullish",
-      "sessionsAgo": 8,
-      "fastEma": 280.07500244592535,
-      "slowEma": 279.6603836180871,
+      "sessionsAgo": 9,
+      "fastEma": 280.0753820125425,
+      "slowEma": 279.6958981864484,
       "close": 322.3,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18750,7 +19335,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.13,
+        "emaSpreadPct": 0.12,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -18764,9 +19349,9 @@
       "sector": "Unclassified",
       "isin": "INE216A01030",
       "type": "bearish",
-      "sessionsAgo": 9,
-      "fastEma": 5769.279153582998,
-      "slowEma": 5771.8459434566585,
+      "sessionsAgo": 10,
+      "fastEma": 5769.281476382272,
+      "slowEma": 5772.073011100997,
       "close": 5336.0,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18820,77 +19405,15 @@
       }
     },
     {
-      "symbol": "ENTERO",
-      "name": "Entero Healthcare Solutions Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE010601016",
-      "type": "bullish",
-      "sessionsAgo": 9,
-      "fastEma": 1159.2348292350157,
-      "slowEma": 1159.180222923003,
-      "close": 1165.9,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778730300,
-      "sparkline": [
-        1096.8,
-        1120.9,
-        1161.3,
-        1226.0,
-        1237.7,
-        1238.3,
-        1247.8,
-        1246.6,
-        1249.1,
-        1234.4,
-        1161.0,
-        1161.1,
-        1180.9,
-        1197.2,
-        1239.4,
-        1230.9,
-        1249.7,
-        1278.1,
-        1271.9,
-        1260.2,
-        1263.9,
-        1256.9,
-        1250.1,
-        1242.6,
-        1195.5,
-        1191.4,
-        1216.4,
-        1233.4,
-        1207.1,
-        1210.8,
-        1265.7,
-        1224.6,
-        1233.2,
-        1210.3,
-        1178.9,
-        1165.9
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.0,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
       "symbol": "IOLCP",
       "name": "IOL Chemicals and Pharmaceuticals Limited",
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE485C01029",
       "type": "bullish",
-      "sessionsAgo": 9,
-      "fastEma": 85.15627033715626,
-      "slowEma": 85.06371653154798,
+      "sessionsAgo": 10,
+      "fastEma": 85.15634703599034,
+      "slowEma": 85.07173964678974,
       "close": 109.35,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -18944,77 +19467,15 @@
       }
     },
     {
-      "symbol": "METROPOLIS",
-      "name": "Metropolis Healthcare Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE112L01020",
-      "type": "bullish",
-      "sessionsAgo": 9,
-      "fastEma": 479.90517316027535,
-      "slowEma": 479.88913032334295,
-      "close": 540.7,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778730300,
-      "sparkline": [
-        441.1,
-        450.2,
-        443.0,
-        438.8,
-        430.8,
-        434.0,
-        424.25,
-        421.75,
-        430.75,
-        434.4,
-        456.0,
-        456.9,
-        468.1,
-        462.35,
-        477.55,
-        472.25,
-        471.7,
-        475.4,
-        484.3,
-        476.65,
-        472.2,
-        467.1,
-        476.5,
-        480.85,
-        478.8,
-        476.5,
-        476.5,
-        492.4,
-        506.3,
-        506.4,
-        505.6,
-        549.5,
-        559.9,
-        548.1,
-        548.0,
-        540.7
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.0,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
       "symbol": "NRBBEARING",
       "name": "NRB Bearing Limited",
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE349A01021",
       "type": "bullish",
-      "sessionsAgo": 9,
-      "fastEma": 274.16023398505007,
-      "slowEma": 273.69124529815423,
+      "sessionsAgo": 10,
+      "fastEma": 274.16046071032133,
+      "slowEma": 273.7088285756251,
       "close": 340.8,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19060,7 +19521,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.14,
+        "emaSpreadPct": 0.13,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -19074,9 +19535,9 @@
       "sector": "Unclassified",
       "isin": "INE160A01022",
       "type": "bearish",
-      "sessionsAgo": 9,
-      "fastEma": 114.42267423074007,
-      "slowEma": 114.48419000292367,
+      "sessionsAgo": 10,
+      "fastEma": 114.4226835647916,
+      "slowEma": 114.48425685762183,
       "close": 104.62,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19136,9 +19597,9 @@
       "sector": "Unclassified",
       "isin": "INE425Y01011",
       "type": "bullish",
-      "sessionsAgo": 9,
-      "fastEma": 822.8403855348206,
-      "slowEma": 821.5532607941007,
+      "sessionsAgo": 10,
+      "fastEma": 822.8406772848706,
+      "slowEma": 821.681892772558,
       "close": 960.95,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19184,7 +19645,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.13,
+        "emaSpreadPct": 0.12,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -19198,9 +19659,9 @@
       "sector": "Unclassified",
       "isin": "INE0BTM01013",
       "type": "bullish",
-      "sessionsAgo": 9,
-      "fastEma": 118.30687795397041,
-      "slowEma": 118.29227331692297,
+      "sessionsAgo": 10,
+      "fastEma": 118.30681175597338,
+      "slowEma": 118.29926568028466,
       "close": 128.05,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19260,9 +19721,9 @@
       "sector": "Unclassified",
       "isin": "INE109C01017",
       "type": "bullish",
-      "sessionsAgo": 10,
-      "fastEma": 1562.9101561174307,
-      "slowEma": 1561.403127725757,
+      "sessionsAgo": 11,
+      "fastEma": 1562.9110372341622,
+      "slowEma": 1561.3982340973246,
       "close": 1801.3,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19322,9 +19783,9 @@
       "sector": "Unclassified",
       "isin": "INE679A01013",
       "type": "bearish",
-      "sessionsAgo": 10,
-      "fastEma": 393.17282738176135,
-      "slowEma": 393.21443188972836,
+      "sessionsAgo": 11,
+      "fastEma": 393.17295546982956,
+      "slowEma": 393.2212303784958,
       "close": 352.85,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19384,9 +19845,9 @@
       "sector": "Unclassified",
       "isin": "INE317F01035",
       "type": "bullish",
-      "sessionsAgo": 10,
-      "fastEma": 1179.592339525391,
-      "slowEma": 1179.4109432012172,
+      "sessionsAgo": 11,
+      "fastEma": 1179.5925967863998,
+      "slowEma": 1179.4545908641371,
       "close": 1248.8,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19446,9 +19907,9 @@
       "sector": "Unclassified",
       "isin": "INE05CZ01011",
       "type": "bullish",
-      "sessionsAgo": 10,
-      "fastEma": 153.4933165268067,
-      "slowEma": 153.3642888845641,
+      "sessionsAgo": 11,
+      "fastEma": 153.493511461459,
+      "slowEma": 153.3962936893415,
       "close": 178.36,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19494,7 +19955,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.07,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -19508,9 +19969,9 @@
       "sector": "Unclassified",
       "isin": "INE495B01038",
       "type": "bullish",
-      "sessionsAgo": 10,
-      "fastEma": 177.66538833626467,
-      "slowEma": 177.62078801438076,
+      "sessionsAgo": 11,
+      "fastEma": 177.66557279373131,
+      "slowEma": 177.63219727504514,
       "close": 209.78,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19570,9 +20031,9 @@
       "sector": "Unclassified",
       "isin": "INE364U01010",
       "type": "bullish",
-      "sessionsAgo": 11,
-      "fastEma": 1047.9942037112612,
-      "slowEma": 1045.6640153852559,
+      "sessionsAgo": 12,
+      "fastEma": 1047.9944874422558,
+      "slowEma": 1045.7202775795467,
       "close": 1308.0,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19618,7 +20079,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.18,
+        "emaSpreadPct": 0.17,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -19632,9 +20093,9 @@
       "sector": "Unclassified",
       "isin": "INE417B01040",
       "type": "bullish",
-      "sessionsAgo": 11,
-      "fastEma": 1011.8652351017723,
-      "slowEma": 1011.3842709646576,
+      "sessionsAgo": 12,
+      "fastEma": 1011.8661281084474,
+      "slowEma": 1011.5019679185433,
       "close": 1354.1,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19680,7 +20141,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.03,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -19694,9 +20155,9 @@
       "sector": "Capital Goods",
       "isin": "INE235A01022",
       "type": "bullish",
-      "sessionsAgo": 11,
-      "fastEma": 882.1561275165734,
-      "slowEma": 881.7174417348133,
+      "sessionsAgo": 12,
+      "fastEma": 882.1572351165318,
+      "slowEma": 881.8134115294988,
       "close": 1073.5,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19742,7 +20203,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.04,
+        "emaSpreadPct": 0.03,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -19752,13 +20213,13 @@
     {
       "symbol": "GICRE",
       "name": "General Insurance Corporation of India",
-      "marketCap": "mid",
-      "sector": "Financial Services",
+      "marketCap": "other",
+      "sector": "Unclassified",
       "isin": "INE481Y01014",
       "type": "bullish",
-      "sessionsAgo": 12,
-      "fastEma": 383.5836687811894,
-      "slowEma": 383.54552611457547,
+      "sessionsAgo": 13,
+      "fastEma": 383.58387408789855,
+      "slowEma": 383.5611985012162,
       "close": 391.05,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19818,9 +20279,9 @@
       "sector": "Unclassified",
       "isin": "INE255D01024",
       "type": "bullish",
-      "sessionsAgo": 12,
-      "fastEma": 161.0768885482325,
-      "slowEma": 160.8378557006228,
+      "sessionsAgo": 13,
+      "fastEma": 161.07700823534867,
+      "slowEma": 160.8530878067057,
       "close": 192.65,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -19880,7 +20341,7 @@
       "sector": "Unclassified",
       "isin": "INE0O6601022",
       "type": "bullish",
-      "sessionsAgo": 12,
+      "sessionsAgo": 13,
       "fastEma": 190.2733130603217,
       "slowEma": 190.03317160766025,
       "close": 224.73,
@@ -19942,7 +20403,7 @@
       "sector": "Unclassified",
       "isin": "INE080I01025",
       "type": "bullish",
-      "sessionsAgo": 12,
+      "sessionsAgo": 13,
       "fastEma": 59.64904888372474,
       "slowEma": 59.574440021796356,
       "close": 71.49,
@@ -20004,9 +20465,9 @@
       "sector": "Unclassified",
       "isin": "INE607D01018",
       "type": "bullish",
-      "sessionsAgo": 12,
-      "fastEma": 291.6963608321493,
-      "slowEma": 291.53987753727245,
+      "sessionsAgo": 13,
+      "fastEma": 291.69664829825405,
+      "slowEma": 291.56022298653284,
       "close": 323.45,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20052,7 +20513,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.05,
+        "emaSpreadPct": 0.04,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20066,9 +20527,9 @@
       "sector": "Unclassified",
       "isin": "INE00F201020",
       "type": "bullish",
-      "sessionsAgo": 12,
-      "fastEma": 2550.2369558952073,
-      "slowEma": 2548.6218936045125,
+      "sessionsAgo": 13,
+      "fastEma": 2550.2373187652393,
+      "slowEma": 2548.96149781545,
       "close": 2742.7,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20114,7 +20575,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.06,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20128,9 +20589,9 @@
       "sector": "Unclassified",
       "isin": "INE277A01016",
       "type": "bullish",
-      "sessionsAgo": 12,
-      "fastEma": 3754.301355166933,
-      "slowEma": 3753.697872031628,
+      "sessionsAgo": 13,
+      "fastEma": 3754.3042023624475,
+      "slowEma": 3753.817205217549,
       "close": 3906.6,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20176,7 +20637,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.02,
+        "emaSpreadPct": 0.01,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20190,9 +20651,9 @@
       "sector": "Unclassified",
       "isin": "INE316L01019",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 188.07424071028754,
-      "slowEma": 187.67081183246964,
+      "sessionsAgo": 14,
+      "fastEma": 188.07423971193083,
+      "slowEma": 187.6740308636802,
       "close": 250.78,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20252,9 +20713,9 @@
       "sector": "Financial Services",
       "isin": "INE102B01014",
       "type": "bearish",
-      "sessionsAgo": 13,
-      "fastEma": 716.6947124778518,
-      "slowEma": 716.8664404666179,
+      "sessionsAgo": 14,
+      "fastEma": 716.6947209877762,
+      "slowEma": 716.8996937960997,
       "close": 688.85,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20300,7 +20761,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.02,
+        "emaSpreadPct": 0.03,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20314,9 +20775,9 @@
       "sector": "Unclassified",
       "isin": "INE255Z01019",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 2556.916715702552,
-      "slowEma": 2549.412185333831,
+      "sessionsAgo": 14,
+      "fastEma": 2556.914318463649,
+      "slowEma": 2550.2330207505956,
       "close": 3434.5,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20362,7 +20823,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.22,
+        "emaSpreadPct": 0.19,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20376,9 +20837,9 @@
       "sector": "Capital Goods",
       "isin": "INE285A01027",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 507.5805280117803,
-      "slowEma": 507.4621299972101,
+      "sessionsAgo": 14,
+      "fastEma": 507.58099016932823,
+      "slowEma": 507.5165449506926,
       "close": 559.1,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20424,7 +20885,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.02,
+        "emaSpreadPct": 0.01,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20438,9 +20899,9 @@
       "sector": "Unclassified",
       "isin": "INE063P01018",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 63.2974182899676,
-      "slowEma": 63.27210626483161,
+      "sessionsAgo": 14,
+      "fastEma": 63.2974159340322,
+      "slowEma": 63.27195873617678,
       "close": 72.45,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20486,7 +20947,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.03,
+        "emaSpreadPct": 0.04,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20500,9 +20961,9 @@
       "sector": "Construction",
       "isin": "INE220B01022",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 1177.2698203019145,
-      "slowEma": 1176.5172435454306,
+      "sessionsAgo": 14,
+      "fastEma": 1177.2702632463256,
+      "slowEma": 1176.6241898103353,
       "close": 1275.7,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20548,7 +21009,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.06,
+        "emaSpreadPct": 0.05,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20562,9 +21023,9 @@
       "sector": "Financial Services",
       "isin": "INE572E01012",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 901.4442227339986,
-      "slowEma": 900.292653357436,
+      "sessionsAgo": 14,
+      "fastEma": 901.4444198208239,
+      "slowEma": 900.3393618837306,
       "close": 1091.2,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20610,7 +21071,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.11,
+        "emaSpreadPct": 0.1,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20624,7 +21085,7 @@
       "sector": "Unclassified",
       "isin": "INE206N01018",
       "type": "bearish",
-      "sessionsAgo": 13,
+      "sessionsAgo": 14,
       "fastEma": 143.3217572947801,
       "slowEma": 143.3545958460295,
       "close": 138.41,
@@ -20686,9 +21147,9 @@
       "sector": "Unclassified",
       "isin": "INE428Q01011",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 138.3513031415839,
-      "slowEma": 138.22681318921872,
+      "sessionsAgo": 14,
+      "fastEma": 138.35138577161536,
+      "slowEma": 138.23555493664787,
       "close": 179.93,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20734,7 +21195,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.07,
+        "emaSpreadPct": 0.06,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
@@ -20748,9 +21209,9 @@
       "sector": "Healthcare",
       "isin": "INE049B01025",
       "type": "bullish",
-      "sessionsAgo": 13,
-      "fastEma": 1376.9339443212646,
-      "slowEma": 1376.6170024280889,
+      "sessionsAgo": 14,
+      "fastEma": 1376.9344790882742,
+      "slowEma": 1376.7244112891392,
       "close": 1606.5,
       "volume": 0,
       "averageVolume20": 0.0,
@@ -20796,441 +21257,7 @@
       "score": {
         "value": 64,
         "grade": "C",
-        "emaSpreadPct": 0.02,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "APCOTEXIND",
-      "name": "Apcotex Industries Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE116A01032",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 378.13709187120725,
-      "slowEma": 377.97217660576246,
-      "close": 511.35,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        352.9,
-        350.45,
-        340.1,
-        341.0,
-        343.6,
-        351.05,
-        343.75,
-        349.65,
-        350.5,
-        331.2,
-        314.1,
-        345.85,
-        351.95,
-        360.1,
-        362.55,
-        381.7,
-        379.35,
-        379.6,
-        378.0,
-        382.35,
-        385.0,
-        385.05,
-        391.5,
-        400.55,
-        399.3,
-        399.9,
-        394.15,
-        399.6,
-        400.55,
-        401.35,
-        402.4,
-        402.4,
-        398.2,
-        414.55,
-        426.15,
-        511.35
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.03,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "GOLDIAM",
-      "name": "Goldiam International Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE025B01025",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 355.64591922204085,
-      "slowEma": 355.21431917849736,
-      "close": 417.35,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        296.55,
-        291.9,
-        296.55,
-        306.2,
-        291.45,
-        296.1,
-        281.95,
-        286.75,
-        291.1,
-        283.4,
-        268.65,
-        290.4,
-        291.6,
-        300.95,
-        304.1,
-        338.1,
-        333.4,
-        346.55,
-        338.35,
-        383.5,
-        385.15,
-        406.1,
-        407.25,
-        411.5,
-        403.85,
-        395.45,
-        381.15,
-        386.55,
-        382.3,
-        386.75,
-        377.1,
-        377.1,
-        399.3,
-        405.3,
-        407.9,
-        417.35
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.1,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "INTERARCH",
-      "name": "Interarch Building Solutions Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE00M901018",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 2003.770314729116,
-      "slowEma": 2003.575666486162,
-      "close": 2178.7,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        1792.0,
-        1724.0,
-        1716.6,
-        1724.2,
-        1799.8,
-        1733.0,
-        1742.4,
-        1673.6,
-        1711.7,
-        1788.3,
-        1725.5,
-        1665.0,
-        1778.0,
-        1783.0,
-        1828.6,
-        1811.9,
-        1922.0,
-        1889.1,
-        1965.0,
-        1900.6,
-        1931.4,
-        1917.9,
-        1918.2,
-        1991.0,
-        2042.0,
-        2058.2,
-        2064.0,
-        2027.1,
-        2110.2,
-        2091.7,
-        2064.6,
-        2088.3,
-        2205.0,
-        2193.5,
-        2112.1,
-        2178.7
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
         "emaSpreadPct": 0.01,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "LTFOODS",
-      "name": "LT Foods Limited",
-      "marketCap": "small",
-      "sector": "Fast Moving Consumer Goods",
-      "isin": "INE818H01020",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 404.23821091716053,
-      "slowEma": 404.0190075232435,
-      "close": 432.2,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        385.25,
-        383.6,
-        389.6,
-        394.7,
-        383.2,
-        378.45,
-        364.0,
-        379.05,
-        384.05,
-        372.2,
-        363.3,
-        384.0,
-        386.05,
-        383.85,
-        384.7,
-        408.6,
-        405.15,
-        410.4,
-        406.3,
-        411.9,
-        419.15,
-        422.0,
-        415.65,
-        420.5,
-        423.5,
-        417.9,
-        420.05,
-        428.8,
-        425.0,
-        425.1,
-        430.65,
-        430.65,
-        430.8,
-        425.6,
-        428.8,
-        432.2
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.05,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "MSPL",
-      "name": "MSP Steel & Power Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE752G01015",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 33.38296192048106,
-      "slowEma": 33.3535902297239,
-      "close": 40.18,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        31.71,
-        31.02,
-        29.94,
-        30.61,
-        30.61,
-        29.53,
-        30.04,
-        28.05,
-        29.32,
-        29.35,
-        27.64,
-        26.45,
-        29.09,
-        31.38,
-        33.22,
-        33.61,
-        34.75,
-        35.49,
-        34.91,
-        34.27,
-        34.98,
-        35.87,
-        35.56,
-        35.85,
-        35.55,
-        34.86,
-        34.46,
-        34.9,
-        35.14,
-        35.46,
-        35.56,
-        35.51,
-        37.25,
-        36.66,
-        38.27,
-        40.18
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.07,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "SBCL",
-      "name": "Shivalik Bimetal Controls Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE386D01027",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 486.2839581781332,
-      "slowEma": 486.0992676177251,
-      "close": 621.6,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        415.1,
-        413.05,
-        416.95,
-        419.05,
-        396.95,
-        405.55,
-        395.55,
-        375.25,
-        380.75,
-        376.3,
-        387.85,
-        418.0,
-        410.15,
-        418.55,
-        428.95,
-        467.05,
-        467.45,
-        486.35,
-        485.95,
-        518.3,
-        514.5,
-        523.0,
-        521.15,
-        520.75,
-        536.55,
-        524.3,
-        592.3,
-        639.5,
-        612.8,
-        602.4,
-        595.5,
-        595.5,
-        625.05,
-        614.6,
-        603.7,
-        621.6
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.03,
-        "reasons": [
-          "Crossover is still inside the 15-session window",
-          "Close confirms the 100/200 EMA direction"
-        ]
-      }
-    },
-    {
-      "symbol": "SHILPAMED",
-      "name": "Shilpa Medicare Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE790G01031",
-      "type": "bullish",
-      "sessionsAgo": 14,
-      "fastEma": 364.300276447223,
-      "slowEma": 363.55496185608314,
-      "close": 441.7,
-      "volume": 0,
-      "averageVolume20": 0.0,
-      "timestamp": 1778125500,
-      "sparkline": [
-        312.8,
-        316.0,
-        317.9,
-        324.6,
-        314.75,
-        323.25,
-        312.35,
-        338.0,
-        345.3,
-        349.6,
-        348.9,
-        374.7,
-        388.9,
-        391.5,
-        391.35,
-        403.7,
-        419.0,
-        420.1,
-        415.9,
-        414.2,
-        412.0,
-        410.55,
-        411.25,
-        405.25,
-        408.35,
-        427.6,
-        413.9,
-        415.2,
-        407.8,
-        404.05,
-        406.65,
-        406.65,
-        418.7,
-        424.4,
-        441.9,
-        441.7
-      ],
-      "score": {
-        "value": 64,
-        "grade": "C",
-        "emaSpreadPct": 0.17,
         "reasons": [
           "Crossover is still inside the 15-session window",
           "Close confirms the 100/200 EMA direction"
