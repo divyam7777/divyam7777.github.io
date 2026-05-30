@@ -6,7 +6,7 @@
   "fastPeriod": 100,
   "slowPeriod": 200,
   "windowSessions": 60,
-  "generatedAt": "2026-05-30T04:13:11.622262+00:00",
+  "generatedAt": "2026-05-30T06:15:41.281883+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
