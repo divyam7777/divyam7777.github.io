@@ -679,6 +679,12 @@
         font-weight: 950;
         white-space: nowrap;
       }
+      .move-up { color: var(--green); }
+      .move-down { color: var(--red); }
+      .move-flat { color: var(--muted); }
+      .price-move {
+        gap: 3px;
+      }
       .ema-pair {
         display: flex;
         flex-direction: column;
@@ -1211,7 +1217,7 @@
                   <option value="score">Strongest score</option>
                   <option value="bullish">Bullish first</option>
                   <option value="bearish">Bearish first</option>
-                  <option value="closeHigh">Highest close</option>
+                  <option value="closeHigh">Highest latest price</option>
                 </select>
               </label>
               <label class="filter-field">
@@ -1248,11 +1254,11 @@
                 </select>
               </label>
               <label class="filter-field">
-                <span>Min close</span>
+                <span>Min latest price</span>
                 <input class="filter-input" id="minPrice" type="number" min="0" step="1" placeholder="0" />
               </label>
               <label class="filter-field">
-                <span>Max close</span>
+                <span>Max latest price</span>
                 <input class="filter-input" id="maxPrice" type="number" min="0" step="1" placeholder="No limit" />
               </label>
               <label class="filter-field">
@@ -1629,6 +1635,53 @@
         return Number(value || 0).toLocaleString("en-IN");
       }
 
+      function finiteNumber(value) {
+        const number = Number(value);
+        return Number.isFinite(number) ? number : null;
+      }
+
+      function crossPrice(item) {
+        return finiteNumber(item.crossClose ?? item.close);
+      }
+
+      function latestPrice(item) {
+        return finiteNumber(item.latestClose ?? item.close);
+      }
+
+      function formatMoney(value) {
+        const number = finiteNumber(value);
+        return number === null ? "Not available" : `Rs. ${number.toFixed(2)}`;
+      }
+
+      function formatSignedMoney(value) {
+        const number = finiteNumber(value);
+        if (number === null) return "Not available";
+        const sign = number > 0 ? "+" : number < 0 ? "-" : "";
+        return `${sign}Rs. ${Math.abs(number).toFixed(2)}`;
+      }
+
+      function formatSignedPercent(value) {
+        const number = finiteNumber(value);
+        if (number === null) return "Not available";
+        const sign = number > 0 ? "+" : number < 0 ? "-" : "";
+        return `${sign}${Math.abs(number).toFixed(2)}%`;
+      }
+
+      function priceMoveStats(item) {
+        const cross = crossPrice(item);
+        const latest = latestPrice(item);
+        if (cross === null || latest === null) return null;
+        const change = finiteNumber(item.priceChange) ?? (latest - cross);
+        const percent = finiteNumber(item.priceChangePct) ?? (cross ? (change / cross) * 100 : 0);
+        return { cross, latest, change, percent };
+      }
+
+      function priceMoveClass(change) {
+        if (change > 0) return "move-up";
+        if (change < 0) return "move-down";
+        return "move-flat";
+      }
+
       function escapeHtml(value) {
         return String(value ?? "")
           .replaceAll("&", "&amp;")
@@ -1658,10 +1711,10 @@
       function priceMatches(item) {
         const min = activeMinPrice === "" ? null : Number(activeMinPrice);
         const max = activeMaxPrice === "" ? null : Number(activeMaxPrice);
-        if (item.close === null || item.close === undefined || Number.isNaN(Number(item.close))) {
+        const close = latestPrice(item);
+        if (close === null) {
           return min === null && max === null;
         }
-        const close = Number(item.close);
         if (min !== null && close < min) return false;
         if (max !== null && close > max) return false;
         return true;
@@ -1749,7 +1802,7 @@
       function sortResults(items) {
         const typeRank = { bullish: 0, bearish: 1, watchlist: 2 };
         const sessionRank = (item) => Number.isFinite(Number(item.sessionsAgo)) ? Number(item.sessionsAgo) : 999;
-        const closeRank = (item) => Number.isFinite(Number(item.close)) ? Number(item.close) : -1;
+        const closeRank = (item) => latestPrice(item) ?? -1;
         const sorted = [...items];
         if (activeSort === "symbol") return sorted.sort((a, b) => a.symbol.localeCompare(b.symbol));
         if (activeSort === "score") return sorted.sort((a, b) => scoreValue(b) - scoreValue(a) || sessionRank(a) - sessionRank(b) || a.symbol.localeCompare(b.symbol));
@@ -1793,6 +1846,11 @@
           fastEma: null,
           slowEma: null,
           close: null,
+          crossClose: null,
+          latestClose: null,
+          latestTimestamp: null,
+          priceChange: null,
+          priceChangePct: null,
           volume: null,
           averageVolume20: null,
           timestamp: null,
@@ -2025,7 +2083,11 @@
             const badgeType = isSavedOnly ? "watchlist" : item.type;
             const badgeText = isSavedOnly ? `saved - ${capLabel(item.marketCap)}` : `${item.type} - ${capLabel(item.marketCap)}`;
             const scoreText = isSavedOnly ? "Saved" : `${scoreValue(item)} - ${scoreGrade(item)}`;
-            const closeText = item.close === null || item.close === undefined ? "Waiting" : `Rs. ${Number(item.close).toFixed(2)}`;
+            const move = priceMoveStats(item);
+            const moveText = move ? `${formatSignedMoney(move.change)} (${formatSignedPercent(move.percent)})` : "Waiting";
+            const moveClass = move ? priceMoveClass(move.change) : "move-flat";
+            const crossText = move ? formatMoney(move.cross) : "No cross price";
+            const latestText = move ? formatMoney(move.latest) : "No latest price";
             const fastText = item.fastEma === null || item.fastEma === undefined ? `${fastPeriod}: No current cross` : `${fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}`;
             const slowText = item.slowEma === null || item.slowEma === undefined ? `${slowPeriod}: Watching` : `${slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}`;
             const freshnessText = isSavedOnly ? "No fresh cross" : `${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}`;
@@ -2047,9 +2109,11 @@
                   <span class="cell-label">Score</span>
                   <span class="score-pill grade-${grade}">${scoreText}</span>
                 </div>
-                <div class="result-cell">
-                  <span class="cell-label">Close</span>
-                  <span class="row-value">${closeText}</span>
+                <div class="result-cell price-move">
+                  <span class="cell-label">Price move</span>
+                  <span class="row-value ${moveClass}">${moveText}</span>
+                  <span class="row-value-muted">Cross ${crossText}</span>
+                  <span class="row-value-muted">Latest ${latestText}</span>
                 </div>
                 <div class="result-cell ema-pair">
                   <span class="cell-label">EMAs</span>
@@ -2081,7 +2145,7 @@
               <span>Stock</span>
               <span>Signal</span>
               <span>Score</span>
-              <span>Close</span>
+              <span>Price move</span>
               <span>EMAs</span>
               <span>Freshness</span>
               <span>${isWatchlistPage ? "Saved / cross" : "Cross date"}</span>
@@ -2209,13 +2273,24 @@
         if (!rows.length) return;
         const headers = [
           "symbol", "name", "sector", "marketCap", "type", "score", "grade",
-          "sessionsAgo", "close", "fastEma", "slowEma", "volume", "averageVolume20", "crossDate"
+          "sessionsAgo", "crossDate", "crossClose", "latestDate", "latestClose",
+          "priceChange", "priceChangePct", "fastEma", "slowEma", "volume", "averageVolume20"
         ];
         const csvRows = [
           headers.join(","),
           ...rows.map((item) => headers.map((header) => {
             const value = header === "crossDate"
               ? formatDate(item.timestamp)
+              : header === "crossClose"
+                ? crossPrice(item)
+                : header === "latestDate"
+                  ? (item.latestTimestamp ? formatDate(item.latestTimestamp) : formatDate(item.timestamp))
+                  : header === "latestClose"
+                    ? latestPrice(item)
+                    : header === "priceChange"
+                      ? priceMoveStats(item)?.change
+                      : header === "priceChangePct"
+                        ? priceMoveStats(item)?.percent
               : header === "score"
                 ? scoreValue(item)
                 : header === "grade"
@@ -2303,6 +2378,9 @@
         const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
         const fastPeriod = itemFastPeriod(item);
         const slowPeriod = itemSlowPeriod(item);
+        const move = priceMoveStats(item);
+        const latestDateText = item.latestTimestamp ? formatDate(item.latestTimestamp) : formatDate(item.timestamp);
+        const moveClass = move ? priceMoveClass(move.change) : "move-flat";
         modalTitle.textContent = `${item.symbol}.NS`;
 
         if (item._isSavedOnly) {
@@ -2338,7 +2416,11 @@
             <div class="mini-stat"><span>Score</span><strong>${scoreValue(item)} - ${scoreGrade(item)}</strong></div>
             <div class="mini-stat"><span>Sessions ago</span><strong>${item.sessionsAgo}</strong></div>
             <div class="mini-stat"><span>Cross date</span><strong>${formatDate(item.timestamp)}</strong></div>
-            <div class="mini-stat"><span>Close</span><strong>Rs. ${Number(item.close).toFixed(2)}</strong></div>
+            <div class="mini-stat"><span>Cross price</span><strong>${move ? formatMoney(move.cross) : formatMoney(item.close)}</strong></div>
+            <div class="mini-stat"><span>Latest date</span><strong>${latestDateText}</strong></div>
+            <div class="mini-stat"><span>Latest price</span><strong>${move ? formatMoney(move.latest) : formatMoney(item.close)}</strong></div>
+            <div class="mini-stat"><span>Difference</span><strong class="${moveClass}">${move ? formatSignedMoney(move.change) : "Not available"}</strong></div>
+            <div class="mini-stat"><span>% change</span><strong class="${moveClass}">${move ? formatSignedPercent(move.percent) : "Not available"}</strong></div>
             <div class="mini-stat"><span>EMA ${fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
             <div class="mini-stat"><span>EMA ${slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
             <div class="mini-stat"><span>Volume</span><strong>${formatNumber(item.volume)}</strong></div>

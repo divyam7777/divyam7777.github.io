@@ -296,17 +296,28 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], f
             continue
         previous = float(fast_ema[index - 1]) - float(slow_ema[index - 1])
         current = float(fast_ema[index]) - float(slow_ema[index])
+        cross_close = float(closes[index])
+        latest_close = float(closes[-1])
+        price_change = latest_close - cross_close
+        price_change_pct = (price_change / cross_close * 100) if cross_close else 0
+        latest_timestamp = timestamps[-1] if timestamps else None
+        sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
         if previous <= 0 and current > 0:
             cross = {
                 "type": "bullish",
                 "sessionsAgo": len(closes) - 1 - index,
                 "fastEma": fast_ema[index],
                 "slowEma": slow_ema[index],
-                "close": closes[index],
+                "close": cross_close,
+                "crossClose": cross_close,
+                "latestClose": latest_close,
+                "latestTimestamp": latest_timestamp,
+                "priceChange": round(price_change, 2),
+                "priceChangePct": round(price_change_pct, 2),
                 "volume": volumes[index] if index < len(volumes) else 0,
                 "averageVolume20": average(volumes[: index + 1], 20),
                 "timestamp": timestamps[index],
-                "sparkline": [round(value, 2) for value in closes[max(0, index - 35) : index + 1]],
+                "sparkline": sparkline,
             }
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
@@ -316,11 +327,16 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], f
                 "sessionsAgo": len(closes) - 1 - index,
                 "fastEma": fast_ema[index],
                 "slowEma": slow_ema[index],
-                "close": closes[index],
+                "close": cross_close,
+                "crossClose": cross_close,
+                "latestClose": latest_close,
+                "latestTimestamp": latest_timestamp,
+                "priceChange": round(price_change, 2),
+                "priceChangePct": round(price_change_pct, 2),
                 "volume": volumes[index] if index < len(volumes) else 0,
                 "averageVolume20": average(volumes[: index + 1], 20),
                 "timestamp": timestamps[index],
-                "sparkline": [round(value, 2) for value in closes[max(0, index - 35) : index + 1]],
+                "sparkline": sparkline,
             }
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
