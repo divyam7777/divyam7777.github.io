@@ -588,14 +588,14 @@
       .result-row {
         display: grid;
         grid-template-columns:
-          minmax(180px, 1.55fr)
-          minmax(118px, 0.9fr)
-          minmax(96px, 0.7fr)
-          minmax(92px, 0.64fr)
-          minmax(132px, 0.92fr)
-          minmax(86px, 0.56fr)
-          minmax(112px, 0.72fr)
-          minmax(160px, 0.9fr);
+          minmax(176px, 1.3fr)
+          minmax(124px, 0.85fr)
+          minmax(86px, 0.52fr)
+          minmax(178px, 1.16fr)
+          minmax(128px, 0.82fr)
+          minmax(88px, 0.55fr)
+          minmax(104px, 0.62fr)
+          minmax(124px, 0.68fr);
         gap: 12px;
         align-items: center;
       }
@@ -683,7 +683,15 @@
       .move-down { color: var(--red); }
       .move-flat { color: var(--muted); }
       .price-move {
-        gap: 3px;
+        gap: 4px;
+      }
+      .price-subline {
+        max-width: none;
+        overflow: visible;
+        font-size: 0.78rem;
+        line-height: 1.24;
+        text-overflow: clip;
+        white-space: nowrap;
       }
       .ema-pair {
         display: flex;
@@ -917,14 +925,14 @@
       .watchlist-page .result-table-head,
       .watchlist-page .result-row {
         grid-template-columns:
-          minmax(180px, 1.55fr)
-          minmax(118px, 0.9fr)
-          minmax(96px, 0.7fr)
-          minmax(92px, 0.64fr)
-          minmax(132px, 0.92fr)
-          minmax(86px, 0.56fr)
-          minmax(112px, 0.72fr)
-          minmax(160px, 0.9fr);
+          minmax(176px, 1.3fr)
+          minmax(124px, 0.85fr)
+          minmax(86px, 0.52fr)
+          minmax(178px, 1.16fr)
+          minmax(128px, 0.82fr)
+          minmax(88px, 0.55fr)
+          minmax(104px, 0.62fr)
+          minmax(124px, 0.68fr);
       }
       .watchlist-page .result-row { cursor: default; }
       .watchlist-page .result-row:hover {
@@ -967,8 +975,10 @@
       }
 
       @media (max-width: 1140px) {
-        .result-table-head { display: none; }
-        .result-row { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 16px; }
+        .result-table-head,
+        .watchlist-page .result-table-head { display: none; }
+        .result-row,
+        .watchlist-page .result-row { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 16px; }
         .stock-cell, .row-actions { grid-column: 1 / -1; }
         .row-actions { justify-content: flex-start; }
         .cell-label { display: block; }
@@ -986,7 +996,8 @@
 
       @media (max-width: 620px) {
         .result-table-shell { border-radius: 24px; padding: 10px; }
-        .result-row { grid-template-columns: 1fr; border-radius: 20px; }
+        .result-row,
+        .watchlist-page .result-row { grid-template-columns: 1fr; border-radius: 20px; }
         .row-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .row-action, .row-open { width: 100%; padding-inline: 8px; }
       }
@@ -2112,8 +2123,8 @@
                 <div class="result-cell price-move">
                   <span class="cell-label">Price move</span>
                   <span class="row-value ${moveClass}">${moveText}</span>
-                  <span class="row-value-muted">Cross ${crossText}</span>
-                  <span class="row-value-muted">Latest ${latestText}</span>
+                  <span class="row-value-muted price-subline">Cross: ${crossText}</span>
+                  <span class="row-value-muted price-subline">Latest: ${latestText}</span>
                 </div>
                 <div class="result-cell ema-pair">
                   <span class="cell-label">EMAs</span>
