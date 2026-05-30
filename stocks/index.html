@@ -1203,7 +1203,7 @@
               <span class="badge" id="scanStatus">Waiting for scanner selection</span>
               <span class="badge" id="scanCount">0 scanned</span>
               <span class="badge" id="scanTime">No scan loaded</span>
-              <span class="badge" id="nextRefresh">Next refresh: weekdays 5:15 PM IST</span>
+              <span class="badge" id="nextRefresh">Next refresh: weekdays 3:45 PM IST</span>
             </div>
             <div class="progress-track"><span id="progressBar"></span></div>
           </div>
@@ -2495,7 +2495,7 @@
         sortSelect.value = initialSort;
       }
       if (initialSector) activeSector = initialSector;
-      if (["0", "5", "15"].includes(initialDays)) {
+      if (["0", "5", "15", "30", "60"].includes(initialDays)) {
         activeSessionWindow = Number(initialDays);
         sessionSelect.value = initialDays;
       }
