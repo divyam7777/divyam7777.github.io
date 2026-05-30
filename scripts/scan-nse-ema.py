@@ -28,6 +28,7 @@ SCAN_RULES = {
     "100-200": {"fast": 100, "slow": 200, "label": "100 / 200 EMA cross"},
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
 }
+SCAN_WINDOW_SESSIONS = 60
 DEFAULT_OUTPUT_DIR = Path("public/stocks/data")
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
@@ -238,7 +239,7 @@ def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
         reasons.append("Crossover happened within the last 5 sessions")
     else:
         score += 9
-        reasons.append("Crossover is still inside the 15-session window")
+        reasons.append(f"Crossover is still inside the {SCAN_WINDOW_SESSIONS}-session window")
 
     if spread_pct >= 2:
         score += 14
@@ -286,7 +287,7 @@ def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
     }
 
 
-def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], fast_period: int, slow_period: int, window: int = 15) -> dict | None:
+def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], fast_period: int, slow_period: int, window: int = SCAN_WINDOW_SESSIONS) -> dict | None:
     fast_ema = ema(closes, fast_period)
     slow_ema = ema(closes, slow_period)
     start = max(1, len(closes) - window)
@@ -373,8 +374,8 @@ def build_scan_payload(
         closes = candles.get("closes", [])
         timestamps = candles.get("timestamps", [])
         volumes = candles.get("volumes", [])
-        if len(closes) < slow_period + 15:
-            skipped.append({"symbol": stock.symbol, "reason": f"needs at least {slow_period + 15} daily candles"})
+        if len(closes) < slow_period + SCAN_WINDOW_SESSIONS:
+            skipped.append({"symbol": stock.symbol, "reason": f"needs at least {slow_period + SCAN_WINDOW_SESSIONS} daily candles"})
             continue
         cross = find_cross(closes, timestamps, volumes, fast_period, slow_period)
         if cross:
@@ -392,10 +393,10 @@ def build_scan_payload(
         "market": "NSE India",
         "scanId": scan_id,
         "label": rule["label"],
-        "rule": f"{fast_period} EMA / {slow_period} EMA crossover within last 15 daily sessions",
+        "rule": f"{fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions",
         "fastPeriod": fast_period,
         "slowPeriod": slow_period,
-        "windowSessions": 15,
+        "windowSessions": SCAN_WINDOW_SESSIONS,
         "generatedAt": generated_at,
         "dataSource": {
             "universe": NSE_EQUITY_URL,
