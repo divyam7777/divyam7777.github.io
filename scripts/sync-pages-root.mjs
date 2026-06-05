@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, stat } from "node:fs/promises";
+import { cp, mkdir, rm, stat, writeFile } from "node:fs/promises";
 import { dirname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -22,8 +22,27 @@ async function exists(path) {
   }
 }
 
-const generatedDirs = ["assets", "blog", "projects", "stocks"];
-const generatedFiles = ["index.html", "Divyam_Matia_Resume.pdf", "profile-placeholder.jpg", ".nojekyll"];
+function redirectPage({ title, description, target }) {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="${description}" />
+    <meta http-equiv="refresh" content="0; url=${target}" />
+    <link rel="canonical" href="${target}" />
+    <title>${title}</title>
+    <script>window.location.replace("${target}");</script>
+  </head>
+  <body>
+    <p>Opening <a href="${target}">${target}</a>...</p>
+  </body>
+</html>
+`;
+}
+
+const generatedDirs = ["assets", "blog", "creater", "projects", "stocks"];
+const generatedFiles = ["index.html", "CNAME", "Divyam_Matia_Resume.pdf", "profile-placeholder.jpg", ".nojekyll"];
 
 await mkdir(distDir, { recursive: true });
 
@@ -32,6 +51,22 @@ const watchlistIndex = resolve(distDir, "stocks", "watchlist", "index.html");
 if (await exists(stocksIndex)) {
   await mkdir(dirname(watchlistIndex), { recursive: true });
   await cp(stocksIndex, watchlistIndex, { force: true });
+}
+
+const portfolioIndex = resolve(distDir, "index.html");
+const createrIndex = resolve(distDir, "creater", "index.html");
+if (await exists(portfolioIndex)) {
+  await mkdir(dirname(createrIndex), { recursive: true });
+  await cp(portfolioIndex, createrIndex, { force: true });
+  await writeFile(
+    portfolioIndex,
+    redirectPage({
+      title: "StocksFlow | NSE EMA Scanner",
+      description: "Opening StocksFlow, an NSE EMA crossover scanner for Indian market research.",
+      target: "/stocks/",
+    }),
+    "utf8"
+  );
 }
 
 for (const dir of generatedDirs) {
