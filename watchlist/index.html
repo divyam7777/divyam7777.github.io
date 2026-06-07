@@ -1102,7 +1102,7 @@
       <span class="market-chip three">Trend scan</span>
     </div>
     <header class="nav">
-      <a class="brand" href="/stocks/" aria-label="NSE EMA Scanner home">
+      <a class="brand" href="/" aria-label="NSE EMA Scanner home">
         <span class="mark">DM</span>
         <span>NSE EMA Scanner</span>
       </a>
@@ -1110,7 +1110,7 @@
         <a href="#choose">Scanners</a>
         <a href="#scanner">Results</a>
         <a href="#universe">Universe</a>
-        <a href="/stocks/watchlist/" id="watchlistNavLink">Watchlist <span class="nav-count" id="navWatchlistCount">0</span></a>
+        <a href="/watchlist/" id="watchlistNavLink">Watchlist <span class="nav-count" id="navWatchlistCount">0</span></a>
         <a href="/creater/">Portfolio</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">
@@ -1130,7 +1130,7 @@
           </p>
           <div class="actions" id="heroActions">
             <a class="button primary" href="#choose">Choose scanner</a>
-            <a class="button" href="/stocks/watchlist/">Open watchlist</a>
+            <a class="button" href="/watchlist/">Open watchlist</a>
             <a class="button" href="/creater/">Back to portfolio</a>
           </div>
           <p class="disclaimer">
@@ -1173,7 +1173,7 @@
               <span class="scan-badge">EMA 100 x EMA 200</span>
             </div>
             <p>Best for slower, higher-conviction trend changes where the medium trend crosses the long-term base trend.</p>
-            <a class="button primary" href="/stocks/?scan=100-200" data-scan-trigger="100-200">Run 100 / 200 scan</a>
+            <a class="button primary" href="/?scan=100-200" data-scan-trigger="100-200">Run 100 / 200 scan</a>
           </article>
 
           <article class="scan-card" data-scan-card="50-100">
@@ -1185,7 +1185,7 @@
               <span class="scan-badge">EMA 50 x EMA 100</span>
             </div>
             <p>Best for earlier trend rotation signals where price momentum is changing before the slower 100/200 crossover.</p>
-            <a class="button primary" href="/stocks/?scan=50-100" data-scan-trigger="50-100">Run 50 / 100 scan</a>
+            <a class="button primary" href="/?scan=50-100" data-scan-trigger="50-100">Run 50 / 100 scan</a>
           </article>
         </div>
       </section>
@@ -1336,19 +1336,19 @@
       const SCANS = {
         "100-200": {
           label: "100 / 200 EMA cross",
-          file: "/stocks/data/ema-100-200-crosses.json",
+          file: "/data/ema-100-200-crosses.json",
           fast: 100,
           slow: 200
         },
         "50-100": {
           label: "50 / 100 EMA cross",
-          file: "/stocks/data/ema-50-100-crosses.json",
+          file: "/data/ema-50-100-crosses.json",
           fast: 50,
           slow: 100
         }
       };
 
-      const isWatchlistPage = window.location.pathname.replace(/\/+$/, "").endsWith("/stocks/watchlist");
+      const isWatchlistPage = window.location.pathname.replace(/\/+$/, "").endsWith("/watchlist");
       const WATCHLIST_KEY = "stocks-watchlist";
       const WATCHLIST_META_KEY = "stocks-watchlist-meta";
 
@@ -1510,7 +1510,7 @@
         heroEyebrow.textContent = "Saved stocks";
         heroTitle.textContent = "Your NSE watchlist.";
         heroCopy.textContent = "A simple local list of the stocks you saved from the scanner.";
-        heroActions.innerHTML = '<a class="button primary" href="/stocks/">Back to stocks page</a>';
+        heroActions.innerHTML = '<a class="button primary" href="/">Back to stocks page</a>';
         resultTitle.textContent = "Loading your saved stocks.";
         scanStatus.textContent = "Watchlist mode";
       }

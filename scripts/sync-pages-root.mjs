@@ -41,29 +41,31 @@ function redirectPage({ title, description, target }) {
 `;
 }
 
-const generatedDirs = ["assets", "blog", "creater", "projects", "stocks"];
+const generatedDirs = ["assets", "blog", "creater", "projects", "stocks", "watchlist", "data"];
 const generatedFiles = ["index.html", "CNAME", "Divyam_Matia_Resume.pdf", "profile-placeholder.jpg", ".nojekyll"];
 
 await mkdir(distDir, { recursive: true });
 
 const stocksIndex = resolve(distDir, "stocks", "index.html");
-const watchlistIndex = resolve(distDir, "stocks", "watchlist", "index.html");
-if (await exists(stocksIndex)) {
-  await mkdir(dirname(watchlistIndex), { recursive: true });
-  await cp(stocksIndex, watchlistIndex, { force: true });
-}
-
+const watchlistIndex = resolve(distDir, "watchlist", "index.html");
 const portfolioIndex = resolve(distDir, "index.html");
 const createrIndex = resolve(distDir, "creater", "index.html");
+
 if (await exists(portfolioIndex)) {
   await mkdir(dirname(createrIndex), { recursive: true });
   await cp(portfolioIndex, createrIndex, { force: true });
+}
+
+if (await exists(stocksIndex)) {
+  await mkdir(dirname(watchlistIndex), { recursive: true });
+  await cp(stocksIndex, watchlistIndex, { force: true });
+  await cp(stocksIndex, portfolioIndex, { force: true });
   await writeFile(
-    portfolioIndex,
+    stocksIndex,
     redirectPage({
       title: "StocksFlow | NSE EMA Scanner",
       description: "Opening StocksFlow, an NSE EMA crossover scanner for Indian market research.",
-      target: "/stocks/",
+      target: "/",
     }),
     "utf8"
   );

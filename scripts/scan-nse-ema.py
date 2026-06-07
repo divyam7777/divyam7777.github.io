@@ -29,7 +29,7 @@ SCAN_RULES = {
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
 }
 SCAN_WINDOW_SESSIONS = 60
-DEFAULT_OUTPUT_DIR = Path("public/stocks/data")
+DEFAULT_OUTPUT_DIR = Path("public/data")
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
     "Accept": "text/csv,application/json,text/plain,*/*",
