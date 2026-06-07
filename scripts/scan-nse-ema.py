@@ -149,54 +149,45 @@ def yahoo_symbol_to_nse(raw_symbol: str) -> str:
     return decoded[:-3].upper() if decoded.upper().endswith(".NS") else decoded.upper()
 
 
-def fetch_yahoo_batch(stocks: list[Stock]) -> tuple[dict[str, dict[str, list[float] | list[int]]], list[dict[str, str]]]:
-    encoded_symbols = ",".join(quote(f"{stock.symbol}.NS", safe=".-") for stock in stocks)
-    url = f"https://query1.finance.yahoo.com/v7/finance/spark?symbols={encoded_symbols}&range=2y&interval=1d"
-    request = Request(url, headers={"User-Agent": REQUEST_HEADERS["User-Agent"], "Accept": "application/json,*/*"})
-    price_data: dict[str, dict[str, list[float] | list[int]]] = {}
-    failures: list[dict[str, str]] = []
-
+def fetch_chart_data(stock: Stock) -> tuple[str, dict[str, list[float] | list[int]] | None, str | None]:
+    import random
+    time.sleep(random.uniform(0.01, 0.04))
+    symbol = f"{stock.symbol}.NS"
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(symbol, safe='.-')}?range=2y&interval=1d"
     try:
-        with urlopen(request, timeout=35) as response:
+        request = Request(url, headers={"User-Agent": REQUEST_HEADERS["User-Agent"], "Accept": "application/json,*/*"})
+        with urlopen(request, timeout=15) as response:
             payload = json.loads(response.read().decode("utf-8"))
+            result = payload.get("chart", {}).get("result")
+            if not result:
+                return stock.symbol, None, "no chart result returned"
+            data = result[0]
+            parsed = parse_price_response(data)
+            if not parsed:
+                return stock.symbol, None, "failed to parse daily candle data"
+            return stock.symbol, parsed, None
     except Exception as exc:
-        if len(stocks) > 1:
-            midpoint = len(stocks) // 2
-            left_prices, left_failures = fetch_yahoo_batch(stocks[:midpoint])
-            right_prices, right_failures = fetch_yahoo_batch(stocks[midpoint:])
-            left_prices.update(right_prices)
-            return left_prices, left_failures + right_failures
-        return price_data, [{"symbol": stock.symbol, "error": f"batch fetch failed: {exc}"} for stock in stocks]
-
-    for result in payload.get("spark", {}).get("result", []):
-        symbol = yahoo_symbol_to_nse(result.get("symbol", ""))
-        responses = result.get("response") or []
-        if not symbol or not responses:
-            continue
-        parsed = parse_price_response(responses[0])
-        if parsed:
-            price_data[symbol] = parsed
-
-    found = set(price_data)
-    for stock in stocks:
-        if stock.symbol not in found:
-            failures.append({"symbol": stock.symbol, "error": "no Yahoo daily candle data returned"})
-
-    return price_data, failures
+        return stock.symbol, None, str(exc)
 
 
 def fetch_all_prices(universe: list[Stock], batch_size: int = 20) -> tuple[dict[str, dict[str, list[float] | list[int]]], list[dict[str, str]]]:
+    import concurrent.futures
     all_prices: dict[str, dict[str, list[float] | list[int]]] = {}
     failures: list[dict[str, str]] = []
 
-    batches = list(chunked(universe, batch_size))
-    for index, batch in enumerate(batches, start=1):
-        prices, batch_failures = fetch_yahoo_batch(batch)
-        all_prices.update(prices)
-        failures.extend(batch_failures)
-        print(f"Fetched batch {index}/{len(batches)}: {len(prices)} symbols")
-        time.sleep(0.18)
+    print(f"Starting concurrent fetch of {len(universe)} charts using ThreadPoolExecutor...")
+    t0 = time.time()
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as executor:
+        results = list(executor.map(fetch_chart_data, universe))
 
+    for symbol, parsed_data, error_msg in results:
+        if parsed_data:
+            all_prices[symbol] = parsed_data
+        else:
+            failures.append({"symbol": symbol, "error": error_msg or "unknown error"})
+
+    print(f"Finished concurrent fetch in {time.time() - t0:.2f} seconds. Success: {len(all_prices)}, Failures: {len(failures)}")
     return all_prices, failures
 
 
