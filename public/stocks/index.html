@@ -8,6 +8,7 @@
       content="NSE India EMA crossover scanner for 100/200 and 50/100 EMA crosses across the full equity universe."
     />
     <title>NSE EMA Scanner | Divyam Matia</title>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script>
       (() => {
         try {
@@ -486,7 +487,7 @@
       }
       .control-filters {
         display: grid;
-        grid-template-columns: minmax(170px, 1.25fr) minmax(150px, 0.9fr) minmax(130px, 0.78fr) minmax(120px, 0.7fr) minmax(120px, 0.7fr) minmax(148px, 0.82fr);
+        grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
         gap: 12px;
         align-items: end;
         padding-top: 16px;
@@ -1050,6 +1051,10 @@
         from { opacity: 0; transform: translateY(14px); }
         to { opacity: 1; transform: translateY(0); }
       }
+      @keyframes alertPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 4px var(--red); }
+        50% { transform: scale(1.08); box-shadow: 0 0 12px var(--red); }
+      }
 
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after {
@@ -1275,6 +1280,20 @@
                 <input class="filter-input" id="maxPrice" type="number" min="0" step="1" placeholder="No limit" />
               </label>
               <label class="filter-field">
+                <span>Volume</span>
+                <select class="filter-select" id="volumeSelect">
+                  <option value="all">All volumes</option>
+                  <option value="high">High Volume (>=1.5x Avg)</option>
+                </select>
+              </label>
+              <label class="filter-field">
+                <span>Pullback Zone</span>
+                <select class="filter-select" id="retestSelect">
+                  <option value="all">All prices</option>
+                  <option value="retest">Retest Zone (<1.5% EMA)</option>
+                </select>
+              </label>
+              <label class="filter-field">
                 <span>Watchlist</span>
                 <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
               </label>
@@ -1390,6 +1409,8 @@
       const maxPrice = document.getElementById("maxPrice");
       const watchlistToggle = document.getElementById("watchlistToggle");
       const watchlistCount = document.getElementById("watchlistCount");
+      const volumeSelect = document.getElementById("volumeSelect");
+      const retestSelect = document.getElementById("retestSelect");
       const exportCsv = document.getElementById("exportCsv");
       const detailModal = document.getElementById("detailModal");
       const modalTitle = document.getElementById("modalTitle");
@@ -1413,6 +1434,8 @@
       let activeScoreFilter = "all";
       let activeMinPrice = "";
       let activeMaxPrice = "";
+      let activeVolumeFilter = "all";
+      let activeRetestFilter = "all";
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
@@ -1474,8 +1497,11 @@
 
       function updateWatchlistCount() {
         watchlistCount.textContent = watchlist.size;
-        if (navWatchlistCount) navWatchlistCount.textContent = watchlist.size;
+        if (navWatchlistCount) {
+          navWatchlistCount.textContent = watchlist.size;
+        }
         watchlistToggle.classList.toggle("is-active", watchlistOnly);
+        checkWatchlistSignals();
       }
 
       function getInitialTheme() {
@@ -1603,6 +1629,10 @@
         else nextUrl.searchParams.delete("sector");
         if (activeSessionWindow !== 15) nextUrl.searchParams.set("days", String(activeSessionWindow));
         else nextUrl.searchParams.delete("days");
+        if (activeVolumeFilter !== "all") nextUrl.searchParams.set("volume", activeVolumeFilter);
+        else nextUrl.searchParams.delete("volume");
+        if (activeRetestFilter !== "all") nextUrl.searchParams.set("retest", activeRetestFilter);
+        else nextUrl.searchParams.delete("retest");
         if (activeScoreFilter !== "all") nextUrl.searchParams.set("score", activeScoreFilter);
         else nextUrl.searchParams.delete("score");
         if (activeMinPrice !== "") nextUrl.searchParams.set("min", activeMinPrice);
@@ -2035,6 +2065,27 @@
         document.getElementById("scanner").scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
+      function volumeMatches(item) {
+        if (activeVolumeFilter === "all") return true;
+        if (item._isSavedOnly) return true;
+        const volume = Number(item.volume || 0);
+        const avgVolume = Number(item.averageVolume20 || 0);
+        return volume >= avgVolume * 1.5;
+      }
+
+      function retestMatches(item) {
+        if (activeRetestFilter === "all") return true;
+        if (item._isSavedOnly) return true;
+        const close = latestPrice(item);
+        if (close === null) return false;
+        const fastEma = Number(item.latestFastEma ?? item.fastEma);
+        const slowEma = Number(item.latestSlowEma ?? item.slowEma);
+        if (!fastEma || !slowEma) return false;
+        const diffFast = Math.abs(close - fastEma) / fastEma * 100;
+        const diffSlow = Math.abs(close - slowEma) / slowEma * 100;
+        return diffFast <= 1.5 || diffSlow <= 1.5;
+      }
+
       function resultMatches(item) {
         const typeMatch = activeFilter === "all" || item.type === activeFilter;
         const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
@@ -2046,7 +2097,9 @@
           sessionMatches(item) &&
           scoreMatches(item) &&
           priceMatches(item) &&
-          watchlistMatches(item)
+          watchlistMatches(item) &&
+          volumeMatches(item) &&
+          retestMatches(item)
         );
       }
 
@@ -2269,6 +2322,16 @@
         renderResults();
         updateUrl(activeScanId);
       });
+      volumeSelect.addEventListener("change", () => {
+        activeVolumeFilter = volumeSelect.value;
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      retestSelect.addEventListener("change", () => {
+        activeRetestFilter = retestSelect.value;
+        renderResults();
+        updateUrl(activeScanId);
+      });
       watchlistToggle.addEventListener("click", () => {
         if (isWatchlistPage) {
           watchlistOnly = true;
@@ -2399,6 +2462,7 @@
         if (item._isSavedOnly) {
           modalContent.innerHTML = `
             <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)}</p>
+            <div id="tv-chart-container" style="height: 380px; margin: 16px 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);"></div>
             <div class="modal-grid">
               <div class="mini-stat"><span>Status</span><strong>Saved</strong></div>
               <div class="mini-stat"><span>Current signal</span><strong>No fresh EMA cross</strong></div>
@@ -2417,37 +2481,69 @@
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
             </div>
           `;
-          detailModal.hidden = false;
-          return;
+        } else {
+          modalContent.innerHTML = `
+            <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)} | ${escapeHtml(item._scanLabel || latestPayload.label || "EMA scan")}</p>
+            <div id="tv-chart-container" style="height: 380px; margin: 16px 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);"></div>
+            <div class="modal-grid">
+              <div class="mini-stat"><span>Signal</span><strong>${item.type}</strong></div>
+              <div class="mini-stat"><span>Score</span><strong>${scoreValue(item)} - ${scoreGrade(item)}</strong></div>
+              <div class="mini-stat"><span>Sessions ago</span><strong>${item.sessionsAgo}</strong></div>
+              <div class="mini-stat"><span>Cross date</span><strong>${formatDate(item.timestamp)}</strong></div>
+              <div class="mini-stat"><span>Cross price</span><strong>${move ? formatMoney(move.cross) : formatMoney(item.close)}</strong></div>
+              <div class="mini-stat"><span>Latest date</span><strong>${latestDateText}</strong></div>
+              <div class="mini-stat"><span>Latest price</span><strong>${move ? formatMoney(move.latest) : formatMoney(item.close)}</strong></div>
+              <div class="mini-stat"><span>Difference</span><strong class="${moveClass}">${move ? formatSignedMoney(move.change) : "Not available"}</strong></div>
+              <div class="mini-stat"><span>% change</span><strong class="${moveClass}">${move ? formatSignedPercent(move.percent) : "Not available"}</strong></div>
+              <div class="mini-stat"><span>EMA ${fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
+              <div class="mini-stat"><span>EMA ${slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
+              <div class="mini-stat"><span>Volume</span><strong>${formatNumber(item.volume)}</strong></div>
+            </div>
+            <p class="eyebrow">Why this matched</p>
+            <ul class="reason-list">
+              ${(item.score?.reasons || ["EMA crossover is inside the selected scan window"]).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
+            </ul>
+            <div class="result-actions">
+              <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
+              <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
+              <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
+            </div>
+          `;
         }
 
-        modalContent.innerHTML = `
-          <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)} | ${escapeHtml(item._scanLabel || latestPayload.label || "EMA scan")}</p>
-          ${sparklineSvg(item.sparkline, item.type)}
-          <div class="modal-grid">
-            <div class="mini-stat"><span>Signal</span><strong>${item.type}</strong></div>
-            <div class="mini-stat"><span>Score</span><strong>${scoreValue(item)} - ${scoreGrade(item)}</strong></div>
-            <div class="mini-stat"><span>Sessions ago</span><strong>${item.sessionsAgo}</strong></div>
-            <div class="mini-stat"><span>Cross date</span><strong>${formatDate(item.timestamp)}</strong></div>
-            <div class="mini-stat"><span>Cross price</span><strong>${move ? formatMoney(move.cross) : formatMoney(item.close)}</strong></div>
-            <div class="mini-stat"><span>Latest date</span><strong>${latestDateText}</strong></div>
-            <div class="mini-stat"><span>Latest price</span><strong>${move ? formatMoney(move.latest) : formatMoney(item.close)}</strong></div>
-            <div class="mini-stat"><span>Difference</span><strong class="${moveClass}">${move ? formatSignedMoney(move.change) : "Not available"}</strong></div>
-            <div class="mini-stat"><span>% change</span><strong class="${moveClass}">${move ? formatSignedPercent(move.percent) : "Not available"}</strong></div>
-            <div class="mini-stat"><span>EMA ${fastPeriod}</span><strong>Rs. ${Number(item.fastEma).toFixed(2)}</strong></div>
-            <div class="mini-stat"><span>EMA ${slowPeriod}</span><strong>Rs. ${Number(item.slowEma).toFixed(2)}</strong></div>
-            <div class="mini-stat"><span>Volume</span><strong>${formatNumber(item.volume)}</strong></div>
-          </div>
-          <p class="eyebrow">Why this matched</p>
-          <ul class="reason-list">
-            ${(item.score?.reasons || ["EMA crossover is inside the selected scan window"]).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
-          </ul>
-          <div class="result-actions">
-            <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView chart</a>
-            <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
-            <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE quote</a>
-          </div>
-        `;
+        // Initialize TradingView Widget
+        try {
+          if (typeof TradingView !== 'undefined') {
+            new TradingView.widget({
+              "width": "100%",
+              "height": "100%",
+              "symbol": `NSE:${item.symbol}`,
+              "interval": "D",
+              "timezone": "Asia/Kolkata",
+              "theme": document.documentElement.dataset.theme === "light" ? "light" : "dark",
+              "style": "1",
+              "locale": "en",
+              "toolbar_bg": document.documentElement.dataset.theme === "light" ? "#f1f3f6" : "#131722",
+              "enable_publishing": false,
+              "hide_side_toolbar": false,
+              "allow_symbol_change": true,
+              "container_id": "tv-chart-container"
+            });
+          } else {
+            const container = document.getElementById("tv-chart-container");
+            if (container) {
+              if (item._isSavedOnly) {
+                container.innerHTML = `<div style="padding: 42px 24px; color: var(--muted); text-align: center;">TradingView chart script offline. Save connection details or verify network.</div>`;
+              } else {
+                container.innerHTML = sparklineSvg(item.sparkline, item.type);
+                container.style.border = "none";
+              }
+            }
+          }
+        } catch (e) {
+          console.error("TradingView widget initialization failed:", e);
+        }
+
         detailModal.hidden = false;
       }
 
@@ -2480,6 +2576,8 @@
       const initialSector = params.get("sector");
       const initialDays = params.get("days");
       const initialScore = params.get("score");
+      const initialVolume = params.get("volume");
+      const initialRetest = params.get("retest");
       universeQuery = params.get("q") || "";
       syncSearchInputs(null);
       if (["large", "mid", "small", "other"].includes(initialCap)) {
@@ -2503,12 +2601,60 @@
         activeScoreFilter = initialScore;
         scoreSelect.value = initialScore;
       }
+      if (["all", "high"].includes(initialVolume)) {
+        activeVolumeFilter = initialVolume;
+        volumeSelect.value = initialVolume;
+      }
+      if (["all", "retest"].includes(initialRetest)) {
+        activeRetestFilter = initialRetest;
+        retestSelect.value = initialRetest;
+      }
       activeMinPrice = params.get("min") || "";
       activeMaxPrice = params.get("max") || "";
       minPrice.value = activeMinPrice;
       maxPrice.value = activeMaxPrice;
       watchlistOnly = isWatchlistPage || params.get("watchlist") === "1";
+
+      let cachedBackgroundSignals = null;
+      async function checkWatchlistSignals() {
+        if (!watchlist.size) {
+          if (navWatchlistCount) navWatchlistCount.textContent = watchlist.size;
+          return;
+        }
+        try {
+          if (!cachedBackgroundSignals) {
+            const [res100, res50] = await Promise.all([
+              fetch(`/data/ema-100-200-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null),
+              fetch(`/data/ema-50-100-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null)
+            ]);
+            cachedBackgroundSignals = [];
+            if (res100?.results) cachedBackgroundSignals.push(...res100.results);
+            if (res50?.results) cachedBackgroundSignals.push(...res50.results);
+          }
+
+          const freshSymbols = new Set();
+          cachedBackgroundSignals.forEach(item => {
+            const symbol = normalizeSymbol(item.symbol);
+            if (watchlist.has(symbol) && item.sessionsAgo === 0) {
+              freshSymbols.add(symbol);
+            }
+          });
+
+          const freshCount = freshSymbols.size;
+          if (freshCount > 0) {
+            if (navWatchlistCount) {
+              navWatchlistCount.innerHTML = `${watchlist.size} <span class="nav-alert-badge" style="background: var(--red); color: white; border-radius: 999px; padding: 2px 6px; font-size: 0.72rem; margin-left: 4px; box-shadow: 0 0 8px var(--red); display: inline-block; animation: alertPulse 1.8s infinite; line-height: 1.1;">${freshCount} NEW!</span>`;
+            }
+          } else {
+            if (navWatchlistCount) navWatchlistCount.textContent = watchlist.size;
+          }
+        } catch (e) {
+          console.error("Error checking watchlist signals:", e);
+        }
+      }
+
       updateWatchlistCount();
+
       if (isWatchlistPage) {
         loadWatchlistPage();
       } else if (SCANS[initialScanId]) {
