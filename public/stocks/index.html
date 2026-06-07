@@ -960,6 +960,33 @@
         background: var(--panel-strong);
         box-shadow: var(--shadow);
       }
+      .modal-tabs {
+        display: flex;
+        gap: 8px;
+        margin: 16px 0 12px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 8px;
+      }
+      .modal-tab-btn {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 16px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 900;
+        cursor: pointer;
+        transition: 180ms ease;
+      }
+      .modal-tab-btn:hover {
+        color: var(--text);
+        background: var(--subtle);
+      }
+      .modal-tab-btn.is-active {
+        border-color: var(--line);
+        background: var(--control-bg);
+        color: var(--text);
+      }
       .modal-head {
         display: flex;
         justify-content: space-between;
@@ -2462,7 +2489,12 @@
         if (item._isSavedOnly) {
           modalContent.innerHTML = `
             <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)}</p>
-            <div id="tv-chart-container" style="height: 380px; margin: 16px 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);"></div>
+            <div class="modal-tabs">
+              <button class="modal-tab-btn is-active" id="tabBtnTv" type="button">Interactive Chart</button>
+            </div>
+            <div id="tabContentTv">
+              <div id="tv-chart-container" style="height: 380px; margin: 8px 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);"></div>
+            </div>
             <div class="modal-grid">
               <div class="mini-stat"><span>Status</span><strong>Saved</strong></div>
               <div class="mini-stat"><span>Current signal</span><strong>No fresh EMA cross</strong></div>
@@ -2484,7 +2516,16 @@
         } else {
           modalContent.innerHTML = `
             <p>${escapeHtml(item.name)} | ${escapeHtml(item.sector || "Unclassified")} | ${capLabel(item.marketCap)} | ${escapeHtml(item._scanLabel || latestPayload.label || "EMA scan")}</p>
-            <div id="tv-chart-container" style="height: 380px; margin: 16px 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);"></div>
+            <div class="modal-tabs">
+              <button class="modal-tab-btn is-active" id="tabBtnSparkline" type="button">Visual Trend</button>
+              <button class="modal-tab-btn" id="tabBtnTv" type="button">Interactive Chart</button>
+            </div>
+            <div id="tabContentSparkline">
+              ${sparklineSvg(item.sparkline, item.type)}
+            </div>
+            <div id="tabContentTv" style="display: none;">
+              <div id="tv-chart-container" style="height: 380px; margin: 8px 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);"></div>
+            </div>
             <div class="modal-grid">
               <div class="mini-stat"><span>Signal</span><strong>${item.type}</strong></div>
               <div class="mini-stat"><span>Score</span><strong>${scoreValue(item)} - ${scoreGrade(item)}</strong></div>
@@ -2511,37 +2552,64 @@
           `;
         }
 
-        // Initialize TradingView Widget
-        try {
-          if (typeof TradingView !== 'undefined') {
-            new TradingView.widget({
-              "width": "100%",
-              "height": "100%",
-              "symbol": `NSE:${item.symbol}`,
-              "interval": "D",
-              "timezone": "Asia/Kolkata",
-              "theme": document.documentElement.dataset.theme === "light" ? "light" : "dark",
-              "style": "1",
-              "locale": "en",
-              "toolbar_bg": document.documentElement.dataset.theme === "light" ? "#f1f3f6" : "#131722",
-              "enable_publishing": false,
-              "hide_side_toolbar": false,
-              "allow_symbol_change": true,
-              "container_id": "tv-chart-container"
-            });
-          } else {
-            const container = document.getElementById("tv-chart-container");
-            if (container) {
-              if (item._isSavedOnly) {
+        // Initialize TradingView Widget helper
+        const initTvWidget = () => {
+          try {
+            if (typeof TradingView !== 'undefined') {
+              new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": `NSE:${item.symbol}`,
+                "interval": "D",
+                "timezone": "Asia/Kolkata",
+                "theme": document.documentElement.dataset.theme === "light" ? "light" : "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": document.documentElement.dataset.theme === "light" ? "#f1f3f6" : "#131722",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "container_id": "tv-chart-container"
+              });
+            } else {
+              const container = document.getElementById("tv-chart-container");
+              if (container) {
                 container.innerHTML = `<div style="padding: 42px 24px; color: var(--muted); text-align: center;">TradingView chart script offline. Save connection details or verify network.</div>`;
-              } else {
-                container.innerHTML = sparklineSvg(item.sparkline, item.type);
-                container.style.border = "none";
               }
             }
+          } catch (e) {
+            console.error("TradingView widget initialization failed:", e);
           }
-        } catch (e) {
-          console.error("TradingView widget initialization failed:", e);
+        };
+
+        if (item._isSavedOnly) {
+          initTvWidget();
+        } else {
+          const tabBtnSparkline = document.getElementById("tabBtnSparkline");
+          const tabBtnTv = document.getElementById("tabBtnTv");
+          const tabContentSparkline = document.getElementById("tabContentSparkline");
+          const tabContentTv = document.getElementById("tabContentTv");
+
+          let tvInitialized = false;
+
+          tabBtnSparkline.addEventListener("click", () => {
+            tabBtnSparkline.classList.add("is-active");
+            tabBtnTv.classList.remove("is-active");
+            tabContentSparkline.style.display = "block";
+            tabContentTv.style.display = "none";
+          });
+
+          tabBtnTv.addEventListener("click", () => {
+            tabBtnTv.classList.add("is-active");
+            tabBtnSparkline.classList.remove("is-active");
+            tabContentSparkline.style.display = "none";
+            tabContentTv.style.display = "block";
+
+            if (!tvInitialized) {
+              tvInitialized = true;
+              initTvWidget();
+            }
+          });
         }
 
         detailModal.hidden = false;
