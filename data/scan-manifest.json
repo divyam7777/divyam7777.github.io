@@ -1,22 +1,22 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-06-10T09:58:16.180468+00:00",
-  "universeSize": 2119,
-  "pricedUniverseSize": 2119,
+  "generatedAt": "2026-06-11T10:22:09.771271+00:00",
+  "universeSize": 2111,
+  "pricedUniverseSize": 2111,
   "failureCount": 0,
   "availableScans": [
     {
       "scanId": "100-200",
       "label": "100 / 200 EMA cross",
       "file": "ema-100-200-crosses.json",
-      "resultCount": 336,
+      "resultCount": 334,
       "rule": "100 EMA / 200 EMA crossover within last 60 daily sessions"
     },
     {
       "scanId": "50-100",
       "label": "50 / 100 EMA cross",
       "file": "ema-50-100-crosses.json",
-      "resultCount": 757,
+      "resultCount": 758,
       "rule": "50 EMA / 100 EMA crossover within last 60 daily sessions"
     }
   ]
