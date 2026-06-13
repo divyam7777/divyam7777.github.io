@@ -70,8 +70,6 @@
       html { scroll-behavior: smooth; }
       body {
         min-height: 100dvh;
-        display: flex;
-        flex-direction: column;
         overflow-x: hidden;
         background:
           radial-gradient(circle at top left, color-mix(in srgb, var(--green) 12%, transparent), transparent 28rem),
@@ -134,72 +132,30 @@
         filter: drop-shadow(0 0 16px color-mix(in srgb, var(--green) 20%, transparent));
         opacity: 0.72;
       }
-      .market-chart .area {
-        fill: url(#marketArea);
-        opacity: 0.34;
-      }
+      .market-chart .area { fill: url(#marketArea); opacity: 0.34; }
       .market-chart .price-line,
-      .market-chart .ema-line {
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        vector-effect: non-scaling-stroke;
-      }
-      .market-chart .price-line {
-        stroke: var(--green);
-        stroke-width: 3;
-        stroke-dasharray: 1200;
-        stroke-dashoffset: 1200;
-        animation: chartTrace 7s ease-in-out infinite alternate, chartFloat 16s ease-in-out infinite alternate;
-      }
-      .market-chart .ema-line.fast {
-        stroke: var(--blue);
-        stroke-width: 2;
-        stroke-dasharray: 12 14;
-        animation: emaSlide 18s linear infinite;
-      }
-      .market-chart .ema-line.slow {
-        stroke: var(--gold);
-        stroke-width: 1.7;
-        stroke-dasharray: 8 18;
-        animation: emaSlide 24s linear infinite reverse;
-      }
-      .market-chart .candle {
-        vector-effect: non-scaling-stroke;
-        transform-box: fill-box;
-        transform-origin: center;
-        animation: candlePulse 3.6s ease-in-out infinite;
-      }
+      .market-chart .ema-line { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+      .market-chart .price-line { stroke: var(--green); stroke-width: 3; stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: chartTrace 7s ease-in-out infinite alternate, chartFloat 16s ease-in-out infinite alternate; }
+      .market-chart .ema-line.fast { stroke: var(--blue); stroke-width: 2; stroke-dasharray: 12 14; animation: emaSlide 18s linear infinite; }
+      .market-chart .ema-line.slow { stroke: var(--gold); stroke-width: 1.7; stroke-dasharray: 8 18; animation: emaSlide 24s linear infinite reverse; }
+      .market-chart .candle { vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: candlePulse 3.6s ease-in-out infinite; }
       .market-chart .candle.green { stroke: var(--green); fill: color-mix(in srgb, var(--green) 55%, transparent); }
       .market-chart .candle.red { stroke: var(--red); fill: color-mix(in srgb, var(--red) 48%, transparent); }
       .market-chart .candle:nth-of-type(odd) { animation-delay: -1.1s; }
       .market-chip {
         position: absolute;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
+        display: inline-flex; align-items: center; gap: 8px;
         border: 1px solid color-mix(in srgb, var(--green) 26%, transparent);
-        border-radius: 999px;
-        padding: 8px 12px;
+        border-radius: 999px; padding: 8px 12px;
         background: color-mix(in srgb, var(--panel-strong) 62%, transparent);
         color: var(--muted);
         font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 0.72rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        font-size: 0.72rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
         backdrop-filter: blur(14px);
         box-shadow: 0 18px 52px color-mix(in srgb, var(--green) 10%, transparent);
         animation: chipFloat 9s ease-in-out infinite alternate;
       }
-      .market-chip::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 14px var(--green);
-      }
+      .market-chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 14px var(--green); }
       .market-chip.one { top: 18%; left: 6%; }
       .market-chip.two { top: 34%; right: 7%; animation-delay: -2.4s; border-color: color-mix(in srgb, var(--blue) 28%, transparent); }
       .market-chip.two::before { background: var(--blue); box-shadow: 0 0 14px var(--blue); }
@@ -208,322 +164,343 @@
 
       /* ── Top Bar ─────────────────────────────────────────── */
       .topbar {
-        position: sticky;
-        top: 18px;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        width: min(720px, calc(100% - 42px));
-        margin: 18px auto 0;
-        border: 1px solid var(--line);
-        border-radius: 999px;
+        position: sticky; top: 18px; z-index: 20;
+        display: flex; align-items: center; justify-content: space-between; gap: 18px;
+        width: min(720px, calc(100% - 42px)); margin: 18px auto 0;
+        border: 1px solid var(--line); border-radius: 999px;
         padding: 10px 10px 10px 18px;
-        background: var(--nav-bg);
-        backdrop-filter: blur(20px);
-        box-shadow: var(--shadow);
+        background: var(--nav-bg); backdrop-filter: blur(20px); box-shadow: var(--shadow);
       }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 950;
-        font-size: 1.05rem;
-        white-space: nowrap;
-      }
-      .mark {
-        display: grid;
-        width: 34px;
-        height: 34px;
-        place-items: center;
-        border: 1px solid var(--line);
-        border-radius: 50%;
-        background: rgba(142, 165, 255, 0.13);
-        font-size: 0.78rem;
-        font-weight: 900;
-      }
-      .tab-group {
-        display: flex;
-        gap: 4px;
-        background: var(--subtle);
-        border-radius: 999px;
-        padding: 4px;
-      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 950; font-size: 1.05rem; white-space: nowrap; }
+      .mark { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(142, 165, 255, 0.13); font-size: 0.78rem; font-weight: 900; }
+      .tab-group { display: flex; gap: 4px; background: var(--subtle); border-radius: 999px; padding: 4px; }
       .tab-btn {
-        position: relative;
-        border: none;
-        border-radius: 999px;
-        padding: 10px 22px;
-        background: transparent;
-        color: var(--muted);
-        font-family: inherit;
-        font-size: 0.9rem;
-        font-weight: 900;
-        cursor: pointer;
-        transition: color 220ms ease, background 220ms ease;
-        white-space: nowrap;
+        position: relative; border: none; border-radius: 999px; padding: 10px 22px;
+        background: transparent; color: var(--muted); font-family: inherit; font-size: 0.9rem; font-weight: 900;
+        cursor: pointer; transition: color 220ms ease, background 220ms ease; white-space: nowrap;
       }
       .tab-btn:hover { color: var(--text); }
-      .tab-btn.is-active {
-        background: var(--panel-strong);
-        color: var(--text);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-      }
+      .tab-btn.is-active { background: var(--panel-strong); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18); }
       .tab-btn .badge-count {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 20px;
-        height: 20px;
-        margin-left: 6px;
-        border-radius: 999px;
-        padding: 0 6px;
-        background: rgba(142, 165, 255, 0.18);
-        font-size: 0.72rem;
-        font-weight: 950;
-        vertical-align: middle;
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 20px; height: 20px; margin-left: 6px; border-radius: 999px; padding: 0 6px;
+        background: rgba(142, 165, 255, 0.18); font-size: 0.72rem; font-weight: 950; vertical-align: middle;
       }
-      .tab-btn.is-active .badge-count {
-        background: rgba(99, 246, 178, 0.18);
-        color: var(--green);
-      }
-      .right-controls {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+      .tab-btn.is-active .badge-count { background: rgba(99, 246, 178, 0.18); color: var(--green); }
+      .right-controls { display: flex; align-items: center; gap: 8px; }
       .theme-toggle {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 9px 12px;
-        background: transparent;
-        color: var(--text);
-        cursor: pointer;
-        font-family: inherit;
-        font-weight: 900;
-        font-size: 0.85rem;
+        display: inline-flex; align-items: center; gap: 6px;
+        border: 1px solid var(--line); border-radius: 999px; padding: 9px 12px;
+        background: transparent; color: var(--text); cursor: pointer;
+        font-family: inherit; font-weight: 900; font-size: 0.85rem;
         transition: transform 180ms ease, border-color 180ms ease;
       }
-      .theme-toggle:hover {
-        transform: translateY(-2px);
-        border-color: var(--green);
-      }
+      .theme-toggle:hover { transform: translateY(-2px); border-color: var(--green); }
 
       /* ── Page Container ──────────────────────────────────── */
       .page {
-        position: relative;
-        z-index: 1;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 40px 21px 80px;
+        position: relative; z-index: 1;
+        width: min(900px, calc(100% - 42px)); margin: 0 auto;
+        padding: 0 0 80px;
       }
 
-      /* ── Cards Grid ──────────────────────────────────────── */
+      /* ══════════════════════════════════════════════════════
+         HERO SECTION — Dynamic Trading Ecosystem
+         ══════════════════════════════════════════════════════ */
+      .hero {
+        text-align: center;
+        padding: 64px 0 48px;
+      }
+      .hero-slogan {
+        font-size: clamp(2.8rem, 7vw, 5.2rem);
+        font-weight: 950;
+        letter-spacing: -0.06em;
+        line-height: 1;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, var(--text) 0%, var(--green) 45%, var(--blue) 70%, var(--gold) 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 8s ease-in-out infinite alternate;
+      }
+      .hero-sub {
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 480px;
+        margin: 0 auto 40px;
+      }
+
+      /* ── Floating Terminal Illustration ───────────────────── */
+      .scene {
+        position: relative;
+        width: 100%;
+        max-width: 740px;
+        margin: 0 auto;
+        perspective: 1200px;
+      }
+      .scene-inner {
+        position: relative;
+        width: 100%;
+        padding-bottom: 52%;
+        transform: rotateX(12deg) rotateY(-4deg);
+        transform-style: preserve-3d;
+        animation: sceneFloat 10s ease-in-out infinite alternate;
+      }
+
+      /* Main terminal window */
+      .terminal {
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--panel);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow), 0 0 80px color-mix(in srgb, var(--green) 8%, transparent);
+        overflow: hidden;
+      }
+      .terminal::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
+      }
+      .terminal-bar {
+        display: flex; align-items: center; gap: 8px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      .terminal-dot {
+        width: 10px; height: 10px; border-radius: 50%;
+      }
+      .terminal-dot.r { background: var(--red); box-shadow: 0 0 8px color-mix(in srgb, var(--red) 40%, transparent); }
+      .terminal-dot.y { background: var(--gold); box-shadow: 0 0 8px color-mix(in srgb, var(--gold) 40%, transparent); }
+      .terminal-dot.g { background: var(--green); box-shadow: 0 0 8px color-mix(in srgb, var(--green) 40%, transparent); }
+      .terminal-title {
+        flex: 1; text-align: center;
+        color: var(--muted); font-size: 0.72rem; font-weight: 900;
+        letter-spacing: 0.1em; text-transform: uppercase;
+      }
+      .terminal-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 16px;
+        height: calc(100% - 44px);
+      }
+
+      /* Terminal chart panel */
+      .t-chart {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--subtle);
+        padding: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+      .t-chart-label {
+        color: var(--muted); font-size: 0.64rem; font-weight: 900;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .t-chart-value {
+        font-size: 1.3rem; font-weight: 950; letter-spacing: -0.03em;
+        margin-bottom: 4px;
+      }
+      .t-chart-change {
+        font-size: 0.72rem; font-weight: 900;
+      }
+      .t-chart-change.up { color: var(--green); }
+      .t-chart-change.down { color: var(--red); }
+      .t-chart svg {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        width: 100%; height: 55%;
+        opacity: 0.6;
+      }
+      .t-chart svg polyline {
+        fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+        stroke-dasharray: 400; stroke-dashoffset: 400;
+        animation: drawChart 3s ease-out forwards;
+      }
+      .t-chart svg .chart-fill {
+        opacity: 0.25;
+      }
+      .t-chart:nth-child(2) svg polyline { animation-delay: 0.5s; }
+
+      /* Terminal data rows */
+      .t-data {
+        display: grid;
+        gap: 8px;
+        grid-column: 1 / -1;
+      }
+      .t-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        gap: 10px;
+        align-items: center;
+        border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+        border-radius: 12px;
+        padding: 10px 12px;
+        background: var(--subtle);
+        animation: rowSlideIn 0.5s ease both;
+      }
+      .t-row:nth-child(1) { animation-delay: 0.8s; }
+      .t-row:nth-child(2) { animation-delay: 1.0s; }
+      .t-row:nth-child(3) { animation-delay: 1.2s; }
+      .t-row:nth-child(4) { animation-delay: 1.4s; }
+      .t-row-flag { font-size: 1.1rem; }
+      .t-row-sym { font-weight: 950; font-size: 0.82rem; letter-spacing: -0.02em; }
+      .t-row-price { font-weight: 900; font-size: 0.82rem; color: var(--muted); }
+      .t-row-badge {
+        font-size: 0.66rem; font-weight: 900;
+        padding: 4px 8px; border-radius: 999px;
+        letter-spacing: 0.04em;
+      }
+      .t-row-badge.bullish { color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); border: 1px solid color-mix(in srgb, var(--green) 25%, transparent); }
+      .t-row-badge.bearish { color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); border: 1px solid color-mix(in srgb, var(--red) 25%, transparent); }
+
+      /* ── Floating Chips around the terminal ───────────────── */
+      .float-chip {
+        position: absolute;
+        display: inline-flex; align-items: center; gap: 6px;
+        border: 1px solid var(--line);
+        border-radius: 14px; padding: 10px 14px;
+        background: var(--panel-strong);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+        font-size: 0.78rem; font-weight: 900;
+        z-index: 2;
+        animation: floatOrbit 8s ease-in-out infinite alternate;
+      }
+      .float-chip .fc-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        animation: dotPulse 2s ease-in-out infinite;
+      }
+
+      .fc-nifty { top: 8%; left: -8%; animation-delay: 0s; }
+      .fc-nifty .fc-dot { background: var(--green); box-shadow: 0 0 10px var(--green); }
+      .fc-nifty .fc-val { color: var(--green); }
+
+      .fc-sp500 { top: 16%; right: -10%; animation-delay: -2.8s; }
+      .fc-sp500 .fc-dot { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
+      .fc-sp500 .fc-val { color: var(--blue); }
+
+      .fc-alert { bottom: 14%; left: -6%; animation-delay: -5s; }
+      .fc-alert .fc-dot { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+      .fc-alert .fc-val { color: var(--gold); }
+
+      .fc-vol { bottom: 8%; right: -7%; animation-delay: -1.5s; }
+      .fc-vol .fc-dot { background: var(--red); box-shadow: 0 0 10px var(--red); }
+      .fc-vol .fc-val { color: var(--red); }
+
+      /* ── Pulse ring behind terminal ──────────────────────── */
+      .pulse-ring {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 110%; height: 110%;
+        transform: translate(-50%, -50%);
+        border-radius: 28px;
+        border: 1.5px solid color-mix(in srgb, var(--green) 18%, transparent);
+        animation: pulseExpand 4s ease-out infinite;
+        pointer-events: none;
+      }
+      .pulse-ring:nth-child(2) { animation-delay: 1.3s; }
+      .pulse-ring:nth-child(3) { animation-delay: 2.6s; }
+
+      /* ── Scan line sweeping the terminal ──────────────────── */
+      .scan-line {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        border-radius: 22px;
+        z-index: 3;
+      }
+      .scan-line::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0; right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--green) 8%, transparent), transparent);
+        animation: scanDown 5s linear infinite;
+      }
+
+      /* ══════════════════════════════════════════════════════
+         CARDS
+         ══════════════════════════════════════════════════════ */
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 24px;
         width: min(820px, 100%);
+        margin: 0 auto;
       }
       .card {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 28px;
+        position: relative; overflow: hidden;
+        border: 1px solid var(--line); border-radius: 28px;
         padding: 36px 30px 32px;
-        background: var(--panel);
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(18px);
-        cursor: pointer;
+        background: var(--panel); box-shadow: var(--shadow);
+        backdrop-filter: blur(18px); cursor: pointer;
         transition: transform 320ms cubic-bezier(.22,.68,0,1.4), border-color 220ms ease, box-shadow 320ms ease;
         animation: cardIn 520ms ease both;
       }
       .card:nth-child(2) { animation-delay: 120ms; }
-      .card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        height: 3px;
-      }
-      .card.us-card::before {
-        background: linear-gradient(90deg, var(--blue), #a78bfa);
-      }
-      .card.india-card::before {
-        background: linear-gradient(90deg, var(--green), var(--gold));
-      }
-      .card:hover {
-        transform: translateY(-8px) scale(1.015);
-        box-shadow: 0 36px 100px rgba(0, 0, 0, 0.36);
-      }
-      .card.us-card:hover {
-        border-color: rgba(142, 165, 255, 0.52);
-        box-shadow: 0 36px 100px rgba(0, 0, 0, 0.36), 0 0 60px color-mix(in srgb, var(--blue) 12%, transparent);
-      }
-      .card.india-card:hover {
-        border-color: rgba(99, 246, 178, 0.52);
-        box-shadow: 0 36px 100px rgba(0, 0, 0, 0.36), 0 0 60px color-mix(in srgb, var(--green) 12%, transparent);
-      }
+      .card::before { content: ""; position: absolute; top: 0; right: 0; left: 0; height: 3px; }
+      .card.us-card::before { background: linear-gradient(90deg, var(--blue), #a78bfa); }
+      .card.india-card::before { background: linear-gradient(90deg, var(--green), var(--gold)); }
+      .card:hover { transform: translateY(-8px) scale(1.015); box-shadow: 0 36px 100px rgba(0, 0, 0, 0.36); }
+      .card.us-card:hover { border-color: rgba(142, 165, 255, 0.52); box-shadow: 0 36px 100px rgba(0, 0, 0, 0.36), 0 0 60px color-mix(in srgb, var(--blue) 12%, transparent); }
+      .card.india-card:hover { border-color: rgba(99, 246, 178, 0.52); box-shadow: 0 36px 100px rgba(0, 0, 0, 0.36), 0 0 60px color-mix(in srgb, var(--green) 12%, transparent); }
 
-      /* Card flag icon */
-      .card-icon {
-        width: 56px;
-        height: 56px;
-        display: grid;
-        place-items: center;
-        border-radius: 18px;
-        margin-bottom: 22px;
-        font-size: 1.8rem;
-        line-height: 1;
-      }
-      .us-card .card-icon {
-        background: linear-gradient(135deg, rgba(142, 165, 255, 0.18), rgba(167, 139, 250, 0.14));
-        border: 1px solid rgba(142, 165, 255, 0.22);
-        box-shadow: 0 8px 28px rgba(142, 165, 255, 0.12);
-      }
-      .india-card .card-icon {
-        background: linear-gradient(135deg, rgba(99, 246, 178, 0.18), rgba(246, 200, 95, 0.14));
-        border: 1px solid rgba(99, 246, 178, 0.22);
-        box-shadow: 0 8px 28px rgba(99, 246, 178, 0.12);
-      }
+      .card-icon { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 18px; margin-bottom: 22px; font-size: 1.8rem; line-height: 1; }
+      .us-card .card-icon { background: linear-gradient(135deg, rgba(142, 165, 255, 0.18), rgba(167, 139, 250, 0.14)); border: 1px solid rgba(142, 165, 255, 0.22); box-shadow: 0 8px 28px rgba(142, 165, 255, 0.12); }
+      .india-card .card-icon { background: linear-gradient(135deg, rgba(99, 246, 178, 0.18), rgba(246, 200, 95, 0.14)); border: 1px solid rgba(99, 246, 178, 0.22); box-shadow: 0 8px 28px rgba(99, 246, 178, 0.12); }
 
-      /* Card content */
-      .card-eyebrow {
-        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 0.72rem;
-        font-weight: 900;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
+      .card-eyebrow { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
       .us-card .card-eyebrow { color: var(--blue); }
       .india-card .card-eyebrow { color: var(--green); }
 
-      .card-title {
-        font-size: 1.55rem;
-        font-weight: 950;
-        letter-spacing: -0.04em;
-        line-height: 1.15;
-        margin-bottom: 10px;
-      }
-      .card-desc {
-        color: var(--muted);
-        font-size: 0.92rem;
-        line-height: 1.65;
-        margin-bottom: 24px;
-      }
+      .card-title { font-size: 1.55rem; font-weight: 950; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 10px; }
+      .card-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.65; margin-bottom: 24px; }
 
-      /* Card stats row */
-      .card-stats {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 22px;
-      }
-      .stat-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 7px 12px;
-        background: var(--subtle);
-        font-size: 0.78rem;
-        font-weight: 900;
-        color: var(--muted);
-      }
-      .stat-chip .dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-      }
+      .card-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+      .stat-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; background: var(--subtle); font-size: 0.78rem; font-weight: 900; color: var(--muted); }
+      .stat-chip .dot { width: 7px; height: 7px; border-radius: 50%; }
       .us-card .stat-chip .dot { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
       .india-card .stat-chip .dot { background: var(--green); box-shadow: 0 0 10px var(--green); }
 
-      /* Card CTA arrow */
-      .card-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 950;
-        font-size: 0.92rem;
-        transition: gap 220ms ease;
-      }
+      .card-cta { display: inline-flex; align-items: center; gap: 10px; font-weight: 950; font-size: 0.92rem; transition: gap 220ms ease; }
       .us-card .card-cta { color: var(--blue); }
       .india-card .card-cta { color: var(--green); }
       .card:hover .card-cta { gap: 16px; }
-      .card-cta .arrow {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        font-size: 1.1rem;
-        transition: transform 220ms ease;
-      }
-      .us-card .card-cta .arrow {
-        background: rgba(142, 165, 255, 0.14);
-        border: 1px solid rgba(142, 165, 255, 0.28);
-      }
-      .india-card .card-cta .arrow {
-        background: rgba(99, 246, 178, 0.14);
-        border: 1px solid rgba(99, 246, 178, 0.28);
-      }
+      .card-cta .arrow { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; transition: transform 220ms ease; }
+      .us-card .card-cta .arrow { background: rgba(142, 165, 255, 0.14); border: 1px solid rgba(142, 165, 255, 0.28); }
+      .india-card .card-cta .arrow { background: rgba(99, 246, 178, 0.14); border: 1px solid rgba(99, 246, 178, 0.28); }
       .card:hover .card-cta .arrow { transform: translateX(4px); }
 
-      /* Decorative card background glow */
-      .card-glow {
-        position: absolute;
-        top: -40%;
-        right: -30%;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        filter: blur(60px);
-        opacity: 0.18;
-        pointer-events: none;
-        transition: opacity 320ms ease;
-      }
+      .card-glow { position: absolute; top: -40%; right: -30%; width: 220px; height: 220px; border-radius: 50%; filter: blur(60px); opacity: 0.18; pointer-events: none; transition: opacity 320ms ease; }
       .card:hover .card-glow { opacity: 0.32; }
       .us-card .card-glow { background: var(--blue); }
       .india-card .card-glow { background: var(--green); }
 
-      /* ── "Coming Soon" badge ──────────────────────────────── */
       .coming-soon {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        border: 1px solid rgba(142, 165, 255, 0.28);
-        border-radius: 999px;
-        padding: 5px 12px;
-        background: rgba(142, 165, 255, 0.08);
-        color: var(--blue);
+        display: inline-flex; align-items: center; gap: 6px;
+        border: 1px solid rgba(142, 165, 255, 0.28); border-radius: 999px; padding: 5px 12px;
+        background: rgba(142, 165, 255, 0.08); color: var(--blue);
         font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-        font-size: 0.68rem;
-        font-weight: 900;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
+        font-size: 0.68rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase;
         animation: pulse 2.4s ease-in-out infinite;
       }
-      .coming-soon::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--blue);
-        box-shadow: 0 0 8px var(--blue);
-      }
+      .coming-soon::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 8px var(--blue); }
 
-      /* ── Animations (identical to scanner) ───────────────── */
+      /* ══════════════════════════════════════════════════════
+         ANIMATIONS
+         ══════════════════════════════════════════════════════ */
       @keyframes marketGlow {
         from { transform: translate3d(-1%, -1%, 0) scale(1); opacity: 0.74; }
         to { transform: translate3d(1%, 2%, 0) scale(1.06); opacity: 1; }
@@ -556,35 +533,66 @@
         from { opacity: 0; transform: translateY(28px) scale(0.97); }
         to { opacity: 1; transform: translateY(0) scale(1); }
       }
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      @keyframes sceneFloat {
+        from { transform: rotateX(12deg) rotateY(-4deg) translateY(0); }
+        to { transform: rotateX(10deg) rotateY(2deg) translateY(-10px); }
+      }
+      @keyframes drawChart {
+        to { stroke-dashoffset: 0; }
+      }
+      @keyframes rowSlideIn {
+        from { opacity: 0; transform: translateX(-16px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes floatOrbit {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(6px, -10px) scale(1.03); }
+        100% { transform: translate(-4px, 6px) scale(0.98); }
+      }
+      @keyframes dotPulse {
+        0%, 100% { opacity: 0.6; transform: scale(0.9); }
+        50% { opacity: 1; transform: scale(1.15); }
+      }
+      @keyframes pulseExpand {
+        0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.95); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+      }
+      @keyframes scanDown {
+        0% { top: -50%; }
+        100% { top: 150%; }
+      }
       @keyframes pulse {
         0%, 100% { opacity: 0.6; }
         50% { opacity: 1; }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-          animation-duration: 0.001ms !important;
-          animation-iteration-count: 1 !important;
-        }
+        *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
       }
 
       /* ── Responsive ──────────────────────────────────────── */
       @media (max-width: 680px) {
-        .topbar {
-          flex-wrap: wrap;
-          justify-content: center;
-          border-radius: 24px;
-          padding: 12px;
-          gap: 10px;
-        }
+        .topbar { flex-wrap: wrap; justify-content: center; border-radius: 24px; padding: 12px; gap: 10px; }
         .brand { font-size: 0.92rem; }
-        .cards {
-          grid-template-columns: 1fr;
-          gap: 18px;
-        }
+        .hero { padding: 48px 0 32px; }
+        .hero-slogan { font-size: clamp(2.2rem, 9vw, 3.2rem); }
+        .hero-sub { font-size: 0.95rem; margin-bottom: 28px; }
+        .scene-inner { transform: rotateX(8deg) rotateY(-2deg); }
+        .float-chip { font-size: 0.68rem; padding: 7px 10px; }
+        .fc-nifty { left: -2%; }
+        .fc-sp500 { right: -2%; }
+        .fc-alert { left: -2%; }
+        .fc-vol { right: -2%; }
+        .cards { grid-template-columns: 1fr; gap: 18px; }
         .card { padding: 28px 22px 26px; }
         .card-title { font-size: 1.3rem; }
         .tab-btn { padding: 9px 16px; font-size: 0.82rem; }
+        .terminal-body { grid-template-columns: 1fr; }
+        .t-chart-value { font-size: 1rem; }
       }
     </style>
   </head>
@@ -657,6 +665,120 @@
 
     <!-- ── Page Content ─────────────────────────────────── -->
     <div class="page">
+
+      <!-- ── Hero Section ─────────────────────────────────── -->
+      <section class="hero">
+        <h1 class="hero-slogan">Scan the markets.<br>Spot the edge.</h1>
+        <p class="hero-sub">Real-time EMA crossover scanner for US & Indian equities. Detect trend reversals before the crowd.</p>
+
+        <!-- ── Dynamic Terminal Illustration ─────────────── -->
+        <div class="scene">
+          <div class="scene-inner">
+            <!-- Pulse rings behind -->
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+
+            <!-- Main terminal -->
+            <div class="terminal">
+              <div class="scan-line"></div>
+              <div class="terminal-bar">
+                <span class="terminal-dot r"></span>
+                <span class="terminal-dot y"></span>
+                <span class="terminal-dot g"></span>
+                <span class="terminal-title">StocksFlow Terminal — Live Scanner</span>
+              </div>
+              <div class="terminal-body">
+                <!-- Chart 1: NIFTY -->
+                <div class="t-chart">
+                  <div class="t-chart-label">NIFTY 50</div>
+                  <div class="t-chart-value">24,836</div>
+                  <div class="t-chart-change up">▲ +1.24%</div>
+                  <svg viewBox="0 0 200 60" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--green)" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="var(--green)" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path class="chart-fill" d="M0 48 Q25 42 50 36 T100 22 T150 16 T200 8 L200 60 L0 60Z" fill="url(#g1)"/>
+                    <polyline points="0,48 25,42 50,36 75,28 100,22 125,18 150,16 175,11 200,8" stroke="var(--green)"/>
+                  </svg>
+                </div>
+
+                <!-- Chart 2: S&P 500 -->
+                <div class="t-chart">
+                  <div class="t-chart-label">S&P 500</div>
+                  <div class="t-chart-value">5,942</div>
+                  <div class="t-chart-change up">▲ +0.86%</div>
+                  <svg viewBox="0 0 200 60" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--blue)" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="var(--blue)" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path class="chart-fill" d="M0 44 Q30 48 60 38 T120 20 T200 12 L200 60 L0 60Z" fill="url(#g2)"/>
+                    <polyline points="0,44 30,48 60,38 90,30 120,20 150,16 180,14 200,12" stroke="var(--blue)"/>
+                  </svg>
+                </div>
+
+                <!-- Data rows -->
+                <div class="t-data">
+                  <div class="t-row">
+                    <span class="t-row-flag">🇮🇳</span>
+                    <span class="t-row-sym">RELIANCE</span>
+                    <span class="t-row-price">₹2,948.50</span>
+                    <span class="t-row-badge bullish">Bullish Cross</span>
+                  </div>
+                  <div class="t-row">
+                    <span class="t-row-flag">🇺🇸</span>
+                    <span class="t-row-sym">AAPL</span>
+                    <span class="t-row-price">$214.29</span>
+                    <span class="t-row-badge bullish">EMA 50×100</span>
+                  </div>
+                  <div class="t-row">
+                    <span class="t-row-flag">🇮🇳</span>
+                    <span class="t-row-sym">TCS</span>
+                    <span class="t-row-price">₹4,118.65</span>
+                    <span class="t-row-badge bearish">Bearish Cross</span>
+                  </div>
+                  <div class="t-row">
+                    <span class="t-row-flag">🇺🇸</span>
+                    <span class="t-row-sym">TSLA</span>
+                    <span class="t-row-price">$338.12</span>
+                    <span class="t-row-badge bullish">EMA 100×200</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating data chips -->
+            <div class="float-chip fc-nifty">
+              <span class="fc-dot"></span>
+              <span>NIFTY 50</span>
+              <span class="fc-val">+1.24%</span>
+            </div>
+            <div class="float-chip fc-sp500">
+              <span class="fc-dot"></span>
+              <span>S&P 500</span>
+              <span class="fc-val">+0.86%</span>
+            </div>
+            <div class="float-chip fc-alert">
+              <span class="fc-dot"></span>
+              <span>12 Alerts</span>
+              <span class="fc-val">today</span>
+            </div>
+            <div class="float-chip fc-vol">
+              <span class="fc-dot"></span>
+              <span>Vol Spike</span>
+              <span class="fc-val">3.2×</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Market Cards ─────────────────────────────────── -->
       <div class="cards">
         <!-- US Market Card -->
         <div class="card us-card" id="usCard">
