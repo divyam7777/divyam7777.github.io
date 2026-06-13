@@ -82,7 +82,7 @@ def extract_ticker_data(ticker: dict, currency_prefix: str) -> dict | None:
         return None
 
     current_price = valid_closes[-1]
-    prev_close = meta.get("chartPreviousClose") or valid_closes[-2]
+    prev_close = valid_closes[-2]
     change_pct = ((current_price - prev_close) / prev_close) * 100 if prev_close else 0
 
     # Sparkline: last 10 data points, normalized to 0-28 range
