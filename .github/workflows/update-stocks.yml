@@ -34,6 +34,9 @@ jobs:
       - name: Generate full-market scanner data
         run: python scripts/scan-nse-ema.py
 
+      - name: Generate marquee prices
+        run: python scripts/fetch-marquee-prices.py
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
