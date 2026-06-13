@@ -578,32 +578,6 @@
       document.getElementById("tabWatchlist").addEventListener("click", () => { window.location.href = "/watchlist/"; });
 
       /* ── Generate Ticker Marquees ──────────────────────── */
-      const indiaStocks = [
-        { sym: "RELIANCE",  name: "Reliance Ind.",  price: "₹2,948",  change: "+1.82%", up: true,  spark: "8,12,6,14,10,18,14,20,16,22" },
-        { sym: "TCS",       name: "Tata Consultancy",price: "₹4,118",  change: "-0.45%", up: false, spark: "18,16,20,14,18,12,16,10,14,12" },
-        { sym: "HDFCBANK",  name: "HDFC Bank",      price: "₹1,876",  change: "+0.96%", up: true,  spark: "10,8,12,10,14,12,16,14,18,20" },
-        { sym: "INFY",      name: "Infosys",        price: "₹1,628",  change: "+2.14%", up: true,  spark: "6,10,8,14,12,16,14,20,18,24" },
-        { sym: "ICICIBANK", name: "ICICI Bank",     price: "₹1,342",  change: "+0.78%", up: true,  spark: "12,10,14,12,16,14,16,18,16,20" },
-        { sym: "TATAMOTORS",name: "Tata Motors",    price: "₹738",    change: "-1.24%", up: false, spark: "22,20,18,20,16,14,16,12,14,10" },
-        { sym: "SBIN",      name: "State Bank",     price: "₹862",    change: "+1.56%", up: true,  spark: "8,12,10,14,12,16,18,16,20,22" },
-        { sym: "BHARTIARTL",name: "Bharti Airtel",  price: "₹1,712",  change: "+0.32%", up: true,  spark: "14,12,16,14,16,14,18,16,18,18" },
-        { sym: "LT",        name: "Larsen & Toubro",price: "₹3,456",  change: "-0.68%", up: false, spark: "20,18,20,16,18,14,16,12,14,12" },
-        { sym: "WIPRO",     name: "Wipro",          price: "₹462",    change: "+1.12%", up: true,  spark: "10,8,12,10,14,16,14,18,16,20" },
-      ];
-
-      const usStocks = [
-        { sym: "AAPL",   name: "Apple Inc.",     price: "$214.29", change: "+1.42%", up: true,  spark: "10,8,12,10,14,12,18,16,20,22" },
-        { sym: "TSLA",   name: "Tesla Inc.",     price: "$338.12", change: "+3.86%", up: true,  spark: "6,12,8,16,10,18,14,22,18,26" },
-        { sym: "MSFT",   name: "Microsoft",      price: "$448.72", change: "+0.68%", up: true,  spark: "14,12,16,14,16,14,18,16,18,20" },
-        { sym: "GOOGL",  name: "Alphabet",       price: "$178.92", change: "-0.34%", up: false, spark: "18,16,18,14,16,12,16,14,14,14" },
-        { sym: "AMZN",   name: "Amazon",         price: "$198.46", change: "+1.28%", up: true,  spark: "8,10,10,14,12,16,14,18,16,22" },
-        { sym: "NVDA",   name: "NVIDIA",         price: "$138.47", change: "+2.94%", up: true,  spark: "4,8,6,12,10,16,14,20,18,26" },
-        { sym: "META",   name: "Meta Platforms",  price: "$628.34", change: "+0.52%", up: true,  spark: "12,14,12,16,14,16,16,18,16,18" },
-        { sym: "NFLX",   name: "Netflix",        price: "$1,042",  change: "-1.18%", up: false, spark: "24,22,20,22,18,16,18,14,16,12" },
-        { sym: "AMD",    name: "AMD Inc.",        price: "$168.50", change: "+2.24%", up: true,  spark: "6,10,8,14,12,18,14,20,18,24" },
-        { sym: "JPM",    name: "JPMorgan Chase",  price: "$272.18", change: "+0.46%", up: true,  spark: "14,12,14,14,16,14,16,16,18,18" },
-      ];
-
       function buildTicker(s, flag) {
         return `<div class="ticker">
           <span class="ticker-flag">${flag}</span>
@@ -616,12 +590,16 @@
         </div>`;
       }
 
-      // Duplicate for seamless infinite scroll
-      const row1Html = indiaStocks.map(s => buildTicker(s, "🇮🇳")).join("");
-      document.getElementById("row1").innerHTML = row1Html + row1Html;
+      fetch("/data/marquee-prices.json")
+        .then(res => res.json())
+        .then(data => {
+          const row1Html = (data.india || []).map(s => buildTicker(s, "🇮🇳")).join("");
+          document.getElementById("row1").innerHTML = row1Html + row1Html;
 
-      const row2Html = usStocks.map(s => buildTicker(s, "🇺🇸")).join("");
-      document.getElementById("row2").innerHTML = row2Html + row2Html;
+          const row2Html = (data.us || []).map(s => buildTicker(s, "🇺🇸")).join("");
+          document.getElementById("row2").innerHTML = row2Html + row2Html;
+        })
+        .catch(err => console.error("Failed to load marquee prices:", err));
     </script>
   </body>
 </html>
