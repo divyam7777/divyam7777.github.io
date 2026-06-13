@@ -41,11 +41,12 @@ function redirectPage({ title, description, target }) {
 `;
 }
 
-const generatedDirs = ["assets", "blog", "creater", "projects", "stocks", "watchlist", "data"];
+const generatedDirs = ["assets", "blog", "creater", "home", "projects", "stocks", "watchlist", "data"];
 const generatedFiles = ["index.html", "CNAME", "Divyam_Matia_Resume.pdf", "profile-placeholder.jpg", ".nojekyll"];
 
 await mkdir(distDir, { recursive: true });
 
+const homeIndex = resolve(distDir, "home", "index.html");
 const stocksIndex = resolve(distDir, "stocks", "index.html");
 const watchlistIndex = resolve(distDir, "watchlist", "index.html");
 const portfolioIndex = resolve(distDir, "index.html");
@@ -59,16 +60,11 @@ if (await exists(portfolioIndex)) {
 if (await exists(stocksIndex)) {
   await mkdir(dirname(watchlistIndex), { recursive: true });
   await cp(stocksIndex, watchlistIndex, { force: true });
-  await cp(stocksIndex, portfolioIndex, { force: true });
-  await writeFile(
-    stocksIndex,
-    redirectPage({
-      title: "StocksFlow | NSE EMA Scanner",
-      description: "Opening StocksFlow, an NSE EMA crossover scanner for Indian market research.",
-      target: "/",
-    }),
-    "utf8"
-  );
+}
+
+// Use the home page as the root index
+if (await exists(homeIndex)) {
+  await cp(homeIndex, portfolioIndex, { force: true });
 }
 
 for (const dir of generatedDirs) {
