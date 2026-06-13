@@ -174,7 +174,7 @@
       /* ── Page ─────────────────────────────────────────────── */
       .page {
         position: relative; z-index: 1;
-        width: min(960px, calc(100% - 42px)); margin: 0 auto;
+        width: min(1100px, calc(100% - 42px)); margin: 0 auto;
         padding: 0 0 80px;
       }
 
@@ -202,12 +202,15 @@
         animation: dotPulse 2s ease-in-out infinite;
       }
       .hero-slogan {
-        font-size: clamp(3.2rem, 8vw, 6rem);
+        font-size: clamp(2.6rem, 5vw, 4.8rem);
         font-weight: 950;
         letter-spacing: -0.06em;
         line-height: 0.95;
         margin-bottom: 20px;
         animation: fadeUp 0.7s ease 0.1s both;
+      }
+      @media (min-width: 800px) {
+        .hero-slogan { white-space: nowrap; }
       }
       .hero-slogan .accent {
         background: linear-gradient(135deg, var(--green), var(--blue));
