@@ -1,27 +1,27 @@
 {
-  "generatedAt": "2026-06-13T18:11:44.622399+00:00",
+  "generatedAt": "2026-06-13T18:25:27.910768+00:00",
   "india": [
     {
       "sym": "RELIANCE",
       "name": "Reliance Ind.",
       "price": "\u20b91,293",
-      "change": "-5.21%",
-      "up": false,
+      "change": "+2.38%",
+      "up": true,
       "spark": "26.0,23.9,23.3,19.6,14.6,3.8,6.1,2.0,3.6,15.4"
     },
     {
       "sym": "TCS",
       "name": "Tata Consultancy",
       "price": "\u20b92,161",
-      "change": "-6.04%",
-      "up": false,
+      "change": "+1.21%",
+      "up": true,
       "spark": "14.5,26.0,10.2,10.1,6.9,3.2,3.2,3.4,2.0,4.0"
     },
     {
       "sym": "HDFCBANK",
       "name": "HDFC Bank",
       "price": "\u20b9772.45",
-      "change": "+2.93%",
+      "change": "+3.74%",
       "up": true,
       "spark": "5.1,9.0,12.8,13.2,8.1,2.2,2.0,8.0,6.4,26.0"
     },
@@ -29,15 +29,15 @@
       "sym": "INFY",
       "name": "Infosys",
       "price": "\u20b91,116",
-      "change": "-2.10%",
-      "up": false,
+      "change": "+0.16%",
+      "up": true,
       "spark": "15.5,26.0,18.6,15.3,14.7,13.2,12.1,6.7,2.0,2.3"
     },
     {
       "sym": "ICICIBANK",
       "name": "ICICI Bank",
       "price": "\u20b91,341",
-      "change": "+8.10%",
+      "change": "+1.81%",
       "up": true,
       "spark": "4.8,2.0,5.2,7.3,9.5,7.0,12.2,16.0,21.0,26.0"
     },
@@ -45,7 +45,7 @@
       "sym": "SBIN",
       "name": "State Bank",
       "price": "\u20b91,017",
-      "change": "+4.37%",
+      "change": "+1.64%",
       "up": true,
       "spark": "2.0,3.0,8.2,11.6,11.0,12.6,20.5,20.7,19.7,26.0"
     },
@@ -53,7 +53,7 @@
       "sym": "BHARTIARTL",
       "name": "Bharti Airtel",
       "price": "\u20b91,822",
-      "change": "+3.74%",
+      "change": "+2.24%",
       "up": true,
       "spark": "19.4,21.1,26.0,23.4,13.3,20.7,13.7,2.0,5.6,25.2"
     },
@@ -61,7 +61,7 @@
       "sym": "LT",
       "name": "Larsen & Toubro",
       "price": "\u20b94,049",
-      "change": "+5.00%",
+      "change": "+4.85%",
       "up": true,
       "spark": "21.1,19.8,13.7,12.3,13.7,3.7,6.9,9.1,2.0,26.0"
     },
@@ -69,8 +69,8 @@
       "sym": "WIPRO",
       "name": "Wipro",
       "price": "\u20b9180.14",
-      "change": "-4.97%",
-      "up": false,
+      "change": "+1.56%",
+      "up": true,
       "spark": "23.5,26.0,21.8,21.9,17.5,5.2,5.2,3.2,2.0,4.0"
     }
   ],
@@ -79,7 +79,7 @@
       "sym": "AAPL",
       "name": "Apple Inc.",
       "price": "$291.13",
-      "change": "-1.24%",
+      "change": "-1.52%",
       "up": false,
       "spark": "17.3,26.0,21.2,22.1,18.3,12.7,2.0,3.0,6.9,2.6"
     },
@@ -87,31 +87,31 @@
       "sym": "TSLA",
       "name": "Tesla Inc.",
       "price": "$406.43",
-      "change": "-6.23%",
-      "up": false,
+      "change": "+1.82%",
+      "up": true,
       "spark": "21.5,26.0,26.0,23.0,7.4,17.6,10.6,2.0,12.0,16.1"
     },
     {
       "sym": "MSFT",
       "name": "Microsoft",
       "price": "$390.74",
-      "change": "-4.18%",
-      "up": false,
+      "change": "+0.10%",
+      "up": true,
       "spark": "26.0,19.4,14.7,14.9,11.0,9.3,6.5,4.4,2.0,2.1"
     },
     {
       "sym": "GOOGL",
       "name": "Alphabet",
       "price": "$359.68",
-      "change": "-7.14%",
-      "up": false,
+      "change": "+0.53%",
+      "up": true,
       "spark": "26.0,8.6,5.1,21.0,16.6,10.3,11.5,2.0,3.7,6.0"
     },
     {
       "sym": "AMZN",
       "name": "Amazon",
       "price": "$238.55",
-      "change": "-10.26%",
+      "change": "-1.23%",
       "up": false,
       "spark": "26.0,21.1,14.4,18.3,10.3,9.4,8.4,2.0,5.6,2.6"
     },
@@ -119,15 +119,15 @@
       "sym": "NVDA",
       "name": "NVIDIA",
       "price": "$205.19",
-      "change": "-7.06%",
-      "up": false,
+      "change": "+0.16%",
+      "up": true,
       "spark": "26.0,24.5,16.4,20.3,6.7,10.2,9.8,2.0,6.5,6.8"
     },
     {
       "sym": "META",
       "name": "Meta Platforms",
       "price": "$566.98",
-      "change": "-5.97%",
+      "change": "-0.26%",
       "up": false,
       "spark": "15.3,14.1,24.2,26.0,12.3,9.3,9.0,3.6,2.6,2.0"
     },
@@ -135,7 +135,7 @@
       "sym": "NFLX",
       "name": "Netflix",
       "price": "$80.34",
-      "change": "-8.35%",
+      "change": "-1.14%",
       "up": false,
       "spark": "26.0,15.0,7.1,7.3,10.0,12.0,6.7,9.2,6.1,2.0"
     },
@@ -143,7 +143,7 @@
       "sym": "AMD",
       "name": "AMD Inc.",
       "price": "$511.57",
-      "change": "+14.12%",
+      "change": "+4.73%",
       "up": true,
       "spark": "17.4,20.4,26.0,20.9,5.7,12.1,8.2,2.0,11.6,17.8"
     },
@@ -151,7 +151,7 @@
       "sym": "JPM",
       "name": "JPMorgan Chase",
       "price": "$320.72",
-      "change": "+5.20%",
+      "change": "+2.31%",
       "up": true,
       "spark": "2.0,6.4,6.2,16.2,17.7,16.4,18.0,14.5,18.8,26.0"
     }
