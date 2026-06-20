@@ -174,7 +174,7 @@
       /* ── Page ─────────────────────────────────────────────── */
       .page {
         position: relative; z-index: 1;
-        width: min(960px, calc(100% - 42px)); margin: 0 auto;
+        width: min(1100px, calc(100% - 42px)); margin: 0 auto;
         padding: 0 0 80px;
       }
 
@@ -202,12 +202,15 @@
         animation: dotPulse 2s ease-in-out infinite;
       }
       .hero-slogan {
-        font-size: clamp(3.2rem, 8vw, 6rem);
+        font-size: clamp(2.6rem, 5vw, 4.8rem);
         font-weight: 950;
         letter-spacing: -0.06em;
         line-height: 0.95;
         margin-bottom: 20px;
         animation: fadeUp 0.7s ease 0.1s both;
+      }
+      @media (min-width: 800px) {
+        .hero-slogan { white-space: nowrap; }
       }
       .hero-slogan .accent {
         background: linear-gradient(135deg, var(--green), var(--blue));
@@ -520,7 +523,7 @@
     <div class="page">
       <section class="hero">
         <span class="hero-eyebrow">Live EMA Scanner</span>
-        <h1 class="hero-slogan">Scan the markets.<br><span class="accent">Spot the edge.</span></h1>
+        <h1 class="hero-slogan">Scan the markets. <span class="accent">Spot the edge.</span></h1>
         <p class="hero-sub">Real-time EMA crossover detection across US and Indian equity markets. Find trend reversals before the crowd.</p>
       </section>
 
@@ -547,7 +550,7 @@
           </div>
           <span class="card-cta">Explore <span class="arrow">→</span></span>
         </div>
-        <a class="card india-card" href="/stocks/" id="indiaCard">
+        <a class="card india-card" href="/india/" id="indiaCard">
           <div class="card-glow"></div>
           <div class="card-icon">🇮🇳</div>
           <p class="card-eyebrow">NSE · Full Universe</p>

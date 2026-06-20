@@ -41,7 +41,7 @@ function redirectPage({ title, description, target }) {
 `;
 }
 
-const generatedDirs = ["assets", "blog", "creater", "home", "projects", "stocks", "watchlist", "data"];
+const generatedDirs = ["assets", "blog", "creater", "home", "india", "projects", "stocks", "watchlist", "data"];
 const generatedFiles = ["index.html", "CNAME", "Divyam_Matia_Resume.pdf", "profile-placeholder.jpg", ".nojekyll"];
 
 await mkdir(distDir, { recursive: true });
@@ -60,6 +60,10 @@ if (await exists(portfolioIndex)) {
 if (await exists(stocksIndex)) {
   await mkdir(dirname(watchlistIndex), { recursive: true });
   await cp(stocksIndex, watchlistIndex, { force: true });
+
+  const indiaIndex = resolve(distDir, "india", "index.html");
+  await mkdir(dirname(indiaIndex), { recursive: true });
+  await cp(stocksIndex, indiaIndex, { force: true });
 }
 
 // Use the home page as the root index
