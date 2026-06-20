@@ -2325,7 +2325,12 @@
         trigger.addEventListener("click", (event) => {
           if (isWatchlistPage) return;
           event.preventDefault();
-          loadScan(trigger.dataset.scanTrigger, true);
+          const scanId = trigger.dataset.scanTrigger;
+          if (window.location.pathname.replace(/\/+$/, "").startsWith("/india")) {
+            window.location.href = `/india/scan${scanId}`;
+          } else {
+            loadScan(scanId, true);
+          }
         });
       });
 
@@ -2658,7 +2663,9 @@
       });
 
       const params = new URLSearchParams(window.location.search);
-      const initialScanId = params.get("scan");
+      const isIndiaPage = window.location.pathname.replace(/\/+$/, "").startsWith("/india");
+      const pathScanMatch = window.location.pathname.match(/\/india\/scan(\d+-\d+)/);
+      const initialScanId = pathScanMatch ? pathScanMatch[1] : params.get("scan");
       const initialCap = params.get("cap");
       const initialType = params.get("type");
       const initialSort = params.get("sort");
@@ -2753,7 +2760,7 @@
         renderUniverse();
       }
       /* ── /india/ topbar swap ──────────────────────────── */
-      if (window.location.pathname.replace(/\/+$/, "").endsWith("/india")) {
+      if (isIndiaPage) {
         const oldNav = document.querySelector("header.nav");
         if (oldNav) {
           const wlCount = JSON.parse(localStorage.getItem("stocks-watchlist") || "[]").length;

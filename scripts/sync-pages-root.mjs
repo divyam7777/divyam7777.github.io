@@ -64,6 +64,13 @@ if (await exists(stocksIndex)) {
   const indiaIndex = resolve(distDir, "india", "index.html");
   await mkdir(dirname(indiaIndex), { recursive: true });
   await cp(stocksIndex, indiaIndex, { force: true });
+
+  // Scan sub-routes under /india/
+  for (const scanId of ["scan100-200", "scan50-100"]) {
+    const scanIndex = resolve(distDir, "india", scanId, "index.html");
+    await mkdir(dirname(scanIndex), { recursive: true });
+    await cp(stocksIndex, scanIndex, { force: true });
+  }
 }
 
 // Use the home page as the root index
