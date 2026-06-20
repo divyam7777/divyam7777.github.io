@@ -2204,9 +2204,23 @@
             const latestText = move ? formatMoney(move.latest) : "No latest price";
             let extremeText = "";
             if (item.type === "bullish" && finiteNumber(item.highAfterCross) !== null) {
-              extremeText = `<span class="row-value-muted price-subline">High: ${formatMoney(item.highAfterCross)} (${formatSignedPercent(item.highAfterCrossPct)})</span>`;
+              const pct = finiteNumber(item.highAfterCrossPct) || 0;
+              const days = item.highDaysAfterCross || 0;
+              const textStr = `High: ${formatMoney(item.highAfterCross)} (${formatSignedPercent(pct)}) in ${days} days`;
+              if (pct > 2) {
+                extremeText = `<span class="row-value-muted price-subline move-up" style="color:var(--text-up)"><strong>${textStr}</strong></span>`;
+              } else {
+                extremeText = `<span class="row-value-muted price-subline">${textStr}</span>`;
+              }
             } else if (item.type === "bearish" && finiteNumber(item.lowAfterCross) !== null) {
-              extremeText = `<span class="row-value-muted price-subline">Low: ${formatMoney(item.lowAfterCross)} (${formatSignedPercent(item.lowAfterCrossPct)})</span>`;
+              const pct = finiteNumber(item.lowAfterCrossPct) || 0;
+              const days = item.lowDaysAfterCross || 0;
+              const textStr = `Low: ${formatMoney(item.lowAfterCross)} (${formatSignedPercent(pct)}) in ${days} days`;
+              if (pct < -2) {
+                extremeText = `<span class="row-value-muted price-subline move-down" style="color:var(--text-down)"><strong>${textStr}</strong></span>`;
+              } else {
+                extremeText = `<span class="row-value-muted price-subline">${textStr}</span>`;
+              }
             }
             const fastText = item.fastEma === null || item.fastEma === undefined ? `${fastPeriod}: No current cross` : `${fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}`;
             const slowText = item.slowEma === null || item.slowEma === undefined ? `${slowPeriod}: Watching` : `${slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}`;

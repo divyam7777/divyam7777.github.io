@@ -301,7 +301,14 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], h
         latest_timestamp = timestamps[-1] if timestamps else None
         sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
         if previous <= 0 and current > 0:
-            high_after_cross = max(highs[index:]) if index < len(highs) else cross_close
+            if index < len(highs):
+                high_slice = highs[index:]
+                high_after_cross = max(high_slice)
+                high_days_after_cross = high_slice.index(high_after_cross)
+            else:
+                high_after_cross = cross_close
+                high_days_after_cross = 0
+            
             high_after_cross_pct = ((high_after_cross - cross_close) / cross_close * 100) if cross_close else 0
             cross = {
                 "type": "bullish",
@@ -314,6 +321,7 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], h
                 "crossClose": cross_close,
                 "highAfterCross": round(high_after_cross, 2),
                 "highAfterCrossPct": round(high_after_cross_pct, 2),
+                "highDaysAfterCross": high_days_after_cross,
                 "latestClose": latest_close,
                 "latestTimestamp": latest_timestamp,
                 "priceChange": round(price_change, 2),
@@ -326,7 +334,14 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], h
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
         if previous >= 0 and current < 0:
-            low_after_cross = min(lows[index:]) if index < len(lows) else cross_close
+            if index < len(lows):
+                low_slice = lows[index:]
+                low_after_cross = min(low_slice)
+                low_days_after_cross = low_slice.index(low_after_cross)
+            else:
+                low_after_cross = cross_close
+                low_days_after_cross = 0
+
             low_after_cross_pct = ((low_after_cross - cross_close) / cross_close * 100) if cross_close else 0
             cross = {
                 "type": "bearish",
@@ -339,6 +354,7 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], h
                 "crossClose": cross_close,
                 "lowAfterCross": round(low_after_cross, 2),
                 "lowAfterCrossPct": round(low_after_cross_pct, 2),
+                "lowDaysAfterCross": low_days_after_cross,
                 "latestClose": latest_close,
                 "latestTimestamp": latest_timestamp,
                 "priceChange": round(price_change, 2),
