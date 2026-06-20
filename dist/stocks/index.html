@@ -2761,6 +2761,11 @@
       }
       /* ── /india/ topbar swap ──────────────────────────── */
       if (isIndiaPage) {
+        // Hide hero & scanner picker on scan result pages
+        if (pathScanMatch) {
+          document.querySelector(".hero")?.remove();
+          document.getElementById("choose")?.remove();
+        }
         const oldNav = document.querySelector("header.nav");
         if (oldNav) {
           const wlCount = JSON.parse(localStorage.getItem("stocks-watchlist") || "[]").length;
