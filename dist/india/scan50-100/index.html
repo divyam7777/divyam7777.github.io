@@ -2765,6 +2765,17 @@
         if (pathScanMatch) {
           document.querySelector(".hero")?.remove();
           document.getElementById("choose")?.remove();
+          
+          const scannerSec = document.getElementById("scanner");
+          if (scannerSec) {
+            const backBtn = document.createElement("a");
+            backBtn.href = "/india/";
+            backBtn.className = "button";
+            backBtn.innerHTML = "← Choose scanner";
+            backBtn.style.display = "inline-flex";
+            backBtn.style.marginBottom = "24px";
+            scannerSec.insertBefore(backBtn, scannerSec.firstChild);
+          }
         }
         const oldNav = document.querySelector("header.nav");
         if (oldNav) {
