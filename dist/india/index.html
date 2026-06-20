@@ -259,6 +259,29 @@
         transform: translateY(-2px);
         border-color: var(--green);
       }
+
+      /* ── Home-style Topbar (used on /india/) ─────────────── */
+      .topbar-home {
+        position: sticky; top: 18px; z-index: 20;
+        display: flex; align-items: center; justify-content: space-between; gap: 18px;
+        width: min(720px, calc(100% - 42px)); margin: 18px auto 0;
+        border: 1px solid var(--line); border-radius: 999px;
+        padding: 10px 10px 10px 18px;
+        background: var(--nav-bg); backdrop-filter: blur(20px); box-shadow: var(--shadow);
+      }
+      .topbar-home .tab-group { display: flex; gap: 4px; background: rgba(255,255,255,0.035); border-radius: 999px; padding: 4px; }
+      .topbar-home .tab-btn {
+        border: none; border-radius: 999px; padding: 10px 22px;
+        background: transparent; color: var(--muted); font-family: inherit; font-size: 0.9rem; font-weight: 900;
+        cursor: pointer; transition: color 220ms ease, background 220ms ease; white-space: nowrap;
+      }
+      .topbar-home .tab-btn:hover { color: var(--text); }
+      .topbar-home .tab-btn.is-active { background: var(--panel-strong); color: var(--text); box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+      .topbar-home .badge-count {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 20px; height: 20px; margin-left: 6px; border-radius: 999px; padding: 0 6px;
+        background: rgba(142, 165, 255, 0.18); font-size: 0.72rem; font-weight: 950; vertical-align: middle;
+      }
       .market-clock {
         border: 1px solid rgba(99, 246, 178, 0.22);
         border-radius: 999px;
@@ -2730,6 +2753,46 @@
       } else {
         renderResults();
         renderUniverse();
+      }
+      /* ── /india/ topbar swap ──────────────────────────── */
+      if (window.location.pathname.replace(/\/+$/, "").endsWith("/india")) {
+        const oldNav = document.querySelector("header.nav");
+        if (oldNav) {
+          const wlCount = JSON.parse(localStorage.getItem("stocks-watchlist") || "[]").length;
+          const topbar = document.createElement("header");
+          topbar.className = "topbar-home";
+          topbar.innerHTML = `
+            <a class="brand" href="/" aria-label="StocksFlow home">
+              <span class="mark">SF</span>
+              <span>StocksFlow</span>
+            </a>
+            <div class="tab-group">
+              <button class="tab-btn is-active" id="tabMarketHome">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Market
+              </button>
+              <button class="tab-btn" id="tabWatchlistHome">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Watchlist
+                <span class="badge-count">${wlCount}</span>
+              </button>
+            </div>
+            <button class="theme-toggle" id="themeToggleHome" type="button" aria-label="Switch color theme">
+              <span>${document.documentElement.dataset.theme === "light" ? "☀" : "☾"}</span>
+            </button>
+          `;
+          oldNav.replaceWith(topbar);
+
+          // Re-bind theme toggle
+          document.getElementById("themeToggleHome").addEventListener("click", () => {
+            const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+            document.documentElement.dataset.theme = next;
+            localStorage.setItem("stocks-theme", next);
+            document.querySelector("#themeToggleHome span").textContent = next === "light" ? "☀" : "☾";
+          });
+
+          // Tab navigation
+          document.getElementById("tabMarketHome").addEventListener("click", () => { window.location.href = "/"; });
+          document.getElementById("tabWatchlistHome").addEventListener("click", () => { window.location.href = "/watchlist/"; });
+        }
       }
     </script>
   </body>
