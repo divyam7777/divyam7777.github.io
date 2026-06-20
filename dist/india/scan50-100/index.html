@@ -2205,19 +2205,19 @@
             let extremeText = "";
             if (item.type === "bullish" && finiteNumber(item.highAfterCross) !== null) {
               const pct = finiteNumber(item.highAfterCrossPct) || 0;
-              const days = item.highDaysAfterCross || 0;
+              const days = item.highDaysAfterCross !== undefined ? item.highDaysAfterCross : 0;
               const textStr = `High: ${formatMoney(item.highAfterCross)} (${formatSignedPercent(pct)}) in ${days} days`;
               if (pct > 2) {
-                extremeText = `<span class="row-value-muted price-subline move-up" style="color:var(--text-up)"><strong>${textStr}</strong></span>`;
+                extremeText = `<span class="price-subline move-up" style="font-weight: 600;">${textStr}</span>`;
               } else {
                 extremeText = `<span class="row-value-muted price-subline">${textStr}</span>`;
               }
             } else if (item.type === "bearish" && finiteNumber(item.lowAfterCross) !== null) {
               const pct = finiteNumber(item.lowAfterCrossPct) || 0;
-              const days = item.lowDaysAfterCross || 0;
+              const days = item.lowDaysAfterCross !== undefined ? item.lowDaysAfterCross : 0;
               const textStr = `Low: ${formatMoney(item.lowAfterCross)} (${formatSignedPercent(pct)}) in ${days} days`;
               if (pct < -2) {
-                extremeText = `<span class="row-value-muted price-subline move-down" style="color:var(--text-down)"><strong>${textStr}</strong></span>`;
+                extremeText = `<span class="price-subline move-down" style="font-weight: 600;">${textStr}</span>`;
               } else {
                 extremeText = `<span class="row-value-muted price-subline">${textStr}</span>`;
               }
