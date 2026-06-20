@@ -2776,6 +2776,10 @@
             backBtn.style.marginBottom = "24px";
             scannerSec.insertBefore(backBtn, scannerSec.firstChild);
           }
+        } else {
+          // On plain /india/ page: hide scanner & universe results
+          document.getElementById("scanner")?.remove();
+          document.getElementById("universe")?.remove();
         }
         const oldNav = document.querySelector("header.nav");
         if (oldNav) {
