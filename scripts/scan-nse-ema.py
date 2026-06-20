@@ -127,6 +127,8 @@ def parse_price_response(response: dict) -> dict[str, list[float] | list[int]] |
     quote_data = (response.get("indicators", {}).get("quote") or [{}])[0]
     closes = quote_data.get("close") or []
     volumes = quote_data.get("volume") or []
+    highs = quote_data.get("high") or []
+    lows = quote_data.get("low") or []
     rows = []
     for index, close in enumerate(closes):
         if close is None or index >= len(timestamps):
@@ -134,13 +136,17 @@ def parse_price_response(response: dict) -> dict[str, list[float] | list[int]] |
         value = float(close)
         if math.isfinite(value):
             volume = volumes[index] if index < len(volumes) and volumes[index] is not None else 0
-            rows.append((value, int(timestamps[index]), int(volume)))
+            high_val = float(highs[index]) if index < len(highs) and highs[index] is not None else value
+            low_val = float(lows[index]) if index < len(lows) and lows[index] is not None else value
+            rows.append((value, int(timestamps[index]), int(volume), high_val, low_val))
     if not rows:
         return None
     return {
         "closes": [row[0] for row in rows],
         "timestamps": [row[1] for row in rows],
         "volumes": [row[2] for row in rows],
+        "highs": [row[3] for row in rows],
+        "lows": [row[4] for row in rows],
     }
 
 
@@ -278,7 +284,7 @@ def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
     }
 
 
-def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], fast_period: int, slow_period: int, window: int = SCAN_WINDOW_SESSIONS) -> dict | None:
+def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], highs: list[float], lows: list[float], fast_period: int, slow_period: int, window: int = SCAN_WINDOW_SESSIONS) -> dict | None:
     fast_ema = ema(closes, fast_period)
     slow_ema = ema(closes, slow_period)
     start = max(1, len(closes) - window)
@@ -295,6 +301,8 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], f
         latest_timestamp = timestamps[-1] if timestamps else None
         sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
         if previous <= 0 and current > 0:
+            high_after_cross = max(highs[index:]) if index < len(highs) else cross_close
+            high_after_cross_pct = ((high_after_cross - cross_close) / cross_close * 100) if cross_close else 0
             cross = {
                 "type": "bullish",
                 "sessionsAgo": len(closes) - 1 - index,
@@ -304,6 +312,8 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], f
                 "latestSlowEma": round(slow_ema[-1], 2) if slow_ema[-1] is not None else None,
                 "close": cross_close,
                 "crossClose": cross_close,
+                "highAfterCross": round(high_after_cross, 2),
+                "highAfterCrossPct": round(high_after_cross_pct, 2),
                 "latestClose": latest_close,
                 "latestTimestamp": latest_timestamp,
                 "priceChange": round(price_change, 2),
@@ -316,6 +326,8 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], f
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
         if previous >= 0 and current < 0:
+            low_after_cross = min(lows[index:]) if index < len(lows) else cross_close
+            low_after_cross_pct = ((low_after_cross - cross_close) / cross_close * 100) if cross_close else 0
             cross = {
                 "type": "bearish",
                 "sessionsAgo": len(closes) - 1 - index,
@@ -325,6 +337,8 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], f
                 "latestSlowEma": round(slow_ema[-1], 2) if slow_ema[-1] is not None else None,
                 "close": cross_close,
                 "crossClose": cross_close,
+                "lowAfterCross": round(low_after_cross, 2),
+                "lowAfterCrossPct": round(low_after_cross_pct, 2),
                 "latestClose": latest_close,
                 "latestTimestamp": latest_timestamp,
                 "priceChange": round(price_change, 2),
@@ -369,10 +383,12 @@ def build_scan_payload(
         closes = candles.get("closes", [])
         timestamps = candles.get("timestamps", [])
         volumes = candles.get("volumes", [])
+        highs = candles.get("highs", [])
+        lows = candles.get("lows", [])
         if len(closes) < slow_period + SCAN_WINDOW_SESSIONS:
             skipped.append({"symbol": stock.symbol, "reason": f"needs at least {slow_period + SCAN_WINDOW_SESSIONS} daily candles"})
             continue
-        cross = find_cross(closes, timestamps, volumes, fast_period, slow_period)
+        cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period)
         if cross:
             results.append({**stock_to_json(stock), **cross})
 

@@ -2202,6 +2202,12 @@
             const moveClass = move ? priceMoveClass(move.change) : "move-flat";
             const crossText = move ? formatMoney(move.cross) : "No cross price";
             const latestText = move ? formatMoney(move.latest) : "No latest price";
+            let extremeText = "";
+            if (item.type === "bullish" && finiteNumber(item.highAfterCross) !== null) {
+              extremeText = `<span class="row-value-muted price-subline">High: ${formatMoney(item.highAfterCross)} (${formatSignedPercent(item.highAfterCrossPct)})</span>`;
+            } else if (item.type === "bearish" && finiteNumber(item.lowAfterCross) !== null) {
+              extremeText = `<span class="row-value-muted price-subline">Low: ${formatMoney(item.lowAfterCross)} (${formatSignedPercent(item.lowAfterCrossPct)})</span>`;
+            }
             const fastText = item.fastEma === null || item.fastEma === undefined ? `${fastPeriod}: No current cross` : `${fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}`;
             const slowText = item.slowEma === null || item.slowEma === undefined ? `${slowPeriod}: Watching` : `${slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}`;
             const freshnessText = isSavedOnly ? "No fresh cross" : `${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}`;
@@ -2228,6 +2234,7 @@
                   <span class="row-value ${moveClass}">${moveText}</span>
                   <span class="row-value-muted price-subline">Cross: ${crossText}</span>
                   <span class="row-value-muted price-subline">Latest: ${latestText}</span>
+                  ${extremeText}
                 </div>
                 <div class="result-cell ema-pair">
                   <span class="cell-label">EMAs</span>
