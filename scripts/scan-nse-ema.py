@@ -47,8 +47,15 @@ class Stock:
 
 def fetch_text(url: str, timeout: int = 25) -> str:
     request = Request(url, headers=REQUEST_HEADERS)
-    with urlopen(request, timeout=timeout) as response:
-        return response.read().decode("utf-8-sig", errors="replace")
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=timeout) as response:
+                return response.read().decode("utf-8-sig", errors="replace")
+        except Exception as e:
+            if attempt == 2:
+                print(f"Failed to fetch {url}: {e}")
+                raise
+            time.sleep(2)
 
 
 def normalise_row(row: dict[str, str]) -> dict[str, str]:
