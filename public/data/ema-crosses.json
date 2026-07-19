@@ -2,10 +2,10 @@
   "market": "NSE India",
   "scanId": "100-200",
   "label": "100 / 200 EMA cross",
-  "rule": "Bullish 100 EMA / 200 EMA crossover within last 15 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
+  "rule": "Bullish 100 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
   "fastPeriod": 100,
   "slowPeriod": 200,
-  "windowSessions": 15,
+  "windowSessions": 60,
   "filters": {
     "direction": "bullish only",
     "priceStack": "latest close > EMA 100 > EMA 200",
@@ -33,7 +33,7 @@
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-07-19T17:23:07.358251+00:00",
+  "generatedAt": "2026-07-19T17:49:30.646801+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
@@ -14464,331 +14464,449 @@
     "Textiles": 5,
     "Unclassified": 1557
   },
-  "resultCount": 0,
+  "resultCount": 1,
   "failureCount": 0,
-  "skippedCount": 204,
-  "results": [],
+  "skippedCount": 233,
+  "results": [
+    {
+      "symbol": "PIDILITIND",
+      "name": "Pidilite Industries Limited",
+      "marketCap": "large",
+      "sector": "Chemicals",
+      "isin": "INE318A01026",
+      "type": "bullish",
+      "sessionsAgo": 15,
+      "fastEma": 1464.7348695171438,
+      "slowEma": 1464.7195834391607,
+      "latestFastEma": 1496.17,
+      "latestSlowEma": 1481.69,
+      "close": 1597.0,
+      "crossClose": 1597.0,
+      "highAfterCross": 1626.7,
+      "highAfterCrossPct": 1.86,
+      "highDaysAfterCross": 7,
+      "latestClose": 1566.0999755859375,
+      "latestTimestamp": 1784259900,
+      "priceChange": -30.9,
+      "priceChangePct": -1.93,
+      "volume": 1387673,
+      "crossVolume": 0,
+      "latestVolume": 1387673,
+      "averageVolume20": 780458.45,
+      "volumeMultiple": 1.78,
+      "averageTurnover20": 1236095207.08,
+      "averageTurnover20Crore": 123.61,
+      "rsi14": 50.55,
+      "adx14": 30.73,
+      "plusDi14": 24.62,
+      "minusDi14": 19.9,
+      "distanceFromFastEmaPct": 4.67,
+      "fastEmaSlopePct": 0.095,
+      "marketTrendConfirmed": false,
+      "timestamp": 1782445500,
+      "sparkline": [
+        1476.0,
+        1437.2,
+        1453.0,
+        1445.6,
+        1483.8,
+        1467.7,
+        1450.2,
+        1455.8,
+        1455.6,
+        1472.8,
+        1478.4,
+        1477.2,
+        1478.5,
+        1480.7,
+        1480.7,
+        1482.8,
+        1457.2,
+        1454.6,
+        1469.2,
+        1471.1,
+        1476.6,
+        1459.8,
+        1481.8,
+        1506.5,
+        1498.8,
+        1535.5,
+        1571.0,
+        1571.2,
+        1578.2,
+        1581.1,
+        1579.9,
+        1572.2,
+        1566.7,
+        1579.0,
+        1597.0,
+        1597.0,
+        1599.6,
+        1592.7,
+        1581.9,
+        1605.4,
+        1598.0,
+        1616.9,
+        1622.3,
+        1570.4,
+        1590.4,
+        1598.5,
+        1580.7,
+        1555.4,
+        1568.8,
+        1559.6,
+        1566.1
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 100,
+        "grade": "A",
+        "emaSpreadPct": 0.0,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 100/200 EMA direction",
+          "Latest volume confirms the breakout",
+          "High liquidity with Rs. 50 crore plus average turnover",
+          "RSI confirms bullish momentum without overextension",
+          "ADX shows a strong trend"
+        ]
+      }
+    }
+  ],
   "failures": [],
   "skipped": [
     {
       "symbol": "3BBLACKBIO",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AARNAV",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ABMKNO",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ACSTECH",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ADVAIT",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ADVANCE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ADVENTHTL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AEPL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AEQUS",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AGL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "AHCL",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AKCAPIT",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ALGOQUANT",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ALLTIME",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AMAGI",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AMBALALSA",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AMIRCHAND",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ANTHEM",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ARFIN",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ARIHANT",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ARSSBL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ASHIKA",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ASTAR",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ATLANTAELE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "AYE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BAJAJST",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BATLIBOI",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BCPL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BEEKAY",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "BELLACASA",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BENGALASM",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BHARATCOAL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BI",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BIMETAL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BIRLAPREC",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BLIL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "BLUESTONE",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BMWVENTLTD",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BNALTD",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BONLON",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "BRIGHOTEL",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "BUILDPRO",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CANHLIFE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CAPILLARY",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CEINSYS",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CLEANMAX",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CMPDI",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CMRGREEN",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "COCKERILL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "COMFINTE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CORDELIA",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CORONA",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "CPEDU",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "CPPLUS",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CRAMC",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "CRIZAC",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "CSM",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "DECNGOLD",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "DEVX",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "DISAQ",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "DRAGARWQ",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "EBGNG",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "EFCIL",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ELANTAS",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ELCIDIN",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ELITECON",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "ELPROINTL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "EMMVEE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "EPACKPEB",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "EUROPRATIK",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "EXCELSOFT",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "FABTECH",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "FEDDERSHOL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "FERMENTA",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "FINKURVE",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "FISCHER",
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "FRACTAL",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "FRONTSP",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
       "symbol": "GANESHCP",
-      "reason": "needs at least 215 daily candles"
+      "reason": "needs at least 260 daily candles"
     },
     {
-      "symbol": "GKENERGY",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GKSL",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GNRL",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GOODYEAR",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GRANDOAK",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GRAUWEIL",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GRAVISSHO",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GROWW",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GSPCROP",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "GYFTR",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "HALDER",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "HAWKINCOOK",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "HBESD",
-      "reason": "needs at least 215 daily candles"
-    },
-    {
-      "symbol": "ICICIAMC",
-      "reason": "needs at least 215 daily candles"
+      "symbol": "GCSL",
+      "reason": "needs at least 260 daily candles"
     }
   ]
 }

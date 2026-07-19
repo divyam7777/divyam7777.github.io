@@ -2,10 +2,10 @@
   "market": "NSE India",
   "scanId": "50-100",
   "label": "50 / 100 EMA cross",
-  "rule": "Bullish 50 EMA / 100 EMA crossover within last 15 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
+  "rule": "Bullish 50 EMA / 100 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
   "fastPeriod": 50,
   "slowPeriod": 100,
-  "windowSessions": 15,
+  "windowSessions": 60,
   "filters": {
     "direction": "bullish only",
     "priceStack": "latest close > EMA 50 > EMA 100",
@@ -33,7 +33,7 @@
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-07-19T17:23:07.358251+00:00",
+  "generatedAt": "2026-07-19T17:49:30.646801+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
@@ -14464,331 +14464,1211 @@
     "Textiles": 5,
     "Unclassified": 1557
   },
-  "resultCount": 0,
+  "resultCount": 7,
   "failureCount": 0,
-  "skippedCount": 134,
-  "results": [],
+  "skippedCount": 156,
+  "results": [
+    {
+      "symbol": "DLF",
+      "name": "DLF Limited",
+      "marketCap": "large",
+      "sector": "Realty",
+      "isin": "INE271C01023",
+      "type": "bullish",
+      "sessionsAgo": 5,
+      "fastEma": 615.6567552512862,
+      "slowEma": 615.3760431456184,
+      "latestFastEma": 624.62,
+      "latestSlowEma": 620.13,
+      "close": 685.75,
+      "crossClose": 685.75,
+      "highAfterCross": 692.0,
+      "highAfterCrossPct": 0.91,
+      "highDaysAfterCross": 0,
+      "latestClose": 667.7999877929688,
+      "latestTimestamp": 1784259900,
+      "priceChange": -17.95,
+      "priceChangePct": -2.62,
+      "volume": 9526166,
+      "crossVolume": 11338298,
+      "latestVolume": 9526166,
+      "averageVolume20": 5166011.8,
+      "volumeMultiple": 1.84,
+      "averageTurnover20": 3388067564.26,
+      "averageTurnover20Crore": 338.81,
+      "rsi14": 58.0,
+      "adx14": 20.1,
+      "plusDi14": 27.72,
+      "minusDi14": 21.27,
+      "distanceFromFastEmaPct": 6.91,
+      "fastEmaSlopePct": 0.283,
+      "marketTrendConfirmed": false,
+      "timestamp": 1783655100,
+      "sparkline": [
+        586.7,
+        592.3,
+        589.8,
+        593.9,
+        593.9,
+        590.6,
+        580.05,
+        591.85,
+        581.55,
+        577.8,
+        577.7,
+        561.3,
+        575.15,
+        563.2,
+        563.0,
+        587.05,
+        614.45,
+        629.3,
+        623.55,
+        640.7,
+        624.5,
+        627.6,
+        612.35,
+        618.15,
+        621.35,
+        621.35,
+        614.75,
+        620.05,
+        648.7,
+        658.2,
+        675.9,
+        673.3,
+        651.1,
+        634.0,
+        659.6,
+        685.75,
+        682.35,
+        671.45,
+        657.75,
+        648.1,
+        667.8
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 100,
+        "grade": "A",
+        "emaSpreadPct": 0.04,
+        "reasons": [
+          "Crossover happened within the last 5 sessions",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume confirms the breakout",
+          "High liquidity with Rs. 50 crore plus average turnover",
+          "RSI is in a strong but not overheated zone",
+          "ADX confirms trend strength"
+        ]
+      }
+    },
+    {
+      "symbol": "PNCINFRA",
+      "name": "PNC Infratech Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE195J01029",
+      "type": "bullish",
+      "sessionsAgo": 7,
+      "fastEma": 219.8211693559153,
+      "slowEma": 219.6721344603044,
+      "latestFastEma": 225.83,
+      "latestSlowEma": 222.9,
+      "close": 238.17999267578125,
+      "crossClose": 238.17999267578125,
+      "highAfterCross": 258.0,
+      "highAfterCrossPct": 8.32,
+      "highDaysAfterCross": 7,
+      "latestClose": 245.27000427246094,
+      "latestTimestamp": 1784259900,
+      "priceChange": 7.09,
+      "priceChangePct": 2.98,
+      "volume": 1851672,
+      "crossVolume": 690650,
+      "latestVolume": 1851672,
+      "averageVolume20": 564346.0,
+      "volumeMultiple": 3.28,
+      "averageTurnover20": 134969063.18,
+      "averageTurnover20Crore": 13.5,
+      "rsi14": 67.23,
+      "adx14": 33.31,
+      "plusDi14": 35.06,
+      "minusDi14": 11.81,
+      "distanceFromFastEmaPct": 8.61,
+      "fastEmaSlopePct": 0.353,
+      "marketTrendConfirmed": false,
+      "timestamp": 1783482300,
+      "sparkline": [
+        209.08,
+        213.15,
+        215.32,
+        212.86,
+        211.2,
+        211.72,
+        211.72,
+        204.8,
+        207.07,
+        210.24,
+        212.07,
+        210.28,
+        209.91,
+        204.59,
+        203.04,
+        200.97,
+        197.94,
+        201.62,
+        206.26,
+        207.14,
+        213.14,
+        216.81,
+        226.01,
+        236.42,
+        235.61,
+        234.09,
+        232.3,
+        232.3,
+        226.37,
+        228.27,
+        230.71,
+        235.9,
+        236.0,
+        242.28,
+        239.44,
+        238.18,
+        241.53,
+        242.87,
+        247.46,
+        244.53,
+        244.9,
+        244.04,
+        245.27
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 98,
+        "grade": "A",
+        "emaSpreadPct": 0.06,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume is at least 2x the 20-session average",
+          "Liquidity passes the Rs. 10 crore turnover filter",
+          "RSI confirms bullish momentum without overextension",
+          "ADX shows a strong trend"
+        ]
+      }
+    },
+    {
+      "symbol": "LICI",
+      "name": "Life Insurance Corporation Of India",
+      "marketCap": "mid",
+      "sector": "Financial Services",
+      "isin": "INE0J1Y01017",
+      "type": "bullish",
+      "sessionsAgo": 13,
+      "fastEma": 413.0293431799386,
+      "slowEma": 412.88823970506024,
+      "latestFastEma": 422.18,
+      "latestSlowEma": 418.05,
+      "close": 431.6499938964844,
+      "crossClose": 431.6499938964844,
+      "highAfterCross": 447.6,
+      "highAfterCrossPct": 3.7,
+      "highDaysAfterCross": 13,
+      "latestClose": 433.1000061035156,
+      "latestTimestamp": 1784259900,
+      "priceChange": 1.45,
+      "priceChangePct": 0.34,
+      "volume": 5966445,
+      "crossVolume": 4056374,
+      "latestVolume": 5966445,
+      "averageVolume20": 3535993.0,
+      "volumeMultiple": 1.69,
+      "averageTurnover20": 1537362526.63,
+      "averageTurnover20Crore": 153.74,
+      "rsi14": 53.28,
+      "adx14": 31.25,
+      "plusDi14": 27.11,
+      "minusDi14": 13.92,
+      "distanceFromFastEmaPct": 2.59,
+      "fastEmaSlopePct": 0.106,
+      "marketTrendConfirmed": false,
+      "timestamp": 1782791100,
+      "sparkline": [
+        390.38,
+        393.52,
+        402.5,
+        399.58,
+        395.7,
+        401.75,
+        400.27,
+        400.1,
+        406.48,
+        418.67,
+        427.45,
+        415.0,
+        415.0,
+        411.35,
+        404.85,
+        400.7,
+        402.9,
+        398.65,
+        399.9,
+        395.5,
+        403.9,
+        395.95,
+        393.2,
+        399.35,
+        405.7,
+        411.0,
+        418.15,
+        430.0,
+        440.15,
+        442.4,
+        440.15,
+        436.6,
+        423.35,
+        423.35,
+        431.25,
+        431.65,
+        434.7,
+        432.1,
+        430.25,
+        429.1,
+        435.4,
+        427.9,
+        438.45,
+        443.05,
+        441.3,
+        435.4,
+        439.75,
+        438.3,
+        433.1
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 100,
+        "grade": "A",
+        "emaSpreadPct": 0.03,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume confirms the breakout",
+          "High liquidity with Rs. 50 crore plus average turnover",
+          "RSI confirms bullish momentum without overextension",
+          "ADX shows a strong trend"
+        ]
+      }
+    },
+    {
+      "symbol": "BORORENEW",
+      "name": "BOROSIL RENEWABLES LIMITED",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE666D01022",
+      "type": "bullish",
+      "sessionsAgo": 28,
+      "fastEma": 504.2542014828566,
+      "slowEma": 504.0908180190753,
+      "latestFastEma": 574.53,
+      "latestSlowEma": 547.39,
+      "close": 525.0499877929688,
+      "crossClose": 525.0499877929688,
+      "highAfterCross": 669.9,
+      "highAfterCrossPct": 27.59,
+      "highDaysAfterCross": 23,
+      "latestClose": 604.5499877929688,
+      "latestTimestamp": 1784259900,
+      "priceChange": 79.5,
+      "priceChangePct": 15.14,
+      "volume": 3031488,
+      "crossVolume": 324649,
+      "latestVolume": 3031488,
+      "averageVolume20": 967004.15,
+      "volumeMultiple": 3.13,
+      "averageTurnover20": 604949382.78,
+      "averageTurnover20Crore": 60.49,
+      "rsi14": 51.24,
+      "adx14": 34.33,
+      "plusDi14": 21.08,
+      "minusDi14": 19.76,
+      "distanceFromFastEmaPct": 5.23,
+      "fastEmaSlopePct": 0.214,
+      "marketTrendConfirmed": false,
+      "timestamp": 1780976700,
+      "sparkline": [
+        511.95,
+        516.75,
+        511.05,
+        511.25,
+        516.8,
+        513.1,
+        505.35,
+        501.5,
+        501.5,
+        524.9,
+        518.1,
+        544.85,
+        565.55,
+        561.75,
+        549.9,
+        548.1,
+        540.9,
+        520.4,
+        500.2,
+        498.5,
+        525.2,
+        515.25,
+        511.9,
+        508.65,
+        515.8,
+        509.5,
+        507.6,
+        507.6,
+        501.75,
+        491.95,
+        501.35,
+        544.6,
+        524.15,
+        524.3,
+        513.75,
+        525.05,
+        531.05,
+        516.7,
+        544.6,
+        547.45,
+        564.15,
+        593.9,
+        595.2,
+        598.25,
+        604.35,
+        595.9,
+        605.2,
+        615.7,
+        615.7,
+        605.15,
+        602.25,
+        612.2,
+        622.45,
+        621.7,
+        625.0,
+        608.85,
+        594.6,
+        651.65,
+        640.55,
+        647.3,
+        634.6,
+        620.5,
+        612.0,
+        604.55
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 100,
+        "grade": "A",
+        "emaSpreadPct": 0.03,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume is at least 2x the 20-session average",
+          "High liquidity with Rs. 50 crore plus average turnover",
+          "RSI confirms bullish momentum without overextension",
+          "ADX shows a strong trend"
+        ]
+      }
+    },
+    {
+      "symbol": "PIDILITIND",
+      "name": "Pidilite Industries Limited",
+      "marketCap": "large",
+      "sector": "Chemicals",
+      "isin": "INE318A01026",
+      "type": "bullish",
+      "sessionsAgo": 31,
+      "fastEma": 1432.7457936431786,
+      "slowEma": 1432.315921700759,
+      "latestFastEma": 1532.9,
+      "latestSlowEma": 1496.17,
+      "close": 1471.0999755859375,
+      "crossClose": 1471.0999755859375,
+      "highAfterCross": 1626.7,
+      "highAfterCrossPct": 10.58,
+      "highDaysAfterCross": 23,
+      "latestClose": 1566.0999755859375,
+      "latestTimestamp": 1784259900,
+      "priceChange": 95.0,
+      "priceChangePct": 6.46,
+      "volume": 1387673,
+      "crossVolume": 646986,
+      "latestVolume": 1387673,
+      "averageVolume20": 780458.45,
+      "volumeMultiple": 1.78,
+      "averageTurnover20": 1236095207.08,
+      "averageTurnover20Crore": 123.61,
+      "rsi14": 50.55,
+      "adx14": 30.73,
+      "plusDi14": 24.62,
+      "minusDi14": 19.9,
+      "distanceFromFastEmaPct": 2.17,
+      "fastEmaSlopePct": 0.088,
+      "marketTrendConfirmed": false,
+      "timestamp": 1780544700,
+      "sparkline": [
+        1331.0,
+        1393.4,
+        1390.5,
+        1407.8,
+        1419.0,
+        1402.1,
+        1394.3,
+        1399.3,
+        1392.6,
+        1389.0,
+        1375.7,
+        1375.7,
+        1364.6,
+        1364.2,
+        1421.5,
+        1450.4,
+        1476.0,
+        1437.2,
+        1453.0,
+        1445.6,
+        1483.8,
+        1467.7,
+        1450.2,
+        1455.8,
+        1455.6,
+        1472.8,
+        1478.4,
+        1477.2,
+        1478.5,
+        1480.7,
+        1480.7,
+        1482.8,
+        1457.2,
+        1454.6,
+        1469.2,
+        1471.1,
+        1476.6,
+        1459.8,
+        1481.8,
+        1506.5,
+        1498.8,
+        1535.5,
+        1571.0,
+        1571.2,
+        1578.2,
+        1581.1,
+        1579.9,
+        1572.2,
+        1566.7,
+        1579.0,
+        1597.0,
+        1597.0,
+        1599.6,
+        1592.7,
+        1581.9,
+        1605.4,
+        1598.0,
+        1616.9,
+        1622.3,
+        1570.4,
+        1590.4,
+        1598.5,
+        1580.7,
+        1555.4,
+        1568.8,
+        1559.6,
+        1566.1
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 100,
+        "grade": "A",
+        "emaSpreadPct": 0.03,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume confirms the breakout",
+          "High liquidity with Rs. 50 crore plus average turnover",
+          "RSI confirms bullish momentum without overextension",
+          "ADX shows a strong trend"
+        ]
+      }
+    },
+    {
+      "symbol": "JSWCEMENT",
+      "name": "JSW Cement Limited",
+      "marketCap": "small",
+      "sector": "Construction Materials",
+      "isin": "INE718I01012",
+      "type": "bullish",
+      "sessionsAgo": 33,
+      "fastEma": 125.0881160948726,
+      "slowEma": 125.0417299901324,
+      "latestFastEma": 131.86,
+      "latestSlowEma": 129.14,
+      "close": 130.22999572753906,
+      "crossClose": 130.22999572753906,
+      "highAfterCross": 142.99,
+      "highAfterCrossPct": 9.8,
+      "highDaysAfterCross": 33,
+      "latestClose": 139.92999267578125,
+      "latestTimestamp": 1784259900,
+      "priceChange": 9.7,
+      "priceChangePct": 7.45,
+      "volume": 7974384,
+      "crossVolume": 3250430,
+      "latestVolume": 7974384,
+      "averageVolume20": 2533922.75,
+      "volumeMultiple": 3.15,
+      "averageTurnover20": 344928592.88,
+      "averageTurnover20Crore": 34.49,
+      "rsi14": 62.67,
+      "adx14": 28.18,
+      "plusDi14": 25.7,
+      "minusDi14": 12.92,
+      "distanceFromFastEmaPct": 6.12,
+      "fastEmaSlopePct": 0.251,
+      "marketTrendConfirmed": false,
+      "timestamp": 1780371900,
+      "sparkline": [
+        126.19,
+        128.75,
+        126.22,
+        125.88,
+        129.45,
+        128.02,
+        127.72,
+        125.3,
+        123.54,
+        125.23,
+        123.97,
+        124.3,
+        122.47,
+        122.47,
+        122.78,
+        124.04,
+        125.26,
+        125.01,
+        124.53,
+        125.06,
+        121.41,
+        122.81,
+        122.25,
+        123.17,
+        122.81,
+        121.36,
+        120.91,
+        127.46,
+        137.99,
+        134.77,
+        131.48,
+        130.73,
+        130.73,
+        129.63,
+        126.03,
+        130.23,
+        128.8,
+        127.1,
+        127.37,
+        126.49,
+        126.77,
+        126.82,
+        124.64,
+        127.37,
+        130.55,
+        129.33,
+        130.17,
+        130.72,
+        128.66,
+        130.05,
+        129.38,
+        133.59,
+        133.55,
+        133.55,
+        132.78,
+        134.92,
+        136.7,
+        136.24,
+        136.57,
+        136.47,
+        136.12,
+        134.43,
+        135.27,
+        138.22,
+        138.29,
+        136.75,
+        139.45,
+        142.29,
+        139.93
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 98,
+        "grade": "A",
+        "emaSpreadPct": 0.04,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume is at least 2x the 20-session average",
+          "Liquidity passes the Rs. 10 crore turnover filter",
+          "RSI is in a strong but not overheated zone",
+          "ADX confirms trend strength"
+        ]
+      }
+    },
+    {
+      "symbol": "GRINDWELL",
+      "name": "Grindwell Norton Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE536A01023",
+      "type": "bullish",
+      "sessionsAgo": 48,
+      "fastEma": 1581.752964843023,
+      "slowEma": 1577.640455539633,
+      "latestFastEma": 1984.02,
+      "latestSlowEma": 1857.55,
+      "close": 1786.699951171875,
+      "crossClose": 1786.699951171875,
+      "highAfterCross": 2455.0,
+      "highAfterCrossPct": 37.4,
+      "highDaysAfterCross": 47,
+      "latestClose": 2086.699951171875,
+      "latestTimestamp": 1784259900,
+      "priceChange": 300.0,
+      "priceChangePct": 16.79,
+      "volume": 584725,
+      "crossVolume": 243282,
+      "latestVolume": 584725,
+      "averageVolume20": 132622.25,
+      "volumeMultiple": 4.41,
+      "averageTurnover20": 280852937.14,
+      "averageTurnover20Crore": 28.09,
+      "rsi14": 51.14,
+      "adx14": 30.17,
+      "plusDi14": 34.39,
+      "minusDi14": 11.2,
+      "distanceFromFastEmaPct": 5.18,
+      "fastEmaSlopePct": 0.212,
+      "marketTrendConfirmed": false,
+      "timestamp": 1778557500,
+      "sparkline": [
+        1433.2,
+        1429.7,
+        1392.6,
+        1402.2,
+        1364.2,
+        1385.1,
+        1398.8,
+        1369.9,
+        1353.1,
+        1405.4,
+        1387.9,
+        1438.6,
+        1461.1,
+        1493.1,
+        1492.4,
+        1536.6,
+        1535.9,
+        1560.3,
+        1575.5,
+        1575.9,
+        1627.1,
+        1612.0,
+        1674.7,
+        1645.8,
+        1609.8,
+        1624.2,
+        1616.4,
+        1592.1,
+        1575.9,
+        1592.7,
+        1572.2,
+        1647.6,
+        1659.4,
+        1684.8,
+        1798.5,
+        1786.7,
+        1779.3,
+        1793.8,
+        1859.9,
+        1856.4,
+        1877.9,
+        1928.8,
+        1962.5,
+        1943.4,
+        1936.0,
+        1913.4,
+        1912.3,
+        1912.3,
+        1839.8,
+        1848.0,
+        1859.0,
+        1867.0,
+        1921.4,
+        1958.2,
+        1955.6,
+        1933.2,
+        1914.8,
+        1895.2,
+        1921.0,
+        2023.1,
+        2047.3,
+        2055.3,
+        2105.5,
+        2136.8,
+        2110.3,
+        2125.4,
+        2128.4,
+        2228.0,
+        2228.0,
+        2146.8,
+        2166.1,
+        2153.8,
+        2173.2,
+        2088.5,
+        2083.1,
+        2033.6,
+        2018.0,
+        2020.7,
+        2058.6,
+        2034.3,
+        2001.1,
+        2045.9,
+        2382.3,
+        2086.7
+      ],
+      "quality": {
+        "passed": true,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": true,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": true,
+          "rsiHealthy": true,
+          "adxTrendConfirmed": true
+        },
+        "failed": []
+      },
+      "score": {
+        "value": 100,
+        "grade": "A",
+        "emaSpreadPct": 0.23,
+        "reasons": [
+          "Crossover is still inside the 60-session window",
+          "Close confirms the 50/100 EMA direction",
+          "Latest volume is at least 2x the 20-session average",
+          "Liquidity passes the Rs. 10 crore turnover filter",
+          "RSI confirms bullish momentum without overextension",
+          "ADX shows a strong trend"
+        ]
+      }
+    }
+  ],
   "failures": [],
   "skipped": [
     {
       "symbol": "3BBLACKBIO",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AARNAV",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ABMKNO",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ACSTECH",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "ADVAIT",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AEPL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "AEQUS",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AGL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AKCAPIT",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "ALGOQUANT",
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "AMAGI",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AMBALALSA",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AMIRCHAND",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ARIHANT",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ASHIKA",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ASTAR",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "AYE",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BAJAJST",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BATLIBOI",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BCPL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BEEKAY",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BENGALASM",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "BHARATCOAL",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BI",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BIMETAL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BIRLAPREC",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BLIL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BNALTD",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "BONLON",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "BUILDPRO",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "CEINSYS",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "CLEANMAX",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "CMPDI",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "CMRGREEN",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "COCKERILL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "COMFINTE",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "CORDELIA",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "CORONA",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "CSM",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "DECNGOLD",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "DISAQ",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "DRAGARWQ",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ELANTAS",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ELCIDIN",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ELITECON",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "ELPROINTL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "FEDDERSHOL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "FERMENTA",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "FRACTAL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "FRONTSP",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "GKSL",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GNRL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GOODYEAR",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GRANDOAK",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GRAUWEIL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GRAVISSHO",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GSPCROP",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "GYFTR",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "HALDER",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "HAWKINCOOK",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "HBESD",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "ICICIAMC",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "INA",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "INDPRUD",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "INNOVISION",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "INVPRECQ",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "IWP",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
+    },
+    {
+      "symbol": "JAYKAY",
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KAMAHOLD",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KENNAMET",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KIRANVYPAR",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KIRLFER",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KISSHT",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KLBRENG-B",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KNACK",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KOTIC",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KOVAI",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
       "symbol": "KPL",
-      "reason": "needs at least 115 daily candles"
+      "reason": "needs at least 160 daily candles"
     },
     {
-      "symbol": "KUSUMGAR",
-      "reason": "needs at least 115 daily candles"
+      "symbol": "KSHINTL",
+      "reason": "needs at least 160 daily candles"
     },
     {
-      "symbol": "KWIL",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "LAHOTIOV",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "LASERPOWER",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MADHAVIPL",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MAFATIND",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MAJESAUT",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MARSONS",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MCCHRLS-B",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MENNPIS",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "MERCANTILE",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "METROGLOBL",
-      "reason": "needs at least 115 daily candles"
-    },
-    {
-      "symbol": "NATIONSTD",
-      "reason": "needs at least 115 daily candles"
+      "symbol": "KSR",
+      "reason": "needs at least 160 daily candles"
     }
   ]
 }

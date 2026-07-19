@@ -28,7 +28,7 @@ SCAN_RULES = {
     "100-200": {"fast": 100, "slow": 200, "label": "100 / 200 EMA cross"},
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
 }
-SCAN_WINDOW_SESSIONS = 15
+SCAN_WINDOW_SESSIONS = 60
 RSI_PERIOD = 14
 ADX_PERIOD = 14
 MIN_RSI = 50
@@ -655,7 +655,7 @@ def find_cross(
                 "sparkline": sparkline,
             }
             cross["quality"] = quality_checks(cross)
-            if not cross["quality"]["passed"] or not market_confirmed:
+            if not cross["quality"]["passed"]:
                 continue
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
