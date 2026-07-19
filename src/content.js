@@ -24,7 +24,9 @@ export const experience = [
     highlights: [
       "Engineered Azure DevOps release pipelines for Windows and Kubernetes services, enabling weekly Live Service Upgrades with 40% faster deployment times and 60% fewer manual errors.",
       "Designed end-to-end DevOps workflows across pipeline creation, Kubernetes deployment, and security-tool integration with cross-functional teams.",
-      "Troubleshoot environment issues, isolate failing services, and support client test environments for Saxo Bank trading platforms."
+      "Troubleshoot environment issues, isolate failing services, and support client test environments for Saxo Bank trading platforms.",
+      "Led the migration of AKS-hosted services to on-premises Kubernetes clusters, coordinating networking, storage, and workload cutover to reduce cloud costs while maintaining service reliability.",
+      "Built and maintained n8n automation workflows to streamline operational tasks, integrate monitoring alerts, and orchestrate cross-team notifications, reducing manual intervention in routine DevOps processes."
     ]
   },
   {

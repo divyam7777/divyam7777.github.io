@@ -197,6 +197,7 @@ function App() {
     { label: "View projects", href: "#projects", icon: ServerCog },
     { label: "Inspect stack", href: "#stack", icon: Layers3 },
     { label: "Read blog", href: "/blog", icon: BookOpen },
+    { label: "Stocks info", href: "/stocks/", icon: ArrowUpRight },
     { label: "Email Divyam", href: socialLinks.email, icon: Mail },
     { label: "Open GitHub", href: socialLinks.github, icon: Github }
   ];
@@ -244,6 +245,7 @@ function App() {
           <a href="#projects" className={activeSection === "projects" ? "is-active" : ""}><ServerCog size={16} />Projects</a>
           <a href="#stack" className={activeSection === "stack" || activeSection === "skills" ? "is-active" : ""}><Layers3 size={16} />Stack</a>
           <a href="#blog" className={activeSection === "blog" ? "is-active" : ""} aria-label="View blog section"><BookOpen size={16} />Blog</a>
+          <a href="/stocks/" aria-label="Open stocks scanner"><ArrowUpRight size={16} />Stocks Info</a>
           <a href="#contact" className={activeSection === "contact" ? "is-active" : ""}><Mail size={16} />Contact</a>
         </div>
         <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
@@ -268,6 +270,7 @@ function App() {
             <a href="#projects" className="button button-primary"><ServerCog size={18} />View Projects</a>
             <a href={profile.resumeUrl} className="button button-secondary" download><Download size={18} />Resume</a>
             <a href="/blog" className="button button-secondary"><BookOpen size={18} />Blog</a>
+            <a href="/stocks/" className="button button-secondary"><ArrowUpRight size={18} />Stocks Info</a>
           </div>
           <div className="devops-command live-terminal" aria-label="Live DevOps terminal"><Terminal size={17} /><code>$ {terminalLine}<span className="cursor">_</span></code></div>
           <div className="hero-meta">

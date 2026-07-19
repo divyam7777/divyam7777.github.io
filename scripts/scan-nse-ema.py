@@ -28,7 +28,19 @@ SCAN_RULES = {
     "100-200": {"fast": 100, "slow": 200, "label": "100 / 200 EMA cross"},
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
 }
-SCAN_WINDOW_SESSIONS = 60
+SCAN_WINDOW_SESSIONS = 15
+RSI_PERIOD = 14
+ADX_PERIOD = 14
+MIN_RSI = 50
+MAX_RSI = 70
+MIN_ADX = 20
+MIN_VOLUME_MULTIPLE = 1.5
+MIN_AVERAGE_TURNOVER = 100_000_000
+MAX_DISTANCE_FROM_FAST_EMA_PCT = 10
+MARKET_TREND_SYMBOLS = [
+    ("^NSEI", "Nifty 50"),
+    ("NIFTYBEES.NS", "Nifty Bees"),
+]
 DEFAULT_OUTPUT_DIR = Path("public/data")
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
@@ -88,6 +100,43 @@ def fetch_market_metadata() -> dict[str, dict[str, str]]:
     return metadata
 
 
+def load_cached_universe(limit: int | None = None) -> list[Stock]:
+    fallback_paths = [
+        DEFAULT_OUTPUT_DIR / "ema-100-200-crosses.json",
+        Path("data/ema-100-200-crosses.json"),
+        Path("stocks/data/ema-100-200-crosses.json"),
+    ]
+
+    for path in fallback_paths:
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            rows = payload.get("universe") or []
+            stocks = []
+            for row in rows:
+                symbol = str(row.get("symbol", "")).upper().replace(".NS", "").strip()
+                if not symbol:
+                    continue
+                stocks.append(
+                    Stock(
+                        symbol=symbol,
+                        name=row.get("name", symbol),
+                        market_cap=row.get("marketCap", "other"),
+                        sector=row.get("sector", "Unclassified"),
+                        isin=row.get("isin", ""),
+                    )
+                )
+            if stocks:
+                stocks = sorted(stocks, key=lambda stock: stock.symbol)
+                print(f"Using cached NSE universe from {path} because the live NSE universe was unavailable.")
+                return stocks[:limit] if limit else stocks
+        except Exception as exc:
+            print(f"Failed to read cached universe from {path}: {exc}")
+
+    return []
+
+
 def classify_symbol(symbol: str, market_metadata: dict[str, dict[str, str]]) -> str:
     return market_metadata.get(symbol, {}).get("marketCap", "other")
 
@@ -97,7 +146,14 @@ def sector_for_symbol(symbol: str, market_metadata: dict[str, dict[str, str]]) -
 
 
 def fetch_nse_universe(limit: int | None = None) -> list[Stock]:
-    text = fetch_text(NSE_EQUITY_URL)
+    try:
+        text = fetch_text(NSE_EQUITY_URL)
+    except Exception:
+        cached = load_cached_universe(limit=limit)
+        if cached:
+            return cached
+        raise
+
     market_metadata = fetch_market_metadata()
     stocks: list[Stock] = []
 
@@ -162,25 +218,29 @@ def yahoo_symbol_to_nse(raw_symbol: str) -> str:
     return decoded[:-3].upper() if decoded.upper().endswith(".NS") else decoded.upper()
 
 
-def fetch_chart_data(stock: Stock) -> tuple[str, dict[str, list[float] | list[int]] | None, str | None]:
-    import random
-    time.sleep(random.uniform(0.01, 0.04))
-    symbol = f"{stock.symbol}.NS"
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(symbol, safe='.-')}?range=2y&interval=1d"
+def fetch_yahoo_chart(symbol: str) -> tuple[dict[str, list[float] | list[int]] | None, str | None]:
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(symbol, safe='.-^')}?range=2y&interval=1d"
     try:
         request = Request(url, headers={"User-Agent": REQUEST_HEADERS["User-Agent"], "Accept": "application/json,*/*"})
         with urlopen(request, timeout=15) as response:
             payload = json.loads(response.read().decode("utf-8"))
             result = payload.get("chart", {}).get("result")
             if not result:
-                return stock.symbol, None, "no chart result returned"
-            data = result[0]
-            parsed = parse_price_response(data)
+                return None, "no chart result returned"
+            parsed = parse_price_response(result[0])
             if not parsed:
-                return stock.symbol, None, "failed to parse daily candle data"
-            return stock.symbol, parsed, None
+                return None, "failed to parse daily candle data"
+            return parsed, None
     except Exception as exc:
-        return stock.symbol, None, str(exc)
+        return None, str(exc)
+
+
+def fetch_chart_data(stock: Stock) -> tuple[str, dict[str, list[float] | list[int]] | None, str | None]:
+    import random
+    time.sleep(random.uniform(0.01, 0.04))
+    symbol = f"{stock.symbol}.NS"
+    parsed, error = fetch_yahoo_chart(symbol)
+    return stock.symbol, parsed, error
 
 
 def fetch_all_prices(universe: list[Stock], batch_size: int = 20) -> tuple[dict[str, dict[str, list[float] | list[int]]], list[dict[str, str]]]:
@@ -224,25 +284,196 @@ def average(values: list[int], count: int) -> float:
     return sum(sample) / len(sample) if sample else 0
 
 
+def trailing_average(values: list[float] | list[int], end_index: int, count: int) -> float:
+    if end_index < 0:
+        return 0
+    start = max(0, end_index - count + 1)
+    sample = [float(value) for value in values[start : end_index + 1]]
+    return sum(sample) / len(sample) if sample else 0
+
+
+def rsi(values: list[float], period: int = RSI_PERIOD) -> list[float | None]:
+    output: list[float | None] = [None] * len(values)
+    if len(values) <= period:
+        return output
+
+    gains = [0.0] * len(values)
+    losses = [0.0] * len(values)
+    for index in range(1, len(values)):
+        change = values[index] - values[index - 1]
+        gains[index] = max(change, 0)
+        losses[index] = max(-change, 0)
+
+    average_gain = sum(gains[1 : period + 1]) / period
+    average_loss = sum(losses[1 : period + 1]) / period
+    output[period] = 100 if average_loss == 0 else 100 - (100 / (1 + average_gain / average_loss))
+
+    for index in range(period + 1, len(values)):
+        average_gain = ((average_gain * (period - 1)) + gains[index]) / period
+        average_loss = ((average_loss * (period - 1)) + losses[index]) / period
+        output[index] = 100 if average_loss == 0 else 100 - (100 / (1 + average_gain / average_loss))
+
+    return output
+
+
+def adx(highs: list[float], lows: list[float], closes: list[float], period: int = ADX_PERIOD) -> dict[str, list[float | None]]:
+    length = min(len(highs), len(lows), len(closes))
+    adx_values: list[float | None] = [None] * length
+    plus_di_values: list[float | None] = [None] * length
+    minus_di_values: list[float | None] = [None] * length
+
+    if length <= period * 2:
+        return {"adx": adx_values, "plusDi": plus_di_values, "minusDi": minus_di_values}
+
+    true_ranges = [0.0] * length
+    plus_dm = [0.0] * length
+    minus_dm = [0.0] * length
+
+    for index in range(1, length):
+        high = float(highs[index])
+        low = float(lows[index])
+        previous_high = float(highs[index - 1])
+        previous_low = float(lows[index - 1])
+        previous_close = float(closes[index - 1])
+
+        true_ranges[index] = max(high - low, abs(high - previous_close), abs(low - previous_close))
+        up_move = high - previous_high
+        down_move = previous_low - low
+        plus_dm[index] = up_move if up_move > down_move and up_move > 0 else 0
+        minus_dm[index] = down_move if down_move > up_move and down_move > 0 else 0
+
+    smoothed_tr = sum(true_ranges[1 : period + 1])
+    smoothed_plus_dm = sum(plus_dm[1 : period + 1])
+    smoothed_minus_dm = sum(minus_dm[1 : period + 1])
+    dx_values: list[float | None] = [None] * length
+
+    for index in range(period, length):
+        if index > period:
+            smoothed_tr = smoothed_tr - (smoothed_tr / period) + true_ranges[index]
+            smoothed_plus_dm = smoothed_plus_dm - (smoothed_plus_dm / period) + plus_dm[index]
+            smoothed_minus_dm = smoothed_minus_dm - (smoothed_minus_dm / period) + minus_dm[index]
+
+        plus_di = 100 * (smoothed_plus_dm / smoothed_tr) if smoothed_tr else 0
+        minus_di = 100 * (smoothed_minus_dm / smoothed_tr) if smoothed_tr else 0
+        plus_di_values[index] = plus_di
+        minus_di_values[index] = minus_di
+        denominator = plus_di + minus_di
+        dx_values[index] = 100 * abs(plus_di - minus_di) / denominator if denominator else 0
+
+        if index == period * 2:
+            seed_values = [value for value in dx_values[period + 1 : index + 1] if value is not None]
+            adx_values[index] = sum(seed_values) / len(seed_values) if seed_values else None
+        elif index > period * 2 and adx_values[index - 1] is not None and dx_values[index] is not None:
+            adx_values[index] = ((float(adx_values[index - 1]) * (period - 1)) + float(dx_values[index])) / period
+
+    return {"adx": adx_values, "plusDi": plus_di_values, "minusDi": minus_di_values}
+
+
+def build_market_trend() -> dict:
+    for symbol, label in MARKET_TREND_SYMBOLS:
+        candles, error = fetch_yahoo_chart(symbol)
+        if not candles:
+            continue
+        closes = [float(value) for value in candles.get("closes", [])]
+        timestamps = candles.get("timestamps", [])
+        ema200 = ema(closes, 200)
+        if not closes or not ema200 or ema200[-1] is None:
+            continue
+        latest_close = float(closes[-1])
+        latest_ema200 = float(ema200[-1])
+        return {
+            "symbol": symbol,
+            "label": label,
+            "latestClose": round(latest_close, 2),
+            "ema200": round(latest_ema200, 2),
+            "timestamp": timestamps[-1] if timestamps else None,
+            "isBullish": latest_close > latest_ema200,
+            "filterApplied": True,
+        }
+
+    return {
+        "symbol": None,
+        "label": "Nifty 50",
+        "latestClose": None,
+        "ema200": None,
+        "timestamp": None,
+        "isBullish": None,
+        "filterApplied": False,
+        "warning": "Nifty trend data was unavailable, so the market trend gate could not be applied.",
+    }
+
+
+def quality_checks(cross: dict) -> dict:
+    latest_close = float(cross.get("latestClose") or 0)
+    latest_fast = float(cross.get("latestFastEma") or 0)
+    latest_slow = float(cross.get("latestSlowEma") or 0)
+    latest_volume = float(cross.get("latestVolume") or 0)
+    average_volume = float(cross.get("averageVolume20") or 0)
+    average_turnover = float(cross.get("averageTurnover20") or 0)
+    latest_rsi = cross.get("rsi14")
+    latest_adx = cross.get("adx14")
+    plus_di = cross.get("plusDi14")
+    minus_di = cross.get("minusDi14")
+    distance_from_fast = cross.get("distanceFromFastEmaPct")
+    fast_slope = cross.get("fastEmaSlopePct")
+
+    checks = {
+        "bullishSetup": cross.get("type") == "bullish",
+        "priceAboveEmaStack": latest_close > latest_fast > latest_slow,
+        "fastEmaSlopePositive": fast_slope is not None and float(fast_slope) > 0,
+        "notOverextended": distance_from_fast is not None and float(distance_from_fast) <= MAX_DISTANCE_FROM_FAST_EMA_PCT,
+        "volumeConfirmed": average_volume > 0 and latest_volume >= average_volume * MIN_VOLUME_MULTIPLE,
+        "liquidTurnover": average_turnover >= MIN_AVERAGE_TURNOVER,
+        "rsiHealthy": latest_rsi is not None and MIN_RSI <= float(latest_rsi) <= MAX_RSI,
+        "adxTrendConfirmed": (
+            latest_adx is not None
+            and plus_di is not None
+            and minus_di is not None
+            and float(latest_adx) > MIN_ADX
+            and float(plus_di) > float(minus_di)
+        ),
+    }
+    labels = {
+        "bullishSetup": "Bullish EMA crossover",
+        "priceAboveEmaStack": "Close is above EMA stack",
+        "fastEmaSlopePositive": "EMA slope is positive",
+        "notOverextended": f"Price is within {MAX_DISTANCE_FROM_FAST_EMA_PCT}% of fast EMA",
+        "volumeConfirmed": f"Volume is at least {MIN_VOLUME_MULTIPLE}x 20-session average",
+        "liquidTurnover": "20-session average turnover is at least Rs. 10 crore",
+        "rsiHealthy": f"RSI {RSI_PERIOD} is between {MIN_RSI} and {MAX_RSI}",
+        "adxTrendConfirmed": f"ADX {ADX_PERIOD} is above {MIN_ADX} with +DI above -DI",
+    }
+    failed = [labels[key] for key, passed in checks.items() if not passed]
+    return {
+        "passed": not failed,
+        "checks": checks,
+        "failed": failed,
+    }
+
+
 def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
-    score = 42
+    score = 50
     reasons = []
     sessions_ago = cross["sessionsAgo"]
     close = float(cross["close"])
     fast = float(cross["fastEma"])
     slow = float(cross["slowEma"])
-    volume = int(cross.get("volume", 0) or 0)
+    volume = int(cross.get("latestVolume", cross.get("volume", 0)) or 0)
     average_volume = float(cross.get("averageVolume20", 0) or 0)
+    average_turnover = float(cross.get("averageTurnover20", 0) or 0)
+    rsi_value = cross.get("rsi14")
+    adx_value = cross.get("adx14")
+    distance_from_fast = cross.get("distanceFromFastEmaPct")
     spread_pct = abs(fast - slow) / close * 100 if close else 0
 
     if sessions_ago == 0:
-        score += 24
+        score += 15
         reasons.append("Fresh crossover in the latest daily candle")
     elif sessions_ago <= 5:
-        score += 17
+        score += 10
         reasons.append("Crossover happened within the last 5 sessions")
     else:
-        score += 9
+        score += 5
         reasons.append(f"Crossover is still inside the {SCAN_WINDOW_SESSIONS}-session window")
 
     if spread_pct >= 2:
@@ -260,25 +491,68 @@ def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
         else close < fast < slow
     )
     if aligned:
-        score += 13
+        score += 8
         reasons.append(f"Close confirms the {fast_period}/{slow_period} EMA direction")
     else:
-        score += 5
+        score += 2
         reasons.append("Close is near the moving-average zone")
 
-    if average_volume and volume >= average_volume * 1.25:
-        score += 12
-        reasons.append("Volume is above the 20-session average")
-    elif average_volume and volume >= average_volume:
-        score += 7
-        reasons.append("Volume is at or above its 20-session average")
+    if average_volume:
+        volume_multiple = volume / average_volume
+        if volume_multiple >= 2:
+            score += 12
+            reasons.append("Latest volume is at least 2x the 20-session average")
+        elif volume_multiple >= MIN_VOLUME_MULTIPLE:
+            score += 8
+            reasons.append("Latest volume confirms the breakout")
+
+    if average_turnover >= MIN_AVERAGE_TURNOVER * 5:
+        score += 8
+        reasons.append("High liquidity with Rs. 50 crore plus average turnover")
+    elif average_turnover >= MIN_AVERAGE_TURNOVER:
+        score += 5
+        reasons.append("Liquidity passes the Rs. 10 crore turnover filter")
+
+    if rsi_value is not None:
+        rsi_float = float(rsi_value)
+        if 55 <= rsi_float <= 65:
+            score += 10
+            reasons.append("RSI is in a strong but not overheated zone")
+        elif MIN_RSI <= rsi_float <= MAX_RSI:
+            score += 6
+            reasons.append("RSI confirms bullish momentum without overextension")
+
+    if adx_value is not None:
+        adx_float = float(adx_value)
+        if adx_float >= 30:
+            score += 10
+            reasons.append("ADX shows a strong trend")
+        elif adx_float > MIN_ADX:
+            score += 6
+            reasons.append("ADX confirms trend strength")
+
+    if distance_from_fast is not None:
+        distance = float(distance_from_fast)
+        if distance <= 3:
+            score += 8
+            reasons.append("Price is still close to the fast EMA")
+        elif distance <= 6:
+            score += 5
+            reasons.append("Price is not too far above the fast EMA")
+        elif distance <= MAX_DISTANCE_FROM_FAST_EMA_PCT:
+            score += 2
+            reasons.append("Price is below the overextension limit")
+
+    if cross.get("marketTrendConfirmed"):
+        score += 5
+        reasons.append("Nifty 50 is above its 200 EMA")
 
     value = max(0, min(100, round(score)))
-    if value >= 82:
+    if value >= 85:
         grade = "A"
-    elif value >= 68:
+    elif value >= 75:
         grade = "B"
-    elif value >= 54:
+    elif value >= 60:
         grade = "C"
     else:
         grade = "D"
@@ -287,16 +561,34 @@ def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
         "value": value,
         "grade": grade,
         "emaSpreadPct": round(spread_pct, 2),
-        "reasons": reasons[:4],
+        "reasons": reasons[:6],
     }
 
 
-def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], highs: list[float], lows: list[float], fast_period: int, slow_period: int, window: int = SCAN_WINDOW_SESSIONS) -> dict | None:
+def find_cross(
+    closes: list[float],
+    timestamps: list[int],
+    volumes: list[int],
+    highs: list[float],
+    lows: list[float],
+    fast_period: int,
+    slow_period: int,
+    market_trend: dict,
+    window: int = SCAN_WINDOW_SESSIONS,
+) -> dict | None:
     fast_ema = ema(closes, fast_period)
     slow_ema = ema(closes, slow_period)
+    rsi_values = rsi(closes)
+    adx_values = adx(highs, lows, closes)
     start = max(1, len(closes) - window)
+    latest_index = len(closes) - 1
+    latest_fast = fast_ema[latest_index]
+    latest_slow = slow_ema[latest_index]
 
-    for index in range(start, len(closes)):
+    if latest_fast is None or latest_slow is None:
+        return None
+
+    for index in range(len(closes) - 1, start - 1, -1):
         if None in (fast_ema[index - 1], slow_ema[index - 1], fast_ema[index], slow_ema[index]):
             continue
         previous = float(fast_ema[index - 1]) - float(slow_ema[index - 1])
@@ -317,13 +609,25 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], h
                 high_days_after_cross = 0
             
             high_after_cross_pct = ((high_after_cross - cross_close) / cross_close * 100) if cross_close else 0
+            latest_volume = volumes[latest_index] if latest_index < len(volumes) else 0
+            average_volume_20 = average(volumes, 20)
+            average_turnover_20 = trailing_average(
+                [float(close) * int(volumes[idx] if idx < len(volumes) else 0) for idx, close in enumerate(closes)],
+                latest_index,
+                20,
+            )
+            fast_slope_pct = None
+            if fast_ema[latest_index - 1] is not None and fast_ema[latest_index - 1]:
+                fast_slope_pct = (float(fast_ema[latest_index]) - float(fast_ema[latest_index - 1])) / float(fast_ema[latest_index - 1]) * 100
+            distance_from_fast = ((latest_close - float(latest_fast)) / float(latest_fast) * 100) if latest_fast else None
+            market_confirmed = market_trend.get("isBullish") is True if market_trend.get("filterApplied") else True
             cross = {
                 "type": "bullish",
                 "sessionsAgo": len(closes) - 1 - index,
                 "fastEma": fast_ema[index],
                 "slowEma": slow_ema[index],
-                "latestFastEma": round(fast_ema[-1], 2) if fast_ema[-1] is not None else None,
-                "latestSlowEma": round(slow_ema[-1], 2) if slow_ema[-1] is not None else None,
+                "latestFastEma": round(float(latest_fast), 2),
+                "latestSlowEma": round(float(latest_slow), 2),
                 "close": cross_close,
                 "crossClose": cross_close,
                 "highAfterCross": round(high_after_cross, 2),
@@ -333,44 +637,26 @@ def find_cross(closes: list[float], timestamps: list[int], volumes: list[int], h
                 "latestTimestamp": latest_timestamp,
                 "priceChange": round(price_change, 2),
                 "priceChangePct": round(price_change_pct, 2),
-                "volume": volumes[index] if index < len(volumes) else 0,
-                "averageVolume20": average(volumes[: index + 1], 20),
+                "volume": latest_volume,
+                "crossVolume": volumes[index] if index < len(volumes) else 0,
+                "latestVolume": latest_volume,
+                "averageVolume20": round(average_volume_20, 2),
+                "volumeMultiple": round(latest_volume / average_volume_20, 2) if average_volume_20 else 0,
+                "averageTurnover20": round(average_turnover_20, 2),
+                "averageTurnover20Crore": round(average_turnover_20 / 10_000_000, 2),
+                "rsi14": round(float(rsi_values[latest_index]), 2) if rsi_values[latest_index] is not None else None,
+                "adx14": round(float(adx_values["adx"][latest_index]), 2) if adx_values["adx"][latest_index] is not None else None,
+                "plusDi14": round(float(adx_values["plusDi"][latest_index]), 2) if adx_values["plusDi"][latest_index] is not None else None,
+                "minusDi14": round(float(adx_values["minusDi"][latest_index]), 2) if adx_values["minusDi"][latest_index] is not None else None,
+                "distanceFromFastEmaPct": round(distance_from_fast, 2) if distance_from_fast is not None else None,
+                "fastEmaSlopePct": round(fast_slope_pct, 3) if fast_slope_pct is not None else None,
+                "marketTrendConfirmed": market_confirmed,
                 "timestamp": timestamps[index],
                 "sparkline": sparkline,
             }
-            cross["score"] = signal_score(cross, fast_period, slow_period)
-            return cross
-        if previous >= 0 and current < 0:
-            if index < len(lows):
-                low_slice = lows[index:]
-                low_after_cross = min(low_slice)
-                low_days_after_cross = low_slice.index(low_after_cross)
-            else:
-                low_after_cross = cross_close
-                low_days_after_cross = 0
-
-            low_after_cross_pct = ((low_after_cross - cross_close) / cross_close * 100) if cross_close else 0
-            cross = {
-                "type": "bearish",
-                "sessionsAgo": len(closes) - 1 - index,
-                "fastEma": fast_ema[index],
-                "slowEma": slow_ema[index],
-                "latestFastEma": round(fast_ema[-1], 2) if fast_ema[-1] is not None else None,
-                "latestSlowEma": round(slow_ema[-1], 2) if slow_ema[-1] is not None else None,
-                "close": cross_close,
-                "crossClose": cross_close,
-                "lowAfterCross": round(low_after_cross, 2),
-                "lowAfterCrossPct": round(low_after_cross_pct, 2),
-                "lowDaysAfterCross": low_days_after_cross,
-                "latestClose": latest_close,
-                "latestTimestamp": latest_timestamp,
-                "priceChange": round(price_change, 2),
-                "priceChangePct": round(price_change_pct, 2),
-                "volume": volumes[index] if index < len(volumes) else 0,
-                "averageVolume20": average(volumes[: index + 1], 20),
-                "timestamp": timestamps[index],
-                "sparkline": sparkline,
-            }
+            cross["quality"] = quality_checks(cross)
+            if not cross["quality"]["passed"] or not market_confirmed:
+                continue
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
     return None
@@ -392,6 +678,7 @@ def build_scan_payload(
     price_data: dict[str, dict[str, list[float] | list[int]]],
     fetch_failures: list[dict[str, str]],
     generated_at: str,
+    market_trend: dict,
 ) -> dict:
     rule = SCAN_RULES[scan_id]
     fast_period = rule["fast"]
@@ -411,7 +698,7 @@ def build_scan_payload(
         if len(closes) < slow_period + SCAN_WINDOW_SESSIONS:
             skipped.append({"symbol": stock.symbol, "reason": f"needs at least {slow_period + SCAN_WINDOW_SESSIONS} daily candles"})
             continue
-        cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period)
+        cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend)
         if cross:
             results.append({**stock_to_json(stock), **cross})
 
@@ -427,10 +714,21 @@ def build_scan_payload(
         "market": "NSE India",
         "scanId": scan_id,
         "label": rule["label"],
-        "rule": f"{fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions",
+        "rule": f"Bullish {fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
         "fastPeriod": fast_period,
         "slowPeriod": slow_period,
         "windowSessions": SCAN_WINDOW_SESSIONS,
+        "filters": {
+            "direction": "bullish only",
+            "priceStack": f"latest close > EMA {fast_period} > EMA {slow_period}",
+            "maxDistanceFromFastEmaPct": MAX_DISTANCE_FROM_FAST_EMA_PCT,
+            "volumeMultiple": MIN_VOLUME_MULTIPLE,
+            "minimumAverageTurnover": MIN_AVERAGE_TURNOVER,
+            "rsi": {"period": RSI_PERIOD, "min": MIN_RSI, "max": MAX_RSI},
+            "adx": {"period": ADX_PERIOD, "min": MIN_ADX, "requiresPlusDiAboveMinusDi": True},
+            "marketTrend": "Nifty 50 close > Nifty 50 EMA 200 when index data is available",
+        },
+        "marketTrend": market_trend,
         "generatedAt": generated_at,
         "dataSource": {
             "universe": NSE_EQUITY_URL,
@@ -465,6 +763,7 @@ def main() -> None:
     output_dir = Path(args.output_dir)
     generated_at = datetime.now(timezone.utc).isoformat()
     universe = fetch_nse_universe(limit=args.limit)
+    market_trend = build_market_trend()
     prices, failures = fetch_all_prices(universe)
 
     manifest = {
@@ -473,11 +772,12 @@ def main() -> None:
         "universeSize": len(universe),
         "pricedUniverseSize": len(prices),
         "failureCount": len(failures),
+        "marketTrend": market_trend,
         "availableScans": [],
     }
 
     for scan_id in SCAN_RULES:
-        payload = build_scan_payload(scan_id, universe, prices, failures, generated_at)
+        payload = build_scan_payload(scan_id, universe, prices, failures, generated_at, market_trend)
         file_name = f"ema-{scan_id}-crosses.json"
         write_json(output_dir / file_name, payload)
         manifest["availableScans"].append(
@@ -492,7 +792,7 @@ def main() -> None:
         print(json.dumps({"scanId": scan_id, "results": payload["resultCount"]}, indent=2))
 
     # Backward-compatible alias for the first scanner used by the original UI.
-    write_json(output_dir / "ema-crosses.json", build_scan_payload("100-200", universe, prices, failures, generated_at))
+    write_json(output_dir / "ema-crosses.json", build_scan_payload("100-200", universe, prices, failures, generated_at, market_trend))
     write_json(output_dir / "scan-manifest.json", manifest)
     print(json.dumps(manifest, indent=2))
 
