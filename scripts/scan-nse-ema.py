@@ -655,8 +655,6 @@ def find_cross(
                 "sparkline": sparkline,
             }
             cross["quality"] = quality_checks(cross)
-            if not cross["quality"]["passed"]:
-                continue
             cross["score"] = signal_score(cross, fast_period, slow_period)
             return cross
     return None
