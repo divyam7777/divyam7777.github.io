@@ -785,12 +785,19 @@ def main() -> None:
                 "file": file_name,
                 "resultCount": payload["resultCount"],
                 "rule": payload["rule"],
+        file_name = f"ema-{scan_id}-crosses.json"
+        write_json(output_dir / file_name, payload)
+        manifest["availableScans"].append(
+            {
+                "scanId": scan_id,
+                "label": payload["label"],
+                "file": file_name,
+                "resultCount": payload["resultCount"],
+                "rule": payload["rule"],
             }
         )
         print(json.dumps({"scanId": scan_id, "results": payload["resultCount"]}, indent=2))
 
-    # Backward-compatible alias for the first scanner used by the original UI.
-    write_json(output_dir / "ema-crosses.json", build_scan_payload("100-200", universe, prices, failures, generated_at, market_trend))
     write_json(output_dir / "scan-manifest.json", manifest)
     print(json.dumps(manifest, indent=2))
 
