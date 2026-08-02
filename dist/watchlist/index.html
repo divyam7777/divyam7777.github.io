@@ -1380,12 +1380,12 @@
             <div class="quality-rules" id="qualityRules" aria-label="Built-in quality filters — click to toggle">
               <button type="button" data-quality-check="bullishSetup"><strong>Built-in:</strong> Bullish only</button>
               <button type="button" data-quality-check="priceAboveEmaStack">Close &gt; EMA stack</button>
-              <button type="button" data-quality-check="notOverextended">Within 10% of fast EMA</button>
+              <button type="button" data-quality-check="notOverextended" class="is-off">Within 10% of fast EMA</button>
               <button type="button" data-quality-check="volumeConfirmed">Volume &gt;= 1.5x avg</button>
               <button type="button" data-quality-check="liquidTurnover">Avg turnover &gt;= Rs. 10 crore</button>
-              <button type="button" data-quality-check="rsiHealthy">RSI 50-70</button>
+              <button type="button" data-quality-check="rsiHealthy" class="is-off">RSI 50-70</button>
               <button type="button" data-quality-check="adxTrendConfirmed">ADX &gt; 20 and +DI &gt; -DI</button>
-              <button type="button" data-quality-check="marketTrendConfirmed">Nifty above EMA 200</button>
+              <button type="button" data-quality-check="marketTrendConfirmed" class="is-off">Nifty above EMA 200</button>
             </div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
@@ -1528,7 +1528,8 @@
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
       const allQualityKeys = ["bullishSetup", "priceAboveEmaStack", "notOverextended", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed", "marketTrendConfirmed"];
-      let activeQualityChecks = new Set(allQualityKeys);
+      const defaultQualityKeys = ["bullishSetup", "priceAboveEmaStack", "volumeConfirmed", "liquidTurnover", "adxTrendConfirmed"];
+      let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
 
       function normalizeSymbol(symbol) {
