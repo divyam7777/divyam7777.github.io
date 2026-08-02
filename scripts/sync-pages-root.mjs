@@ -73,7 +73,10 @@ if (await exists(stocksIndex)) {
   }
 }
 
-// Do not overwrite portfolio with home page
+// Use the home page as the root index
+if (await exists(homeIndex)) {
+  await cp(homeIndex, portfolioIndex, { force: true });
+}
 
 for (const dir of generatedDirs) {
   const from = resolve(distDir, dir);
