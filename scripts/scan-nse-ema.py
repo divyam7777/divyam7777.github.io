@@ -785,6 +785,7 @@ def main() -> None:
                 "file": file_name,
                 "resultCount": payload["resultCount"],
                 "rule": payload["rule"],
+            }
         file_name = f"ema-{scan_id}-crosses.json"
         write_json(output_dir / file_name, payload)
         manifest["availableScans"].append(
