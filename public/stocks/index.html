@@ -1382,7 +1382,7 @@
               <button type="button" data-quality-check="bullishSetup"><strong>Built-in:</strong> Bullish only</button>
               <button type="button" data-quality-check="priceAboveEmaStack">Close &gt; EMA stack</button>
               <button type="button" data-quality-check="notOverextended" class="is-off">Within 10% of fast EMA</button>
-              <button type="button" data-quality-check="volumeConfirmed">Volume &gt;= 1.5x avg</button>
+              <button type="button" data-quality-check="volumeConfirmed" class="is-off">Volume &gt;= 1.5x avg</button>
               <button type="button" data-quality-check="liquidTurnover">Avg turnover &gt;= Rs. 10 crore</button>
               <button type="button" data-quality-check="rsiHealthy" class="is-off">RSI 50-70</button>
               <button type="button" data-quality-check="adxTrendConfirmed">ADX &gt; 20 and +DI &gt; -DI</button>
@@ -1529,7 +1529,7 @@
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
       const allQualityKeys = ["bullishSetup", "priceAboveEmaStack", "notOverextended", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed", "marketTrendConfirmed"];
-      const defaultQualityKeys = ["bullishSetup", "priceAboveEmaStack", "volumeConfirmed", "liquidTurnover", "adxTrendConfirmed"];
+      const defaultQualityKeys = ["bullishSetup", "priceAboveEmaStack", "liquidTurnover", "adxTrendConfirmed"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
 

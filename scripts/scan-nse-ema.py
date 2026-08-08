@@ -408,6 +408,8 @@ def quality_checks(cross: dict) -> dict:
     latest_fast = float(cross.get("latestFastEma") or 0)
     latest_slow = float(cross.get("latestSlowEma") or 0)
     latest_volume = float(cross.get("latestVolume") or 0)
+    cross_volume = float(cross.get("crossVolume") or 0)
+    cross_average_volume = float(cross.get("crossAverageVolume20") or 0)
     average_volume = float(cross.get("averageVolume20") or 0)
     average_turnover = float(cross.get("averageTurnover20") or 0)
     latest_rsi = cross.get("rsi14")
@@ -422,7 +424,7 @@ def quality_checks(cross: dict) -> dict:
         "priceAboveEmaStack": latest_close > latest_fast > latest_slow,
         "fastEmaSlopePositive": fast_slope is not None and float(fast_slope) > 0,
         "notOverextended": distance_from_fast is not None and float(distance_from_fast) <= MAX_DISTANCE_FROM_FAST_EMA_PCT,
-        "volumeConfirmed": average_volume > 0 and latest_volume >= average_volume * MIN_VOLUME_MULTIPLE,
+        "volumeConfirmed": cross_average_volume > 0 and cross_volume >= cross_average_volume * MIN_VOLUME_MULTIPLE,
         "liquidTurnover": average_turnover >= MIN_AVERAGE_TURNOVER,
         "rsiHealthy": latest_rsi is not None and MIN_RSI <= float(latest_rsi) <= MAX_RSI,
         "adxTrendConfirmed": (
@@ -610,6 +612,8 @@ def find_cross(
             
             high_after_cross_pct = ((high_after_cross - cross_close) / cross_close * 100) if cross_close else 0
             latest_volume = volumes[latest_index] if latest_index < len(volumes) else 0
+            cross_volume = volumes[index] if index < len(volumes) else 0
+            cross_average_volume_20 = trailing_average(volumes, index, 20)
             average_volume_20 = average(volumes, 20)
             average_turnover_20 = trailing_average(
                 [float(close) * int(volumes[idx] if idx < len(volumes) else 0) for idx, close in enumerate(closes)],
@@ -638,10 +642,11 @@ def find_cross(
                 "priceChange": round(price_change, 2),
                 "priceChangePct": round(price_change_pct, 2),
                 "volume": latest_volume,
-                "crossVolume": volumes[index] if index < len(volumes) else 0,
+                "crossVolume": cross_volume,
                 "latestVolume": latest_volume,
+                "crossAverageVolume20": round(cross_average_volume_20, 2),
                 "averageVolume20": round(average_volume_20, 2),
-                "volumeMultiple": round(latest_volume / average_volume_20, 2) if average_volume_20 else 0,
+                "volumeMultiple": round(cross_volume / cross_average_volume_20, 2) if cross_average_volume_20 else 0,
                 "averageTurnover20": round(average_turnover_20, 2),
                 "averageTurnover20Crore": round(average_turnover_20 / 10_000_000, 2),
                 "rsi14": round(float(rsi_values[latest_index]), 2) if rsi_values[latest_index] is not None else None,
