@@ -618,7 +618,7 @@
         border-radius: 16px;
         padding: 24px;
         position: sticky;
-        top: 24px;
+        top: 112px;
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -687,24 +687,14 @@
         grid-column: 1 / -1;
         position: relative;
         overflow: hidden;
-        border: 1px solid var(--line);
         border-radius: 30px;
         padding: 12px;
         background:
-          radial-gradient(circle at 10% 0%, rgba(99, 246, 178, 0.12), transparent 34%),
-          radial-gradient(circle at 92% 0%, rgba(246, 200, 95, 0.11), transparent 30%),
+          radial-gradient(circle at 10% 0%, rgba(99, 246, 178, 0.08), transparent 34%),
+          radial-gradient(circle at 92% 0%, rgba(246, 200, 95, 0.08), transparent 30%),
           var(--panel);
-        box-shadow: var(--shadow);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(18px);
-      }
-      .result-table-shell::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        height: 2px;
-        background: linear-gradient(90deg, var(--green), var(--blue), var(--gold));
       }
       .result-table-head,
       .result-row {
@@ -732,35 +722,32 @@
         position: relative;
         overflow: hidden;
         min-width: 0;
-        border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
         border-radius: 22px;
-        padding: 14px;
-        background:
-          linear-gradient(135deg, rgba(142, 165, 255, 0.08), transparent 42%),
-          var(--control-bg);
+        padding: 16px 20px;
+        background: var(--surface);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 4px 12px rgba(0,0,0,0.1);
         cursor: pointer;
-        transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+        transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1), background-color 220ms ease, box-shadow 220ms ease;
         animation: cardIn 340ms ease both;
       }
-      .result-row::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 3px;
-        background: var(--blue);
-        opacity: 0.92;
-      }
-      .result-row.bullish::before { background: var(--green); }
-      .result-row.bearish::before { background: var(--red); }
-      .result-row.saved::before { background: var(--gold); }
       .result-row:hover,
       .result-row:focus-visible {
-        transform: translateY(-2px);
-        border-color: color-mix(in srgb, var(--green) 52%, transparent);
+        transform: scale(1.01);
         background: var(--card-hover);
-        box-shadow: 0 18px 48px rgba(2, 6, 23, 0.22);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 18px 48px rgba(2, 6, 23, 0.4);
         outline: none;
       }
+      .status-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 8px;
+        box-shadow: 0 0 12px currentColor;
+      }
+      .status-dot.bullish { color: var(--green); background: var(--green); }
+      .status-dot.bearish { color: var(--red); background: var(--red); }
+      .status-dot.saved { color: var(--gold); background: var(--gold); }
       .result-cell {
         min-width: 0;
         display: flex;
@@ -776,14 +763,20 @@
         text-transform: uppercase;
       }
       .row-symbol {
-        display: block;
+        display: flex;
+        align-items: center;
         overflow: hidden;
         color: var(--text);
-        font-size: 1.03rem;
-        font-weight: 950;
-        letter-spacing: -0.03em;
+        font-size: 1.15rem;
+        font-weight: 900;
+        letter-spacing: -0.02em;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+      .row-symbol span:not(.status-dot) {
+        background: linear-gradient(90deg, #fff, #a8b3ca);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       .row-subtext,
       .row-value-muted {
@@ -2388,7 +2381,7 @@
               <article class="result-row ${rowType}" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
                 <div class="result-cell stock-cell">
                   <span class="cell-label">Stock</span>
-                  <strong class="row-symbol">${escapeHtml(item.symbol)}.NS</strong>
+                  <strong class="row-symbol"><span class="status-dot ${rowType}"></span><span>${escapeHtml(item.symbol)}.NS</span></strong>
                   <span class="row-subtext">${escapeHtml(item.name)}</span>
                 </div>
                 <div class="result-cell price-move">
