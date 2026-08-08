@@ -602,44 +602,50 @@
 
       .results-grid { display: grid; grid-template-columns: 1fr; gap: 14px; overflow-x: auto; padding-bottom: 8px; }
       #results {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 24px;
-        align-items: start;
-      }
-      @media (min-width: 1200px) {
-        #results {
-          grid-template-columns: minmax(0, 1fr) 300px;
-        }
-      }
-      .returns-sidebar {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 24px;
-        position: sticky;
-        top: 112px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 24px;
+        align-items: stretch;
+      }
+      .returns-sidebar {
+        background: transparent;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        align-items: stretch;
       }
       .returns-sidebar h3 {
         color: var(--text);
         font-size: 1.1rem;
         font-weight: 850;
-        margin: 0 0 8px;
+        margin: 0 0 4px;
         letter-spacing: -0.01em;
+        grid-column: 1 / -1;
+      }
+      .returns-sidebar .eyebrow {
+        grid-column: 1 / -1;
       }
       .return-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-bottom: 12px;
-        border-bottom: 1px dashed var(--line);
+        padding: 12px 16px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
       }
-      .return-row:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
+      .return-row:hover {
+        transform: translateY(-2px);
+        background: var(--card-hover);
+        border-color: color-mix(in srgb, var(--green) 40%, var(--line));
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      }
+      .return-row.is-active {
+        background: var(--card-hover);
+        border-color: var(--green);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 32px rgba(99, 246, 178, 0.15);
       }
       .return-name {
         display: flex;
@@ -1426,41 +1432,38 @@
       </section>
 
       <section id="results">
-        <div class="results-grid" id="resultsGrid">
-          <div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>
-        </div>
         <aside class="returns-sidebar" id="returnsSidebar" hidden>
           <h3>🌶️ Chatpata Returns</h3>
-          <p class="eyebrow" style="margin-top: -12px; margin-bottom: 8px;">Stocks holding > 10 sessions</p>
-          <div class="return-row">
+          <p class="eyebrow" style="margin-top: -8px; margin-bottom: 8px;">Stocks holding > 10 sessions. Click to filter.</p>
+          <div class="return-row" data-chatpata-filter="50">
             <div class="return-name">
               <strong>Chhappar Phaad Ke 🚀</strong>
               <span>&gt; 50%</span>
             </div>
             <div class="return-count" id="countReturns50">0</div>
           </div>
-          <div class="return-row">
+          <div class="return-row" data-chatpata-filter="30">
             <div class="return-name">
               <strong>Mast Tezi 🔥</strong>
               <span>30% - 50%</span>
             </div>
             <div class="return-count" id="countReturns30">0</div>
           </div>
-          <div class="return-row">
+          <div class="return-row" data-chatpata-filter="10">
             <div class="return-name">
               <strong>Badiya Chal Raha Hai 👍</strong>
               <span>10% - 30%</span>
             </div>
             <div class="return-count" id="countReturns10">0</div>
           </div>
-          <div class="return-row">
+          <div class="return-row" data-chatpata-filter="0">
             <div class="return-name">
               <strong>Abhi Toh Party ☕</strong>
               <span>0% - 10%</span>
             </div>
             <div class="return-count" id="countReturns0">0</div>
           </div>
-          <div class="return-row">
+          <div class="return-row" data-chatpata-filter="neg">
             <div class="return-name">
               <strong>Thanda Pad Gaya 🧊</strong>
               <span>&lt; 0%</span>
@@ -1468,6 +1471,9 @@
             <div class="return-count" id="countReturnsNeg">0</div>
           </div>
         </aside>
+        <div class="results-grid" id="resultsGrid">
+          <div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>
+        </div>
       </section>
 
       <section id="universe">
@@ -1595,6 +1601,8 @@
       const defaultQualityKeys = ["bullishSetup", "priceAboveEmaStack", "liquidTurnover", "adxTrendConfirmed"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
+      let activeChatpataFilter = "all";
+      const chatpataRows = document.querySelectorAll(".return-row[data-chatpata-filter]");
 
       function normalizeSymbol(symbol) {
         return String(symbol || "").replace(/\.NS$/i, "").trim().toUpperCase();
@@ -2258,6 +2266,24 @@
         return true;
       }
 
+      function chatpataMatches(item) {
+        if (activeChatpataFilter === "all") return true;
+        
+        const sessions = item.sessionsAgo !== undefined ? Number(item.sessionsAgo) : 0;
+        if (sessions <= 10) return false;
+
+        const currentPct = Number(item.priceChangePct || 0);
+        const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
+        const evalPct = highPct >= 5 ? highPct : currentPct;
+
+        if (activeChatpataFilter === "50") return evalPct > 50;
+        if (activeChatpataFilter === "30") return evalPct > 30 && evalPct <= 50;
+        if (activeChatpataFilter === "10") return evalPct > 10 && evalPct <= 30;
+        if (activeChatpataFilter === "0") return evalPct > 0 && evalPct <= 10;
+        if (activeChatpataFilter === "neg") return evalPct <= 0;
+        return true;
+      }
+
       function resultMatches(item) {
         const typeMatch = activeFilter === "all" || item.type === activeFilter;
         const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
@@ -2272,7 +2298,8 @@
           watchlistMatches(item) &&
           volumeMatches(item) &&
           retestMatches(item) &&
-          qualityMatches(item)
+          qualityMatches(item) &&
+          chatpataMatches(item)
         );
       }
 
@@ -2494,6 +2521,21 @@
           } else {
             activeQualityChecks.add(key);
             button.classList.remove("is-off");
+          }
+          renderResults();
+        });
+      });
+
+      chatpataRows.forEach((row) => {
+        row.addEventListener("click", () => {
+          const filterValue = row.dataset.chatpataFilter;
+          if (activeChatpataFilter === filterValue) {
+            activeChatpataFilter = "all";
+            row.classList.remove("is-active");
+          } else {
+            activeChatpataFilter = filterValue;
+            chatpataRows.forEach((r) => r.classList.remove("is-active"));
+            row.classList.add("is-active");
           }
           renderResults();
         });
