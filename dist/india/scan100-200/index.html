@@ -1339,37 +1339,6 @@
                 </select>
               </label>
               <label class="filter-field">
-                <span>Score</span>
-                <select class="filter-select" id="scoreSelect">
-                  <option value="all">All qualified</option>
-                  <option value="A">A only</option>
-                  <option value="AB">A or B</option>
-                  <option value="ABC">A/B/C</option>
-                </select>
-              </label>
-              <label class="filter-field">
-                <span>Min latest price</span>
-                <input class="filter-input" id="minPrice" type="number" min="0" step="1" placeholder="0" />
-              </label>
-              <label class="filter-field">
-                <span>Max latest price</span>
-                <input class="filter-input" id="maxPrice" type="number" min="0" step="1" placeholder="No limit" />
-              </label>
-              <label class="filter-field">
-                <span>Volume</span>
-                <select class="filter-select" id="volumeSelect">
-                  <option value="all">All volumes</option>
-                  <option value="high">High Volume (&gt;=1.5x Avg)</option>
-                </select>
-              </label>
-              <label class="filter-field">
-                <span>Pullback Zone</span>
-                <select class="filter-select" id="retestSelect">
-                  <option value="all">All prices</option>
-                  <option value="retest">Retest Zone (&lt;1.5% EMA)</option>
-                </select>
-              </label>
-              <label class="filter-field">
                 <span>Watchlist</span>
                 <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
               </label>
@@ -1489,13 +1458,8 @@
       const sortSelect = document.getElementById("sortSelect");
       const sectorSelect = document.getElementById("sectorSelect");
       const sessionSelect = document.getElementById("sessionSelect");
-      const scoreSelect = document.getElementById("scoreSelect");
-      const minPrice = document.getElementById("minPrice");
-      const maxPrice = document.getElementById("maxPrice");
       const watchlistToggle = document.getElementById("watchlistToggle");
       const watchlistCount = document.getElementById("watchlistCount");
-      const volumeSelect = document.getElementById("volumeSelect");
-      const retestSelect = document.getElementById("retestSelect");
       const exportCsv = document.getElementById("exportCsv");
       const detailModal = document.getElementById("detailModal");
       const modalTitle = document.getElementById("modalTitle");
@@ -1730,16 +1694,8 @@
         else nextUrl.searchParams.delete("sector");
         if (activeSessionWindow !== 15) nextUrl.searchParams.set("days", String(activeSessionWindow));
         else nextUrl.searchParams.delete("days");
-        if (activeVolumeFilter !== "all") nextUrl.searchParams.set("volume", activeVolumeFilter);
-        else nextUrl.searchParams.delete("volume");
-        if (activeRetestFilter !== "all") nextUrl.searchParams.set("retest", activeRetestFilter);
-        else nextUrl.searchParams.delete("retest");
-        if (activeScoreFilter !== "all") nextUrl.searchParams.set("score", activeScoreFilter);
-        else nextUrl.searchParams.delete("score");
-        if (activeMinPrice !== "") nextUrl.searchParams.set("min", activeMinPrice);
-        else nextUrl.searchParams.delete("min");
-        if (activeMaxPrice !== "") nextUrl.searchParams.set("max", activeMaxPrice);
-        else nextUrl.searchParams.delete("max");
+
+
         if (watchlistOnly) nextUrl.searchParams.set("watchlist", "1");
         else nextUrl.searchParams.delete("watchlist");
         history.pushState({ scanId }, "", nextUrl);
@@ -1871,22 +1827,10 @@
       }
 
       function scoreMatches(item) {
-        const grade = scoreGrade(item);
-        if (activeScoreFilter === "A") return grade === "A";
-        if (activeScoreFilter === "AB") return ["A", "B"].includes(grade);
-        if (activeScoreFilter === "ABC") return ["A", "B", "C"].includes(grade);
         return true;
       }
 
       function priceMatches(item) {
-        const min = activeMinPrice === "" ? null : Number(activeMinPrice);
-        const max = activeMaxPrice === "" ? null : Number(activeMaxPrice);
-        const close = latestPrice(item);
-        if (close === null) {
-          return min === null && max === null;
-        }
-        if (min !== null && close < min) return false;
-        if (max !== null && close > max) return false;
         return true;
       }
 
@@ -2190,24 +2134,11 @@
       }
 
       function volumeMatches(item) {
-        if (activeVolumeFilter === "all") return true;
-        if (item._isSavedOnly) return true;
-        const volume = Number(item.latestVolume || item.volume || 0);
-        const avgVolume = Number(item.averageVolume20 || 0);
-        return volume >= avgVolume * 1.5;
+        return true;
       }
 
       function retestMatches(item) {
-        if (activeRetestFilter === "all") return true;
-        if (item._isSavedOnly) return true;
-        const close = latestPrice(item);
-        if (close === null) return false;
-        const fastEma = Number(item.latestFastEma ?? item.fastEma);
-        const slowEma = Number(item.latestSlowEma ?? item.slowEma);
-        if (!fastEma || !slowEma) return false;
-        const diffFast = Math.abs(close - fastEma) / fastEma * 100;
-        const diffSlow = Math.abs(close - slowEma) / slowEma * 100;
-        return diffFast <= 1.5 || diffSlow <= 1.5;
+        return true;
       }
 
       function qualityMatches(item) {
@@ -2472,31 +2403,6 @@
       });
       sessionSelect.addEventListener("change", () => {
         activeSessionWindow = Number(sessionSelect.value);
-        renderResults();
-        updateUrl(activeScanId);
-      });
-      scoreSelect.addEventListener("change", () => {
-        activeScoreFilter = scoreSelect.value;
-        renderResults();
-        updateUrl(activeScanId);
-      });
-      minPrice.addEventListener("input", () => {
-        activeMinPrice = minPrice.value;
-        renderResults();
-        updateUrl(activeScanId);
-      });
-      maxPrice.addEventListener("input", () => {
-        activeMaxPrice = maxPrice.value;
-        renderResults();
-        updateUrl(activeScanId);
-      });
-      volumeSelect.addEventListener("change", () => {
-        activeVolumeFilter = volumeSelect.value;
-        renderResults();
-        updateUrl(activeScanId);
-      });
-      retestSelect.addEventListener("change", () => {
-        activeRetestFilter = retestSelect.value;
         renderResults();
         updateUrl(activeScanId);
       });
@@ -2828,22 +2734,6 @@
         activeSessionWindow = Number(initialDays);
         sessionSelect.value = initialDays;
       }
-      if (["A", "AB", "ABC"].includes(initialScore)) {
-        activeScoreFilter = initialScore;
-        scoreSelect.value = initialScore;
-      }
-      if (["all", "high"].includes(initialVolume)) {
-        activeVolumeFilter = initialVolume;
-        volumeSelect.value = initialVolume;
-      }
-      if (["all", "retest"].includes(initialRetest)) {
-        activeRetestFilter = initialRetest;
-        retestSelect.value = initialRetest;
-      }
-      activeMinPrice = params.get("min") || "";
-      activeMaxPrice = params.get("max") || "";
-      minPrice.value = activeMinPrice;
-      maxPrice.value = activeMaxPrice;
       watchlistOnly = isWatchlistPage || params.get("watchlist") === "1";
 
       let cachedBackgroundSignals = null;
