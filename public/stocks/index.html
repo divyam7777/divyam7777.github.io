@@ -647,8 +647,6 @@
         display: grid;
         grid-template-columns:
           minmax(176px, 1.3fr)
-          minmax(124px, 0.85fr)
-          minmax(86px, 0.52fr)
           minmax(178px, 1.16fr)
           minmax(128px, 0.82fr)
           minmax(88px, 0.55fr)
@@ -984,8 +982,6 @@
       .watchlist-page .result-row {
         grid-template-columns:
           minmax(176px, 1.3fr)
-          minmax(124px, 0.85fr)
-          minmax(86px, 0.52fr)
           minmax(178px, 1.16fr)
           minmax(128px, 0.82fr)
           minmax(88px, 0.55fr)
@@ -2329,17 +2325,6 @@
                   <strong class="row-symbol">${escapeHtml(item.symbol)}.NS</strong>
                   <span class="row-subtext">${escapeHtml(item.name)}</span>
                 </div>
-                <div class="result-cell">
-                  <span class="cell-label">Signal</span>
-                  <span class="badge ${badgeType}">${badgeText}</span>
-                  <span class="row-value-muted">${escapeHtml(item.sector || "Unclassified")}${item._scanLabel && !isSavedOnly ? ` | ${escapeHtml(item._scanLabel)}` : ""}</span>
-                </div>
-                <div class="result-cell">
-                  <span class="cell-label">Score</span>
-                  <span class="score-pill grade-${grade}">${scoreText}</span>
-                  <span class="row-value-muted">${escapeHtml(qualityLine(item))}</span>
-                  <span class="row-value-muted">${escapeHtml(liquidityLine(item))}</span>
-                </div>
                 <div class="result-cell price-move">
                   <span class="cell-label">Price move</span>
                   <span class="row-value ${moveClass}">${moveText}</span>
@@ -2375,8 +2360,6 @@
           <div class="result-table-shell" aria-label="${isWatchlistPage ? "Watchlist row results" : "EMA crossover row results"}">
             <div class="result-table-head" aria-hidden="true">
               <span>Stock</span>
-              <span>Signal</span>
-              <span>Score</span>
               <span>Price move</span>
               <span>EMAs</span>
               <span>Freshness</span>
