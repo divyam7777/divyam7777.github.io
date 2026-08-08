@@ -2320,11 +2320,14 @@
             filtered.forEach(item => {
               const sessions = item.sessionsAgo !== undefined ? Number(item.sessionsAgo) : 0;
               if (sessions > 10) {
-                const movePct = Number(item.priceChangePct || 0);
-                if (movePct > 50) c50++;
-                else if (movePct > 30) c30++;
-                else if (movePct > 10) c10++;
-                else if (movePct > 0) c0++;
+                const currentPct = Number(item.priceChangePct || 0);
+                const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
+                const evalPct = highPct >= 5 ? highPct : currentPct;
+                
+                if (evalPct > 50) c50++;
+                else if (evalPct > 30) c30++;
+                else if (evalPct > 10) c10++;
+                else if (evalPct > 0) c0++;
                 else cNeg++;
               }
             });
