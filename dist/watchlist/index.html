@@ -601,6 +601,70 @@
       }
 
       .results-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+      #results {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+      @media (min-width: 1200px) {
+        #results {
+          grid-template-columns: 1fr 300px;
+        }
+      }
+      .returns-sidebar {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 24px;
+        position: sticky;
+        top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .returns-sidebar h3 {
+        color: var(--text);
+        font-size: 1.1rem;
+        font-weight: 850;
+        margin: 0 0 8px;
+        letter-spacing: -0.01em;
+      }
+      .return-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed var(--line);
+      }
+      .return-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .return-name {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .return-name strong {
+        color: var(--text);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+      .return-name span {
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+      .return-count {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-weight: 850;
+        font-size: 1rem;
+        padding: 4px 12px;
+        border-radius: 999px;
+        min-width: 44px;
+        text-align: center;
+      }
       .result-card {
         padding: 22px;
         transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
@@ -1371,6 +1435,45 @@
         <div class="results-grid" id="resultsGrid">
           <div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>
         </div>
+        <aside class="returns-sidebar" id="returnsSidebar" hidden>
+          <h3>🌶️ Chatpata Returns</h3>
+          <p class="eyebrow" style="margin-top: -12px; margin-bottom: 8px;">Stocks holding > 10 sessions</p>
+          <div class="return-row">
+            <div class="return-name">
+              <strong>Chhappar Phaad Ke 🚀</strong>
+              <span>&gt; 50%</span>
+            </div>
+            <div class="return-count" id="countReturns50">0</div>
+          </div>
+          <div class="return-row">
+            <div class="return-name">
+              <strong>Mast Tezi 🔥</strong>
+              <span>30% - 50%</span>
+            </div>
+            <div class="return-count" id="countReturns30">0</div>
+          </div>
+          <div class="return-row">
+            <div class="return-name">
+              <strong>Badiya Chal Raha Hai 👍</strong>
+              <span>10% - 30%</span>
+            </div>
+            <div class="return-count" id="countReturns10">0</div>
+          </div>
+          <div class="return-row">
+            <div class="return-name">
+              <strong>Abhi Toh Party ☕</strong>
+              <span>0% - 10%</span>
+            </div>
+            <div class="return-count" id="countReturns0">0</div>
+          </div>
+          <div class="return-row">
+            <div class="return-name">
+              <strong>Thanda Pad Gaya 🧊</strong>
+              <span>&lt; 0%</span>
+            </div>
+            <div class="return-count" id="countReturnsNeg">0</div>
+          </div>
+        </aside>
       </section>
 
       <section id="universe">
@@ -1449,6 +1552,12 @@
       const summaryBearish = document.getElementById("summaryBearish");
       const summaryFresh = document.getElementById("summaryFresh");
       const summaryCoverage = document.getElementById("summaryCoverage");
+      const returnsSidebar = document.getElementById("returnsSidebar");
+      const countReturns50 = document.getElementById("countReturns50");
+      const countReturns30 = document.getElementById("countReturns30");
+      const countReturns10 = document.getElementById("countReturns10");
+      const countReturns0 = document.getElementById("countReturns0");
+      const countReturnsNeg = document.getElementById("countReturnsNeg");
       const universeList = document.getElementById("universeList");
       const universeTitle = document.getElementById("universeTitle");
       const universeMeta = document.getElementById("universeMeta");
@@ -2181,6 +2290,7 @@
         if (!isWatchlistPage && !activeScanId) {
           resultTitle.textContent = "Choose a scanner to load results.";
           resultsGrid.innerHTML = '<div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>';
+          if (returnsSidebar) returnsSidebar.hidden = true;
           return;
         }
 
@@ -2204,7 +2314,32 @@
 
         if (!filtered.length) {
           resultsGrid.innerHTML = `<div class="empty">${isWatchlistPage ? "No saved stocks match these filters." : "No qualified bullish stocks match this search, market-cap, and quality filter set in the latest generated scan."}</div>`;
+          if (returnsSidebar) returnsSidebar.hidden = true;
           return;
+        }
+
+        // Chatpata Returns Logic
+        if (returnsSidebar) {
+          returnsSidebar.hidden = isWatchlistPage; // hide on watchlist
+          if (!isWatchlistPage) {
+            let c50 = 0, c30 = 0, c10 = 0, c0 = 0, cNeg = 0;
+            filtered.forEach(item => {
+              const sessions = item.sessionsAgo !== undefined ? Number(item.sessionsAgo) : 0;
+              if (sessions > 10) {
+                const movePct = Number(item.priceChangePct || 0);
+                if (movePct > 50) c50++;
+                else if (movePct > 30) c30++;
+                else if (movePct > 10) c10++;
+                else if (movePct > 0) c0++;
+                else cNeg++;
+              }
+            });
+            countReturns50.textContent = c50;
+            countReturns30.textContent = c30;
+            countReturns10.textContent = c10;
+            countReturns0.textContent = c0;
+            countReturnsNeg.textContent = cNeg;
+          }
         }
 
         const rows = sortResults(filtered)
