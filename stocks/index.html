@@ -600,7 +600,7 @@
         animation: progressFlow 1.25s linear infinite;
       }
 
-      .results-grid { display: grid; grid-template-columns: 1fr; gap: 14px; overflow-x: auto; padding-bottom: 8px; }
+      .results-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
       #results {
         display: flex;
         flex-direction: column;
@@ -1140,6 +1140,19 @@
       }
 
       @media (max-width: 620px) {
+        .returns-sidebar {
+          display: flex;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          padding-bottom: 8px;
+          -webkit-overflow-scrolling: touch;
+        }
+        .return-row {
+          flex: 0 0 auto;
+          width: 82%;
+          scroll-snap-align: center;
+        }
         .result-table-shell { border-radius: 24px; padding: 10px; }
         .result-row,
         .watchlist-page .result-row { grid-template-columns: 1fr; border-radius: 20px; }
