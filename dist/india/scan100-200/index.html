@@ -2317,9 +2317,18 @@
 
         const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
         const searchText = universeQuery.trim() ? ` matching "${universeQuery.trim()}"` : "";
-        resultTitle.textContent = isWatchlistPage
-          ? `${filtered.length} ${capText}saved stock${filtered.length === 1 ? "" : "s"}${searchText}`
-          : `${filtered.length} ${capText}${config.label} result${filtered.length === 1 ? "" : "s"}${searchText}`;
+        
+        if (resultEyebrow) {
+          resultEyebrow.textContent = isWatchlistPage
+            ? `Watchlist • ${filtered.length} matches`
+            : `Scanner console • ${filtered.length} matches`;
+        }
+
+        let titleStr = isWatchlistPage
+          ? `${capText}saved stock${filtered.length === 1 ? "" : "s"}${searchText}`
+          : `${capText}${config.label} result${filtered.length === 1 ? "" : "s"}${searchText}`;
+        
+        resultTitle.textContent = titleStr.charAt(0).toUpperCase() + titleStr.slice(1);
 
         if (!filtered.length) {
           resultsGrid.innerHTML = `<div class="empty">${isWatchlistPage ? "No saved stocks match these filters." : "No qualified bullish stocks match this search, market-cap, and quality filter set in the latest generated scan."}</div>`;
