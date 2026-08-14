@@ -617,7 +617,7 @@ def find_cross(
             average_volume_20 = average(volumes, 20)
             average_turnover_20 = trailing_average(
                 [float(close) * int(volumes[idx] if idx < len(volumes) else 0) for idx, close in enumerate(closes)],
-                latest_index,
+                index,
                 20,
             )
             fast_slope_pct = None
@@ -649,10 +649,10 @@ def find_cross(
                 "volumeMultiple": round(cross_volume / cross_average_volume_20, 2) if cross_average_volume_20 else 0,
                 "averageTurnover20": round(average_turnover_20, 2),
                 "averageTurnover20Crore": round(average_turnover_20 / 10_000_000, 2),
-                "rsi14": round(float(rsi_values[latest_index]), 2) if rsi_values[latest_index] is not None else None,
-                "adx14": round(float(adx_values["adx"][latest_index]), 2) if adx_values["adx"][latest_index] is not None else None,
-                "plusDi14": round(float(adx_values["plusDi"][latest_index]), 2) if adx_values["plusDi"][latest_index] is not None else None,
-                "minusDi14": round(float(adx_values["minusDi"][latest_index]), 2) if adx_values["minusDi"][latest_index] is not None else None,
+                "rsi14": round(float(rsi_values[index]), 2) if rsi_values[index] is not None else None,
+                "adx14": round(float(adx_values["adx"][index]), 2) if adx_values["adx"][index] is not None else None,
+                "plusDi14": round(float(adx_values["plusDi"][index]), 2) if adx_values["plusDi"][index] is not None else None,
+                "minusDi14": round(float(adx_values["minusDi"][index]), 2) if adx_values["minusDi"][index] is not None else None,
                 "distanceFromFastEmaPct": round(distance_from_fast, 2) if distance_from_fast is not None else None,
                 "fastEmaSlopePct": round(fast_slope_pct, 3) if fast_slope_pct is not None else None,
                 "marketTrendConfirmed": market_confirmed,
