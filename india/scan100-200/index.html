@@ -1284,38 +1284,7 @@
     </header>
 
     <main>
-      <section class="hero">
-        <div>
-          <p class="eyebrow" id="heroEyebrow">Indian market only | NSE daily candles</p>
-          <h1 id="heroTitle">Stock market scanner.</h1>
-          <p class="hero-copy" id="heroCopy">
-            Choose a scanner first. Results now show qualified bullish NSE candidates only: recent EMA cross, price confirmation, liquidity, RSI, ADX, volume, and Nifty trend filters must pass.
-          </p>
-          <div class="actions" id="heroActions">
-            <a class="button primary" href="#choose">Choose scanner</a>
-          </div>
-          <p class="disclaimer">
-            Educational scanner only. Signals are generated for research and should be verified on your broker or charting platform before taking any decision.
-          </p>
-        </div>
-        <aside class="panel scanner-visual" aria-label="EMA scanner visual">
-          <div class="screen">
-            <p class="eyebrow">EMA logic</p>
-            <div class="chart-lines"><span></span></div>
-            <div class="metric-grid">
-              <div class="metric"><strong>100 / 200</strong><span>Trend cross</span></div>
-              <div class="metric"><strong>50 / 100</strong><span>Momentum cross</span></div>
-              <div class="metric"><strong>15</strong><span>Session window</span></div>
-            </div>
-            <div class="ticker-tape" aria-hidden="true">
-              <span>NSE universe</span>
-              <span>EMA engine</span>
-              <span>strict 15 sessions</span>
-              <span>TradingView links</span>
-            </div>
-          </div>
-        </aside>
-      </section>
+
 
       <section id="choose">
         <div class="section-heading">
@@ -1711,10 +1680,10 @@
         if (stocksNavLinks) stocksNavLinks.hidden = true;
         if (watchlistNavLink) watchlistNavLink.setAttribute("aria-current", "page");
         if (resultEyebrow) resultEyebrow.textContent = "Watchlist";
-        heroEyebrow.textContent = "Saved stocks";
-        heroTitle.textContent = "Your NSE watchlist.";
-        heroCopy.textContent = "A simple local list of the stocks you saved from the scanner.";
-        heroActions.innerHTML = '<a class="button primary" href="/">Back to stocks page</a>';
+        if (heroEyebrow) heroEyebrow.textContent = "Saved stocks";
+        if (heroTitle) heroTitle.textContent = "Your NSE watchlist.";
+        if (heroCopy) heroCopy.textContent = "A simple local list of the stocks you saved from the scanner.";
+        if (heroActions) heroActions.innerHTML = '<a class="button primary" href="/">Back to stocks page</a>';
         resultTitle.textContent = "Loading your saved stocks.";
         scanStatus.textContent = "Watchlist mode";
       }
