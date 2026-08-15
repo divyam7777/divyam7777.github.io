@@ -423,58 +423,228 @@
         vertical-align: middle;
       }
 
+      /* ── Choose Scanner Hero ────────────────────────── */
+      .choose-hero {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .choose-hero .eyebrow {
+        margin-bottom: 10px;
+      }
+      .choose-hero h2 {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        letter-spacing: -0.05em;
+        line-height: 1.05;
+        margin-bottom: 8px;
+      }
+      .choose-hero p {
+        max-width: 520px;
+        margin: 0 auto;
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      /* ── Scanner Cards Grid ─────────────────────────── */
       .scanner-toggle {
-        display: flex;
-        gap: 10px;
-        padding: 6px;
-        background: var(--panel);
-        backdrop-filter: blur(16px);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        width: fit-content;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 680px;
+        margin: 0 auto;
       }
+
       .scanner-pill {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 22px;
-        border-radius: 999px;
-        color: var(--muted);
-        font-weight: 850;
-        font-size: 0.88rem;
-        transition: all 220ms ease;
-        text-decoration: none;
+        --card-accent: var(--blue);
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 0;
+        border-radius: 22px;
+        border: 1px solid color-mix(in srgb, var(--card-accent) 22%, var(--line));
+        background: var(--panel);
+        backdrop-filter: blur(18px);
+        text-decoration: none;
+        color: var(--muted);
         overflow: hidden;
+        cursor: pointer;
+        transition: transform 340ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 340ms ease, border-color 340ms ease;
+        animation: scanCardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
       }
+      .scanner-pill:nth-child(2) {
+        --card-accent: var(--gold);
+        animation-delay: 0.1s;
+      }
+
+      /* top accent stripe */
+      .scanner-pill::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
+        opacity: 0.7;
+        transition: opacity 340ms ease;
+      }
+
+      /* shimmer sweep on hover */
+      .scanner-pill::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(105deg, transparent 40%, color-mix(in srgb, var(--card-accent) 8%, transparent) 50%, transparent 60%);
+        background-size: 250% 100%;
+        opacity: 0;
+        transition: opacity 400ms ease;
+        pointer-events: none;
+      }
+      .scanner-pill:hover::after {
+        opacity: 1;
+        animation: cardShimmer 1.4s ease forwards;
+      }
+
       .scanner-pill:hover {
-        color: var(--text);
-        background: rgba(255,255,255,0.04);
+        transform: translateY(-4px);
+        border-color: color-mix(in srgb, var(--card-accent) 45%, var(--line));
+        box-shadow: 0 18px 48px -8px color-mix(in srgb, var(--card-accent) 18%, transparent);
       }
       .scanner-pill.is-active {
-        background: rgba(99, 246, 178, 0.1);
-        color: var(--text);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 16px rgba(99, 246, 178, 0.12);
+        border-color: color-mix(in srgb, var(--card-accent) 50%, var(--line));
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 14%, transparent),
+                    0 22px 56px -6px color-mix(in srgb, var(--card-accent) 22%, transparent);
       }
+      .scanner-pill.is-active::before {
+        opacity: 1;
+        height: 3px;
+        background: var(--card-accent);
+        box-shadow: 0 0 18px color-mix(in srgb, var(--card-accent) 50%, transparent);
+      }
+
+      /* card chart decoration */
+      .card-chart {
+        position: relative;
+        width: 100%;
+        height: 90px;
+        overflow: hidden;
+        background: linear-gradient(180deg, color-mix(in srgb, var(--card-accent) 4%, transparent) 0%, transparent 100%);
+      }
+      .card-chart svg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .card-chart .chart-area {
+        fill: url(var(--area-grad));
+        opacity: 0.6;
+      }
+      .card-chart .chart-line {
+        fill: none;
+        stroke: var(--card-accent);
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 6px color-mix(in srgb, var(--card-accent) 40%, transparent));
+      }
+      .scanner-pill:hover .card-chart .chart-line {
+        filter: drop-shadow(0 0 10px color-mix(in srgb, var(--card-accent) 60%, transparent));
+      }
+
+      /* card body */
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 18px 22px 22px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+      .card-body-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      /* pill dot → status indicator */
       .pill-dot {
-        width: 8px;
-        height: 8px;
+        width: 9px;
+        height: 9px;
         border-radius: 50%;
         background: var(--muted);
-        transition: all 220ms ease;
         flex-shrink: 0;
+        transition: all 340ms ease;
       }
       .scanner-pill.is-active .pill-dot {
-        background: var(--green);
-        box-shadow: 0 0 12px var(--green);
+        background: var(--card-accent);
+        box-shadow: 0 0 10px var(--card-accent), 0 0 24px color-mix(in srgb, var(--card-accent) 40%, transparent);
+        animation: dotPulse 2.4s ease-in-out infinite;
       }
-      .pill-label { font-weight: 900; }
+
+      .pill-label {
+        font-weight: 950;
+        font-size: 1.15rem;
+        color: var(--text);
+        letter-spacing: -0.03em;
+        transition: color 220ms ease;
+      }
+
       .pill-sub {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        opacity: 0.6;
+        color: var(--card-accent);
+        opacity: 0.8;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--card-accent) 10%, transparent);
+        transition: opacity 220ms ease;
+      }
+
+      .card-description {
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .card-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid color-mix(in srgb, var(--card-accent) 20%, var(--line));
+        background: color-mix(in srgb, var(--card-accent) 6%, transparent);
+        color: var(--card-accent);
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        transition: all 300ms ease;
+      }
+      .scanner-pill:hover .card-arrow {
+        background: color-mix(in srgb, var(--card-accent) 16%, transparent);
+        transform: translateX(3px);
+      }
+
+      @keyframes scanCardIn {
+        from { opacity: 0; transform: translateY(20px) scale(0.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes cardShimmer {
+        from { background-position: 150% 0; }
+        to { background-position: -50% 0; }
+      }
+      @keyframes dotPulse {
+        0%, 100% { box-shadow: 0 0 6px var(--card-accent); }
+        50% { box-shadow: 0 0 14px var(--card-accent), 0 0 32px color-mix(in srgb, var(--card-accent) 30%, transparent); }
       }
 
       .actions, .status-row, .result-actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -1304,8 +1474,7 @@
         .theme-toggle, .market-clock { width: 100%; justify-content: center; }
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
         .returns-sidebar { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-        .scanner-toggle { width: 100%; }
-        .scanner-pill { flex: 1; justify-content: center; }
+        .scanner-toggle { max-width: 100%; }
       }
 
       @media (max-width: 620px) {
@@ -1334,9 +1503,12 @@
         .watchlist-page .result-row { grid-template-columns: 1fr; border-radius: 18px; }
         .row-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .row-action, .row-open { width: 100%; padding-inline: 8px; }
-        .scanner-toggle { flex-direction: row; }
-        .scanner-pill { padding: 10px 14px; font-size: 0.82rem; }
-        .pill-sub { display: none; }
+        .scanner-toggle { grid-template-columns: 1fr; gap: 14px; }
+        .card-chart { height: 70px; }
+        .card-body { padding: 14px 16px 18px; }
+        .pill-label { font-size: 1rem; }
+        .card-description { font-size: 0.78rem; }
+        .choose-hero h2 { font-size: 1.6rem; }
       }
 
       @keyframes marketGlow {
@@ -1465,17 +1637,61 @@
 
 
       <section id="choose">
+        <div class="choose-hero">
+          <p class="eyebrow">Select a scanner</p>
+          <h2>Pick your crossover</h2>
+          <p>Choose the EMA pair that matches your trading style. Momentum for quick swings, Golden for macro trends.</p>
+        </div>
         <div class="scanner-toggle" aria-label="Choose scanner">
-
           <a class="scanner-pill" href="/?scan=50-100" data-scan-trigger="50-100" data-scan-card="50-100">
-            <span class="pill-dot"></span>
-            <span class="pill-label">50 / 100 EMA</span>
-            <span class="pill-sub">Momentum</span>
+            <div class="card-chart">
+              <svg viewBox="0 0 200 90" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="areaGradBlue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--blue)" stop-opacity="0.28" />
+                    <stop offset="100%" stop-color="var(--blue)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="chart-area" d="M0 72 C20 68 40 60 60 52 C80 44 100 50 120 38 C140 26 160 32 180 20 C190 14 200 16 200 16 L200 90 L0 90Z" fill="url(#areaGradBlue)" />
+                <path class="chart-line" d="M0 72 C20 68 40 60 60 52 C80 44 100 50 120 38 C140 26 160 32 180 20 C190 14 200 16 200 16" />
+              </svg>
+            </div>
+            <div class="card-body">
+              <div class="card-body-top">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="pill-dot"></span>
+                  <span class="pill-label">50 / 100 EMA</span>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+              <span class="pill-sub">Momentum</span>
+              <p class="card-description">Shorter-term crossover — catches early momentum shifts and fast-moving swing trades.</p>
+            </div>
           </a>
           <a class="scanner-pill" href="/?scan=50-200" data-scan-trigger="50-200" data-scan-card="50-200">
-            <span class="pill-dot"></span>
-            <span class="pill-label">50 / 200 EMA</span>
-            <span class="pill-sub">Golden</span>
+            <div class="card-chart">
+              <svg viewBox="0 0 200 90" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="areaGradGold" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28" />
+                    <stop offset="100%" stop-color="var(--gold)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="chart-area" d="M0 78 C30 74 50 68 80 58 C110 48 130 54 150 40 C170 28 185 22 200 18 L200 90 L0 90Z" fill="url(#areaGradGold)" />
+                <path class="chart-line" d="M0 78 C30 74 50 68 80 58 C110 48 130 54 150 40 C170 28 185 22 200 18" />
+              </svg>
+            </div>
+            <div class="card-body">
+              <div class="card-body-top">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="pill-dot"></span>
+                  <span class="pill-label">50 / 200 EMA</span>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+              <span class="pill-sub">Golden Cross</span>
+              <p class="card-description">The classic golden crossover — confirms major trend reversals and long-term bullish setups.</p>
+            </div>
           </a>
         </div>
       </section>
