@@ -1119,6 +1119,15 @@
         background-color: var(--surface);
         color: var(--text);
       }
+      /* Hide number input spinners */
+      input[type=number]::-webkit-inner-spin-button, 
+      input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
       .search-clear {
         min-width: 0;
         width: 100%;
@@ -1544,9 +1553,9 @@
               <label class="filter-field" id="customRangeField" style="display: none; flex-direction: row; align-items: center; gap: 8px; border-left: 1px solid var(--line); padding-left: 16px;">
                 <span>Between</span>
                 <div style="display: flex; gap: 8px; align-items: center;">
-                  <input type="number" class="filter-input" id="minSessionsInput" min="0" max="60" value="0" style="width: 60px; text-align: center;">
+                  <input type="number" class="filter-input" id="minSessionsInput" min="0" max="60" value="0" style="width: 44px; padding: 0; text-align: center;">
                   <span>and</span>
-                  <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 60px; text-align: center;">
+                  <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 44px; padding: 0; text-align: center;">
                 </div>
               </label>
               <label class="filter-field">
