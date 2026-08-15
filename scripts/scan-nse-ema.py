@@ -445,6 +445,7 @@ def quality_checks(cross: dict) -> dict:
             and latest_adx is not None
             and abs(float(plus_di) - float(latest_adx)) <= float(latest_adx) * 0.10
         ),
+        "emaStillBullish": latest_fast is not None and latest_slow is not None and float(latest_fast) > float(latest_slow),
     }
     labels = {
         "bullishSetup": "Bullish EMA crossover",
@@ -459,6 +460,7 @@ def quality_checks(cross: dict) -> dict:
         "adxSuperTrend": "ADX is >= 32",
         "rsiAdxRatio": "RSI is >= 1.7x ADX",
         "diPlusNearAdx": "+DI is within ±10% of ADX",
+        "emaStillBullish": "50 EMA is still above 200 EMA today",
     }
     failed = [labels[key] for key, passed in checks.items() if not passed]
     return {
@@ -603,9 +605,6 @@ def find_cross(
     latest_slow = slow_ema[latest_index]
 
     if latest_fast is None or latest_slow is None:
-        return None
-        
-    if latest_fast <= latest_slow:
         return None
 
     for index in range(len(closes) - 1, start - 1, -1):

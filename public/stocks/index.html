@@ -1573,6 +1573,7 @@
               <button type="button" data-quality-check="adxSuperTrend" class="is-off">ADX &gt;= 32</button>
               <button type="button" data-quality-check="rsiAdxRatio" class="is-off">RSI &gt;= 1.7x ADX</button>
               <button type="button" data-quality-check="diPlusNearAdx" class="is-off">+DI near ADX (±10%)</button>
+              <button type="button" data-quality-check="emaStillBullish" class="is-off">Trend Still Intact (50 &gt; 200)</button>
             </div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
@@ -1760,7 +1761,7 @@
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
-      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "diPlusAboveMinus", "diPlus3xMinus", "adxSuperTrend", "rsiAdxRatio", "diPlusNearAdx"];
+      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "diPlusAboveMinus", "diPlus3xMinus", "adxSuperTrend", "rsiAdxRatio", "diPlusNearAdx", "emaStillBullish"];
       const defaultQualityKeys = ["bullishSetup", "liquidTurnover", "diPlusAboveMinus"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
@@ -2446,6 +2447,8 @@
              if (!item.rsi14 || !item.adx14 || item.rsi14 < item.adx14 * 1.7) return false;
           } else if (key === "diPlusNearAdx" && typeof checks[key] === "undefined") {
              if (!item.plusDi14 || !item.adx14 || Math.abs(item.plusDi14 - item.adx14) > item.adx14 * 0.10) return false;
+          } else if (key === "emaStillBullish" && typeof checks[key] === "undefined") {
+             if (!item.latestFastEma || !item.latestSlowEma || item.latestFastEma <= item.latestSlowEma) return false;
           } else if (!checks[key]) {
             return false;
           }
