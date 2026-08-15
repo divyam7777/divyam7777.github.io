@@ -1512,6 +1512,15 @@
         h1 { font-size: clamp(3.1rem, 18vw, 5rem); }
         .returns-sidebar { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
         .scanner-toggle { max-width: 100%; }
+
+        /* Performance optimizations for mobile/tablet GPU */
+        body::before { animation: none; }
+        .market-backdrop::before { animation: none; opacity: 0.4; }
+        .market-chart { filter: none; opacity: 0.45; }
+        .market-chart .price-line,
+        .market-chart .ema-line { animation: none; stroke-dasharray: none; }
+        .market-chart .candle { animation: none; }
+        .market-chip { animation: none; }
       }
 
       @media (max-width: 620px) {
