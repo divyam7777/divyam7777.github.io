@@ -1545,7 +1545,8 @@
               <button type="button" data-quality-check="volumeConfirmed" class="is-off">Volume &gt;= 1.5x avg</button>
               <button type="button" data-quality-check="liquidTurnover">Avg turnover &gt;= Rs. 10 crore</button>
               <button type="button" data-quality-check="rsiHealthy" class="is-off">RSI 50-70</button>
-              <button type="button" data-quality-check="adxTrendConfirmed">ADX &gt; 20 and +DI &gt; -DI</button>
+              <button type="button" data-quality-check="diPlusAboveMinus">+DI &gt; -DI</button>
+              <button type="button" data-quality-check="diPlus3xMinus" class="is-off">+DI &gt;= 3x -DI</button>
               <button type="button" data-quality-check="adxSuperTrend" class="is-off">ADX &gt;= 32</button>
             </div>
           </div>
@@ -1732,8 +1733,8 @@
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
-      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed", "adxSuperTrend"];
-      const defaultQualityKeys = ["bullishSetup", "liquidTurnover", "adxTrendConfirmed"];
+      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "diPlusAboveMinus", "diPlus3xMinus", "adxSuperTrend"];
+      const defaultQualityKeys = ["bullishSetup", "liquidTurnover", "diPlusAboveMinus"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
       let activeChatpataFilter = "all";
@@ -2396,6 +2397,10 @@
             if (!item.marketTrendConfirmed) return false;
           } else if (key === "adxSuperTrend" && typeof checks[key] === "undefined") {
              if (!item.adx14 || item.adx14 < 32) return false;
+          } else if (key === "diPlusAboveMinus" && typeof checks[key] === "undefined") {
+             if (!item.plusDi14 || !item.minusDi14 || item.plusDi14 <= item.minusDi14) return false;
+          } else if (key === "diPlus3xMinus" && typeof checks[key] === "undefined") {
+             if (!item.plusDi14 || !item.minusDi14 || item.plusDi14 < 3 * item.minusDi14) return false;
           } else if (!checks[key]) {
             return false;
           }

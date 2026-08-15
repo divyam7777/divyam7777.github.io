@@ -428,12 +428,15 @@ def quality_checks(cross: dict) -> dict:
         "volumeConfirmed": cross_average_volume > 0 and cross_volume >= cross_average_volume * MIN_VOLUME_MULTIPLE,
         "liquidTurnover": average_turnover >= MIN_AVERAGE_TURNOVER,
         "rsiHealthy": latest_rsi is not None and MIN_RSI <= float(latest_rsi) <= MAX_RSI,
-        "adxTrendConfirmed": (
-            latest_adx is not None
-            and plus_di is not None
+        "diPlusAboveMinus": (
+            plus_di is not None
             and minus_di is not None
-            and float(latest_adx) > MIN_ADX
             and float(plus_di) > float(minus_di)
+        ),
+        "diPlus3xMinus": (
+            plus_di is not None
+            and minus_di is not None
+            and float(plus_di) >= 3 * float(minus_di)
         ),
         "adxSuperTrend": latest_adx is not None and float(latest_adx) >= 32,
     }
@@ -445,7 +448,8 @@ def quality_checks(cross: dict) -> dict:
         "volumeConfirmed": f"Volume is at least {MIN_VOLUME_MULTIPLE}x 20-session average",
         "liquidTurnover": "20-session average turnover is at least Rs. 10 crore",
         "rsiHealthy": f"RSI {RSI_PERIOD} is between {MIN_RSI} and {MAX_RSI}",
-        "adxTrendConfirmed": f"ADX {ADX_PERIOD} is above {MIN_ADX} with +DI above -DI",
+        "diPlusAboveMinus": "+DI is above -DI",
+        "diPlus3xMinus": "+DI is at least 3x -DI",
         "adxSuperTrend": "ADX is >= 32",
     }
     failed = [labels[key] for key, passed in checks.items() if not passed]
