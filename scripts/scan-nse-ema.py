@@ -604,6 +604,9 @@ def find_cross(
 
     if latest_fast is None or latest_slow is None:
         return None
+        
+    if latest_fast <= latest_slow:
+        return None
 
     for index in range(len(closes) - 1, start - 1, -1):
         if None in (fast_ema[index - 1], slow_ema[index - 1], fast_ema[index], slow_ema[index]):
