@@ -41,7 +41,7 @@ function redirectPage({ title, description, target }) {
 `;
 }
 
-const generatedDirs = ["assets", "blog", "creater", "home", "projects", "stocks", "watchlist", "data"];
+const generatedDirs = ["assets", "blog", "creater", "home", "india", "projects", "watchlist", "data"];
 const generatedFiles = ["index.html", "CNAME", "Divyam_Matia_Resume.pdf", "profile-placeholder.jpg", ".nojekyll"];
 
 await mkdir(distDir, { recursive: true });
@@ -57,9 +57,18 @@ if (await exists(portfolioIndex)) {
   await cp(portfolioIndex, createrIndex, { force: true });
 }
 
-if (await exists(stocksIndex)) {
+const indiaIndex = resolve(distDir, "india", "index.html");
+
+if (await exists(indiaIndex)) {
   await mkdir(dirname(watchlistIndex), { recursive: true });
-  await cp(stocksIndex, watchlistIndex, { force: true });
+  await cp(indiaIndex, watchlistIndex, { force: true });
+
+  // Scan sub-routes under /india/
+  for (const scanId of ["scan50-100", "scan50-200"]) {
+    const scanIndex = resolve(distDir, "india", scanId, "index.html");
+    await mkdir(dirname(scanIndex), { recursive: true });
+    await cp(indiaIndex, scanIndex, { force: true });
+  }
 }
 
 // Use the home page as the root index

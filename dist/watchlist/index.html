@@ -270,7 +270,55 @@
         border-color: var(--green);
       }
 
+      /* ── Home-style Topbar (used on /india/) ─────────────── */
+      .topbar-home {
+        position: sticky; top: 18px; z-index: 20;
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        width: min(720px, calc(100% - 42px)); margin: 18px auto 0;
+        border: 1px solid var(--line); border-radius: 999px;
+        padding: 10px 10px 10px 18px;
+        background: var(--nav-bg); backdrop-filter: blur(20px); box-shadow: var(--shadow);
+      }
+      .topbar-home .brand { flex-shrink: 0; }
+      .topbar-home .tab-group {
+        display: flex; gap: 4px; background: rgba(255,255,255,0.035); border-radius: 999px; padding: 4px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch; flex-shrink: 1; min-width: 0;
+      }
+      .topbar-home .tab-group::-webkit-scrollbar { display: none; }
+      .topbar-home .tab-btn {
+        border: none; border-radius: 999px; padding: 10px 18px;
+        background: transparent; color: var(--muted); font-family: inherit; font-size: 0.88rem; font-weight: 900;
+        cursor: pointer; transition: color 220ms ease, background 220ms ease; white-space: nowrap; flex-shrink: 0;
+      }
+      .topbar-home .tab-btn:hover { color: var(--text); }
+      .topbar-home .tab-btn.is-active { background: var(--panel-strong); color: var(--text); box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+      .topbar-home .badge-count {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 20px; height: 20px; margin-left: 6px; border-radius: 999px; padding: 0 6px;
+        background: rgba(142, 165, 255, 0.18); font-size: 0.72rem; font-weight: 950; vertical-align: middle;
+      }
+      .topbar-home .theme-toggle { flex-shrink: 0; }
 
+      @media (max-width: 540px) {
+        .topbar-home {
+          flex-wrap: wrap;
+          border-radius: 22px;
+          padding: 12px;
+          gap: 8px;
+          top: 10px;
+          width: calc(100% - 24px);
+          justify-content: space-between;
+        }
+        .topbar-home .brand { font-size: 0.88rem; order: 1; }
+        .topbar-home .brand .mark { width: 28px; height: 28px; font-size: 0.68rem; }
+        .topbar-home .theme-toggle { order: 2; margin-left: auto; }
+        .topbar-home .tab-group {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+        }
+        .topbar-home .tab-btn { padding: 9px 16px; font-size: 0.82rem; }
+      }
       .market-clock {
         border: 1px solid rgba(99, 246, 178, 0.22);
         border-radius: 999px;
@@ -2974,8 +3022,7 @@
           event.preventDefault();
           const scanId = trigger.dataset.scanTrigger;
           if (window.location.pathname.replace(/\/+$/, "").startsWith("/india")) {
-            // Deprecated path, fallback
-            window.location.href = `/stocks/`;
+            window.location.href = `/india/scan${scanId}`;
           } else {
             loadScan(scanId, true);
           }
@@ -3328,8 +3375,9 @@
       });
 
       const params = new URLSearchParams(window.location.search);
-
-      const initialScanId = params.get("scan");
+      const isIndiaPage = window.location.pathname.replace(/\/+$/, "").startsWith("/india");
+      const pathScanMatch = window.location.pathname.match(/\/india\/scan(\d+-\d+)/);
+      const initialScanId = pathScanMatch ? pathScanMatch[1] : params.get("scan");
       const initialCap = params.get("cap");
       const initialType = params.get("type");
       const initialSort = params.get("sort");
@@ -3418,7 +3466,66 @@
         renderResults();
         renderUniverse();
       }
+      /* ── /india/ topbar swap ──────────────────────────── */
+      if (isIndiaPage) {
+        // Hide hero & scanner picker on scan result pages
+        if (pathScanMatch) {
+          document.querySelector(".hero")?.remove();
+          document.getElementById("choose")?.remove();
+          
+          const scannerSec = document.getElementById("scanner");
+          if (scannerSec) {
+            const backBtn = document.createElement("a");
+            backBtn.href = "/india/";
+            backBtn.className = "button";
+            backBtn.innerHTML = "← Choose scanner";
+            backBtn.style.display = "inline-flex";
+            backBtn.style.marginBottom = "24px";
+            scannerSec.insertBefore(backBtn, scannerSec.firstChild);
+          }
+        } else {
+          // On plain /india/ page: hide scanner & universe results
+          document.getElementById("scanner")?.remove();
+          document.getElementById("universe")?.remove();
+        }
+        const oldNav = document.querySelector("header.nav");
+        if (oldNav) {
+          const wlCount = JSON.parse(localStorage.getItem("stocks-watchlist") || "[]").length;
+          const topbar = document.createElement("header");
+          topbar.className = "topbar-home";
+          topbar.innerHTML = `
+            <a class="brand" href="/" aria-label="StocksFlow home">
+              <span class="mark">SF</span>
+              <span>StocksFlow</span>
+            </a>
+            <div class="tab-group">
+              <button class="tab-btn is-active" id="tabMarketHome">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Market
+              </button>
+              <button class="tab-btn" id="tabWatchlistHome">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Watchlist
+                <span class="badge-count">${wlCount}</span>
+              </button>
+            </div>
+            <button class="theme-toggle" id="themeToggleHome" type="button" aria-label="Switch color theme">
+              <span>${document.documentElement.dataset.theme === "light" ? "☀" : "☾"}</span>
+            </button>
+          `;
+          oldNav.replaceWith(topbar);
 
+          // Re-bind theme toggle
+          document.getElementById("themeToggleHome").addEventListener("click", () => {
+            const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+            document.documentElement.dataset.theme = next;
+            localStorage.setItem("stocks-theme", next);
+            document.querySelector("#themeToggleHome span").textContent = next === "light" ? "☀" : "☾";
+          });
+
+          // Tab navigation
+          document.getElementById("tabMarketHome").addEventListener("click", () => { window.location.href = "/"; });
+          document.getElementById("tabWatchlistHome").addEventListener("click", () => { window.location.href = "/watchlist/"; });
+        }
+      }
     </script>
   </body>
 </html>
