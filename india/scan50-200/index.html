@@ -1438,6 +1438,8 @@
         backdrop-filter: blur(12px);
       }
       .modal[hidden] { display: none; }
+      body.modal-open .topbar-home,
+      body.modal-open .nav { display: none !important; }
       .modal-card {
         width: min(860px, 100%);
         max-height: min(86vh, 820px);
@@ -3338,10 +3340,12 @@
         }
 
         detailModal.hidden = false;
+        document.body.classList.add("modal-open");
       }
 
       function closeDetail() {
         detailModal.hidden = true;
+        document.body.classList.remove("modal-open");
       }
 
       modalClose.addEventListener("click", closeDetail);
