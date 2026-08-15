@@ -435,6 +435,7 @@ def quality_checks(cross: dict) -> dict:
             and float(latest_adx) > MIN_ADX
             and float(plus_di) > float(minus_di)
         ),
+        "adxSuperTrend": latest_adx is not None and float(latest_adx) >= 32,
     }
     labels = {
         "bullishSetup": "Bullish EMA crossover",
@@ -445,6 +446,7 @@ def quality_checks(cross: dict) -> dict:
         "liquidTurnover": "20-session average turnover is at least Rs. 10 crore",
         "rsiHealthy": f"RSI {RSI_PERIOD} is between {MIN_RSI} and {MAX_RSI}",
         "adxTrendConfirmed": f"ADX {ADX_PERIOD} is above {MIN_ADX} with +DI above -DI",
+        "adxSuperTrend": "ADX is >= 32",
     }
     failed = [labels[key] for key, passed in checks.items() if not passed]
     return {
@@ -622,9 +624,10 @@ def find_cross(
                 20,
             )
             fast_slope_pct = None
-            if fast_ema[latest_index - 1] is not None and fast_ema[latest_index - 1]:
-                fast_slope_pct = (float(fast_ema[latest_index]) - float(fast_ema[latest_index - 1])) / float(fast_ema[latest_index - 1]) * 100
-            distance_from_fast = ((latest_close - float(latest_fast)) / float(latest_fast) * 100) if latest_fast else None
+            if fast_ema[index - 1] is not None and fast_ema[index - 1]:
+                fast_slope_pct = (float(fast_ema[index]) - float(fast_ema[index - 1])) / float(fast_ema[index - 1]) * 100
+            cross_fast = float(fast_ema[index]) if fast_ema[index] is not None else None
+            distance_from_fast = ((cross_close - cross_fast) / cross_fast * 100) if cross_fast else None
             market_confirmed = market_trend.get("isBullish") is True if market_trend.get("filterApplied") else True
             cross = {
                 "type": "bullish",

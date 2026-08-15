@@ -1546,6 +1546,7 @@
               <button type="button" data-quality-check="liquidTurnover">Avg turnover &gt;= Rs. 10 crore</button>
               <button type="button" data-quality-check="rsiHealthy" class="is-off">RSI 50-70</button>
               <button type="button" data-quality-check="adxTrendConfirmed">ADX &gt; 20 and +DI &gt; -DI</button>
+              <button type="button" data-quality-check="adxSuperTrend" class="is-off">ADX &gt;= 32</button>
             </div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
@@ -1731,7 +1732,7 @@
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
-      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed"];
+      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed", "adxSuperTrend"];
       const defaultQualityKeys = ["bullishSetup", "liquidTurnover", "adxTrendConfirmed"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
