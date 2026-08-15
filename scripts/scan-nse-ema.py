@@ -27,6 +27,7 @@ INDEX_URLS = {
 SCAN_RULES = {
     "100-200": {"fast": 100, "slow": 200, "label": "100 / 200 EMA cross"},
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
+    "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross"},
 }
 SCAN_WINDOW_SESSIONS = 60
 RSI_PERIOD = 14
