@@ -25,7 +25,7 @@ INDEX_URLS = {
     "small": "https://www.niftyindices.com/IndexConstituent/ind_niftysmallcap250list.csv",
 }
 SCAN_RULES = {
-    "100-200": {"fast": 100, "slow": 200, "label": "100 / 200 EMA cross"},
+
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
     "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross"},
 }
@@ -103,9 +103,9 @@ def fetch_market_metadata() -> dict[str, dict[str, str]]:
 
 def load_cached_universe(limit: int | None = None) -> list[Stock]:
     fallback_paths = [
-        DEFAULT_OUTPUT_DIR / "ema-100-200-crosses.json",
-        Path("data/ema-100-200-crosses.json"),
-        Path("stocks/data/ema-100-200-crosses.json"),
+        DEFAULT_OUTPUT_DIR / "ema-50-200-crosses.json",
+        Path("data/ema-50-200-crosses.json"),
+        Path("stocks/data/ema-50-200-crosses.json"),
     ]
 
     for path in fallback_paths:

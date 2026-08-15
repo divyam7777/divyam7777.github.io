@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="NSE India EMA crossover scanner for 100/200 and 50/100 EMA crosses across the full equity universe."
+      content="NSE India EMA crossover scanner for 50/200 and 50/100 EMA crosses across the full equity universe."
     />
     <title>NSE EMA Scanner | Divyam Matia</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>" />
@@ -1113,6 +1113,20 @@
       .sort-select:focus, .filter-select:focus, .filter-input:focus {
         border-color: var(--green);
         box-shadow: 0 0 0 3px rgba(99, 246, 178, 0.08);
+        outline: none;
+      }
+      .sort-select option, .filter-select option {
+        background-color: var(--panel-strong);
+        color: var(--text);
+      }
+      /* Hide number input spinners */
+      input[type=number]::-webkit-inner-spin-button, 
+      input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
       }
       .search-clear {
         min-width: 0;
@@ -1452,11 +1466,7 @@
 
       <section id="choose">
         <div class="scanner-toggle" aria-label="Choose scanner">
-          <a class="scanner-pill" href="/?scan=100-200" data-scan-trigger="100-200" data-scan-card="100-200">
-            <span class="pill-dot"></span>
-            <span class="pill-label">100 / 200 EMA</span>
-            <span class="pill-sub">Trend</span>
-          </a>
+
           <a class="scanner-pill" href="/?scan=50-100" data-scan-trigger="50-100" data-scan-card="50-100">
             <span class="pill-dot"></span>
             <span class="pill-label">50 / 100 EMA</span>
@@ -1533,7 +1543,16 @@
                   <option value="15">Last 15 sessions</option>
                   <option value="5">Last 5 sessions</option>
                   <option value="0">Fresh today</option>
+                  <option value="custom">Custom range...</option>
                 </select>
+              </label>
+              <label class="filter-field" id="customRangeField" style="display: none; flex-direction: row; align-items: center; gap: 8px; border-left: 1px solid var(--line); padding-left: 16px;">
+                <span>Between</span>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="number" class="filter-input" id="minSessionsInput" min="0" max="60" value="0" style="width: 44px; padding: 0; text-align: center;">
+                  <span>and</span>
+                  <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 44px; padding: 0; text-align: center;">
+                </div>
               </label>
               <label class="filter-field">
                 <span>Watchlist</span>
@@ -1545,7 +1564,12 @@
               <button type="button" data-quality-check="volumeConfirmed" class="is-off">Volume &gt;= 1.5x avg</button>
               <button type="button" data-quality-check="liquidTurnover">Avg turnover &gt;= Rs. 10 crore</button>
               <button type="button" data-quality-check="rsiHealthy" class="is-off">RSI 50-70</button>
-              <button type="button" data-quality-check="adxTrendConfirmed">ADX &gt; 20 and +DI &gt; -DI</button>
+              <button type="button" data-quality-check="diPlusAboveMinus">+DI &gt; -DI</button>
+              <button type="button" data-quality-check="diPlus3xMinus" class="is-off">+DI &gt;= 3x -DI</button>
+              <button type="button" data-quality-check="adxSuperTrend" class="is-off">ADX &gt;= 32</button>
+              <button type="button" data-quality-check="rsiAdxRatio" class="is-off">RSI &gt;= 1.7x ADX</button>
+              <button type="button" data-quality-check="diPlusNearAdx" class="is-off">+DI near ADX (±10%)</button>
+              <button type="button" data-quality-check="emaStillBullish" class="is-off">Trend Still Intact (50 &gt; 200)</button>
             </div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
@@ -1718,11 +1742,13 @@
       let latestResults = [];
       let latestUniverse = [];
       let activeFilter = "all";
-      let activeCapFilter = "all";
+      let activeCapFilters = new Set(["all"]);
       let universeQuery = "";
       let activeSort = "fresh";
       let activeSector = "all";
       let activeSessionWindow = 60;
+      let activeMinSessions = 0;
+      let activeMaxSessions = 60;
       let activeScoreFilter = "all";
       let activeMinPrice = "";
       let activeMaxPrice = "";
@@ -1731,8 +1757,8 @@
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
-      const allQualityKeys = ["bullishSetup", "priceAboveEmaStack", "notOverextended", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed", "marketTrendConfirmed"];
-      const defaultQualityKeys = ["bullishSetup", "priceAboveEmaStack", "liquidTurnover", "adxTrendConfirmed"];
+      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "diPlusAboveMinus", "diPlus3xMinus", "adxSuperTrend", "rsiAdxRatio", "diPlusNearAdx", "emaStillBullish"];
+      const defaultQualityKeys = ["bullishSetup", "liquidTurnover", "diPlusAboveMinus"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
       let activeChatpataFilter = "all";
@@ -1929,7 +1955,7 @@
         }
         if (universeQuery.trim()) nextUrl.searchParams.set("q", universeQuery.trim());
         else nextUrl.searchParams.delete("q");
-        if (activeCapFilter !== "all") nextUrl.searchParams.set("cap", activeCapFilter);
+        if (!activeCapFilters.has("all")) nextUrl.searchParams.set("cap", Array.from(activeCapFilters).join(","));
         else nextUrl.searchParams.delete("cap");
         if (activeFilter !== "all") nextUrl.searchParams.set("type", activeFilter);
         else nextUrl.searchParams.delete("type");
@@ -1937,8 +1963,17 @@
         else nextUrl.searchParams.delete("sort");
         if (activeSector !== "all") nextUrl.searchParams.set("sector", activeSector);
         else nextUrl.searchParams.delete("sector");
-        if (activeSessionWindow !== 15) nextUrl.searchParams.set("days", String(activeSessionWindow));
-        else nextUrl.searchParams.delete("days");
+        if (activeSessionWindow === "custom") {
+          nextUrl.searchParams.set("days", "custom");
+          nextUrl.searchParams.set("minDays", String(activeMinSessions));
+          nextUrl.searchParams.set("maxDays", String(activeMaxSessions));
+        } else if (activeSessionWindow !== 15) {
+          nextUrl.searchParams.set("days", String(activeSessionWindow));
+        } else {
+          nextUrl.searchParams.delete("days");
+          nextUrl.searchParams.delete("minDays");
+          nextUrl.searchParams.delete("maxDays");
+        }
 
 
         if (watchlistOnly) nextUrl.searchParams.set("watchlist", "1");
@@ -2085,7 +2120,12 @@
 
       function sessionMatches(item) {
         if (item._isSavedOnly || item.sessionsAgo === null || item.sessionsAgo === undefined) return true;
-        return Number(item.sessionsAgo) <= Number(activeSessionWindow);
+        if (activeSessionWindow === "custom") {
+          if (Number(item.sessionsAgo) < activeMinSessions || Number(item.sessionsAgo) > activeMaxSessions) return false;
+        } else {
+          if (Number(item.sessionsAgo) > Number(activeSessionWindow)) return false;
+        }
+        return true;
       }
 
       function watchlistMatches(item) {
@@ -2393,6 +2433,18 @@
         for (const key of activeQualityChecks) {
           if (key === "marketTrendConfirmed") {
             if (!item.marketTrendConfirmed) return false;
+          } else if (key === "adxSuperTrend" && typeof checks[key] === "undefined") {
+             if (!item.adx14 || item.adx14 < 32) return false;
+          } else if (key === "diPlusAboveMinus" && typeof checks[key] === "undefined") {
+             if (!item.plusDi14 || !item.minusDi14 || item.plusDi14 <= item.minusDi14) return false;
+          } else if (key === "diPlus3xMinus" && typeof checks[key] === "undefined") {
+             if (!item.plusDi14 || !item.minusDi14 || item.plusDi14 < 3 * item.minusDi14) return false;
+          } else if (key === "rsiAdxRatio" && typeof checks[key] === "undefined") {
+             if (!item.rsi14 || !item.adx14 || item.rsi14 < item.adx14 * 1.7) return false;
+          } else if (key === "diPlusNearAdx" && typeof checks[key] === "undefined") {
+             if (!item.plusDi14 || !item.adx14 || Math.abs(item.plusDi14 - item.adx14) > item.adx14 * 0.10) return false;
+          } else if (key === "emaStillBullish" && typeof checks[key] === "undefined") {
+             if (!item.latestFastEma || !item.latestSlowEma || item.latestFastEma <= item.latestSlowEma) return false;
           } else if (!checks[key]) {
             return false;
           }
@@ -2420,7 +2472,7 @@
 
       function resultMatches(item) {
         const typeMatch = activeFilter === "all" || item.type === activeFilter;
-        const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+        const capMatch = activeCapFilters.has("all") || activeCapFilters.has(item.marketCap);
         return (
           typeMatch &&
           capMatch &&
@@ -2466,7 +2518,7 @@
           return;
         }
 
-        const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
+        const capText = activeCapFilters.has("all") ? "" : `${Array.from(activeCapFilters).map(capLabel).join(", ")} `;
         const searchText = universeQuery.trim() ? ` matching "${universeQuery.trim()}"` : "";
         
         if (resultEyebrow) {
@@ -2621,7 +2673,7 @@
 
         const query = universeQuery.trim().toUpperCase();
         const visibleUniverse = universeSource.filter((item) => {
-          const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+          const capMatch = activeCapFilters.has("all") || activeCapFilters.has(item.marketCap);
           const queryMatch = !query || stockMatchesQuery(item);
           return capMatch && queryMatch && sectorMatches(item) && watchlistMatches(item);
         });
@@ -2651,9 +2703,22 @@
 
       capFilterButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          capFilterButtons.forEach((item) => item.classList.remove("is-active"));
-          button.classList.add("is-active");
-          activeCapFilter = button.dataset.capFilter;
+          const cap = button.dataset.capFilter;
+          if (cap === "all") {
+            activeCapFilters.clear();
+            activeCapFilters.add("all");
+          } else {
+            activeCapFilters.delete("all");
+            if (activeCapFilters.has(cap)) {
+              activeCapFilters.delete(cap);
+              if (activeCapFilters.size === 0) activeCapFilters.add("all");
+            } else {
+              activeCapFilters.add(cap);
+            }
+          }
+          capFilterButtons.forEach((item) => {
+            item.classList.toggle("is-active", activeCapFilters.has(item.dataset.capFilter));
+          });
           renderResults();
           renderUniverse();
           updateUrl(activeScanId);
@@ -2723,8 +2788,28 @@
         renderUniverse();
         updateUrl(activeScanId);
       });
+      const customRangeField = document.getElementById("customRangeField");
+      const minSessionsInput = document.getElementById("minSessionsInput");
+      const maxSessionsInput = document.getElementById("maxSessionsInput");
+
       sessionSelect.addEventListener("change", () => {
-        activeSessionWindow = Number(sessionSelect.value);
+        if (sessionSelect.value === "custom") {
+          activeSessionWindow = "custom";
+          customRangeField.style.display = "flex";
+        } else {
+          activeSessionWindow = Number(sessionSelect.value);
+          customRangeField.style.display = "none";
+        }
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      minSessionsInput.addEventListener("change", () => {
+        activeMinSessions = Number(minSessionsInput.value);
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      maxSessionsInput.addEventListener("change", () => {
+        activeMaxSessions = Number(maxSessionsInput.value);
         renderResults();
         updateUrl(activeScanId);
       });
@@ -2885,7 +2970,7 @@
             <p class="eyebrow">How to read this</p>
             <ul class="reason-list">
               <li>This symbol is saved in your browser watchlist.</li>
-              <li>It did not appear in the latest 50/100 or 100/200 EMA crossover result set.</li>
+              <li>It did not appear in the latest 50/200 or 50/100 EMA crossover result set.</li>
               <li>It will stay here and light up with a fresh signal when future scanner data matches it.</li>
             </ul>
             <div class="result-actions">
@@ -3034,14 +3119,17 @@
       const initialSort = params.get("sort");
       const initialSector = params.get("sector");
       const initialDays = params.get("days");
+      const initialMinDays = params.get("minDays");
+      const initialMaxDays = params.get("maxDays");
       const initialScore = params.get("score");
       const initialVolume = params.get("volume");
       const initialRetest = params.get("retest");
       universeQuery = params.get("q") || "";
       syncSearchInputs(null);
-      if (["large", "mid", "small", "other"].includes(initialCap)) {
-        activeCapFilter = initialCap;
-        capFilterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.capFilter === initialCap));
+      if (initialCap && initialCap !== "all") {
+        activeCapFilters = new Set(initialCap.split(",").filter(c => ["large", "mid", "small", "other"].includes(c)));
+        if (activeCapFilters.size === 0) activeCapFilters.add("all");
+        capFilterButtons.forEach((item) => item.classList.toggle("is-active", activeCapFilters.has(item.dataset.capFilter)));
       }
       if (["bullish"].includes(initialType)) {
         activeFilter = initialType;
@@ -3052,7 +3140,15 @@
         sortSelect.value = initialSort;
       }
       if (initialSector) activeSector = initialSector;
-      if (["0", "5", "15", "30", "60"].includes(initialDays)) {
+      if (initialDays === "custom") {
+        activeSessionWindow = "custom";
+        sessionSelect.value = "custom";
+        if (initialMinDays) activeMinSessions = Number(initialMinDays);
+        if (initialMaxDays) activeMaxSessions = Number(initialMaxDays);
+        document.getElementById("customRangeField").style.display = "flex";
+        document.getElementById("minSessionsInput").value = activeMinSessions;
+        document.getElementById("maxSessionsInput").value = activeMaxSessions;
+      } else if (["0", "5", "15", "30", "60"].includes(initialDays)) {
         activeSessionWindow = Number(initialDays);
         sessionSelect.value = initialDays;
       }
