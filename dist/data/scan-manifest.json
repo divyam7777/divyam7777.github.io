@@ -1,6 +1,6 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-08-15T05:51:41.929996+00:00",
+  "generatedAt": "2026-08-15T05:59:30.377845+00:00",
   "universeSize": 2126,
   "pricedUniverseSize": 2126,
   "failureCount": 0,
@@ -8,7 +8,7 @@
     "symbol": "^NSEI",
     "label": "Nifty 50",
     "latestClose": 24366.0,
-    "ema200": 24405.4,
+    "ema200": 24410.99,
     "timestamp": 1786679100,
     "isBullish": false,
     "filterApplied": true
@@ -25,14 +25,14 @@
       "scanId": "50-100",
       "label": "50 / 100 EMA cross",
       "file": "ema-50-100-crosses.json",
-      "resultCount": 591,
+      "resultCount": 594,
       "rule": "Bullish 50 EMA / 100 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "50-200",
       "label": "50 / 200 EMA cross",
       "file": "ema-50-200-crosses.json",
-      "resultCount": 431,
+      "resultCount": 444,
       "rule": "Bullish 50 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     }
   ]
