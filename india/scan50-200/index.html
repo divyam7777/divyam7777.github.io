@@ -108,6 +108,8 @@
         overflow: hidden;
         pointer-events: none;
         opacity: 0.78;
+        will-change: transform;
+        transform: translateZ(0);
       }
       .market-backdrop::before {
         content: "";
@@ -119,6 +121,8 @@
         background-size: 72px 72px;
         mask-image: radial-gradient(circle at 52% 28%, black 0%, rgba(0, 0, 0, 0.72) 38%, transparent 78%);
         animation: marketGridDrift 22s linear infinite;
+        will-change: transform;
+        transform: translateZ(0);
       }
       .market-backdrop::after {
         content: "";
@@ -134,6 +138,8 @@
         color: var(--green);
         filter: drop-shadow(0 0 16px color-mix(in srgb, var(--green) 20%, transparent));
         opacity: 0.72;
+        will-change: transform;
+        transform: translateZ(0);
       }
       .market-chart .area {
         fill: url(#marketArea);
@@ -145,6 +151,7 @@
         stroke-linecap: round;
         stroke-linejoin: round;
         vector-effect: non-scaling-stroke;
+        will-change: stroke-dashoffset, transform;
       }
       .market-chart .price-line {
         stroke: var(--green);
@@ -170,6 +177,7 @@
         transform-box: fill-box;
         transform-origin: center;
         animation: candlePulse 3.6s ease-in-out infinite;
+        will-change: transform, opacity;
       }
       .market-chart .candle.green { stroke: var(--green); fill: color-mix(in srgb, var(--green) 55%, transparent); }
       .market-chart .candle.red { stroke: var(--red); fill: color-mix(in srgb, var(--red) 48%, transparent); }
