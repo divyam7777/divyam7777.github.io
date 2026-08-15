@@ -2394,6 +2394,8 @@
         for (const key of activeQualityChecks) {
           if (key === "marketTrendConfirmed") {
             if (!item.marketTrendConfirmed) return false;
+          } else if (key === "adxSuperTrend" && typeof checks[key] === "undefined") {
+             if (!item.adx14 || item.adx14 < 32) return false;
           } else if (!checks[key]) {
             return false;
           }
