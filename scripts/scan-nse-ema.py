@@ -439,6 +439,7 @@ def quality_checks(cross: dict) -> dict:
             and float(plus_di) >= 3 * float(minus_di)
         ),
         "adxSuperTrend": latest_adx is not None and float(latest_adx) >= 32,
+        "rsiAdxRatio": latest_rsi is not None and latest_adx is not None and float(latest_rsi) >= float(latest_adx) * 1.7,
     }
     labels = {
         "bullishSetup": "Bullish EMA crossover",
@@ -451,6 +452,7 @@ def quality_checks(cross: dict) -> dict:
         "diPlusAboveMinus": "+DI is above -DI",
         "diPlus3xMinus": "+DI is at least 3x -DI",
         "adxSuperTrend": "ADX is >= 32",
+        "rsiAdxRatio": "RSI is >= 1.7x ADX",
     }
     failed = [labels[key] for key, passed in checks.items() if not passed]
     return {
