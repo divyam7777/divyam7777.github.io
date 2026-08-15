@@ -1718,7 +1718,7 @@
       let latestResults = [];
       let latestUniverse = [];
       let activeFilter = "all";
-      let activeCapFilter = "all";
+      let activeCapFilters = new Set(["all"]);
       let universeQuery = "";
       let activeSort = "fresh";
       let activeSector = "all";
@@ -1731,8 +1731,8 @@
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
-      const allQualityKeys = ["bullishSetup", "priceAboveEmaStack", "notOverextended", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed", "marketTrendConfirmed"];
-      const defaultQualityKeys = ["bullishSetup", "priceAboveEmaStack", "liquidTurnover", "adxTrendConfirmed"];
+      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "adxTrendConfirmed"];
+      const defaultQualityKeys = ["bullishSetup", "liquidTurnover", "adxTrendConfirmed"];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
       let activeChatpataFilter = "all";
@@ -1929,7 +1929,7 @@
         }
         if (universeQuery.trim()) nextUrl.searchParams.set("q", universeQuery.trim());
         else nextUrl.searchParams.delete("q");
-        if (activeCapFilter !== "all") nextUrl.searchParams.set("cap", activeCapFilter);
+        if (!activeCapFilters.has("all")) nextUrl.searchParams.set("cap", Array.from(activeCapFilters).join(","));
         else nextUrl.searchParams.delete("cap");
         if (activeFilter !== "all") nextUrl.searchParams.set("type", activeFilter);
         else nextUrl.searchParams.delete("type");
@@ -2420,7 +2420,7 @@
 
       function resultMatches(item) {
         const typeMatch = activeFilter === "all" || item.type === activeFilter;
-        const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+        const capMatch = activeCapFilters.has("all") || activeCapFilters.has(item.marketCap);
         return (
           typeMatch &&
           capMatch &&
@@ -2466,7 +2466,7 @@
           return;
         }
 
-        const capText = activeCapFilter === "all" ? "" : `${capLabel(activeCapFilter)} `;
+        const capText = activeCapFilters.has("all") ? "" : `${Array.from(activeCapFilters).map(capLabel).join(", ")} `;
         const searchText = universeQuery.trim() ? ` matching "${universeQuery.trim()}"` : "";
         
         if (resultEyebrow) {
@@ -2621,7 +2621,7 @@
 
         const query = universeQuery.trim().toUpperCase();
         const visibleUniverse = universeSource.filter((item) => {
-          const capMatch = activeCapFilter === "all" || item.marketCap === activeCapFilter;
+          const capMatch = activeCapFilters.has("all") || activeCapFilters.has(item.marketCap);
           const queryMatch = !query || stockMatchesQuery(item);
           return capMatch && queryMatch && sectorMatches(item) && watchlistMatches(item);
         });
@@ -2651,9 +2651,22 @@
 
       capFilterButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          capFilterButtons.forEach((item) => item.classList.remove("is-active"));
-          button.classList.add("is-active");
-          activeCapFilter = button.dataset.capFilter;
+          const cap = button.dataset.capFilter;
+          if (cap === "all") {
+            activeCapFilters.clear();
+            activeCapFilters.add("all");
+          } else {
+            activeCapFilters.delete("all");
+            if (activeCapFilters.has(cap)) {
+              activeCapFilters.delete(cap);
+              if (activeCapFilters.size === 0) activeCapFilters.add("all");
+            } else {
+              activeCapFilters.add(cap);
+            }
+          }
+          capFilterButtons.forEach((item) => {
+            item.classList.toggle("is-active", activeCapFilters.has(item.dataset.capFilter));
+          });
           renderResults();
           renderUniverse();
           updateUrl(activeScanId);
@@ -3039,9 +3052,10 @@
       const initialRetest = params.get("retest");
       universeQuery = params.get("q") || "";
       syncSearchInputs(null);
-      if (["large", "mid", "small", "other"].includes(initialCap)) {
-        activeCapFilter = initialCap;
-        capFilterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.capFilter === initialCap));
+      if (initialCap && initialCap !== "all") {
+        activeCapFilters = new Set(initialCap.split(",").filter(c => ["large", "mid", "small", "other"].includes(c)));
+        if (activeCapFilters.size === 0) activeCapFilters.add("all");
+        capFilterButtons.forEach((item) => item.classList.toggle("is-active", activeCapFilters.has(item.dataset.capFilter)));
       }
       if (["bullish"].includes(initialType)) {
         activeFilter = initialType;
