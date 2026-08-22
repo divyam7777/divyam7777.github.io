@@ -543,7 +543,7 @@
         color: var(--text);
       }
       .universe-bar .filter-trigger {
-        margin-left: auto;
+        margin-right: 16px;
         font-family: 'Inter', sans-serif;
         font-size: 12px;
         font-weight: 600;
@@ -1527,12 +1527,12 @@
             <article class="stat-tile"><span>Coverage</span><strong id="summaryCoverage">0%</strong></article>
           </div>
           <div class="universe-bar" aria-label="Filter by market-cap segment">
+            <button id="toggleFiltersBtn" class="filter-trigger" type="button">⚙ Filters</button>
             <button class="universe-pill is-active" data-cap-filter="all" type="button">All market <span class="filter-count">0</span></button>
             <button class="universe-pill" data-cap-filter="large" type="button">Large cap <span class="filter-count">0</span></button>
             <button class="universe-pill" data-cap-filter="mid" type="button">Mid cap <span class="filter-count">0</span></button>
             <button class="universe-pill" data-cap-filter="small" type="button">Small cap <span class="filter-count">0</span></button>
             <button class="universe-pill" data-cap-filter="other" type="button">Other <span class="filter-count">0</span></button>
-            <button id="toggleFiltersBtn" class="filter-trigger" type="button">⚙ Filters</button>
           </div>
           <div class="panel control-deck" id="advancedFiltersPanel" style="display: none;" aria-label="Scanner controls">
             <div class="control-top">
