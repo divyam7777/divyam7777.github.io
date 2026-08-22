@@ -2640,23 +2640,42 @@
                 `;
               }).join("");
 
+              let lastUpperPos = -999;
+              let lastLowerPos = -999;
+              marks.forEach(m => {
+                const p = pos(m.value);
+                if (p - lastUpperPos >= 14) {
+                  m.isLower = false;
+                  lastUpperPos = p;
+                } else if (p - lastLowerPos >= 14) {
+                  m.isLower = true;
+                  lastLowerPos = p;
+                } else {
+                  m.isLower = true; // Both full, force lower and hope for the best
+                  lastLowerPos = p;
+                }
+              });
+
               const labelsHtml = marks.map(m => {
                 const color = m.type === "extreme" ? (isBearish ? "var(--red)" : "var(--green)") : (m.type === "latest" ? "var(--text)" : "var(--muted)");
                 const weight = m.type === "latest" ? 600 : 400;
+                const topMargin = m.isLower ? "margin-top: 24px;" : "";
                 return `
-                  <div class="range-label" style="left: ${pos(m.value)}%;">
+                  <div class="range-label" style="left: ${pos(m.value)}%; ${topMargin}">
                     <div class="title">${m.label}</div>
                     <div class="value" style="color: ${color}; font-weight: ${weight};">${m.value.toFixed(2)}</div>
                   </div>
                 `;
               }).join("");
 
+              const hasLower = marks.some(m => m.isLower);
+
               rangeBarHtml = `
                 <div class="range-wrapper">
                   <div class="range-track ${isBearish ? 'bearish' : ''}">
                     ${markersHtml}
                   </div>
-                  <div class="range-labels">
+                  <div class="range-labels" style="height: ${hasLower ? '54px' : '30px'};">
                     ${labelsHtml}
                   </div>
                 </div>
