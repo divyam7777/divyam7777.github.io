@@ -2622,10 +2622,10 @@
               return Math.max(0, Math.min(100, p));
             };
 
-            const marks = [
+              const marks = [
               { key: "100", label: `EMA${slowPeriod}`, value: emaSlow, color: "var(--grid)", type: "ema" },
               { key: "50", label: `EMA${fastPeriod}`, value: emaFast, color: "var(--grid)", type: "ema" },
-              { key: "latest", label: "LTP", value: latestPrice, color: "var(--text)", type: "latest" },
+              { key: "latest", label: "CLOSE", value: latestPrice, color: "var(--text)", type: "latest" },
               { key: "high", label: isBearish ? "LOW" : "HIGH", value: extremePrice, color: isBearish ? "var(--red)" : "var(--green)", type: "extreme" }
             ].filter(m => m.value > 0).sort((a, b) => a.value - b.value);
 
