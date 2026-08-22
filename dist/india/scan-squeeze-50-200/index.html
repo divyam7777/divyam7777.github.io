@@ -1572,7 +1572,7 @@
                   <option value="30">Last 30 sessions</option>
                   <option value="15">Last 15 sessions</option>
                   <option value="5">Last 5 sessions</option>
-                  <option value="0">Fresh today</option>
+                  <option value="0" selected>Fresh today</option>
                   <option value="custom">Custom range...</option>
                 </select>
               </label>
@@ -1786,7 +1786,7 @@
       let universeQuery = "";
       let activeSort = "fresh";
       let activeSector = "all";
-      let activeSessionWindow = 60;
+      let activeSessionWindow = 0;
       let activeMinSessions = 0;
       let activeMaxSessions = 60;
       let activeScoreFilter = "all";
