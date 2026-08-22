@@ -8,6 +8,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  (() => {
+    try {
+      const saved = localStorage.getItem("stocks-theme");
+      const light = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      document.documentElement.dataset.theme = saved || (light ? "light" : "dark");
+    } catch { document.documentElement.dataset.theme = "dark"; }
+  })();
+</script>
 <style>
   :root{
     --void:#0A0D10;
@@ -22,6 +31,21 @@
     --muted-2:#3F4A54;
     --grid:#1E262E;
     --radius:3px;
+    --nav-bg:rgba(10,13,16,0.85);
+  }
+  [data-theme="light"]{
+    --void:#F4F6F8;
+    --panel:#FFFFFF;
+    --panel-alt:#F0F2F5;
+    --amber:#D4851A;
+    --amber-dim:#c98a30;
+    --bull:#1A9960;
+    --bear:#D93636;
+    --text:#1A1E24;
+    --muted:#5A6670;
+    --muted-2:#9DA7B2;
+    --grid:#DDE2E8;
+    --nav-bg:rgba(244,246,248,0.88);
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -86,10 +110,22 @@
     padding:20px 48px;
     border-bottom:1px solid var(--grid);
     position:sticky;top:0;
-    background:rgba(10,13,16,0.85);
+    background:var(--nav-bg);
     backdrop-filter:blur(10px);
     z-index:50;
   }
+  .theme-btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:16px;
+    background:none;border:1px solid var(--grid);
+    color:var(--text);
+    width:36px;height:36px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    transition:border-color .2s;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .theme-btn:hover{border-color:var(--amber);}
   .logo{
     display:flex;align-items:center;gap:10px;
     font-family:'IBM Plex Mono',monospace;
@@ -311,7 +347,10 @@
       <a href="/watchlist/">Watchlist</a>
       <a href="/creater/">Portfolio</a>
     </div>
-    <a href="/india/" class="nav-cta">Open Scanner →</a>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme">☾</button>
+      <a href="/india/" class="nav-cta">Open Scanner →</a>
+    </div>
   </nav>
 
   <div class="hero">
@@ -426,6 +465,20 @@
   </footer>
 
 <script>
+// ---------- Theme Toggle ----------
+const themeBtn = document.getElementById('themeToggle');
+function updateThemeIcon() {
+  themeBtn.textContent = document.documentElement.dataset.theme === 'light' ? '☀' : '☾';
+}
+updateThemeIcon();
+themeBtn.addEventListener('click', () => {
+  const current = document.documentElement.dataset.theme;
+  const next = current === 'light' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem('stocks-theme', next);
+  updateThemeIcon();
+});
+
 // ---------- Ticker tape ----------
 const tickers = [
   {sym:'RELIANCE',ex:'NSE',chg:1.24,up:true},
