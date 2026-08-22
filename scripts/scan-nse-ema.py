@@ -636,10 +636,15 @@ def find_cross(
         latest_timestamp = timestamps[-1] if timestamps else None
         sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
         if previous <= 0 and current > 0:
-            if index < len(highs):
-                high_slice = highs[index:]
-                high_after_cross = max(high_slice)
-                high_days_after_cross = high_slice.index(high_after_cross)
+            if index < len(highs) - 1:
+                high_slice = highs[index + 1:]
+                max_subsequent = max(high_slice)
+                if max_subsequent > cross_close:
+                    high_after_cross = max_subsequent
+                    high_days_after_cross = high_slice.index(high_after_cross) + 1
+                else:
+                    high_after_cross = cross_close
+                    high_days_after_cross = 0
             else:
                 high_after_cross = cross_close
                 high_days_after_cross = 0
