@@ -1,0 +1,918 @@
+{
+  "market": "NSE India",
+  "scanId": "squeeze-50-200",
+  "label": "50 / 200 EMA squeeze",
+  "rule": "Bullish 50 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
+  "fastPeriod": 50,
+  "slowPeriod": 200,
+  "windowSessions": 60,
+  "filters": {
+    "direction": "bullish only",
+    "priceStack": "latest close > EMA 50 > EMA 200",
+    "maxDistanceFromFastEmaPct": 10,
+    "volumeMultiple": 1.5,
+    "minimumAverageTurnover": 100000000,
+    "rsi": {
+      "period": 14,
+      "min": 50,
+      "max": 70
+    },
+    "adx": {
+      "period": 14,
+      "min": 20,
+      "requiresPlusDiAboveMinusDi": true
+    },
+    "marketTrend": "Nifty 50 close > Nifty 50 EMA 200 when index data is available"
+  },
+  "marketTrend": {
+    "symbol": "^NSEI",
+    "label": "Nifty 50",
+    "latestClose": 24252.0,
+    "ema200": 24394.09,
+    "timestamp": 1787283900,
+    "isBullish": false,
+    "filterApplied": true
+  },
+  "generatedAt": "2026-08-22T08:15:23.070196+00:00",
+  "dataSource": {
+    "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
+    "prices": "Yahoo Finance chart/spark daily candles",
+    "capBuckets": "NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250; remaining NSE EQ securities are grouped as Other"
+  },
+  "universeSize": 50,
+  "pricedUniverseSize": 50,
+  "universe": [
+    {
+      "symbol": "20MICRONS",
+      "name": "20 Microns Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE144J01027"
+    },
+    {
+      "symbol": "21STCENMGM",
+      "name": "21st Century Management Services Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE253B01015"
+    },
+    {
+      "symbol": "360ONE",
+      "name": "360 ONE WAM LIMITED",
+      "marketCap": "mid",
+      "sector": "Financial Services",
+      "isin": "INE466L01038"
+    },
+    {
+      "symbol": "3BBLACKBIO",
+      "name": "3B Blackbio Dx Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE994E01018"
+    },
+    {
+      "symbol": "3MINDIA",
+      "name": "3M India Limited",
+      "marketCap": "mid",
+      "sector": "Diversified",
+      "isin": "INE470A01017"
+    },
+    {
+      "symbol": "3PLAND",
+      "name": "3P Land Holdings Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE105C01023"
+    },
+    {
+      "symbol": "5PAISA",
+      "name": "5Paisa Capital Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE618L01018"
+    },
+    {
+      "symbol": "63MOONS",
+      "name": "63 moons technologies limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE111B01023"
+    },
+    {
+      "symbol": "A2ZINFRA",
+      "name": "A2Z Infra Engineering Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE619I01012"
+    },
+    {
+      "symbol": "AAATECH",
+      "name": "AAA Technologies Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0D0U01013"
+    },
+    {
+      "symbol": "AADHARHFC",
+      "name": "Aadhar Housing Finance Limited",
+      "marketCap": "small",
+      "sector": "Financial Services",
+      "isin": "INE883F01010"
+    },
+    {
+      "symbol": "AAKASH",
+      "name": "Aakash Exploration Services Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE087Z01024"
+    },
+    {
+      "symbol": "AAREYDRUGS",
+      "name": "Aarey Drugs & Pharmaceuticals Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE198H01019"
+    },
+    {
+      "symbol": "AARON",
+      "name": "Aaron Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE721Z01010"
+    },
+    {
+      "symbol": "AARTIDRUGS",
+      "name": "Aarti Drugs Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE767A01016"
+    },
+    {
+      "symbol": "AARTIIND",
+      "name": "Aarti Industries Limited",
+      "marketCap": "small",
+      "sector": "Chemicals",
+      "isin": "INE769A01020"
+    },
+    {
+      "symbol": "AARTIPHARM",
+      "name": "Aarti Pharmalabs Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0LRU01027"
+    },
+    {
+      "symbol": "AARVI",
+      "name": "Aarvi Encon Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE754X01016"
+    },
+    {
+      "symbol": "AASTHA",
+      "name": "Aastha Spintex Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE2FMX01012"
+    },
+    {
+      "symbol": "AAVAS",
+      "name": "Aavas Financiers Limited",
+      "marketCap": "small",
+      "sector": "Financial Services",
+      "isin": "INE216P01012"
+    },
+    {
+      "symbol": "ABANSENT",
+      "name": "Abans Enterprises Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE365O01028"
+    },
+    {
+      "symbol": "ABB",
+      "name": "ABB India Limited",
+      "marketCap": "large",
+      "sector": "Capital Goods",
+      "isin": "INE117A01022"
+    },
+    {
+      "symbol": "ABBOTINDIA",
+      "name": "Abbott India Limited",
+      "marketCap": "mid",
+      "sector": "Healthcare",
+      "isin": "INE358A01014"
+    },
+    {
+      "symbol": "ABCAPITAL",
+      "name": "Aditya Birla Capital Limited",
+      "marketCap": "mid",
+      "sector": "Financial Services",
+      "isin": "INE674K01013"
+    },
+    {
+      "symbol": "ABCOTS",
+      "name": "A B Cotspin India Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE08PH01015"
+    },
+    {
+      "symbol": "ABDL",
+      "name": "Allied Blenders and Distillers Limited",
+      "marketCap": "small",
+      "sector": "Fast Moving Consumer Goods",
+      "isin": "INE552Z01027"
+    },
+    {
+      "symbol": "ABFRL",
+      "name": "Aditya Birla Fashion and Retail Limited",
+      "marketCap": "small",
+      "sector": "Consumer Services",
+      "isin": "INE647O01011"
+    },
+    {
+      "symbol": "ABINFRA",
+      "name": "A B Infrabuild Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE00YB01025"
+    },
+    {
+      "symbol": "ABLBL",
+      "name": "Aditya Birla Lifestyle Brands Limited",
+      "marketCap": "small",
+      "sector": "Consumer Services",
+      "isin": "INE14LE01019"
+    },
+    {
+      "symbol": "ABMKNO",
+      "name": "ABM Knowledgeware Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE850B01026"
+    },
+    {
+      "symbol": "ABREL",
+      "name": "Aditya Birla Real Estate Limited",
+      "marketCap": "small",
+      "sector": "Realty",
+      "isin": "INE055A01016"
+    },
+    {
+      "symbol": "ABSLAMC",
+      "name": "Aditya Birla Sun Life AMC Limited",
+      "marketCap": "small",
+      "sector": "Financial Services",
+      "isin": "INE404A01024"
+    },
+    {
+      "symbol": "ACC",
+      "name": "ACC Limited",
+      "marketCap": "mid",
+      "sector": "Construction Materials",
+      "isin": "INE012A01025"
+    },
+    {
+      "symbol": "ACCELYA",
+      "name": "Accelya Solutions India Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE793A01012"
+    },
+    {
+      "symbol": "ACE",
+      "name": "Action Construction Equipment Limited",
+      "marketCap": "small",
+      "sector": "Capital Goods",
+      "isin": "INE731H01025"
+    },
+    {
+      "symbol": "ACEINTEG",
+      "name": "Ace Integrated Solutions Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE543V01017"
+    },
+    {
+      "symbol": "ACGL",
+      "name": "Automobile Corporation of Goa Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE451C01013"
+    },
+    {
+      "symbol": "ACI",
+      "name": "Archean Chemical Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE128X01021"
+    },
+    {
+      "symbol": "ACL",
+      "name": "Andhra Cements Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE666E01020"
+    },
+    {
+      "symbol": "ACMESOLAR",
+      "name": "Acme Solar Holdings Limited",
+      "marketCap": "small",
+      "sector": "Power",
+      "isin": "INE622W01025"
+    },
+    {
+      "symbol": "ACSTECH",
+      "name": "ACS Technologies Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE366C01021"
+    },
+    {
+      "symbol": "ACUTAAS",
+      "name": "Acutaas Chemicals Limited",
+      "marketCap": "small",
+      "sector": "Healthcare",
+      "isin": "INE00FF01025"
+    },
+    {
+      "symbol": "ADANIENSOL",
+      "name": "Adani Energy Solutions Limited",
+      "marketCap": "large",
+      "sector": "Power",
+      "isin": "INE931S01010"
+    },
+    {
+      "symbol": "ADANIENT",
+      "name": "Adani Enterprises Limited",
+      "marketCap": "large",
+      "sector": "Metals & Mining",
+      "isin": "INE423A01024"
+    },
+    {
+      "symbol": "ADANIGREEN",
+      "name": "Adani Green Energy Limited",
+      "marketCap": "large",
+      "sector": "Power",
+      "isin": "INE364U01010"
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "name": "Adani Ports and Special Economic Zone Limited",
+      "marketCap": "large",
+      "sector": "Services",
+      "isin": "INE742F01042"
+    },
+    {
+      "symbol": "ADANIPOWER",
+      "name": "Adani Power Limited",
+      "marketCap": "large",
+      "sector": "Power",
+      "isin": "INE814H01029"
+    },
+    {
+      "symbol": "ADDIND",
+      "name": "Addi Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE757C01021"
+    },
+    {
+      "symbol": "ADFFOODS",
+      "name": "ADF Foods Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE982B01027"
+    },
+    {
+      "symbol": "ADL",
+      "name": "Archidply Decor Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0CHO01012"
+    }
+  ],
+  "marketCapBuckets": {
+    "large": 6,
+    "mid": 5,
+    "small": 11,
+    "other": 28
+  },
+  "sectorBuckets": {
+    "Capital Goods": 2,
+    "Chemicals": 1,
+    "Construction Materials": 1,
+    "Consumer Services": 2,
+    "Diversified": 1,
+    "Fast Moving Consumer Goods": 1,
+    "Financial Services": 5,
+    "Healthcare": 2,
+    "Metals & Mining": 1,
+    "Power": 4,
+    "Realty": 1,
+    "Services": 1,
+    "Unclassified": 28
+  },
+  "resultCount": 4,
+  "failureCount": 0,
+  "skippedCount": 7,
+  "results": [
+    {
+      "symbol": "AAATECH",
+      "name": "AAA Technologies Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0D0U01013",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 93.52688273366302,
+      "slowEma": 95.15070692618318,
+      "latestFastEma": 93.53,
+      "latestSlowEma": 95.15,
+      "close": 93.86000061035156,
+      "crossClose": 93.86000061035156,
+      "highAfterCross": 93.86,
+      "highAfterCrossPct": 0.0,
+      "highDaysAfterCross": 0,
+      "latestClose": 93.86000061035156,
+      "latestTimestamp": 1787197500,
+      "priceChange": 0.0,
+      "priceChangePct": 0.0,
+      "volume": 18983,
+      "crossVolume": 18983,
+      "latestVolume": 18983,
+      "crossAverageVolume20": 28400.7,
+      "averageVolume20": 28400.7,
+      "volumeMultiple": 0.67,
+      "averageTurnover20": 2647519.94,
+      "averageTurnover20Crore": 0.26,
+      "rsi14": 52.04,
+      "adx14": 20.81,
+      "plusDi14": 22.87,
+      "minusDi14": 16.33,
+      "distanceFromFastEmaPct": 0.36,
+      "fastEmaSlopePct": 0.015,
+      "marketTrendConfirmed": false,
+      "timestamp": 1787197500,
+      "sparkline": [
+        98.34,
+        98.03,
+        95.15,
+        95.83,
+        95.83,
+        95.5,
+        95.29,
+        95.04,
+        94.84,
+        93.38,
+        94.11,
+        89.4,
+        92.68,
+        91.16,
+        90.58,
+        90.55,
+        89.66,
+        91.4,
+        90.47,
+        89.32,
+        88.6,
+        89.38,
+        90.6,
+        89.23,
+        91.33,
+        93.12,
+        91.95,
+        99.48,
+        97.98,
+        94.54,
+        90.36,
+        92.18,
+        91.98,
+        92.81,
+        94.18,
+        93.86
+      ],
+      "quality": {
+        "passed": false,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": false,
+          "fastEmaSlopePositive": true,
+          "notOverextended": true,
+          "volumeConfirmed": false,
+          "liquidTurnover": false,
+          "rsiHealthy": true,
+          "diPlusAboveMinus": true,
+          "diPlus3xMinus": false,
+          "adxSuperTrend": false,
+          "rsiAdxRatio": true,
+          "diPlusNearAdx": true,
+          "emaStillBullish": false
+        },
+        "failed": [
+          "Close is above EMA stack",
+          "Volume is at least 1.5x 20-session average",
+          "20-session average turnover is at least Rs. 10 crore",
+          "+DI is at least 3x -DI",
+          "ADX is >= 32",
+          "50 EMA is still above 200 EMA today"
+        ]
+      },
+      "score": {
+        "value": 97,
+        "grade": "A",
+        "emaSpreadPct": 1.73,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "EMA spread is meaningfully separated",
+          "Close is near the moving-average zone",
+          "RSI confirms bullish momentum without overextension",
+          "ADX confirms trend strength",
+          "Price is still close to the fast EMA"
+        ]
+      }
+    },
+    {
+      "symbol": "AAKASH",
+      "name": "Aakash Exploration Services Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE087Z01024",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 8.935361938604567,
+      "slowEma": 8.99111035260182,
+      "latestFastEma": 8.94,
+      "latestSlowEma": 8.99,
+      "close": 8.710000038146973,
+      "crossClose": 8.710000038146973,
+      "highAfterCross": 8.71,
+      "highAfterCrossPct": 0.0,
+      "highDaysAfterCross": 0,
+      "latestClose": 8.710000038146973,
+      "latestTimestamp": 1787283900,
+      "priceChange": 0.0,
+      "priceChangePct": 0.0,
+      "volume": 95815,
+      "crossVolume": 95815,
+      "latestVolume": 95815,
+      "crossAverageVolume20": 144945.6,
+      "averageVolume20": 144945.6,
+      "volumeMultiple": 0.66,
+      "averageTurnover20": 1278650.65,
+      "averageTurnover20Crore": 0.13,
+      "rsi14": 45.31,
+      "adx14": 18.25,
+      "plusDi14": 16.73,
+      "minusDi14": 23.25,
+      "distanceFromFastEmaPct": -2.52,
+      "fastEmaSlopePct": -0.103,
+      "marketTrendConfirmed": false,
+      "timestamp": 1787283900,
+      "sparkline": [
+        8.96,
+        8.74,
+        8.78,
+        8.81,
+        8.83,
+        8.84,
+        9.59,
+        9.18,
+        9.16,
+        9.07,
+        8.95,
+        8.98,
+        8.98,
+        9.09,
+        9.15,
+        8.92,
+        9.0,
+        8.94,
+        8.86,
+        8.92,
+        8.95,
+        8.98,
+        8.95,
+        9.0,
+        8.99,
+        8.99,
+        9.04,
+        9.11,
+        8.94,
+        8.71,
+        8.79,
+        8.77,
+        9.13,
+        8.45,
+        8.54,
+        8.71
+      ],
+      "quality": {
+        "passed": false,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": false,
+          "fastEmaSlopePositive": false,
+          "notOverextended": true,
+          "volumeConfirmed": false,
+          "liquidTurnover": false,
+          "rsiHealthy": false,
+          "diPlusAboveMinus": false,
+          "diPlus3xMinus": false,
+          "adxSuperTrend": false,
+          "rsiAdxRatio": true,
+          "diPlusNearAdx": true,
+          "emaStillBullish": false
+        },
+        "failed": [
+          "Close is above EMA stack",
+          "EMA slope is positive",
+          "Volume is at least 1.5x 20-session average",
+          "20-session average turnover is at least Rs. 10 crore",
+          "RSI 14 is between 50 and 70",
+          "+DI is above -DI",
+          "+DI is at least 3x -DI",
+          "ADX is >= 32",
+          "50 EMA is still above 200 EMA today"
+        ]
+      },
+      "score": {
+        "value": 81,
+        "grade": "B",
+        "emaSpreadPct": 0.64,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "EMA spread has started to separate",
+          "Close is near the moving-average zone",
+          "Price is still close to the fast EMA"
+        ]
+      }
+    },
+    {
+      "symbol": "AAVAS",
+      "name": "Aavas Financiers Limited",
+      "marketCap": "small",
+      "sector": "Financial Services",
+      "isin": "INE216P01012",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 1409.939579767235,
+      "slowEma": 1437.2230793440467,
+      "latestFastEma": 1409.94,
+      "latestSlowEma": 1437.22,
+      "close": 1364.9000244140625,
+      "crossClose": 1364.9000244140625,
+      "highAfterCross": 1364.9,
+      "highAfterCrossPct": 0.0,
+      "highDaysAfterCross": 0,
+      "latestClose": 1364.9000244140625,
+      "latestTimestamp": 1787197500,
+      "priceChange": 0.0,
+      "priceChangePct": 0.0,
+      "volume": 104899,
+      "crossVolume": 104899,
+      "latestVolume": 104899,
+      "crossAverageVolume20": 67683.75,
+      "averageVolume20": 67683.75,
+      "volumeMultiple": 1.55,
+      "averageTurnover20": 94326691.27,
+      "averageTurnover20Crore": 9.43,
+      "rsi14": 41.56,
+      "adx14": 13.21,
+      "plusDi14": 17.53,
+      "minusDi14": 20.2,
+      "distanceFromFastEmaPct": -3.19,
+      "fastEmaSlopePct": -0.13,
+      "marketTrendConfirmed": false,
+      "timestamp": 1787197500,
+      "sparkline": [
+        1503.9,
+        1506.1,
+        1514.0,
+        1506.2,
+        1499.8,
+        1505.3,
+        1525.9,
+        1498.4,
+        1447.5,
+        1500.9,
+        1500.8,
+        1481.4,
+        1497.4,
+        1521.7,
+        1444.0,
+        1385.9,
+        1379.0,
+        1390.6,
+        1376.1,
+        1387.3,
+        1362.6,
+        1359.8,
+        1439.0,
+        1392.6,
+        1375.7,
+        1376.3,
+        1371.5,
+        1404.0,
+        1396.8,
+        1416.2,
+        1431.8,
+        1397.4,
+        1389.8,
+        1388.3,
+        1372.8,
+        1364.9
+      ],
+      "quality": {
+        "passed": false,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": false,
+          "fastEmaSlopePositive": false,
+          "notOverextended": true,
+          "volumeConfirmed": true,
+          "liquidTurnover": false,
+          "rsiHealthy": false,
+          "diPlusAboveMinus": false,
+          "diPlus3xMinus": false,
+          "adxSuperTrend": false,
+          "rsiAdxRatio": true,
+          "diPlusNearAdx": false,
+          "emaStillBullish": false
+        },
+        "failed": [
+          "Close is above EMA stack",
+          "EMA slope is positive",
+          "20-session average turnover is at least Rs. 10 crore",
+          "RSI 14 is between 50 and 70",
+          "+DI is above -DI",
+          "+DI is at least 3x -DI",
+          "ADX is >= 32",
+          "+DI is within \u00b110% of ADX",
+          "50 EMA is still above 200 EMA today"
+        ]
+      },
+      "score": {
+        "value": 93,
+        "grade": "A",
+        "emaSpreadPct": 2.0,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "EMA spread is meaningfully separated",
+          "Close is near the moving-average zone",
+          "Latest volume confirms the breakout",
+          "Price is still close to the fast EMA"
+        ]
+      }
+    },
+    {
+      "symbol": "ABBOTINDIA",
+      "name": "Abbott India Limited",
+      "marketCap": "mid",
+      "sector": "Healthcare",
+      "isin": "INE358A01014",
+      "type": "bullish",
+      "sessionsAgo": 0,
+      "fastEma": 27179.003582637455,
+      "slowEma": 27538.98361597463,
+      "latestFastEma": 27179.0,
+      "latestSlowEma": 27538.98,
+      "close": 26120.0,
+      "crossClose": 26120.0,
+      "highAfterCross": 26120.0,
+      "highAfterCrossPct": 0.0,
+      "highDaysAfterCross": 0,
+      "latestClose": 26120.0,
+      "latestTimestamp": 1787197500,
+      "priceChange": 0.0,
+      "priceChangePct": 0.0,
+      "volume": 7487,
+      "crossVolume": 7487,
+      "latestVolume": 7487,
+      "crossAverageVolume20": 9009.8,
+      "averageVolume20": 9009.8,
+      "volumeMultiple": 0.83,
+      "averageTurnover20": 247948402.25,
+      "averageTurnover20Crore": 24.79,
+      "rsi14": 32.08,
+      "adx14": 18.59,
+      "plusDi14": 14.88,
+      "minusDi14": 23.76,
+      "distanceFromFastEmaPct": -3.9,
+      "fastEmaSlopePct": -0.159,
+      "marketTrendConfirmed": false,
+      "timestamp": 1787197500,
+      "sparkline": [
+        25725.0,
+        25895.0,
+        26860.0,
+        26725.0,
+        26245.0,
+        26770.0,
+        27165.0,
+        27395.0,
+        27500.0,
+        27640.0,
+        27870.0,
+        28055.0,
+        28275.0,
+        28800.0,
+        28900.0,
+        28690.0,
+        28005.0,
+        27800.0,
+        27905.0,
+        27745.0,
+        27555.0,
+        27800.0,
+        27895.0,
+        27825.0,
+        27785.0,
+        27855.0,
+        27835.0,
+        27535.0,
+        28020.0,
+        28140.0,
+        27620.0,
+        27060.0,
+        26905.0,
+        26580.0,
+        26405.0,
+        26120.0
+      ],
+      "quality": {
+        "passed": false,
+        "checks": {
+          "bullishSetup": true,
+          "priceAboveEmaStack": false,
+          "fastEmaSlopePositive": false,
+          "notOverextended": true,
+          "volumeConfirmed": false,
+          "liquidTurnover": true,
+          "rsiHealthy": false,
+          "diPlusAboveMinus": false,
+          "diPlus3xMinus": false,
+          "adxSuperTrend": false,
+          "rsiAdxRatio": true,
+          "diPlusNearAdx": false,
+          "emaStillBullish": false
+        },
+        "failed": [
+          "Close is above EMA stack",
+          "EMA slope is positive",
+          "Volume is at least 1.5x 20-session average",
+          "RSI 14 is between 50 and 70",
+          "+DI is above -DI",
+          "+DI is at least 3x -DI",
+          "ADX is >= 32",
+          "+DI is within \u00b110% of ADX",
+          "50 EMA is still above 200 EMA today"
+        ]
+      },
+      "score": {
+        "value": 90,
+        "grade": "A",
+        "emaSpreadPct": 1.38,
+        "reasons": [
+          "Fresh crossover in the latest daily candle",
+          "EMA spread is meaningfully separated",
+          "Close is near the moving-average zone",
+          "Liquidity passes the Rs. 10 crore turnover filter",
+          "Price is still close to the fast EMA"
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "skipped": [
+    {
+      "symbol": "3BBLACKBIO",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "AASTHA",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ABANSENT",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ABMKNO",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ACGL",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ACSTECH",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ADDIND",
+      "reason": "needs at least 260 daily candles"
+    }
+  ]
+}

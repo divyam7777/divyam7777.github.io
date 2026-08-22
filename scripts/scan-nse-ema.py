@@ -25,9 +25,9 @@ INDEX_URLS = {
     "small": "https://www.niftyindices.com/IndexConstituent/ind_niftysmallcap250list.csv",
 }
 SCAN_RULES = {
-
-    "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross"},
-    "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross"},
+    "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross", "type": "cross"},
+    "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross", "type": "cross"},
+    "squeeze-50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA squeeze", "type": "squeeze", "gap_pct": 2.0},
 }
 SCAN_WINDOW_SESSIONS = 60
 RSI_PERIOD = 14
@@ -682,6 +682,98 @@ def find_cross(
             return cross
     return None
 
+def find_squeeze(
+    closes: list[float],
+    timestamps: list[int],
+    volumes: list[int],
+    highs: list[float],
+    lows: list[float],
+    fast_period: int,
+    slow_period: int,
+    market_trend: dict,
+    gap_pct: float,
+) -> dict | None:
+    fast_ema = ema(closes, fast_period)
+    slow_ema = ema(closes, slow_period)
+    rsi_values = rsi(closes)
+    adx_values = adx(highs, lows, closes)
+    
+    index = len(closes) - 1
+    if index < 0:
+        return None
+        
+    latest_fast = fast_ema[index]
+    latest_slow = slow_ema[index]
+    
+    if latest_fast is None or latest_slow is None:
+        return None
+        
+    if latest_fast >= latest_slow:
+        return None
+        
+    actual_gap_pct = ((latest_slow - latest_fast) / latest_slow) * 100
+    if actual_gap_pct > gap_pct:
+        return None
+        
+    cross_close = float(closes[index])
+    latest_close = cross_close
+    latest_timestamp = timestamps[index] if timestamps else None
+    sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
+    
+    latest_volume = volumes[index] if index < len(volumes) else 0
+    cross_average_volume_20 = trailing_average(volumes, index, 20)
+    average_turnover_20 = trailing_average(
+        [float(close) * int(volumes[idx] if idx < len(volumes) else 0) for idx, close in enumerate(closes)],
+        index,
+        20,
+    )
+    
+    fast_slope_pct = None
+    if index > 0 and fast_ema[index - 1] is not None and fast_ema[index - 1]:
+        fast_slope_pct = (float(fast_ema[index]) - float(fast_ema[index - 1])) / float(fast_ema[index - 1]) * 100
+        
+    distance_from_fast = ((cross_close - latest_fast) / latest_fast * 100) if latest_fast else None
+    market_confirmed = market_trend.get("isBullish") is True if market_trend.get("filterApplied") else True
+    
+    squeeze = {
+        "type": "bullish",
+        "sessionsAgo": 0,
+        "fastEma": latest_fast,
+        "slowEma": latest_slow,
+        "latestFastEma": round(float(latest_fast), 2),
+        "latestSlowEma": round(float(latest_slow), 2),
+        "close": cross_close,
+        "crossClose": cross_close,
+        "highAfterCross": round(cross_close, 2),
+        "highAfterCrossPct": 0.0,
+        "highDaysAfterCross": 0,
+        "latestClose": latest_close,
+        "latestTimestamp": latest_timestamp,
+        "priceChange": 0.0,
+        "priceChangePct": 0.0,
+        "volume": latest_volume,
+        "crossVolume": latest_volume,
+        "latestVolume": latest_volume,
+        "crossAverageVolume20": round(cross_average_volume_20, 2),
+        "averageVolume20": round(cross_average_volume_20, 2),
+        "volumeMultiple": round(latest_volume / cross_average_volume_20, 2) if cross_average_volume_20 else 0,
+        "averageTurnover20": round(average_turnover_20, 2),
+        "averageTurnover20Crore": round(average_turnover_20 / 10_000_000, 2),
+        "rsi14": round(float(rsi_values[index]), 2) if rsi_values[index] is not None else None,
+        "adx14": round(float(adx_values["adx"][index]), 2) if adx_values["adx"][index] is not None else None,
+        "plusDi14": round(float(adx_values["plusDi"][index]), 2) if adx_values["plusDi"][index] is not None else None,
+        "minusDi14": round(float(adx_values["minusDi"][index]), 2) if adx_values["minusDi"][index] is not None else None,
+        "distanceFromFastEmaPct": round(distance_from_fast, 2) if distance_from_fast is not None else None,
+        "fastEmaSlopePct": round(fast_slope_pct, 3) if fast_slope_pct is not None else None,
+        "marketTrendConfirmed": market_confirmed,
+        "timestamp": timestamps[index],
+        "sparkline": sparkline,
+    }
+    squeeze["quality"] = quality_checks(squeeze)
+    squeeze["score"] = signal_score(squeeze, fast_period, slow_period)
+    return squeeze
+
+
 
 def stock_to_json(stock: Stock) -> dict[str, str]:
     return {
@@ -719,7 +811,12 @@ def build_scan_payload(
         if len(closes) < slow_period + SCAN_WINDOW_SESSIONS:
             skipped.append({"symbol": stock.symbol, "reason": f"needs at least {slow_period + SCAN_WINDOW_SESSIONS} daily candles"})
             continue
-        cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend)
+        
+        if rule.get("type") == "squeeze":
+            cross = find_squeeze(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend, rule.get("gap_pct", 2.0))
+        else:
+            cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend)
+            
         if cross:
             results.append({**stock_to_json(stock), **cross})
 
@@ -735,7 +832,11 @@ def build_scan_payload(
         "market": "NSE India",
         "scanId": scan_id,
         "label": rule["label"],
-        "rule": f"Bullish {fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters",
+        "rule": (
+            f"Bullish {fast_period} EMA / {slow_period} EMA squeeze (gap < {rule.get('gap_pct', 2.0)}%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
+            if rule.get("type") == "squeeze"
+            else f"Bullish {fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
+        ),
         "fastPeriod": fast_period,
         "slowPeriod": slow_period,
         "windowSessions": SCAN_WINDOW_SESSIONS,
