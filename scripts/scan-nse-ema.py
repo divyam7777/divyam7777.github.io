@@ -693,8 +693,8 @@ def find_cross(
                 "marketTrendConfirmed": market_confirmed,
                 "timestamp": timestamps[index],
                 "sparkline": sparkline,
-                "emasRising5": check_emas_rising(fast_ema, slow_ema, latest_index, 5),
-                "emasRising10": check_emas_rising(fast_ema, slow_ema, latest_index, 10),
+                "emasRising5": check_emas_rising(fast_ema, slow_ema, index, 5),
+                "emasRising10": check_emas_rising(fast_ema, slow_ema, index, 10),
             }
             cross["quality"] = quality_checks(cross)
             cross["score"] = signal_score(cross, fast_period, slow_period)
