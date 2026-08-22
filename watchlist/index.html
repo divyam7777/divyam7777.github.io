@@ -757,7 +757,7 @@
         animation: progressFlow 1.25s linear infinite;
       }
 
-      .results-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+      .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
       #results {
         display: flex;
         flex-direction: column;
@@ -870,175 +870,113 @@
         gap: 8px;
         justify-content: flex-end;
       }
-      .symbol { font-size: 1.45rem; font-weight: 950; letter-spacing: -0.04em; }
-      .result-table-shell {
-        grid-column: 1 / -1;
-        position: relative;
-        overflow-x: auto;
-        overflow-y: hidden;
-        border-radius: 30px;
-        padding: 12px;
-        background:
-          radial-gradient(circle at 10% 0%, rgba(99, 246, 178, 0.08), transparent 34%),
-          radial-gradient(circle at 92% 0%, rgba(246, 200, 95, 0.08), transparent 30%),
-          var(--panel);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(18px);
-      }
-      .result-table-head,
-      .result-row {
-        display: grid;
-        grid-template-columns:
-          minmax(130px, 1.3fr)
-          minmax(140px, 1.16fr)
-          minmax(90px, 0.82fr)
-          minmax(70px, 0.55fr)
-          minmax(80px, 0.62fr)
-          minmax(110px, 0.68fr);
-        gap: 8px;
-        align-items: center;
-      }
-      .result-table-head {
-        padding: 2px 14px 10px;
-        color: var(--muted);
-        font-size: 0.72rem;
-        font-weight: 950;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-      .result-table-body { display: grid; gap: 10px; }
-      .result-row {
+      .stock-card {
+        background: var(--panel);
+        border: 1px solid var(--grid);
+        border-radius: 14px;
+        padding: 18px 18px 16px;
         position: relative;
         overflow: hidden;
-        min-width: 0;
-        border-radius: 22px;
-        padding: 12px 16px;
-        background: var(--surface);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 4px 12px rgba(0,0,0,0.1);
-        cursor: pointer;
-        transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1), background-color 220ms ease, box-shadow 220ms ease;
-        animation: cardIn 340ms ease both;
       }
-      .result-row:hover,
-      .result-row:focus-visible {
-        transform: scale(1.01);
-        background: var(--card-hover);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 18px 48px rgba(2, 6, 23, 0.4);
-        outline: none;
-      }
-      .status-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-right: 8px;
-        box-shadow: 0 0 12px currentColor;
-      }
-      .status-dot.bullish { color: var(--green); background: var(--green); }
-      .status-dot.bearish { color: var(--red); background: var(--red); }
-      .status-dot.saved { color: var(--gold); background: var(--gold); }
-      .result-cell {
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-      .cell-label {
-        display: none;
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 950;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-      .row-symbol {
+      .card-header {
         display: flex;
         align-items: center;
-        overflow: hidden;
-        color: var(--text);
-        font-size: 1.05rem;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      .row-symbol span:not(.status-dot) {
-        background: linear-gradient(90deg, #fff, #a8b3ca);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .row-subtext,
-      .row-value-muted {
-        overflow: hidden;
-        color: var(--muted);
-        font-size: 0.84rem;
-        line-height: 1.35;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      .row-value {
-        color: var(--text);
-        font-weight: 950;
-        white-space: nowrap;
-      }
-      .move-up { color: var(--green); }
-      .move-down { color: var(--red); }
-      .move-flat { color: var(--muted); }
-      .price-move {
-        gap: 4px;
-      }
-      .price-subline {
-        max-width: none;
-        overflow: visible;
-        font-size: 0.78rem;
-        line-height: 1.24;
-        text-overflow: clip;
-        white-space: nowrap;
-      }
-      .ema-pair {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      .row-actions {
-        min-width: 0;
-        display: flex;
-        flex-wrap: wrap;
         gap: 8px;
-        justify-content: flex-end;
+        margin-bottom: 18px;
       }
-      .row-action,
-      .row-open {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 6px 10px;
-        background: rgba(142, 165, 255, 0.08);
-        color: var(--text);
-        font-size: 0.78rem;
-        font-weight: 950;
-        line-height: 1;
-        white-space: nowrap;
+      .card-header .dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: var(--green); box-shadow: 0 0 6px var(--green);
+        flex-shrink: 0;
       }
-      .row-action {
-        cursor: pointer;
-        transition: 160ms ease;
+      .card-header .dot.bearish {
+        background: var(--red); box-shadow: 0 0 6px var(--red);
       }
-      .row-action:hover {
-        border-color: var(--green);
-        background: rgba(99, 246, 178, 0.12);
-        transform: translateY(-1px);
+      .card-header .symbol {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: 0.2px;
       }
-      .row-action.is-watchlisted {
-        border-color: color-mix(in srgb, var(--gold) 58%, transparent);
-        color: var(--gold);
+      .card-header .name {
+        font-size: 12px; color: var(--muted-2);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;
       }
-      .row-open {
-        color: var(--muted);
+      .card-header .badge {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 11px; font-weight: 600;
+        padding: 3px 8px; border-radius: 6px;
+        white-space: nowrap; flex-shrink: 0;
       }
+      .card-header .badge.bullish {
+        color: var(--green); background: color-mix(in srgb, var(--green) 10%, transparent);
+      }
+      .card-header .badge.bearish {
+        color: var(--red); background: color-mix(in srgb, var(--red) 10%, transparent);
+      }
+
+      .range-wrapper {
+        margin-top: 18px; margin-bottom: 6px;
+      }
+      .range-track {
+        position: relative; height: 3px; border-radius: 2px;
+        background: linear-gradient(90deg, var(--grid) 0%, color-mix(in srgb, var(--green) 36%, var(--grid)) 70%, var(--green) 100%);
+      }
+      .range-track.bearish {
+        background: linear-gradient(90deg, var(--red) 0%, color-mix(in srgb, var(--red) 36%, var(--grid)) 30%, var(--grid) 100%);
+      }
+      .range-marker {
+        position: absolute; top: 50%; transform: translate(-50%, -50%);
+      }
+      .range-marker .point {
+        border-radius: 50%; border: 2px solid var(--panel);
+      }
+      .range-labels {
+        position: relative; height: 30px; margin-top: 4px;
+      }
+      .range-label {
+        position: absolute; transform: translateX(-50%);
+        text-align: center; white-space: nowrap;
+      }
+      .range-label .title {
+        font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.5px;
+        color: var(--muted-2); text-transform: uppercase;
+      }
+      .range-label .value {
+        font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted);
+      }
+
+      .card-divider {
+        height: 1px; background: var(--grid); margin: 14px 0;
+      }
+
+      .stat-grid {
+        display: grid; grid-template-columns: 1fr 1fr; row-gap: 14px; column-gap: 10px;
+      }
+      .stat-item .label {
+        font-size: 10px; color: var(--muted-2); letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 3px;
+      }
+      .stat-item .value {
+        font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text);
+      }
+      .stat-item .sub {
+        color: var(--muted-2); font-size: 11px; margin-left: 4px;
+      }
+
+      .card-actions {
+        display: flex; gap: 8px; margin-top: 16px;
+      }
+      .card-actions .row-action {
+        flex: 1; background: transparent; border: 1px solid var(--grid); color: var(--muted);
+        font-size: 12px; font-weight: 500; padding: 9px 0; border-radius: 8px; cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+        text-align: center;
+      }
+      .card-actions .row-action:hover {
+        border-color: var(--muted-2); color: var(--text);
+      }
+      .card-actions .row-action.is-watchlisted {
+        background: color-mix(in srgb, var(--gold) 10%, transparent); color: var(--gold); border-color: color-mix(in srgb, var(--gold) 30%, transparent);
+      }
+
       .score-pill {
         display: inline-flex;
         align-items: center;
@@ -2654,96 +2592,130 @@
         const rows = sortResults(filtered)
           .map((item) => {
             const isSavedOnly = Boolean(item._isSavedOnly);
-            const grade = isSavedOnly ? "saved" : scoreGrade(item).toLowerCase();
             const isSaved = watchlist.has(item.symbol);
+            const type = item.type || "bullish";
+            const isBearish = type === "bearish";
+            const rowType = isSavedOnly ? "saved" : type;
+
             const fastPeriod = itemFastPeriod(item);
             const slowPeriod = itemSlowPeriod(item);
-            const actionText = isSavedOnly ? "Tracking" : (item.type === "bullish" ? "Above" : "Below");
-            const rowType = isSavedOnly ? "saved" : item.type;
-            const badgeType = isSavedOnly ? "watchlist" : item.type;
-            const badgeText = isSavedOnly ? `saved - ${capLabel(item.marketCap)}` : `${item.type} - ${capLabel(item.marketCap)}`;
-            const scoreText = isSavedOnly ? "Saved" : `${scoreValue(item)} - ${scoreGrade(item)}`;
             const move = priceMoveStats(item);
-            const moveText = move ? `${formatSignedMoney(move.change)} (${formatSignedPercent(move.percent)})` : "Waiting";
-            const moveClass = move ? priceMoveClass(move.change) : "move-flat";
-            const crossText = move ? formatMoney(move.cross) : "No cross price";
-            const latestText = move ? formatMoney(move.latest) : "No latest price";
-            let extremeText = "";
-            if (item.type === "bullish" && finiteNumber(item.highAfterCross) !== null) {
-              const pct = finiteNumber(item.highAfterCrossPct) || 0;
-              const days = item.highDaysAfterCross !== undefined ? item.highDaysAfterCross : 0;
-              const textStr = `High: ${formatMoney(item.highAfterCross)} (${formatSignedPercent(pct)}) in ${days} days`;
-              if (pct > 2) {
-                extremeText = `<span class="price-subline move-up" style="font-weight: 600;">${textStr}</span>`;
-              } else {
-                extremeText = `<span class="row-value-muted price-subline">${textStr}</span>`;
-              }
-            } else if (item.type === "bearish" && finiteNumber(item.lowAfterCross) !== null) {
-              const pct = finiteNumber(item.lowAfterCrossPct) || 0;
-              const days = item.lowDaysAfterCross !== undefined ? item.lowDaysAfterCross : 0;
-              const textStr = `Low: ${formatMoney(item.lowAfterCross)} (${formatSignedPercent(pct)}) in ${days} days`;
-              if (pct < -2) {
-                extremeText = `<span class="price-subline move-down" style="font-weight: 600;">${textStr}</span>`;
-              } else {
-                extremeText = `<span class="row-value-muted price-subline">${textStr}</span>`;
-              }
+
+            const latestPrice = move ? move.latest : 0;
+            const crossPriceVal = move ? move.cross : 0;
+            const emaSlow = finiteNumber(item.slowEma) || 0;
+            const emaFast = finiteNumber(item.fastEma) || 0;
+            const extremePrice = isBearish
+              ? (finiteNumber(item.lowAfterCross) || latestPrice)
+              : (finiteNumber(item.highAfterCross) || latestPrice);
+
+            // Range Bar Logic
+            const allVals = [emaSlow, emaFast, latestPrice, extremePrice].filter(v => v > 0);
+            const rawMin = Math.min(...allVals, 9999999);
+            const rawMax = Math.max(...allVals, 0);
+            const minV = rawMin * 0.98;
+            const maxV = rawMax * 1.03;
+            
+            const pos = (v) => {
+              if (maxV === minV) return 50;
+              let p = ((v - minV) / (maxV - minV)) * 100;
+              return Math.max(0, Math.min(100, p));
+            };
+
+            const marks = [
+              { key: "100", label: `EMA${slowPeriod}`, value: emaSlow, color: "var(--grid)", type: "ema" },
+              { key: "50", label: `EMA${fastPeriod}`, value: emaFast, color: "var(--grid)", type: "ema" },
+              { key: "latest", label: "LTP", value: latestPrice, color: "var(--text)", type: "latest" },
+              { key: "high", label: isBearish ? "LOW" : "HIGH", value: extremePrice, color: isBearish ? "var(--red)" : "var(--green)", type: "extreme" }
+            ].filter(m => m.value > 0).sort((a, b) => a.value - b.value);
+
+            let rangeBarHtml = "";
+            if (allVals.length > 0) {
+              const markersHtml = marks.map(m => {
+                const size = m.type === "latest" ? 9 : 7;
+                return `
+                  <div class="range-marker" style="left: ${pos(m.value)}%;">
+                    <div class="point" style="width: ${size}px; height: ${size}px; background: ${m.color};"></div>
+                  </div>
+                `;
+              }).join("");
+
+              const labelsHtml = marks.map(m => {
+                const color = m.type === "extreme" ? (isBearish ? "var(--red)" : "var(--green)") : (m.type === "latest" ? "var(--text)" : "var(--muted)");
+                const weight = m.type === "latest" ? 600 : 400;
+                return `
+                  <div class="range-label" style="left: ${pos(m.value)}%;">
+                    <div class="title">${m.label}</div>
+                    <div class="value" style="color: ${color}; font-weight: ${weight};">${m.value.toFixed(2)}</div>
+                  </div>
+                `;
+              }).join("");
+
+              rangeBarHtml = `
+                <div class="range-wrapper">
+                  <div class="range-track ${isBearish ? 'bearish' : ''}">
+                    ${markersHtml}
+                  </div>
+                  <div class="range-labels">
+                    ${labelsHtml}
+                  </div>
+                </div>
+              `;
             }
-            const fastText = item.fastEma === null || item.fastEma === undefined ? `${fastPeriod}: No current cross` : `${fastPeriod}: Rs. ${Number(item.fastEma).toFixed(2)}`;
-            const slowText = item.slowEma === null || item.slowEma === undefined ? `${slowPeriod}: Watching` : `${slowPeriod}: Rs. ${Number(item.slowEma).toFixed(2)}`;
+
+            const highPct = isBearish 
+              ? (finiteNumber(item.lowAfterCrossPct) || 0)
+              : (finiteNumber(item.highAfterCrossPct) || 0);
+            
             const freshnessText = isSavedOnly ? "No fresh cross" : `${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}`;
+            const actionText = isSavedOnly ? "Tracking" : (item.type === "bullish" ? "Above" : "Below");
             const dateText = isSavedOnly ? formatIsoDate(item._addedAt) : formatDate(item.timestamp);
             const watchText = isWatchlistPage ? "Remove" : (isSaved ? "Saved" : "Watch");
+            
+            const movePercentStr = move && highPct ? formatSignedPercent(highPct) : (move ? formatSignedPercent(move.percent) : "0%");
+
             return `
-              <article class="result-row ${rowType}" data-result-symbol="${item.symbol}" tabindex="0" role="button" aria-label="Open ${item.symbol} signal detail">
-                <div class="result-cell stock-cell">
-                  <span class="cell-label">Stock</span>
-                  <strong class="row-symbol"><span class="status-dot ${rowType}"></span><span>${escapeHtml(item.symbol)}.NS</span></strong>
-                  <span class="row-subtext">${escapeHtml(item.name)}</span>
+              <div class="stock-card" data-result-symbol="${item.symbol}">
+                <div class="card-header">
+                  <div class="dot ${rowType}"></div>
+                  <span class="symbol">${escapeHtml(item.symbol)}.NS</span>
+                  <span class="name">${escapeHtml(item.name)}</span>
+                  <div class="badge ${rowType}">${movePercentStr}</div>
                 </div>
-                <div class="result-cell price-move">
-                  <span class="cell-label">Price move</span>
-                  <span class="row-value ${moveClass}">${moveText}</span>
-                  <span class="row-value-muted price-subline">Cross: ${crossText}</span>
-                  <span class="row-value-muted price-subline">Latest: ${latestText}</span>
-                  ${extremeText}
+
+                ${rangeBarHtml}
+                <div class="card-divider"></div>
+
+                <div class="stat-grid">
+                  <div class="stat-item">
+                    <div class="label">EMA ${fastPeriod} / ${slowPeriod}</div>
+                    <div class="value">${emaFast ? emaFast.toFixed(2) : '-'} / ${emaSlow ? emaSlow.toFixed(2) : '-'}</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="label">Freshness</div>
+                    <div class="value">${freshnessText} <span class="sub">${actionText} ${slowPeriod}</span></div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="label">Cross price</div>
+                    <div class="value">${crossPriceVal ? crossPriceVal.toFixed(2) : '-'}</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="label">Cross date</div>
+                    <div class="value">${dateText}</div>
+                  </div>
                 </div>
-                <div class="result-cell ema-pair">
-                  <span class="cell-label">EMAs</span>
-                  <span class="row-value-muted">${fastText}</span>
-                  <span class="row-value-muted">${slowText}</span>
+
+                <div class="card-actions">
+                  <button type="button" class="row-action" data-copy-symbol="${item.symbol}">Copy</button>
+                  <button type="button" class="row-action ${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}">${watchText}</button>
+                  <button type="button" class="row-action row-open" data-detail-symbol="${item.symbol}">Details</button>
                 </div>
-                <div class="result-cell">
-                  <span class="cell-label">Freshness</span>
-                  <span class="row-value">${freshnessText}</span>
-                  <span class="row-value-muted">${actionText} ${slowPeriod}</span>
-                </div>
-                <div class="result-cell">
-                  <span class="cell-label">${isSavedOnly ? "Saved" : "Cross date"}</span>
-                  <span class="row-value">${dateText}</span>
-                </div>
-                <div class="row-actions" aria-label="${item.symbol} quick actions">
-                  <button type="button" class="row-action" data-copy-symbol="${item.symbol}" aria-label="Copy ${item.symbol}.NS">Copy</button>
-                  <button type="button" class="row-action ${isSaved ? "is-watchlisted" : ""}" data-watch-symbol="${item.symbol}" aria-label="${isSaved ? "Remove from" : "Add to"} watchlist">${watchText}</button>
-                  <button type="button" class="row-action row-open" data-detail-symbol="${item.symbol}" aria-label="Open ${item.symbol} details">Details</button>
-                </div>
-              </article>
+              </div>
             `;
           })
           .join("");
 
-        resultsGrid.innerHTML = `
-          <div class="result-table-shell" aria-label="${isWatchlistPage ? "Watchlist row results" : "EMA crossover row results"}">
-            <div class="result-table-head" aria-hidden="true">
-              <span>Stock</span>
-              <span>Price move</span>
-              <span>EMAs</span>
-              <span>Freshness</span>
-              <span>${isWatchlistPage ? "Saved / cross" : "Cross date"}</span>
-              <span>Actions</span>
-            </div>
-            <div class="result-table-body">${rows}</div>
-          </div>
-        `;
+        resultsGrid.innerHTML = rows;
       }
 
       function renderUniverse() {
