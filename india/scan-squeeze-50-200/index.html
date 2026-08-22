@@ -2709,8 +2709,8 @@
 
                 <div class="stat-grid">
                   <div class="stat-item">
-                    <div class="label">EMA ${fastPeriod} / ${slowPeriod}</div>
-                    <div class="value">${emaFast ? emaFast.toFixed(2) : '-'} / ${emaSlow ? emaSlow.toFixed(2) : '-'}</div>
+                    <div class="label">Current return</div>
+                    <div class="value ${move ? priceMoveClass(move.change) : ''}">${move ? formatSignedPercent(move.percent) : "0%"}</div>
                   </div>
                   <div class="stat-item">
                     <div class="label">Freshness</div>
