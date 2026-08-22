@@ -3043,7 +3043,8 @@
           event.preventDefault();
           const scanId = trigger.dataset.scanTrigger;
           if (window.location.pathname.replace(/\/+$/, "").startsWith("/india")) {
-            window.location.href = `/india/scan${scanId}`;
+            const routePart = scanId.startsWith("squeeze") ? `scan-${scanId}` : `scan${scanId}`;
+            window.location.href = `/india/${routePart}/`;
           } else {
             loadScan(scanId, true);
           }
@@ -3397,7 +3398,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const isIndiaPage = window.location.pathname.replace(/\/+$/, "").startsWith("/india");
-      const pathScanMatch = window.location.pathname.match(/\/india\/scan(\d+-\d+)/);
+      const pathScanMatch = window.location.pathname.match(/\/india\/scan-?((?:squeeze-)?\d+-\d+)/);
       const initialScanId = pathScanMatch ? pathScanMatch[1] : params.get("scan");
       const initialCap = params.get("cap");
       const initialType = params.get("type");
