@@ -482,6 +482,18 @@ function drawChart(){
   const dot = document.getElementById('crossDot');
   dot.setAttribute('cx', lastX-2);
   dot.setAttribute('cy', lastY);
+  // Update terminal header with random symbol
+  const chartSymbols = [
+    {s:'RELIANCE',e:'NSE'},{s:'TCS',e:'NSE'},{s:'HDFCBANK',e:'NSE'},{s:'INFY',e:'NSE'},
+    {s:'AAPL',e:'NASDAQ'},{s:'MSFT',e:'NASDAQ'},{s:'NVDA',e:'NASDAQ'},{s:'SBIN',e:'NSE'},
+    {s:'ICICIBANK',e:'NSE'},{s:'TATASTEEL',e:'NSE'},{s:'AMZN',e:'NASDAQ'},
+  ];
+  const pick = chartSymbols[Math.floor(Math.random()*chartSymbols.length)];
+  const isGolden = fast[fast.length-1] > slow[slow.length-1];
+  document.querySelector('.term-head .tk').textContent = `${pick.s} · ${pick.e}`;
+  const pxEl = document.querySelector('.term-head .px');
+  pxEl.textContent = isGolden ? '▲ 50/100 GOLDEN CROSS' : '▼ 50/100 DEATH CROSS';
+  pxEl.style.color = isGolden ? 'var(--bull)' : 'var(--bear)';
 }
 drawChart();
 setInterval(drawChart, 6000);
