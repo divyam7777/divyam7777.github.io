@@ -2629,18 +2629,18 @@
               { key: "high", label: isBearish ? "LOW" : "HIGH", value: extremePrice, color: isBearish ? "var(--red)" : "var(--green)", type: "extreme" }
             ].filter(m => m.value > 0).sort((a, b) => a.value - b.value);
 
-            let rangeBarHtml = "";
-            if (allVals.length > 0) {
-              const markersHtml = marks.map(m => {
-                const size = m.type === "latest" ? 9 : 7;
-                return `
-                  <div class="range-marker" style="left: ${pos(m.value)}%;">
-                    <div class="point" style="width: ${size}px; height: ${size}px; background: ${m.color};"></div>
-                  </div>
-                `;
-              }).join("");
-
               const labelMarks = marks.filter(m => m.type !== "ema");
+
+              let rangeBarHtml = "";
+              if (allVals.length > 0) {
+                const markersHtml = labelMarks.map(m => {
+                  const size = m.type === "latest" ? 9 : 7;
+                  return `
+                    <div class="range-marker" style="left: ${pos(m.value)}%;">
+                      <div class="point" style="width: ${size}px; height: ${size}px; background: ${m.color};"></div>
+                    </div>
+                  `;
+                }).join("");
 
               let lastUpperPos = -999;
               let lastLowerPos = -999;
