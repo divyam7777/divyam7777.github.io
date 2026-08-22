@@ -446,6 +446,8 @@ def quality_checks(cross: dict) -> dict:
             and abs(float(plus_di) - float(latest_adx)) <= float(latest_adx) * 0.10
         ),
         "emaStillBullish": latest_fast is not None and latest_slow is not None and float(latest_fast) > float(latest_slow),
+        "emasRising5": cross.get("emasRising5", False),
+        "emasRising10": cross.get("emasRising10", False),
     }
     labels = {
         "bullishSetup": "Bullish EMA crossover",
@@ -461,6 +463,8 @@ def quality_checks(cross: dict) -> dict:
         "rsiAdxRatio": "RSI is >= 1.7x ADX",
         "diPlusNearAdx": "+DI is within ±10% of ADX",
         "emaStillBullish": "50 EMA is still above 200 EMA today",
+        "emasRising5": "50 & 200 EMA both rising for 5 sessions",
+        "emasRising10": "50 & 200 EMA both rising for 10 sessions",
     }
     failed = [labels[key] for key, passed in checks.items() if not passed]
     return {
@@ -583,6 +587,19 @@ def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
         "reasons": reasons[:6],
     }
 
+def check_emas_rising(fast_ema: list[float | None], slow_ema: list[float | None], latest_index: int, periods: int) -> bool:
+    if latest_index - periods < 0:
+        return False
+    for i in range(periods):
+        idx = latest_index - i
+        prev_idx = idx - 1
+        if fast_ema[idx] is None or fast_ema[prev_idx] is None or slow_ema[idx] is None or slow_ema[prev_idx] is None:
+            return False
+        if fast_ema[idx] <= fast_ema[prev_idx] or slow_ema[idx] <= slow_ema[prev_idx]:
+            return False
+    return True
+
+
 
 def find_cross(
     closes: list[float],
@@ -676,6 +693,8 @@ def find_cross(
                 "marketTrendConfirmed": market_confirmed,
                 "timestamp": timestamps[index],
                 "sparkline": sparkline,
+                "emasRising5": check_emas_rising(fast_ema, slow_ema, latest_index, 5),
+                "emasRising10": check_emas_rising(fast_ema, slow_ema, latest_index, 10),
             }
             cross["quality"] = quality_checks(cross)
             cross["score"] = signal_score(cross, fast_period, slow_period)
@@ -768,6 +787,8 @@ def find_squeeze(
         "marketTrendConfirmed": market_confirmed,
         "timestamp": timestamps[index],
         "sparkline": sparkline,
+        "emasRising5": check_emas_rising(fast_ema, slow_ema, index, 5),
+        "emasRising10": check_emas_rising(fast_ema, slow_ema, index, 10),
     }
     squeeze["quality"] = quality_checks(squeeze)
     squeeze["score"] = signal_score(squeeze, fast_period, slow_period)

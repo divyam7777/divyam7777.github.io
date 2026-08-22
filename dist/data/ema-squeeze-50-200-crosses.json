@@ -33,7 +33,7 @@
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-08-22T08:29:40.465654+00:00",
+  "generatedAt": "2026-08-22T08:36:03.011908+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
@@ -16188,6 +16188,8 @@
         8.54,
         8.71
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -16203,7 +16205,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -16214,7 +16218,9 @@
           "+DI is above -DI",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -16304,6 +16310,8 @@
         817.5,
         814.1
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -16319,7 +16327,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -16419,6 +16429,8 @@
         96.18,
         95.42
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -16434,7 +16446,9 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -16535,6 +16549,8 @@
         127.65,
         131.01
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -16550,7 +16566,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -16560,7 +16578,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -16652,6 +16672,8 @@
         297.8,
         301.7
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -16667,7 +16689,9 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -16678,7 +16702,9 @@
           "+DI is at least 3x -DI",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -16769,6 +16795,8 @@
         97.0,
         97.95
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -16784,7 +16812,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -16792,7 +16822,9 @@
           "20-session average turnover is at least Rs. 10 crore",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -16884,6 +16916,8 @@
         2366.4,
         2378.0
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -16899,7 +16933,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -16999,6 +17035,8 @@
         409.4,
         414.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17014,7 +17052,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -17022,7 +17062,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -17114,6 +17156,8 @@
         616.35,
         631.05
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -17129,7 +17173,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -17228,6 +17274,8 @@
         16.16,
         16.03
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17243,7 +17291,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -17251,7 +17301,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -17343,6 +17395,8 @@
         817.65,
         842.9
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17358,14 +17412,18 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -17457,6 +17515,8 @@
         156.61,
         155.09
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17472,7 +17532,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -17483,7 +17545,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -17574,6 +17638,8 @@
         848.05,
         852.9
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17589,7 +17655,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -17598,7 +17666,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -17689,6 +17759,8 @@
         40.57,
         40.55
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17704,7 +17776,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -17717,7 +17791,9 @@
           "ADX is >= 32",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -17808,6 +17884,8 @@
         1768.3,
         1750.4
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -17823,7 +17901,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -17922,6 +18002,8 @@
         576.9,
         589.6
       ],
+      "emasRising5": true,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -17937,7 +18019,9 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -17945,7 +18029,8 @@
           "Volume is at least 1.5x 20-session average",
           "20-session average turnover is at least Rs. 10 crore",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -18036,6 +18121,8 @@
         51.3,
         51.55
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -18051,7 +18138,9 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -18150,6 +18239,8 @@
         676.15,
         678.1
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -18165,7 +18256,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -18264,6 +18357,8 @@
         438.4,
         435.75
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -18279,7 +18374,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -18291,7 +18388,9 @@
           "ADX is >= 32",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -18382,6 +18481,8 @@
         1804.8,
         1815.7
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -18397,7 +18498,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -18496,6 +18599,8 @@
         1133.25,
         1114.5
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -18511,7 +18616,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -18519,7 +18626,9 @@
           "20-session average turnover is at least Rs. 10 crore",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -18611,6 +18720,8 @@
         17837.0,
         17885.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -18626,7 +18737,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -18636,7 +18749,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -18727,6 +18842,8 @@
         575.7,
         582.4
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -18742,7 +18859,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -18754,7 +18873,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -18843,6 +18964,8 @@
         2551.7,
         2624.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -18858,14 +18981,18 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -18957,6 +19084,8 @@
         311.8,
         319.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -18972,7 +19101,9 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -18983,7 +19114,9 @@
           "+DI is at least 3x -DI",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19075,6 +19208,8 @@
         335.8,
         340.6
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19090,7 +19225,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -19101,7 +19238,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19191,6 +19330,8 @@
         1115.0,
         1118.9
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19206,7 +19347,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -19214,7 +19357,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19306,6 +19451,8 @@
         680.65,
         674.05
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -19321,7 +19468,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -19420,6 +19569,8 @@
         419.0,
         422.25
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19435,7 +19586,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -19443,7 +19596,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19535,6 +19690,8 @@
         1217.4,
         1201.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19550,7 +19707,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -19562,7 +19721,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19651,6 +19812,8 @@
         13347.0,
         13138.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19666,7 +19829,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -19677,7 +19842,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19767,6 +19934,8 @@
         613.9,
         610.6
       ],
+      "emasRising5": true,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19782,14 +19951,17 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
           "20-session average turnover is at least Rs. 10 crore",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19881,6 +20053,8 @@
         401.45,
         405.5
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -19896,7 +20070,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -19906,7 +20082,9 @@
           "+DI is above -DI",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -19995,6 +20173,8 @@
         300.45,
         300.25
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20010,7 +20190,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20022,7 +20204,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20111,6 +20295,8 @@
         146.66,
         146.66
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20126,7 +20312,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20138,7 +20326,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20228,6 +20418,8 @@
         490.15,
         499.85
       ],
+      "emasRising5": true,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20243,7 +20435,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20253,7 +20447,8 @@
           "RSI 14 is between 50 and 70",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20342,6 +20537,8 @@
         997.9,
         1000.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20357,7 +20554,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20369,7 +20568,9 @@
           "ADX is >= 32",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20460,6 +20661,8 @@
         66.27,
         65.38
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20475,7 +20678,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20483,7 +20688,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20574,6 +20781,8 @@
         256.81,
         255.09
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20589,7 +20798,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20599,7 +20810,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20690,6 +20903,8 @@
         237.6,
         233.85
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20705,7 +20920,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20718,7 +20935,9 @@
           "ADX is >= 32",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20809,6 +21028,8 @@
         1520.5,
         1534.5
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -20824,7 +21045,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -20834,7 +21057,9 @@
           "+DI is above -DI",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -20925,6 +21150,8 @@
         5674.0,
         5667.5
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -20940,7 +21167,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -21040,6 +21269,8 @@
         288.15,
         291.4
       ],
+      "emasRising5": true,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21055,14 +21286,17 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21154,6 +21388,8 @@
         78.78,
         79.11
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21169,7 +21405,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -21181,7 +21419,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21271,6 +21511,8 @@
         1782.1,
         1779.6
       ],
+      "emasRising5": true,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21286,12 +21528,15 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": true,
           "diPlusNearAdx": true,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
           "Volume is at least 1.5x 20-session average",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21383,6 +21628,8 @@
         38.6,
         38.24
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21398,7 +21645,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -21409,7 +21658,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21499,6 +21750,8 @@
         1156.3,
         1167.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21514,7 +21767,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -21523,7 +21778,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21614,6 +21871,8 @@
         164.37,
         163.72
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21629,7 +21888,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -21639,7 +21900,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21730,6 +21993,8 @@
         417.15,
         419.9
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -21745,7 +22010,9 @@
           "adxSuperTrend": true,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",
@@ -21846,6 +22113,8 @@
         550.05,
         640.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21861,7 +22130,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -21869,7 +22140,9 @@
           "RSI 14 is between 50 and 70",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -21961,6 +22234,8 @@
         260.1,
         262.45
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -21976,7 +22251,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -21989,7 +22266,9 @@
           "ADX is >= 32",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -22079,6 +22358,8 @@
         2961.0,
         2930.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -22094,7 +22375,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -22102,7 +22385,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -22194,6 +22479,8 @@
         3176.3,
         3134.1
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -22209,7 +22496,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -22219,7 +22508,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -22310,6 +22601,8 @@
         139.85,
         141.11
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -22325,7 +22618,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": false,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -22337,7 +22632,9 @@
           "ADX is >= 32",
           "RSI is >= 1.7x ADX",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -22427,6 +22724,8 @@
         11575.0,
         11570.0
       ],
+      "emasRising5": false,
+      "emasRising10": false,
       "quality": {
         "passed": false,
         "checks": {
@@ -22442,7 +22741,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": false,
+          "emasRising10": false
         },
         "failed": [
           "Close is above EMA stack",
@@ -22453,7 +22754,9 @@
           "+DI is at least 3x -DI",
           "ADX is >= 32",
           "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
+          "50 EMA is still above 200 EMA today",
+          "50 & 200 EMA both rising for 5 sessions",
+          "50 & 200 EMA both rising for 10 sessions"
         ]
       },
       "score": {
@@ -22543,6 +22846,8 @@
         8109.5,
         8182.5
       ],
+      "emasRising5": true,
+      "emasRising10": true,
       "quality": {
         "passed": false,
         "checks": {
@@ -22558,7 +22863,9 @@
           "adxSuperTrend": false,
           "rsiAdxRatio": true,
           "diPlusNearAdx": false,
-          "emaStillBullish": false
+          "emaStillBullish": false,
+          "emasRising5": true,
+          "emasRising10": true
         },
         "failed": [
           "Close is above EMA stack",

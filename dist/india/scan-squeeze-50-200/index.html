@@ -1853,6 +1853,8 @@
               <button type="button" data-quality-check="adxSuperTrend" class="is-off">ADX &gt;= 32</button>
               <button type="button" data-quality-check="rsiAdxRatio" class="is-off">RSI &gt;= 1.7x ADX</button>
               <button type="button" data-quality-check="diPlusNearAdx" class="is-off">+DI near ADX (±10%)</button>
+              <button type="button" data-quality-check="emasRising5" class="is-off">EMA 50 & 200 rising (5 days)</button>
+              <button type="button" data-quality-check="emasRising10" class="is-off">EMA 50 & 200 rising (10 days)</button>
             </div>
           </div>
           <div class="filters" aria-label="Filter by market-cap segment">
@@ -2040,7 +2042,7 @@
       let watchlistOnly = false;
       let watchlistMeta = loadWatchlistMeta();
       let watchlist = new Set(loadWatchlist());
-      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "diPlusAboveMinus", "diPlus3xMinus", "adxSuperTrend", "rsiAdxRatio", "diPlusNearAdx", "emaStillBullish"];
+      const allQualityKeys = ["bullishSetup", "volumeConfirmed", "liquidTurnover", "rsiHealthy", "diPlusAboveMinus", "diPlus3xMinus", "adxSuperTrend", "rsiAdxRatio", "diPlusNearAdx", "emaStillBullish", "emasRising5", "emasRising10"];
       const defaultQualityKeys = [];
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
