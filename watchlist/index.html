@@ -525,7 +525,7 @@
         padding: 10px 18px;
         overflow-x: auto;
       }
-      .universe-bar button.pill-dot {
+      .universe-bar button.universe-pill {
         font-family: 'IBM Plex Mono', monospace;
         font-size: 11px;
         padding: 4px 10px;
@@ -537,7 +537,7 @@
         cursor: pointer;
         transition: all 0.2s;
       }
-      .universe-bar button.pill-dot.is-active {
+      .universe-bar button.universe-pill.is-active {
         border-color: var(--line);
         background: var(--panel);
         color: var(--text);
@@ -1527,11 +1527,11 @@
             <article class="stat-tile"><span>Coverage</span><strong id="summaryCoverage">0%</strong></article>
           </div>
           <div class="universe-bar" aria-label="Filter by market-cap segment">
-            <button class="pill-dot is-active" data-cap-filter="all" type="button">All market <span class="filter-count">0</span></button>
-            <button class="pill-dot" data-cap-filter="large" type="button">Large cap <span class="filter-count">0</span></button>
-            <button class="pill-dot" data-cap-filter="mid" type="button">Mid cap <span class="filter-count">0</span></button>
-            <button class="pill-dot" data-cap-filter="small" type="button">Small cap <span class="filter-count">0</span></button>
-            <button class="pill-dot" data-cap-filter="other" type="button">Other <span class="filter-count">0</span></button>
+            <button class="universe-pill is-active" data-cap-filter="all" type="button">All market <span class="filter-count">0</span></button>
+            <button class="universe-pill" data-cap-filter="large" type="button">Large cap <span class="filter-count">0</span></button>
+            <button class="universe-pill" data-cap-filter="mid" type="button">Mid cap <span class="filter-count">0</span></button>
+            <button class="universe-pill" data-cap-filter="small" type="button">Small cap <span class="filter-count">0</span></button>
+            <button class="universe-pill" data-cap-filter="other" type="button">Other <span class="filter-count">0</span></button>
             <button id="toggleFiltersBtn" class="filter-trigger" type="button">⚙ Filters</button>
           </div>
           <div class="panel control-deck" id="advancedFiltersPanel" style="display: none;" aria-label="Scanner controls">
