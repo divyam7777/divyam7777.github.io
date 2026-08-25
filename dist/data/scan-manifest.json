@@ -1,15 +1,15 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-08-24T10:39:53.713800+00:00",
+  "generatedAt": "2026-08-25T10:35:54.254530+00:00",
   "universeSize": 2296,
   "pricedUniverseSize": 2296,
   "failureCount": 0,
   "marketTrend": {
     "symbol": "^NSEI",
     "label": "Nifty 50",
-    "latestClose": 24219.05,
-    "ema200": 24391.15,
-    "timestamp": 1787543100,
+    "latestClose": 24334.55,
+    "ema200": 24390.58,
+    "timestamp": 1787629500,
     "isBullish": false,
     "filterApplied": true
   },
@@ -18,21 +18,21 @@
       "scanId": "50-100",
       "label": "50 / 100 EMA cross",
       "file": "ema-50-100-crosses.json",
-      "resultCount": 579,
+      "resultCount": 576,
       "rule": "Bullish 50 EMA / 100 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "50-200",
       "label": "50 / 200 EMA cross",
       "file": "ema-50-200-crosses.json",
-      "resultCount": 424,
+      "resultCount": 423,
       "rule": "Bullish 50 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "squeeze-50-200",
       "label": "50 / 200 EMA squeeze",
       "file": "ema-squeeze-50-200-crosses.json",
-      "resultCount": 66,
+      "resultCount": 71,
       "rule": "Bullish 50 EMA / 200 EMA squeeze (gap < 1.0%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     }
   ]
