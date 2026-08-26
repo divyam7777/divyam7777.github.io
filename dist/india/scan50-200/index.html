@@ -1474,6 +1474,31 @@
               <p class="card-description">The classic golden crossover — confirms major trend reversals and long-term bullish setups.</p>
             </div>
           </a>
+          <a class="scanner-pill" href="/?scan=squeeze-50-100" data-scan-trigger="squeeze-50-100" data-scan-card="squeeze-50-100">
+            <div class="card-chart">
+              <svg viewBox="0 0 200 90" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="areaGradCyan" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.28" />
+                    <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="chart-area" d="M0 80 C20 78 40 76 60 74 C80 72 100 70 120 66 C140 60 160 55 180 50 C190 48 200 45 200 45 L200 90 L0 90Z" fill="url(#areaGradCyan)" />
+                <path class="chart-line" d="M0 80 C20 78 40 76 60 74 C80 72 100 70 120 66 C140 60 160 55 180 50 C190 48 200 45 200 45" stroke="var(--cyan)" />
+              </svg>
+            </div>
+            <div class="card-body">
+              <div class="card-body-top">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="pill-dot" style="background:var(--cyan)"></span>
+                  <span class="pill-label">50 / 100 Squeeze</span>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+              <span class="pill-sub">Pre-Cross</span>
+              <p class="card-description">Identifies stocks where the 50 EMA is tightly squeezing below the 100 EMA (gap &lt; 1%) right before a potential breakout.</p>
+            </div>
+          </a>
           <a class="scanner-pill" href="/?scan=squeeze-50-200" data-scan-trigger="squeeze-50-200" data-scan-card="squeeze-50-200">
             <div class="card-chart">
               <svg viewBox="0 0 200 90" preserveAspectRatio="none">
@@ -1697,6 +1722,12 @@
           file: "/data/ema-50-200-crosses.json",
           fast: 50,
           slow: 200
+        },
+        "squeeze-50-100": {
+          label: "50 / 100 EMA squeeze",
+          file: "/data/ema-squeeze-50-100-crosses.json",
+          fast: 50,
+          slow: 100
         },
         "squeeze-50-200": {
           label: "50 / 200 EMA squeeze",
