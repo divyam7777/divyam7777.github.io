@@ -194,15 +194,24 @@ def parse_price_response(response: dict) -> dict[str, list[float] | list[int]] |
     highs = quote_data.get("high") or []
     lows = quote_data.get("low") or []
     rows = []
+    last_valid_close = None
     for index, close in enumerate(closes):
-        if close is None or index >= len(timestamps):
+        if index >= len(timestamps):
+            continue
+        # Forward-fill None closes with the previous valid close to maintain
+        # the same bar count as TradingView. Skipping None bars shifts EMA
+        # calculations and causes them to diverge from TradingView's values.
+        if close is not None and math.isfinite(float(close)):
+            last_valid_close = float(close)
+        elif last_valid_close is not None:
+            close = last_valid_close
+        else:
             continue
         value = float(close)
-        if math.isfinite(value):
-            volume = volumes[index] if index < len(volumes) and volumes[index] is not None else 0
-            high_val = float(highs[index]) if index < len(highs) and highs[index] is not None else value
-            low_val = float(lows[index]) if index < len(lows) and lows[index] is not None else value
-            rows.append((value, int(timestamps[index]), int(volume), high_val, low_val))
+        volume = volumes[index] if index < len(volumes) and volumes[index] is not None else 0
+        high_val = float(highs[index]) if index < len(highs) and highs[index] is not None else value
+        low_val = float(lows[index]) if index < len(lows) and lows[index] is not None else value
+        rows.append((value, int(timestamps[index]), int(volume), high_val, low_val))
     if not rows:
         return None
     return {
@@ -220,7 +229,7 @@ def yahoo_symbol_to_nse(raw_symbol: str) -> str:
 
 
 def fetch_yahoo_chart(symbol: str) -> tuple[dict[str, list[float] | list[int]] | None, str | None]:
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(symbol, safe='.-^')}?range=2y&interval=1d"
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(symbol, safe='.-^')}?range=5y&interval=1d"
     try:
         request = Request(url, headers={"User-Agent": REQUEST_HEADERS["User-Agent"], "Accept": "application/json,*/*"})
         with urlopen(request, timeout=15) as response:
