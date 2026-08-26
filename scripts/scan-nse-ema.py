@@ -716,84 +716,128 @@ def find_squeeze(
     slow_period: int,
     market_trend: dict,
     gap_pct: float,
+    window: int = SCAN_WINDOW_SESSIONS,
 ) -> dict | None:
     fast_ema = ema(closes, fast_period)
     slow_ema = ema(closes, slow_period)
     rsi_values = rsi(closes)
     adx_values = adx(highs, lows, closes)
-    
-    index = len(closes) - 1
-    if index < 0:
+
+    latest_index = len(closes) - 1
+    if latest_index < 0:
         return None
-        
-    latest_fast = fast_ema[index]
-    latest_slow = slow_ema[index]
-    
+
+    latest_fast = fast_ema[latest_index]
+    latest_slow = slow_ema[latest_index]
+
     if latest_fast is None or latest_slow is None:
         return None
-        
+
+    # The squeeze must be active on the latest bar: fast EMA below slow EMA
+    # and the gap between them is within the threshold.
     if latest_fast >= latest_slow:
         return None
-        
+
     actual_gap_pct = ((latest_slow - latest_fast) / latest_slow) * 100
     if actual_gap_pct > gap_pct:
         return None
-        
-    cross_close = float(closes[index])
-    latest_close = cross_close
-    latest_timestamp = timestamps[index] if timestamps else None
-    sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
-    
-    latest_volume = volumes[index] if index < len(volumes) else 0
-    cross_average_volume_20 = trailing_average(volumes, index, 20)
+
+    # Scan backward to find the first session where the squeeze condition began.
+    # The squeeze "starts" at the earliest consecutive bar (within the window)
+    # where fast_ema < slow_ema AND gap <= gap_pct.
+    start_limit = max(1, latest_index - window)
+    squeeze_start_index = latest_index
+    for i in range(latest_index - 1, start_limit - 1, -1):
+        if fast_ema[i] is None or slow_ema[i] is None:
+            break
+        if float(fast_ema[i]) >= float(slow_ema[i]):
+            # EMAs flipped — squeeze hadn't started yet at this bar
+            break
+        bar_gap_pct = ((float(slow_ema[i]) - float(fast_ema[i])) / float(slow_ema[i])) * 100
+        if bar_gap_pct > gap_pct:
+            # Gap was too wide — squeeze hadn't started yet at this bar
+            break
+        squeeze_start_index = i
+
+    # Use the squeeze-start bar as the reference point (like find_cross uses the cross bar)
+    ref_index = squeeze_start_index
+    sessions_ago = latest_index - ref_index
+    cross_close = float(closes[ref_index])
+    latest_close = float(closes[latest_index])
+    price_change = latest_close - cross_close
+    price_change_pct = (price_change / cross_close * 100) if cross_close else 0
+    latest_timestamp = timestamps[latest_index] if timestamps else None
+    sparkline = [round(value, 2) for value in closes[max(0, ref_index - 35) :]]
+
+    # Compute high after squeeze start
+    if ref_index < latest_index:
+        high_slice = highs[ref_index + 1:]
+        max_subsequent = max(high_slice)
+        if max_subsequent > cross_close:
+            high_after_cross = max_subsequent
+            high_days_after_cross = high_slice.index(high_after_cross) + 1
+        else:
+            high_after_cross = cross_close
+            high_days_after_cross = 0
+    else:
+        high_after_cross = cross_close
+        high_days_after_cross = 0
+
+    high_after_cross_pct = ((high_after_cross - cross_close) / cross_close * 100) if cross_close else 0
+
+    latest_volume = volumes[latest_index] if latest_index < len(volumes) else 0
+    cross_volume = volumes[ref_index] if ref_index < len(volumes) else 0
+    cross_average_volume_20 = trailing_average(volumes, ref_index, 20)
+    average_volume_20 = average(volumes, 20)
     average_turnover_20 = trailing_average(
         [float(close) * int(volumes[idx] if idx < len(volumes) else 0) for idx, close in enumerate(closes)],
-        index,
+        ref_index,
         20,
     )
-    
+
     fast_slope_pct = None
-    if index > 0 and fast_ema[index - 1] is not None and fast_ema[index - 1]:
-        fast_slope_pct = (float(fast_ema[index]) - float(fast_ema[index - 1])) / float(fast_ema[index - 1]) * 100
-        
-    distance_from_fast = ((cross_close - latest_fast) / latest_fast * 100) if latest_fast else None
+    if ref_index > 0 and fast_ema[ref_index - 1] is not None and fast_ema[ref_index - 1]:
+        fast_slope_pct = (float(fast_ema[ref_index]) - float(fast_ema[ref_index - 1])) / float(fast_ema[ref_index - 1]) * 100
+
+    ref_fast = float(fast_ema[ref_index]) if fast_ema[ref_index] is not None else None
+    distance_from_fast = ((cross_close - ref_fast) / ref_fast * 100) if ref_fast else None
     market_confirmed = market_trend.get("isBullish") is True if market_trend.get("filterApplied") else True
-    
+
     squeeze = {
         "type": "bullish",
-        "sessionsAgo": 0,
-        "fastEma": latest_fast,
-        "slowEma": latest_slow,
+        "sessionsAgo": sessions_ago,
+        "fastEma": fast_ema[ref_index],
+        "slowEma": slow_ema[ref_index],
         "latestFastEma": round(float(latest_fast), 2),
         "latestSlowEma": round(float(latest_slow), 2),
         "close": cross_close,
         "crossClose": cross_close,
-        "highAfterCross": round(cross_close, 2),
-        "highAfterCrossPct": 0.0,
-        "highDaysAfterCross": 0,
+        "highAfterCross": round(high_after_cross, 2),
+        "highAfterCrossPct": round(high_after_cross_pct, 2),
+        "highDaysAfterCross": high_days_after_cross,
         "latestClose": latest_close,
         "latestTimestamp": latest_timestamp,
-        "priceChange": 0.0,
-        "priceChangePct": 0.0,
+        "priceChange": round(price_change, 2),
+        "priceChangePct": round(price_change_pct, 2),
         "volume": latest_volume,
-        "crossVolume": latest_volume,
+        "crossVolume": cross_volume,
         "latestVolume": latest_volume,
         "crossAverageVolume20": round(cross_average_volume_20, 2),
-        "averageVolume20": round(cross_average_volume_20, 2),
-        "volumeMultiple": round(latest_volume / cross_average_volume_20, 2) if cross_average_volume_20 else 0,
+        "averageVolume20": round(average_volume_20, 2),
+        "volumeMultiple": round(cross_volume / cross_average_volume_20, 2) if cross_average_volume_20 else 0,
         "averageTurnover20": round(average_turnover_20, 2),
         "averageTurnover20Crore": round(average_turnover_20 / 10_000_000, 2),
-        "rsi14": round(float(rsi_values[index]), 2) if rsi_values[index] is not None else None,
-        "adx14": round(float(adx_values["adx"][index]), 2) if adx_values["adx"][index] is not None else None,
-        "plusDi14": round(float(adx_values["plusDi"][index]), 2) if adx_values["plusDi"][index] is not None else None,
-        "minusDi14": round(float(adx_values["minusDi"][index]), 2) if adx_values["minusDi"][index] is not None else None,
+        "rsi14": round(float(rsi_values[ref_index]), 2) if rsi_values[ref_index] is not None else None,
+        "adx14": round(float(adx_values["adx"][ref_index]), 2) if adx_values["adx"][ref_index] is not None else None,
+        "plusDi14": round(float(adx_values["plusDi"][ref_index]), 2) if adx_values["plusDi"][ref_index] is not None else None,
+        "minusDi14": round(float(adx_values["minusDi"][ref_index]), 2) if adx_values["minusDi"][ref_index] is not None else None,
         "distanceFromFastEmaPct": round(distance_from_fast, 2) if distance_from_fast is not None else None,
         "fastEmaSlopePct": round(fast_slope_pct, 3) if fast_slope_pct is not None else None,
         "marketTrendConfirmed": market_confirmed,
-        "timestamp": timestamps[index],
+        "timestamp": timestamps[ref_index],
         "sparkline": sparkline,
-        "emasRising5": check_emas_rising(fast_ema, slow_ema, index, 5),
-        "emasRising10": check_emas_rising(fast_ema, slow_ema, index, 10),
+        "emasRising5": check_emas_rising(fast_ema, slow_ema, ref_index, 5),
+        "emasRising10": check_emas_rising(fast_ema, slow_ema, ref_index, 10),
     }
     squeeze["quality"] = quality_checks(squeeze)
     squeeze["score"] = signal_score(squeeze, fast_period, slow_period)
