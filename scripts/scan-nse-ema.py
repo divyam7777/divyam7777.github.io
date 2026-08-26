@@ -646,8 +646,6 @@ def find_cross(
         latest_timestamp = timestamps[-1] if timestamps else None
         sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
         if previous <= 0 and current > 0:
-            if not check_emas_rising(fast_ema, slow_ema, index, 5):
-                return None
             if index < len(highs) - 1:
                 high_slice = highs[index + 1:]
                 max_subsequent = max(high_slice)
@@ -774,7 +772,7 @@ def find_squeeze(
     # Use the squeeze-start bar as the reference point (like find_cross uses the cross bar)
     ref_index = squeeze_start_index
 
-    # Require EMAs to be rising for at least 5 days at the time of the squeeze
+    # Strict Backend Filter: Squeeze setups MUST have EMAs rising for at least 5 days
     if not check_emas_rising(fast_ema, slow_ema, ref_index, 5):
         return None
 

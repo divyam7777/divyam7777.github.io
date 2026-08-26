@@ -33,7 +33,7 @@
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-08-26T18:36:13.961576+00:00",
+  "generatedAt": "2026-08-26T18:43:00.216335+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",

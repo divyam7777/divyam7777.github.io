@@ -1,6 +1,6 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-08-26T18:36:13.961576+00:00",
+  "generatedAt": "2026-08-26T18:43:00.216335+00:00",
   "universeSize": 2291,
   "pricedUniverseSize": 2291,
   "failureCount": 0,
@@ -18,14 +18,14 @@
       "scanId": "50-100",
       "label": "50 / 100 EMA cross",
       "file": "ema-50-100-crosses.json",
-      "resultCount": 463,
+      "resultCount": 570,
       "rule": "Bullish 50 EMA / 100 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "50-200",
       "label": "50 / 200 EMA cross",
       "file": "ema-50-200-crosses.json",
-      "resultCount": 381,
+      "resultCount": 434,
       "rule": "Bullish 50 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
