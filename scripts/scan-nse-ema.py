@@ -27,6 +27,7 @@ INDEX_URLS = {
 SCAN_RULES = {
     "50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA cross", "type": "cross"},
     "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross", "type": "cross"},
+    "squeeze-50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA squeeze", "type": "squeeze", "gap_pct": 1.0},
     "squeeze-50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA squeeze", "type": "squeeze", "gap_pct": 1.0},
 }
 SCAN_WINDOW_SESSIONS = 60
