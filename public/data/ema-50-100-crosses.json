@@ -33,7 +33,7 @@
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-08-26T18:43:00.216335+00:00",
+  "generatedAt": "2026-08-26T18:49:01.982519+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
@@ -16111,7 +16111,7 @@
   },
   "resultCount": 570,
   "failureCount": 0,
-  "skippedCount": 293,
+  "skippedCount": 296,
   "results": [
     {
       "symbol": "APOLLOTYRE",
@@ -100002,6 +100002,10 @@
       "reason": "needs at least 160 daily candles"
     },
     {
+      "symbol": "ANDREWYU",
+      "reason": "needs at least 160 daily candles"
+    },
+    {
       "symbol": "ANSALBU",
       "reason": "needs at least 160 daily candles"
     },
@@ -100243,10 +100247,6 @@
     },
     {
       "symbol": "ELITECON",
-      "reason": "needs at least 160 daily candles"
-    },
-    {
-      "symbol": "ELPROINTL",
       "reason": "needs at least 160 daily candles"
     }
   ]

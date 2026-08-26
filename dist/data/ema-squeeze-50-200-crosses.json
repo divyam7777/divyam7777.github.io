@@ -33,7 +33,7 @@
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-08-26T18:36:13.961576+00:00",
+  "generatedAt": "2026-08-26T18:49:01.982519+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
@@ -16111,7 +16111,7 @@
   },
   "resultCount": 24,
   "failureCount": 0,
-  "skippedCount": 378,
+  "skippedCount": 381,
   "results": [
     {
       "symbol": "BAJAJHIND",
@@ -19240,6 +19240,10 @@
       "reason": "needs at least 260 daily candles"
     },
     {
+      "symbol": "ANDREWYU",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
       "symbol": "ANSALBU",
       "reason": "needs at least 260 daily candles"
     },
@@ -19457,10 +19461,6 @@
     },
     {
       "symbol": "CSM",
-      "reason": "needs at least 260 daily candles"
-    },
-    {
-      "symbol": "DAICHI",
       "reason": "needs at least 260 daily candles"
     }
   ]
