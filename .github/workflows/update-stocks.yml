@@ -3,7 +3,7 @@ name: Update NSE EMA scanner data
 on:
   schedule:
     # Runs at 3:30 PM IST (10:00 AM UTC), Monday-Friday.
-    - cron: "0 10 * * 1-5"
+    - cron: "0 09 * * 1-5"
   workflow_dispatch:
 
 permissions:
