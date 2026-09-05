@@ -29,6 +29,7 @@ SCAN_RULES = {
     "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross", "type": "cross"},
     "squeeze-50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA squeeze", "type": "squeeze", "gap_pct": 1.0},
     "squeeze-50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA squeeze", "type": "squeeze", "gap_pct": 1.0},
+    "slope-50": {"fast": 50, "slow": 50, "label": "50 EMA slope reversal", "type": "slope"},
 }
 SCAN_WINDOW_SESSIONS = 60
 RSI_PERIOD = 14
@@ -859,6 +860,126 @@ def find_squeeze(
     return squeeze
 
 
+def find_slope_reversal(
+    closes: list[float],
+    timestamps: list[int],
+    volumes: list[int],
+    highs: list[float],
+    lows: list[float],
+    ema_period: int,
+    market_trend: dict,
+    window: int = SCAN_WINDOW_SESSIONS,
+) -> dict | None:
+    """Find the most recent bar where the EMA slope flipped from negative to positive.
+
+    The slope at bar i is defined as (EMA[i] - EMA[i-1]) / EMA[i-1].
+    A reversal occurs when the previous bar's slope was <= 0 and the current
+    bar's slope is > 0.
+    """
+    ema_values = ema(closes, ema_period)
+    rsi_values = rsi(closes)
+    adx_values = adx(highs, lows, closes)
+    start = max(2, len(closes) - window)  # need i-1 and i-2 for two consecutive slopes
+    latest_index = len(closes) - 1
+    latest_ema = ema_values[latest_index]
+
+    if latest_ema is None:
+        return None
+
+    for index in range(len(closes) - 1, start - 1, -1):
+        if None in (ema_values[index], ema_values[index - 1], ema_values[index - 2]):
+            continue
+        prev_ema = float(ema_values[index - 1])
+        prev_prev_ema = float(ema_values[index - 2])
+        curr_ema = float(ema_values[index])
+
+        if prev_ema == 0 or prev_prev_ema == 0:
+            continue
+
+        prev_slope = (prev_ema - prev_prev_ema) / prev_prev_ema
+        curr_slope = (curr_ema - prev_ema) / prev_ema
+
+        if prev_slope <= 0 and curr_slope > 0:
+            # Found the slope reversal bar
+            cross_close = float(closes[index])
+            latest_close = float(closes[-1])
+            price_change = latest_close - cross_close
+            price_change_pct = (price_change / cross_close * 100) if cross_close else 0
+            latest_timestamp = timestamps[-1] if timestamps else None
+            sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
+
+            if index < len(highs) - 1:
+                high_slice = highs[index + 1:]
+                max_subsequent = max(high_slice)
+                if max_subsequent > cross_close:
+                    high_after_cross = max_subsequent
+                    high_days_after_cross = high_slice.index(high_after_cross) + 1
+                else:
+                    high_after_cross = cross_close
+                    high_days_after_cross = 0
+            else:
+                high_after_cross = cross_close
+                high_days_after_cross = 0
+
+            high_after_cross_pct = ((high_after_cross - cross_close) / cross_close * 100) if cross_close else 0
+            latest_volume = volumes[latest_index] if latest_index < len(volumes) else 0
+            cross_volume = volumes[index] if index < len(volumes) else 0
+            cross_average_volume_20 = trailing_average(volumes, index, 20)
+            average_volume_20 = average(volumes, 20)
+            average_turnover_20 = trailing_average(
+                [float(close) * int(volumes[idx] if idx < len(volumes) else 0) for idx, close in enumerate(closes)],
+                index,
+                20,
+            )
+
+            fast_slope_pct = curr_slope * 100
+
+            ref_ema = float(ema_values[index]) if ema_values[index] is not None else None
+            distance_from_fast = ((cross_close - ref_ema) / ref_ema * 100) if ref_ema else None
+            market_confirmed = market_trend.get("isBullish") is True if market_trend.get("filterApplied") else True
+
+            result = {
+                "type": "bullish",
+                "sessionsAgo": len(closes) - 1 - index,
+                "fastEma": ema_values[index],
+                "slowEma": ema_values[index],  # same EMA for display compatibility
+                "latestFastEma": round(float(latest_ema), 2),
+                "latestSlowEma": round(float(latest_ema), 2),
+                "close": cross_close,
+                "crossClose": cross_close,
+                "highAfterCross": round(high_after_cross, 2),
+                "highAfterCrossPct": round(high_after_cross_pct, 2),
+                "highDaysAfterCross": high_days_after_cross,
+                "latestClose": latest_close,
+                "latestTimestamp": latest_timestamp,
+                "priceChange": round(price_change, 2),
+                "priceChangePct": round(price_change_pct, 2),
+                "volume": latest_volume,
+                "crossVolume": cross_volume,
+                "latestVolume": latest_volume,
+                "crossAverageVolume20": round(cross_average_volume_20, 2),
+                "averageVolume20": round(average_volume_20, 2),
+                "volumeMultiple": round(cross_volume / cross_average_volume_20, 2) if cross_average_volume_20 else 0,
+                "averageTurnover20": round(average_turnover_20, 2),
+                "averageTurnover20Crore": round(average_turnover_20 / 10_000_000, 2),
+                "rsi14": round(float(rsi_values[index]), 2) if rsi_values[index] is not None else None,
+                "adx14": round(float(adx_values["adx"][index]), 2) if adx_values["adx"][index] is not None else None,
+                "plusDi14": round(float(adx_values["plusDi"][index]), 2) if adx_values["plusDi"][index] is not None else None,
+                "minusDi14": round(float(adx_values["minusDi"][index]), 2) if adx_values["minusDi"][index] is not None else None,
+                "distanceFromFastEmaPct": round(distance_from_fast, 2) if distance_from_fast is not None else None,
+                "fastEmaSlopePct": round(fast_slope_pct, 3),
+                "marketTrendConfirmed": market_confirmed,
+                "timestamp": timestamps[index],
+                "sparkline": sparkline,
+                "emasRising5": False,  # not applicable for single-EMA scanner
+                "emasRising10": False,
+            }
+            result["quality"] = quality_checks(result)
+            result["score"] = signal_score(result, ema_period, ema_period)
+            return result
+
+    return None
+
 
 def stock_to_json(stock: Stock) -> dict[str, str]:
     return {
@@ -899,6 +1020,8 @@ def build_scan_payload(
         
         if rule.get("type") == "squeeze":
             cross = find_squeeze(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend, rule.get("gap_pct", 2.0))
+        elif rule.get("type") == "slope":
+            cross = find_slope_reversal(closes, timestamps, volumes, highs, lows, fast_period, market_trend)
         else:
             cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend)
             
@@ -920,6 +1043,8 @@ def build_scan_payload(
         "rule": (
             f"Bullish {fast_period} EMA / {slow_period} EMA squeeze (gap < {rule.get('gap_pct', 2.0)}%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
             if rule.get("type") == "squeeze"
+            else f"{fast_period} EMA slope reversal (negative to positive) within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, and Nifty trend filters"
+            if rule.get("type") == "slope"
             else f"Bullish {fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
         ),
         "fastPeriod": fast_period,
