@@ -29,7 +29,7 @@ SCAN_RULES = {
     "50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA cross", "type": "cross"},
     "squeeze-50-100": {"fast": 50, "slow": 100, "label": "50 / 100 EMA squeeze", "type": "squeeze", "gap_pct": 1.0},
     "squeeze-50-200": {"fast": 50, "slow": 200, "label": "50 / 200 EMA squeeze", "type": "squeeze", "gap_pct": 1.0},
-    "slope-50": {"fast": 50, "slow": 50, "label": "50 EMA slope reversal", "type": "slope"},
+    "slope-50": {"fast": 50, "slow": 50, "label": "50 EMA slope reversal", "type": "slope", "min_negative_days": 10},
 }
 SCAN_WINDOW_SESSIONS = 60
 RSI_PERIOD = 14
@@ -882,24 +882,25 @@ def find_slope_reversal(
     ema_period: int,
     market_trend: dict,
     window: int = SCAN_WINDOW_SESSIONS,
+    min_negative_days: int = 10,
 ) -> dict | None:
-    """Find the most recent bar where the EMA slope flipped from negative to positive.
-
-    The slope at bar i is defined as (EMA[i] - EMA[i-1]) / EMA[i-1].
-    A reversal occurs when the previous bar's slope was <= 0 and the current
-    bar's slope is > 0.
+    """Find the most recent bar where the EMA slope was negative for at least min_negative_days,
+    then became 0 or positive (>= 0).
     """
     ema_values = ema(closes, ema_period)
     rsi_values = rsi(closes)
     adx_values = adx(highs, lows, closes)
-    start = max(2, len(closes) - window)  # need i-1 and i-2 for two consecutive slopes
     latest_index = len(closes) - 1
-    latest_ema = ema_values[latest_index]
+    if latest_index < ema_period + min_negative_days:
+        return None
 
+    latest_ema = ema_values[latest_index]
     if latest_ema is None:
         return None
 
-    for index in range(len(closes) - 1, start - 1, -1):
+    start = max(min_negative_days + 1, latest_index - window)
+
+    for index in range(latest_index, start - 1, -1):
         if None in (ema_values[index], ema_values[index - 1], ema_values[index - 2]):
             continue
         prev_ema = float(ema_values[index - 1])
@@ -912,13 +913,42 @@ def find_slope_reversal(
         prev_slope = (prev_ema - prev_prev_ema) / prev_prev_ema
         curr_slope = (curr_ema - prev_ema) / prev_ema
 
-        if prev_slope <= 0 and curr_slope > 0:
-            # Found the slope reversal bar
+        # At index, slope becomes 0 or positive after being negative
+        if prev_slope < 0 and curr_slope >= 0:
+            # Count consecutive negative days immediately preceding index
+            neg_count = 0
+            for k in range(1, index):
+                bar_curr = index - k
+                bar_prev = index - k - 1
+                if bar_prev < 0:
+                    break
+                if None in (ema_values[bar_curr], ema_values[bar_prev]):
+                    break
+                if float(ema_values[bar_curr]) < float(ema_values[bar_prev]):
+                    neg_count += 1
+                else:
+                    break
+
+            if neg_count < min_negative_days:
+                continue
+
+            # Ensure the slope remained non-negative from the reversal bar up to today
+            remained_non_negative = True
+            for j in range(index, latest_index + 1):
+                if None in (ema_values[j], ema_values[j - 1]):
+                    continue
+                if float(ema_values[j]) < float(ema_values[j - 1]):
+                    remained_non_negative = False
+                    break
+
+            if not remained_non_negative:
+                continue
+
             cross_close = float(closes[index])
-            latest_close = float(closes[-1])
+            latest_close = float(closes[latest_index])
             price_change = latest_close - cross_close
             price_change_pct = (price_change / cross_close * 100) if cross_close else 0
-            latest_timestamp = timestamps[-1] if timestamps else None
+            latest_timestamp = timestamps[latest_index] if timestamps else None
             sparkline = [round(value, 2) for value in closes[max(0, index - 35) :]]
 
             if index < len(highs) - 1:
@@ -945,7 +975,11 @@ def find_slope_reversal(
                 20,
             )
 
-            fast_slope_pct = curr_slope * 100
+            latest_slope_pct = (
+                (float(latest_ema) - float(ema_values[latest_index - 1])) / float(ema_values[latest_index - 1]) * 100
+                if ema_values[latest_index - 1]
+                else 0
+            )
 
             ref_ema = float(ema_values[index]) if ema_values[index] is not None else None
             distance_from_fast = ((cross_close - ref_ema) / ref_ema * 100) if ref_ema else None
@@ -953,9 +987,10 @@ def find_slope_reversal(
 
             result = {
                 "type": "bullish",
-                "sessionsAgo": len(closes) - 1 - index,
+                "sessionsAgo": latest_index - index,
+                "negativeSlopeDays": neg_count,
                 "fastEma": ema_values[index],
-                "slowEma": ema_values[index],  # same EMA for display compatibility
+                "slowEma": ema_values[index],
                 "latestFastEma": round(float(latest_ema), 2),
                 "latestSlowEma": round(float(latest_ema), 2),
                 "close": cross_close,
@@ -980,11 +1015,12 @@ def find_slope_reversal(
                 "plusDi14": round(float(adx_values["plusDi"][index]), 2) if adx_values["plusDi"][index] is not None else None,
                 "minusDi14": round(float(adx_values["minusDi"][index]), 2) if adx_values["minusDi"][index] is not None else None,
                 "distanceFromFastEmaPct": round(distance_from_fast, 2) if distance_from_fast is not None else None,
-                "fastEmaSlopePct": round(fast_slope_pct, 3),
+                "fastEmaSlopePct": round(latest_slope_pct, 3),
+                "reversalSlopePct": round(curr_slope * 100, 3),
                 "marketTrendConfirmed": market_confirmed,
                 "timestamp": timestamps[index],
                 "sparkline": sparkline,
-                "emasRising5": False,  # not applicable for single-EMA scanner
+                "emasRising5": False,
                 "emasRising10": False,
             }
             result["quality"] = slope_quality_checks(result)
@@ -1034,7 +1070,10 @@ def build_scan_payload(
         if rule.get("type") == "squeeze":
             cross = find_squeeze(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend, rule.get("gap_pct", 2.0))
         elif rule.get("type") == "slope":
-            cross = find_slope_reversal(closes, timestamps, volumes, highs, lows, fast_period, market_trend)
+            cross = find_slope_reversal(
+                closes, timestamps, volumes, highs, lows, fast_period, market_trend,
+                min_negative_days=rule.get("min_negative_days", 10)
+            )
         else:
             cross = find_cross(closes, timestamps, volumes, highs, lows, fast_period, slow_period, market_trend)
             
@@ -1056,7 +1095,7 @@ def build_scan_payload(
         "rule": (
             f"Bullish {fast_period} EMA / {slow_period} EMA squeeze (gap < {rule.get('gap_pct', 2.0)}%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
             if rule.get("type") == "squeeze"
-            else f"{fast_period} EMA slope reversal (negative to positive) within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, and Nifty trend filters"
+            else f"{fast_period} EMA slope reversal (negative for >= {rule.get('min_negative_days', 10)} days, then turned 0 or positive) within last {SCAN_WINDOW_SESSIONS} daily sessions"
             if rule.get("type") == "slope"
             else f"Bullish {fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
         ),

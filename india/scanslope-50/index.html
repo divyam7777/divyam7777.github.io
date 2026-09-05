@@ -1550,7 +1550,7 @@
                 <span class="card-arrow">→</span>
               </div>
               <span class="pill-sub">Trend Turn</span>
-              <p class="card-description">Spots stocks where the 50 EMA slope flipped from negative to positive — the earliest sign the downtrend is ending and upward momentum is building. Daily chart only.</p>
+              <p class="card-description">Identifies stocks whose 50 EMA slope was falling (negative) for at least 10 daily sessions, then turned flat or positive (>= 0).</p>
             </div>
           </a>
         </div>
@@ -2784,8 +2784,13 @@
               ? (finiteNumber(item.lowAfterCrossPct) || 0)
               : (finiteNumber(item.highAfterCrossPct) || 0);
             
+            const isSlopeScan = item._scanId === "slope-50" || activeScanId === "slope-50";
             const freshnessText = isSavedOnly ? "No fresh cross" : `${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}`;
-            const actionText = isSavedOnly ? "Tracking" : (item.type === "bullish" ? "Above" : "Below");
+            const actionText = isSavedOnly
+              ? "Tracking"
+              : isSlopeScan
+                ? (item.negativeSlopeDays ? `${item.negativeSlopeDays}d down` : "Turned flat/up")
+                : `${item.type === "bullish" ? "Above" : "Below"} ${slowPeriod}`;
             const dateText = isSavedOnly ? formatIsoDate(item._addedAt) : formatDate(item.timestamp);
             const watchText = isWatchlistPage ? "Remove" : (isSaved ? "Saved" : "Watch");
             
@@ -2810,14 +2815,14 @@
                   </div>
                   <div class="stat-item">
                     <div class="label">Freshness</div>
-                    <div class="value">${freshnessText} <span class="sub">${actionText} ${slowPeriod}</span></div>
+                    <div class="value">${freshnessText} <span class="sub">${actionText}</span></div>
                   </div>
                   <div class="stat-item">
-                    <div class="label">Cross price</div>
+                    <div class="label">${isSlopeScan ? "Reversal price" : "Cross price"}</div>
                     <div class="value">${crossPriceVal ? crossPriceVal.toFixed(2) : '-'}</div>
                   </div>
                   <div class="stat-item">
-                    <div class="label">Cross date</div>
+                    <div class="label">${isSlopeScan ? "Reversal date" : "Cross date"}</div>
                     <div class="value">${dateText}</div>
                   </div>
                 </div>
