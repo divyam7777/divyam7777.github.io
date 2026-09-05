@@ -422,6 +422,10 @@
         --card-color: var(--amber);
         --card-color-dim: var(--amber-dim);
       }
+      .scanner-pill[data-scan-card="slope-50"] {
+        --card-color: var(--green);
+        --card-color-dim: color-mix(in srgb, var(--green) 50%, var(--grid));
+      }
       
       .scanner-pill:hover {
         border-color: var(--card-color-dim);
@@ -1524,6 +1528,31 @@
               <p class="card-description">Identifies stocks where the 50 EMA is tightly squeezing below the 200 EMA (gap &lt; 1%) right before a potential breakout.<br><span style="color: var(--warning); font-size: 0.9em; display: inline-block; margin-top: 6px; font-weight: 600;">[Work in progress - do not use this]</span></p>
             </div>
           </a>
+          <a class="scanner-pill" href="/?scan=slope-50" data-scan-trigger="slope-50" data-scan-card="slope-50" style="grid-column: 1 / -1;">
+            <div class="card-chart">
+              <svg viewBox="0 0 200 90" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="areaGradSlope" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--green)" stop-opacity="0.28" />
+                    <stop offset="100%" stop-color="var(--green)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="chart-area" d="M0 40 C20 50 40 60 60 68 C80 72 100 74 120 70 C140 62 160 50 180 38 C190 32 200 28 200 28 L200 90 L0 90Z" fill="url(#areaGradSlope)" />
+                <path class="chart-line" d="M0 40 C20 50 40 60 60 68 C80 72 100 74 120 70 C140 62 160 50 180 38 C190 32 200 28 200 28" stroke="var(--green)" />
+              </svg>
+            </div>
+            <div class="card-body">
+              <div class="card-body-top">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="pill-dot"></span>
+                  <span class="pill-label">50 EMA Slope Reversal</span>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+              <span class="pill-sub">Trend Turn</span>
+              <p class="card-description">Spots stocks where the 50 EMA slope flipped from negative to positive — the earliest sign the downtrend is ending and upward momentum is building. Daily chart only.</p>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -1734,6 +1763,12 @@
           file: "/data/ema-squeeze-50-200-crosses.json",
           fast: 50,
           slow: 200
+        },
+        "slope-50": {
+          label: "50 EMA slope reversal",
+          file: "/data/ema-slope-50-crosses.json",
+          fast: 50,
+          slow: 50
         }
       };
 
@@ -2888,7 +2923,7 @@
           event.preventDefault();
           const scanId = trigger.dataset.scanTrigger;
           if (window.location.pathname.replace(/\/+$/, "").startsWith("/india")) {
-            const routePart = scanId.startsWith("squeeze") ? `scan-${scanId}` : `scan${scanId}`;
+            const routePart = (scanId.startsWith("squeeze") || scanId.startsWith("slope")) ? `scan-${scanId}` : `scan${scanId}`;
             window.location.href = `/india/${routePart}/`;
           } else {
             loadScan(scanId, true);
@@ -3243,7 +3278,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const isIndiaPage = window.location.pathname.replace(/\/+$/, "").startsWith("/india");
-      const pathScanMatch = window.location.pathname.match(/\/india\/scan-?((?:squeeze-)?\d+-\d+)/);
+      const pathScanMatch = window.location.pathname.match(/\/india\/scan-?((?:squeeze-)?\d+-\d+|slope-\d+)/);
       const initialScanId = pathScanMatch ? pathScanMatch[1] : params.get("scan");
       const initialCap = params.get("cap");
       const initialType = params.get("type");
@@ -3293,15 +3328,17 @@
         }
         try {
           if (!cachedBackgroundSignals) {
-            const [res50_200, res50_100, res_squeeze] = await Promise.all([
+            const [res50_200, res50_100, res_squeeze, res_slope] = await Promise.all([
               fetch(`/data/ema-50-200-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null),
               fetch(`/data/ema-50-100-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null),
-              fetch(`/data/ema-squeeze-50-200-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null)
+              fetch(`/data/ema-squeeze-50-200-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null),
+              fetch(`/data/ema-slope-50-crosses.json?ts=${Date.now()}`).then(r => r.ok ? r.json() : null)
             ]);
             cachedBackgroundSignals = [];
             if (res50_200?.results) cachedBackgroundSignals.push(...res50_200.results);
             if (res50_100?.results) cachedBackgroundSignals.push(...res50_100.results);
             if (res_squeeze?.results) cachedBackgroundSignals.push(...res_squeeze.results);
+            if (res_slope?.results) cachedBackgroundSignals.push(...res_slope.results);
           }
 
           const freshSymbols = new Set();

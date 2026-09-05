@@ -64,7 +64,7 @@ if (await exists(indiaIndex)) {
   await cp(indiaIndex, watchlistIndex, { force: true });
 
   // Scan sub-routes under /india/
-  for (const scanId of ["scan50-100", "scan50-200", "scan-squeeze-50-100", "scan-squeeze-50-200", "scan-slope-50"]) {
+  for (const scanId of ["scan50-100", "scan50-200", "scan-squeeze-50-100", "scan-squeeze-50-200", "scan-slope-50", "scanslope-50"]) {
     const scanIndex = resolve(distDir, "india", scanId, "index.html");
     await mkdir(dirname(scanIndex), { recursive: true });
     await cp(indiaIndex, scanIndex, { force: true });
