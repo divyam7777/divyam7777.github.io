@@ -885,7 +885,7 @@ def find_slope_reversal(
     min_negative_days: int = 10,
 ) -> dict | None:
     """Find the most recent bar where the EMA slope was negative for at least min_negative_days,
-    then became 0 or positive (>= 0).
+    then became strictly positive (> 0).
     """
     ema_values = ema(closes, ema_period)
     rsi_values = rsi(closes)
@@ -913,8 +913,8 @@ def find_slope_reversal(
         prev_slope = (prev_ema - prev_prev_ema) / prev_prev_ema
         curr_slope = (curr_ema - prev_ema) / prev_ema
 
-        # At index, slope becomes 0 or positive after being negative
-        if prev_slope < 0 and curr_slope >= 0:
+        # At index, slope becomes strictly positive (> 0) after being negative (< 0)
+        if prev_slope < 0 and curr_slope > 0:
             # Count consecutive negative days immediately preceding index
             neg_count = 0
             for k in range(1, index):
@@ -932,16 +932,16 @@ def find_slope_reversal(
             if neg_count < min_negative_days:
                 continue
 
-            # Ensure the slope remained non-negative from the reversal bar up to today
-            remained_non_negative = True
+            # Ensure the slope remained strictly positive (> 0) from the reversal bar up to today
+            remained_positive = True
             for j in range(index, latest_index + 1):
                 if None in (ema_values[j], ema_values[j - 1]):
                     continue
-                if float(ema_values[j]) < float(ema_values[j - 1]):
-                    remained_non_negative = False
+                if float(ema_values[j]) <= float(ema_values[j - 1]):
+                    remained_positive = False
                     break
 
-            if not remained_non_negative:
+            if not remained_positive:
                 continue
 
             cross_close = float(closes[index])
@@ -1095,7 +1095,7 @@ def build_scan_payload(
         "rule": (
             f"Bullish {fast_period} EMA / {slow_period} EMA squeeze (gap < {rule.get('gap_pct', 2.0)}%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
             if rule.get("type") == "squeeze"
-            else f"{fast_period} EMA slope reversal (negative for >= {rule.get('min_negative_days', 10)} days, then turned 0 or positive) within last {SCAN_WINDOW_SESSIONS} daily sessions"
+            else f"{fast_period} EMA slope reversal (negative for >= {rule.get('min_negative_days', 10)} days, then turned positive) within last {SCAN_WINDOW_SESSIONS} daily sessions"
             if rule.get("type") == "slope"
             else f"Bullish {fast_period} EMA / {slow_period} EMA crossover within last {SCAN_WINDOW_SESSIONS} daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
         ),

@@ -1550,7 +1550,7 @@
                 <span class="card-arrow">→</span>
               </div>
               <span class="pill-sub">Trend Turn</span>
-              <p class="card-description">Identifies stocks whose 50 EMA slope was falling (negative) for at least 10 daily sessions, then turned flat or positive (>= 0).</p>
+              <p class="card-description">Identifies stocks whose 50 EMA slope was falling (negative) for at least 10 daily sessions, then turned strictly positive (&gt; 0).</p>
             </div>
           </a>
         </div>
@@ -2789,7 +2789,7 @@
             const actionText = isSavedOnly
               ? "Tracking"
               : isSlopeScan
-                ? (item.negativeSlopeDays ? `${item.negativeSlopeDays}d down` : "Turned flat/up")
+                ? (item.negativeSlopeDays ? `${item.negativeSlopeDays}d down` : "Turned positive")
                 : `${item.type === "bullish" ? "Above" : "Below"} ${slowPeriod}`;
             const dateText = isSavedOnly ? formatIsoDate(item._addedAt) : formatDate(item.timestamp);
             const watchText = isWatchlistPage ? "Remove" : (isSaved ? "Saved" : "Watch");
