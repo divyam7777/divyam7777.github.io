@@ -485,6 +485,19 @@ def quality_checks(cross: dict) -> dict:
     }
 
 
+def slope_quality_checks(item: dict) -> dict:
+    fast_slope = item.get("fastEmaSlopePct")
+    passed = fast_slope is not None and float(fast_slope) > 0
+    checks = {
+        "fastEmaSlopePositive": passed,
+    }
+    return {
+        "passed": passed,
+        "checks": checks,
+        "failed": [] if passed else ["EMA slope is not positive"],
+    }
+
+
 def signal_score(cross: dict, fast_period: int, slow_period: int) -> dict:
     score = 50
     reasons = []
@@ -974,7 +987,7 @@ def find_slope_reversal(
                 "emasRising5": False,  # not applicable for single-EMA scanner
                 "emasRising10": False,
             }
-            result["quality"] = quality_checks(result)
+            result["quality"] = slope_quality_checks(result)
             result["score"] = signal_score(result, ema_period, ema_period)
             return result
 

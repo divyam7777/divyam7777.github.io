@@ -2092,6 +2092,10 @@
       function setActiveScan(scanId) {
         activeScanId = scanId;
         scanCards.forEach((card) => card.classList.toggle("is-active", card.dataset.scanCard === scanId));
+        const qualityRulesEl = document.getElementById("qualityRules");
+        if (qualityRulesEl) {
+          qualityRulesEl.style.display = (scanId === "slope-50") ? "none" : "";
+        }
       }
 
       function updateCapCounts() {
@@ -2293,7 +2297,9 @@
         dashboardGrid.hidden = false;
         const visible = latestResults.filter(resultMatches);
         const bullish = visible.filter((item) => item.type === "bullish").length;
-        const qualified = visible.filter((item) => !item._isSavedOnly && item.quality?.passed !== false).length;
+        const qualified = (activeScanId === "slope-50")
+          ? visible.length
+          : visible.filter((item) => !item._isSavedOnly && item.quality?.passed !== false).length;
         const fresh = visible.filter((item) => item.sessionsAgo === 0).length;
         const coverage = latestPayload.universeSize
           ? Math.round(((latestPayload.pricedUniverseSize || 0) / latestPayload.universeSize) * 100)
@@ -2481,6 +2487,10 @@
         if (!config) return;
 
         setActiveScan(scanId);
+        if (scanId === "slope-50") {
+          activeQualityChecks.clear();
+          qualityButtons.forEach((btn) => btn.classList.add("is-off"));
+        }
         if (shouldUpdateUrl) updateUrl(scanId);
         latestPayload = null;
         latestResults = [];
@@ -2535,6 +2545,7 @@
       }
 
       function qualityMatches(item) {
+        if (activeScanId === "slope-50") return true;
         if (item._isSavedOnly) return true;
         const checks = item.quality?.checks;
         if (!checks) return true;
