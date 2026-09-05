@@ -1,6 +1,6 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-09-04T13:18:13.232383+00:00",
+  "generatedAt": "2026-09-05T18:58:46.373333+00:00",
   "universeSize": 2288,
   "pricedUniverseSize": 2288,
   "failureCount": 0,
@@ -41,6 +41,13 @@
       "file": "ema-squeeze-50-200-crosses.json",
       "resultCount": 28,
       "rule": "Bullish 50 EMA / 200 EMA squeeze (gap < 1.0%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
+    },
+    {
+      "scanId": "slope-50",
+      "label": "50 EMA slope reversal",
+      "file": "ema-slope-50-crosses.json",
+      "resultCount": 1724,
+      "rule": "50 EMA slope reversal (negative to positive) within last 60 daily sessions with RSI, ADX, volume, turnover, and Nifty trend filters"
     }
   ]
 }
