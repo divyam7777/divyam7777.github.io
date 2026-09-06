@@ -3649,7 +3649,14 @@
         const normalized = normalizeSymbol(symbol);
         const item = latestResults.find((result) => normalizeSymbol(result.symbol) === normalized);
         if (!item || !latestPayload) return;
-        const tvChart = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isMobileDevice = isAndroid || isIOS;
+        const tvWebUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}`;
+        const tvChart = isAndroid
+          ? `intent://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${item.symbol}`)}#Intent;scheme=https;package=com.tradingview.tradingviewapp;S.browser_fallback_url=${encodeURIComponent(tvWebUrl)};end`
+          : tvWebUrl;
+        const tvTarget = isMobileDevice ? `target="_self"` : `target="_blank" rel="noopener noreferrer"`;
         const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
         const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
         const fastPeriod = itemFastPeriod(item);
@@ -3728,7 +3735,7 @@
             </div>
 
             <div class="detail-actions">
-              <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView</a>
+              <a href="${tvChart}" ${tvTarget}>TradingView</a>
               <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE Quote</a>
             </div>
@@ -3829,7 +3836,7 @@
             </div>
 
             <div class="detail-actions">
-              <a href="${tvChart}" target="_blank" rel="noopener noreferrer">TradingView</a>
+              <a href="${tvChart}" ${tvTarget}>TradingView</a>
               <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE Quote</a>
             </div>
