@@ -71,16 +71,10 @@ if (await exists(indiaIndex)) {
   }
 }
 
-// Redirect the root index to /india/ so opening the website lands directly on the scanner
-await writeFile(
-  portfolioIndex,
-  redirectPage({
-    title: "StocksFlow — NSE 50 EMA Slope Reversal Scanner",
-    description: "Real-time NSE 50 EMA slope reversal scanner.",
-    target: "/india/"
-  }),
-  "utf8"
-);
+// Use the home page as the root index
+if (await exists(homeIndex)) {
+  await cp(homeIndex, portfolioIndex, { force: true });
+}
 
 for (const dir of generatedDirs) {
   const from = resolve(distDir, dir);
