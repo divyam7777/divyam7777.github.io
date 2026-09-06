@@ -3649,15 +3649,8 @@
         const normalized = normalizeSymbol(symbol);
         const item = latestResults.find((result) => normalizeSymbol(result.symbol) === normalized);
         if (!item || !latestPayload) return;
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        const isMobileDevice = isAndroid || isIOS;
         const cleanSym = String(item.symbol).trim().toUpperCase();
-        const tvWebUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${cleanSym}`)}`;
-        const tvChart = isAndroid
-          ? `intent://chart?symbol=NSE%3A${encodeURIComponent(cleanSym)}#Intent;scheme=tradingview;package=com.tradingview.tradingviewapp;S.browser_fallback_url=${encodeURIComponent(tvWebUrl)};end`
-          : (isIOS ? `tradingview://chart?symbol=NSE%3A${encodeURIComponent(cleanSym)}` : tvWebUrl);
-        const tvTarget = isMobileDevice ? `target="_self"` : `target="_blank" rel="noopener noreferrer"`;
+        const tvChart = `https://in.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${cleanSym}`)}`;
         const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
         const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
         const fastPeriod = itemFastPeriod(item);
@@ -3736,7 +3729,7 @@
             </div>
 
             <div class="detail-actions">
-              <a href="${tvChart}" ${tvTarget} class="detail-action-tv" data-tv-symbol="${cleanSym}">TradingView</a>
+              <a href="${tvChart}" target="_blank" rel="noopener noreferrer" class="detail-action-tv" data-tv-symbol="${cleanSym}">TradingView</a>
               <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE Quote</a>
             </div>
@@ -3837,7 +3830,7 @@
             </div>
 
             <div class="detail-actions">
-              <a href="${tvChart}" ${tvTarget} class="detail-action-tv" data-tv-symbol="${cleanSym}">TradingView</a>
+              <a href="${tvChart}" target="_blank" rel="noopener noreferrer" class="detail-action-tv" data-tv-symbol="${cleanSym}">TradingView</a>
               <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE Quote</a>
             </div>
@@ -3923,17 +3916,8 @@
       });
 
       function openTradingView(symbol, event) {
-        if (event) event.preventDefault();
         const cleanSymbol = symbol ? String(symbol).trim().toUpperCase() : "";
-        const tvWebUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${cleanSymbol}`)}`;
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        const isMobile = isAndroid || isIOS;
-
-        if (!isMobile) {
-          window.open(tvWebUrl, "_blank", "noopener,noreferrer");
-          return;
-        }
+        const tvWebUrl = `https://in.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${cleanSymbol}`)}`;
 
         try {
           if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -3941,35 +3925,20 @@
           }
         } catch (_) {}
 
-        if (isAndroid) {
-          const intentUrl = `intent://chart?symbol=NSE%3A${encodeURIComponent(cleanSymbol)}#Intent;scheme=tradingview;package=com.tradingview.tradingviewapp;S.browser_fallback_url=${encodeURIComponent(tvWebUrl)};end`;
-          const start = Date.now();
-          window.location.href = intentUrl;
-
-          setTimeout(() => {
-            if (document.hidden || document.webkitHidden) return;
-            if (Date.now() - start < 2500) {
-              window.location.href = tvWebUrl;
-            }
-          }, 1500);
-          return;
+        if (event) {
+          const btn = event.target.closest(".detail-action-tv");
+          if (btn) {
+            const originalText = btn.textContent;
+            btn.textContent = `Copied ${cleanSymbol}!`;
+            setTimeout(() => {
+              btn.textContent = originalText;
+            }, 1800);
+          }
         }
 
-        if (isIOS) {
-          const appUrl = `tradingview://chart?symbol=NSE%3A${encodeURIComponent(cleanSymbol)}`;
-          const start = Date.now();
-          window.location.href = appUrl;
-
-          setTimeout(() => {
-            if (document.hidden || document.webkitHidden) return;
-            if (Date.now() - start < 2500) {
-              window.location.href = tvWebUrl;
-            }
-          }, 1200);
-          return;
+        if (!event || !event.target.closest("a[href]")) {
+          window.open(tvWebUrl, "_blank", "noopener,noreferrer");
         }
-
-        window.location.href = tvWebUrl;
       }
 
       document.addEventListener("click", (event) => {
