@@ -2007,11 +2007,11 @@
               <label class="filter-field">
                 <span>Freshness</span>
                 <select class="filter-select" id="sessionSelect">
-                  <option value="60" selected>All sessions</option>
+                  <option value="60">All sessions</option>
                   <option value="30">Last 30 sessions</option>
                   <option value="15">Last 15 sessions</option>
                   <option value="5">Last 5 sessions</option>
-                  <option value="0">Fresh today</option>
+                  <option value="0" selected>Fresh today</option>
                   <option value="custom">Custom range...</option>
                 </select>
               </label>
@@ -2022,22 +2022,6 @@
                   <span>and</span>
                   <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 44px; padding: 0; text-align: center;">
                 </div>
-              </label>
-              <label class="filter-field" id="slopeDownField">
-                <span>Down EMA Trend</span>
-                <select class="filter-select" id="slopeDownSelect" aria-label="Filter by minimum straight down EMA days">
-                  <option value="10">All (10+ days down)</option>
-                  <option value="15">15+ days straight down</option>
-                  <option value="30">30+ days straight down</option>
-                  <option value="50">50+ days straight down</option>
-                </select>
-              </label>
-              <label class="filter-field" id="slopeRisingField">
-                <span>Post-Reversal Rise</span>
-                <select class="filter-select" id="slopeRisingSelect" aria-label="Filter by consecutive rising EMA sessions">
-                  <option value="all">All stocks</option>
-                  <option value="5">5 days rising EMA (5-60 sessions)</option>
-                </select>
               </label>
               <label class="filter-field">
                 <span>Watchlist</span>
@@ -2268,7 +2252,7 @@
       let universeQuery = "";
       let activeSort = "fresh";
       let activeSector = "all";
-      let activeSessionWindow = 60;
+      let activeSessionWindow = 0;
       let activeMinSessions = 0;
       let activeMaxSessions = 60;
       let activeScoreFilter = "all";
@@ -2498,7 +2482,7 @@
           nextUrl.searchParams.set("days", "custom");
           nextUrl.searchParams.set("minDays", String(activeMinSessions));
           nextUrl.searchParams.set("maxDays", String(activeMaxSessions));
-        } else if (activeSessionWindow !== 15) {
+        } else if (activeSessionWindow !== 0) {
           nextUrl.searchParams.set("days", String(activeSessionWindow));
         } else {
           nextUrl.searchParams.delete("days");
@@ -2531,12 +2515,6 @@
         }
         if (slopeDownRules) {
           slopeDownRules.style.display = (scanId === "slope-50") ? "flex" : "none";
-        }
-        if (slopeDownField) {
-          slopeDownField.style.display = (scanId === "slope-50") ? "" : "none";
-        }
-        if (slopeRisingField) {
-          slopeRisingField.style.display = (scanId === "slope-50") ? "" : "none";
         }
       }
 
@@ -3986,6 +3964,9 @@
       } else if (["0", "5", "15", "30", "60"].includes(initialDays)) {
         activeSessionWindow = Number(initialDays);
         sessionSelect.value = initialDays;
+      } else {
+        activeSessionWindow = 0;
+        sessionSelect.value = "0";
       }
       const initialDown = params.get("down");
       if (["10", "15", "30", "50"].includes(initialDown)) {
