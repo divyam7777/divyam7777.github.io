@@ -2023,7 +2023,7 @@
                   <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 44px; padding: 0; text-align: center;">
                 </div>
               </label>
-              <label class="filter-field" id="slopeDownField" style="display: none;">
+              <label class="filter-field" id="slopeDownField">
                 <span>Down EMA Trend</span>
                 <select class="filter-select" id="slopeDownSelect" aria-label="Filter by minimum straight down EMA days">
                   <option value="10">All (10+ days down)</option>
@@ -2032,7 +2032,7 @@
                   <option value="50">50+ days straight down</option>
                 </select>
               </label>
-              <label class="filter-field" id="slopeRisingField" style="display: none;">
+              <label class="filter-field" id="slopeRisingField">
                 <span>Post-Reversal Rise</span>
                 <select class="filter-select" id="slopeRisingSelect" aria-label="Filter by consecutive rising EMA sessions">
                   <option value="all">All stocks</option>
@@ -2044,16 +2044,16 @@
                 <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
               </label>
             </div>
-            <div class="quality-rules slope-down-rules" id="slopeDownRules" style="display: none;" aria-label="Down EMA trend duration — click to filter">
+            <div class="quality-rules slope-down-rules" id="slopeDownRules" style="display: flex;" aria-label="Down EMA trend duration — click to filter">
               <span class="slope-rules-title"><strong>Down Trend:</strong></span>
-              <button type="button" class="slope-pill is-active" data-down-days="10">All (10+ days) <span class="filter-count" id="countDown10">0</span></button>
-              <button type="button" class="slope-pill is-off" data-down-days="15">15+ days down <span class="filter-count" id="countDown15">0</span></button>
-              <button type="button" class="slope-pill is-off" data-down-days="30">30+ days down <span class="filter-count" id="countDown30">0</span></button>
-              <button type="button" class="slope-pill is-off" data-down-days="50">50+ days down <span class="filter-count" id="countDown50">0</span></button>
+              <button type="button" class="slope-pill is-active" data-down-days="10">All (10+ days) <span class="filter-count" id="countDown10">211</span></button>
+              <button type="button" class="slope-pill is-off" data-down-days="15">15+ days down <span class="filter-count" id="countDown15">138</span></button>
+              <button type="button" class="slope-pill is-off" data-down-days="30">30+ days down <span class="filter-count" id="countDown30">51</span></button>
+              <button type="button" class="slope-pill is-off" data-down-days="50">50+ days down <span class="filter-count" id="countDown50">22</span></button>
               <span class="slope-rules-title" style="margin-left: 8px;"><strong>Post-Reversal:</strong></span>
-              <button type="button" class="slope-pill is-off" id="btnRising5" data-rising-filter="5" title="Filter stocks whose 50 EMA rose for 5 consecutive sessions after listing (active up to 60-day lifecycle)">5 days rising EMA <span class="filter-count" id="countRising5">0</span></button>
+              <button type="button" class="slope-pill is-off" id="btnRising5" data-rising-filter="5" title="Filter stocks whose 50 EMA rose for 5 consecutive sessions after listing (active up to 60-day lifecycle)">5 days rising EMA <span class="filter-count" id="countRising5">145</span></button>
             </div>
-            <div class="quality-rules" id="qualityRules" aria-label="Built-in quality filters — click to toggle">
+            <div class="quality-rules" id="qualityRules" style="display: none;" aria-label="Built-in quality filters — click to toggle">
               <button type="button" data-quality-check="bullishSetup" class="is-off"><strong>Built-in:</strong> Bullish only</button>
               <button type="button" data-quality-check="rsiHealthy" class="is-off">RSI 50-70</button>
               <button type="button" data-quality-check="diPlus3xMinus" class="is-off">+DI &gt;= 3x -DI</button>
@@ -2259,7 +2259,7 @@
       const scanCards = document.querySelectorAll("[data-scan-card]");
       const scanTriggers = document.querySelectorAll("[data-scan-trigger]");
 
-      let activeScanId = null;
+      let activeScanId = "slope-50";
       let latestPayload = null;
       let latestResults = [];
       let latestUniverse = [];
@@ -3939,7 +3939,8 @@
       const params = new URLSearchParams(window.location.search);
       const isIndiaPage = window.location.pathname.replace(/\/+$/, "").startsWith("/india");
       const pathScanMatch = window.location.pathname.match(/\/india\/scan-?((?:squeeze-)?\d+-\d+|slope-\d+)/);
-      const initialScanId = pathScanMatch ? pathScanMatch[1] : params.get("scan");
+      const isExplicitChoose = params.get("choose") === "1";
+      const initialScanId = pathScanMatch ? pathScanMatch[1] : (params.get("scan") || (isExplicitChoose ? null : "slope-50"));
       const initialCap = params.get("cap");
       const initialType = params.get("type");
       const initialSort = params.get("sort");
@@ -4053,22 +4054,22 @@
       /* ── /india/ topbar swap ──────────────────────────── */
       if (isIndiaPage) {
         // Hide hero & scanner picker on scan result pages
-        if (pathScanMatch) {
+        if (!isExplicitChoose) {
           document.querySelector(".hero")?.remove();
           document.getElementById("choose")?.remove();
           
           const scannerSec = document.getElementById("scanner");
-          if (scannerSec) {
+          if (scannerSec && !scannerSec.querySelector(".choose-scanner-btn")) {
             const backBtn = document.createElement("a");
-            backBtn.href = "/india/";
-            backBtn.className = "button";
+            backBtn.href = "/india/?choose=1";
+            backBtn.className = "button choose-scanner-btn";
             backBtn.innerHTML = "← Choose scanner";
             backBtn.style.display = "inline-flex";
             backBtn.style.marginBottom = "24px";
             scannerSec.insertBefore(backBtn, scannerSec.firstChild);
           }
         } else {
-          // On plain /india/ page: hide scanner & universe results
+          // On explicit choose page: hide scanner & universe results
           document.getElementById("scanner")?.remove();
           document.getElementById("universe")?.remove();
         }
