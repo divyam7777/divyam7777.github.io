@@ -1813,7 +1813,7 @@
           <p>Choose the EMA pair that matches your trading style. Momentum for quick swings, Golden for macro trends.</p>
         </div>
         <div class="scanner-toggle" aria-label="Choose scanner">
-          <a class="scanner-pill" href="/?scan=50-100" data-scan-trigger="50-100" data-scan-card="50-100">
+          <a class="scanner-pill" href="/india/scan50-100/" data-scan-trigger="50-100" data-scan-card="50-100">
             <div class="card-chart">
               <svg viewBox="0 0 200 90" preserveAspectRatio="none">
                 <defs>
@@ -1838,7 +1838,7 @@
               <p class="card-description">Shorter-term crossover — catches early momentum shifts and fast-moving swing trades.</p>
             </div>
           </a>
-          <a class="scanner-pill" href="/?scan=50-200" data-scan-trigger="50-200" data-scan-card="50-200">
+          <a class="scanner-pill" href="/india/scan50-200/" data-scan-trigger="50-200" data-scan-card="50-200">
             <div class="card-chart">
               <svg viewBox="0 0 200 90" preserveAspectRatio="none">
                 <defs>
@@ -1863,7 +1863,7 @@
               <p class="card-description">The classic golden crossover — confirms major trend reversals and long-term bullish setups.</p>
             </div>
           </a>
-          <a class="scanner-pill" href="/?scan=squeeze-50-100" data-scan-trigger="squeeze-50-100" data-scan-card="squeeze-50-100">
+          <a class="scanner-pill" href="/india/scan-squeeze-50-100/" data-scan-trigger="squeeze-50-100" data-scan-card="squeeze-50-100">
             <div class="card-chart">
               <svg viewBox="0 0 200 90" preserveAspectRatio="none">
                 <defs>
@@ -1888,7 +1888,7 @@
               <p class="card-description">Identifies stocks where the 50 EMA is tightly squeezing below the 100 EMA (gap &lt; 1%) right before a potential breakout.<br><span style="color: var(--warning); font-size: 0.9em; display: inline-block; margin-top: 6px; font-weight: 600;">[Work in progress - do not use this]</span></p>
             </div>
           </a>
-          <a class="scanner-pill" href="/?scan=squeeze-50-200" data-scan-trigger="squeeze-50-200" data-scan-card="squeeze-50-200">
+          <a class="scanner-pill" href="/india/scan-squeeze-50-200/" data-scan-trigger="squeeze-50-200" data-scan-card="squeeze-50-200">
             <div class="card-chart">
               <svg viewBox="0 0 200 90" preserveAspectRatio="none">
                 <defs>
@@ -1913,7 +1913,7 @@
               <p class="card-description">Identifies stocks where the 50 EMA is tightly squeezing below the 200 EMA (gap &lt; 1%) right before a potential breakout.<br><span style="color: var(--warning); font-size: 0.9em; display: inline-block; margin-top: 6px; font-weight: 600;">[Work in progress - do not use this]</span></p>
             </div>
           </a>
-          <a class="scanner-pill" href="/?scan=slope-50" data-scan-trigger="slope-50" data-scan-card="slope-50" style="grid-column: 1 / -1;">
+          <a class="scanner-pill" href="/india/scanslope-50/" data-scan-trigger="slope-50" data-scan-card="slope-50" style="grid-column: 1 / -1;">
             <div class="card-chart">
               <svg viewBox="0 0 200 90" preserveAspectRatio="none">
                 <defs>
@@ -2259,7 +2259,7 @@
       const scanCards = document.querySelectorAll("[data-scan-card]");
       const scanTriggers = document.querySelectorAll("[data-scan-trigger]");
 
-      let activeScanId = "slope-50";
+      let activeScanId = null;
       let latestPayload = null;
       let latestResults = [];
       let latestUniverse = [];
@@ -2477,8 +2477,13 @@
           nextUrl.searchParams.delete("scan");
         } else {
           if (!scanId) return;
-          nextUrl.searchParams.set("scan", scanId);
+          if (pathScanMatch) {
+            nextUrl.searchParams.delete("scan");
+          } else {
+            nextUrl.searchParams.set("scan", scanId);
+          }
         }
+        nextUrl.searchParams.delete("choose");
         if (universeQuery.trim()) nextUrl.searchParams.set("q", universeQuery.trim());
         else nextUrl.searchParams.delete("q");
         if (!activeCapFilters.has("all")) nextUrl.searchParams.set("cap", Array.from(activeCapFilters).join(","));
@@ -3418,10 +3423,14 @@
       scanTriggers.forEach((trigger) => {
         trigger.addEventListener("click", (event) => {
           if (isWatchlistPage) return;
+          const href = trigger.getAttribute("href");
+          if (href && (href.startsWith("/india/") || href.startsWith("/"))) {
+            return;
+          }
           event.preventDefault();
           const scanId = trigger.dataset.scanTrigger;
           if (window.location.pathname.replace(/\/+$/, "").startsWith("/india")) {
-            const routePart = (scanId.startsWith("squeeze") || scanId.startsWith("slope")) ? `scan-${scanId}` : `scan${scanId}`;
+            const routePart = scanId.startsWith("squeeze") ? `scan-${scanId}` : (scanId.startsWith("slope") ? "scanslope-50" : `scan${scanId}`);
             window.location.href = `/india/${routePart}/`;
           } else {
             loadScan(scanId, true);
@@ -3939,8 +3948,7 @@
       const params = new URLSearchParams(window.location.search);
       const isIndiaPage = window.location.pathname.replace(/\/+$/, "").startsWith("/india");
       const pathScanMatch = window.location.pathname.match(/\/india\/scan-?((?:squeeze-)?\d+-\d+|slope-\d+)/);
-      const isExplicitChoose = params.get("choose") === "1";
-      const initialScanId = pathScanMatch ? pathScanMatch[1] : (params.get("scan") || (isExplicitChoose ? null : "slope-50"));
+      const initialScanId = pathScanMatch ? pathScanMatch[1] : params.get("scan");
       const initialCap = params.get("cap");
       const initialType = params.get("type");
       const initialSort = params.get("sort");
@@ -4044,35 +4052,41 @@
       updateWatchlistCount();
 
       if (isWatchlistPage) {
+        document.getElementById("choose")?.remove();
         loadWatchlistPage();
-      } else if (SCANS[initialScanId]) {
-        loadScan(initialScanId, false);
-      } else {
-        renderResults();
-        renderUniverse();
-      }
-      /* ── /india/ topbar swap ──────────────────────────── */
-      if (isIndiaPage) {
-        // Hide hero & scanner picker on scan result pages
-        if (!isExplicitChoose) {
+      } else if (isIndiaPage) {
+        const isScanPage = Boolean(pathScanMatch || params.get("scan"));
+        if (isScanPage) {
+          // On a scan result page (e.g. /india/scanslope-50/, /india/scan50-100/):
+          // Hide hero & scanner picker; show scanner console
           document.querySelector(".hero")?.remove();
           document.getElementById("choose")?.remove();
-          
+
           const scannerSec = document.getElementById("scanner");
           if (scannerSec && !scannerSec.querySelector(".choose-scanner-btn")) {
             const backBtn = document.createElement("a");
-            backBtn.href = "/india/?choose=1";
+            backBtn.href = "/india/";
             backBtn.className = "button choose-scanner-btn";
             backBtn.innerHTML = "← Choose scanner";
             backBtn.style.display = "inline-flex";
             backBtn.style.marginBottom = "24px";
             scannerSec.insertBefore(backBtn, scannerSec.firstChild);
           }
+
+          if (initialScanId && SCANS[initialScanId]) {
+            loadScan(initialScanId, false);
+          }
         } else {
-          // On explicit choose page: hide scanner & universe results
+          // On /india/ root (the crossover picker):
+          // Hide scanner console & universe results; keep "Pick your crossover" visible!
           document.getElementById("scanner")?.remove();
           document.getElementById("universe")?.remove();
         }
+      } else if (initialScanId && SCANS[initialScanId]) {
+        loadScan(initialScanId, false);
+      } else {
+        renderResults();
+        renderUniverse();
       }
     </script>
   </body>
