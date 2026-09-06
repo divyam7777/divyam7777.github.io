@@ -710,6 +710,73 @@
       .quality-rules strong {
         color: var(--text);
       }
+      .slope-down-rules {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        padding-top: 14px;
+        border-top: 1px solid color-mix(in srgb, var(--line) 50%, transparent);
+      }
+      .slope-rules-title {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-right: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+      }
+      .slope-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 30px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 5px 12px;
+        background: var(--subtle);
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 180ms ease;
+      }
+      .slope-pill:hover {
+        border-color: var(--green);
+        color: var(--text);
+        background: color-mix(in srgb, var(--green) 10%, transparent);
+        transform: translateY(-1px);
+      }
+      .slope-pill.is-active {
+        background: color-mix(in srgb, var(--green) 16%, transparent);
+        border-color: color-mix(in srgb, var(--green) 45%, transparent);
+        color: var(--green);
+      }
+      .slope-pill.is-off {
+        opacity: 0.45;
+        background: transparent;
+        border-color: var(--line);
+      }
+      .slope-pill.is-off:hover {
+        opacity: 0.9;
+        border-color: var(--muted);
+      }
+      .slope-pill .filter-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1px 6px;
+        border-radius: 999px;
+        font-size: 0.68rem;
+        background: color-mix(in srgb, var(--text) 8%, transparent);
+        color: inherit;
+      }
+      .slope-pill.is-active .filter-count {
+        background: color-mix(in srgb, var(--green) 22%, transparent);
+        color: var(--green);
+      }
       .filter-field {
         display: grid;
         gap: 7px;
@@ -1956,10 +2023,26 @@
                   <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 44px; padding: 0; text-align: center;">
                 </div>
               </label>
+              <label class="filter-field" id="slopeDownField" style="display: none;">
+                <span>Down EMA Trend</span>
+                <select class="filter-select" id="slopeDownSelect" aria-label="Filter by minimum straight down EMA days">
+                  <option value="10">All (10+ days down)</option>
+                  <option value="15">15+ days straight down</option>
+                  <option value="30">30+ days straight down</option>
+                  <option value="50">50+ days straight down</option>
+                </select>
+              </label>
               <label class="filter-field">
                 <span>Watchlist</span>
                 <button class="utility-button" id="watchlistToggle" type="button">Watchlist only <span id="watchlistCount">0</span></button>
               </label>
+            </div>
+            <div class="quality-rules slope-down-rules" id="slopeDownRules" style="display: none;" aria-label="Down EMA trend duration — click to filter">
+              <span class="slope-rules-title"><strong>Down EMA Trend:</strong></span>
+              <button type="button" class="slope-pill is-active" data-down-days="10">All (10+ days) <span class="filter-count" id="countDown10">0</span></button>
+              <button type="button" class="slope-pill is-off" data-down-days="15">15+ days down <span class="filter-count" id="countDown15">0</span></button>
+              <button type="button" class="slope-pill is-off" data-down-days="30">30+ days down <span class="filter-count" id="countDown30">0</span></button>
+              <button type="button" class="slope-pill is-off" data-down-days="50">50+ days down <span class="filter-count" id="countDown50">0</span></button>
             </div>
             <div class="quality-rules" id="qualityRules" aria-label="Built-in quality filters — click to toggle">
               <button type="button" data-quality-check="bullishSetup" class="is-off"><strong>Built-in:</strong> Bullish only</button>
@@ -2134,6 +2217,10 @@
       const watchlistToggle = document.getElementById("watchlistToggle");
       const watchlistCount = document.getElementById("watchlistCount");
       const exportCsv = document.getElementById("exportCsv");
+      const slopeDownField = document.getElementById("slopeDownField");
+      const slopeDownSelect = document.getElementById("slopeDownSelect");
+      const slopeDownRules = document.getElementById("slopeDownRules");
+      const slopePills = document.querySelectorAll(".slope-pill");
       const detailModal = document.getElementById("detailModal");
       const modalTitle = document.getElementById("modalTitle");
       const modalContent = document.getElementById("modalContent");
@@ -2185,6 +2272,7 @@
       let activeQualityChecks = new Set(defaultQualityKeys);
       const qualityButtons = document.querySelectorAll("[data-quality-check]");
       let activeChatpataFilter = "all";
+      let activeDownDays = 10;
       const chatpataRows = document.querySelectorAll(".return-row[data-chatpata-filter]");
 
       function normalizeSymbol(symbol) {
@@ -2403,6 +2491,11 @@
 
         if (watchlistOnly) nextUrl.searchParams.set("watchlist", "1");
         else nextUrl.searchParams.delete("watchlist");
+        if (scanId === "slope-50" && activeDownDays > 10) {
+          nextUrl.searchParams.set("down", String(activeDownDays));
+        } else {
+          nextUrl.searchParams.delete("down");
+        }
         history.pushState({ scanId }, "", nextUrl);
       }
 
@@ -2412,6 +2505,12 @@
         const qualityRulesEl = document.getElementById("qualityRules");
         if (qualityRulesEl) {
           qualityRulesEl.style.display = (scanId === "slope-50") ? "none" : "";
+        }
+        if (slopeDownRules) {
+          slopeDownRules.style.display = (scanId === "slope-50") ? "flex" : "none";
+        }
+        if (slopeDownField) {
+          slopeDownField.style.display = (scanId === "slope-50") ? "" : "none";
         }
       }
 
@@ -2559,6 +2658,12 @@
 
       function watchlistMatches(item) {
         return !watchlistOnly || watchlist.has(item.symbol);
+      }
+
+      function slopeDownMatches(item) {
+        if (activeScanId !== "slope-50" || activeDownDays <= 10) return true;
+        if (item._isSavedOnly) return true;
+        return Number(item.negativeSlopeDays || 0) >= activeDownDays;
       }
 
       function currentFilteredResults() {
@@ -2846,11 +2951,30 @@
           progressBar.style.width = "0%";
         }
 
+        if (scanId === "slope-50") {
+          updateDownDaysCounts();
+        }
         renderResults();
         renderUniverse();
         updateSummary();
         updateWatchlistCount();
         document.getElementById("scanner").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function updateDownDaysCounts() {
+        if (activeScanId !== "slope-50" || !latestResults.length) return;
+        const c10 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 10).length;
+        const c15 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 15).length;
+        const c30 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 30).length;
+        const c50 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 50).length;
+        const el10 = document.getElementById("countDown10");
+        const el15 = document.getElementById("countDown15");
+        const el30 = document.getElementById("countDown30");
+        const el50 = document.getElementById("countDown50");
+        if (el10) el10.textContent = c10;
+        if (el15) el15.textContent = c15;
+        if (el30) el30.textContent = c30;
+        if (el50) el50.textContent = c50;
       }
 
       function volumeMatches(item) {
@@ -2921,7 +3045,8 @@
           volumeMatches(item) &&
           retestMatches(item) &&
           qualityMatches(item) &&
-          chatpataMatches(item)
+          chatpataMatches(item) &&
+          slopeDownMatches(item)
         );
       }
 
@@ -3310,6 +3435,38 @@
         renderResults();
         updateUrl(activeScanId);
       });
+
+      function setDownDaysFilter(days) {
+        activeDownDays = days;
+        if (slopeDownSelect) slopeDownSelect.value = String(days);
+        slopePills.forEach((p) => {
+          if (Number(p.dataset.downDays) === days) {
+            p.classList.add("is-active");
+            p.classList.remove("is-off");
+          } else {
+            p.classList.remove("is-active");
+            p.classList.add("is-off");
+          }
+        });
+        renderResults();
+        renderUniverse();
+        updateUrl(activeScanId);
+      }
+
+      slopePills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          const days = Number(pill.dataset.downDays) || 10;
+          setDownDaysFilter(days);
+        });
+      });
+
+      if (slopeDownSelect) {
+        slopeDownSelect.addEventListener("change", () => {
+          const days = Number(slopeDownSelect.value) || 10;
+          setDownDaysFilter(days);
+        });
+      }
+
       watchlistToggle.addEventListener("click", () => {
         if (isWatchlistPage) {
           watchlistOnly = true;
@@ -3331,7 +3488,7 @@
           "priceChange", "priceChangePct", "fastEma", "slowEma", "latestFastEma",
           "latestSlowEma", "volume", "latestVolume", "averageVolume20", "volumeMultiple",
           "averageTurnover20", "rsi14", "adx14", "plusDi14", "minusDi14",
-          "distanceFromFastEmaPct", "fastEmaSlopePct"
+          "distanceFromFastEmaPct", "fastEmaSlopePct", "negativeSlopeDays"
         ];
         const csvRows = [
           headers.join(","),
@@ -3352,6 +3509,8 @@
                 ? scoreValue(item)
                 : header === "grade"
                   ? scoreGrade(item)
+                  : header === "negativeSlopeDays"
+                    ? (item.negativeSlopeDays ?? "")
                   : item[header];
             return `"${String(value ?? "").replaceAll('"', '""')}"`;
           }).join(","))
@@ -3369,6 +3528,9 @@
       clearSearch.addEventListener("click", () => {
         universeQuery = "";
         syncSearchInputs(null);
+        if (activeScanId === "slope-50") {
+          setDownDaysFilter(10);
+        }
         renderResults();
         renderUniverse();
         updateUrl(activeScanId);
@@ -3598,14 +3760,14 @@
               </div>
               <div class="detail-stats-row">
                 <div class="detail-stat-cell"><span class="ds-label">EMA slope</span><span class="ds-value">${slopeText}</span></div>
-                <div class="detail-stat-cell"><span class="ds-label">Nifty trend</span><span class="ds-value">${marketTrendText}</span></div>
+                <div class="detail-stat-cell"><span class="ds-label">${isSlopeScan ? "Down EMA trend" : "Nifty trend"}</span><span class="ds-value">${isSlopeScan ? (item.negativeSlopeDays ? `${item.negativeSlopeDays} straight days down` : "10+ days down") : marketTrendText}</span></div>
               </div>
             </div>
 
             <div class="detail-match-card">
               <p class="eyebrow">Why this matched</p>
               <ul class="reason-list">
-                ${(item.score?.reasons || ["EMA crossover is inside the selected scan window"]).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
+                ${(item.score?.reasons || [isSlopeScan ? `50 EMA slope reversed to positive after ${item.negativeSlopeDays || 10} straight days down` : "EMA crossover is inside the selected scan window"]).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
               </ul>
             </div>
 
@@ -3745,6 +3907,20 @@
       } else if (["0", "5", "15", "30", "60"].includes(initialDays)) {
         activeSessionWindow = Number(initialDays);
         sessionSelect.value = initialDays;
+      }
+      const initialDown = params.get("down");
+      if (["10", "15", "30", "50"].includes(initialDown)) {
+        activeDownDays = Number(initialDown);
+        if (slopeDownSelect) slopeDownSelect.value = initialDown;
+        slopePills.forEach((p) => {
+          if (p.dataset.downDays === initialDown) {
+            p.classList.add("is-active");
+            p.classList.remove("is-off");
+          } else {
+            p.classList.remove("is-active");
+            p.classList.add("is-off");
+          }
+        });
       }
       watchlistOnly = isWatchlistPage || params.get("watchlist") === "1";
 
