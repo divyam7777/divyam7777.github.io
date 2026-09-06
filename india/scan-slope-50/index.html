@@ -3651,6 +3651,7 @@
         if (!item || !latestPayload) return;
         const cleanSym = String(item.symbol).trim().toUpperCase();
         const tvChart = `https://in.tradingview.com/chart/?symbol=${encodeURIComponent(`NSE:${cleanSym}`)}`;
+        const growwUrl = `https://groww.in/search?q=${encodeURIComponent(cleanSym)}`;
         const screener = `https://www.screener.in/company/${encodeURIComponent(item.symbol)}/`;
         const nseQuote = `https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(item.symbol)}`;
         const fastPeriod = itemFastPeriod(item);
@@ -3730,7 +3731,7 @@
 
             <div class="detail-actions">
               <a href="${tvChart}" class="detail-action-tv" data-tv-symbol="${cleanSym}">TradingView</a>
-              <a href="${tvChart}" target="_blank" rel="noopener noreferrer">Web Chart</a>
+              <a href="${growwUrl}" target="_blank" rel="noopener noreferrer" class="detail-action-groww" data-groww-symbol="${cleanSym}">Groww</a>
               <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE Quote</a>
             </div>
@@ -3832,7 +3833,7 @@
 
             <div class="detail-actions">
               <a href="${tvChart}" class="detail-action-tv" data-tv-symbol="${cleanSym}">TradingView</a>
-              <a href="${tvChart}" target="_blank" rel="noopener noreferrer">Web Chart</a>
+              <a href="${growwUrl}" target="_blank" rel="noopener noreferrer" class="detail-action-groww" data-groww-symbol="${cleanSym}">Groww</a>
               <a href="${screener}" target="_blank" rel="noopener noreferrer">Screener.in</a>
               <a href="${nseQuote}" target="_blank" rel="noopener noreferrer">NSE Quote</a>
             </div>
@@ -3978,12 +3979,91 @@
         window.location.href = tvWebUrl;
       }
 
+      function openGroww(symbol, event) {
+        const cleanSymbol = symbol ? String(symbol).trim().toUpperCase() : "";
+        const growwWebUrl = `https://groww.in/search?q=${encodeURIComponent(cleanSymbol)}`;
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isMobile = isAndroid || isIOS;
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(cleanSymbol).catch(() => {});
+          }
+        } catch (_) {}
+
+        if (!isMobile) {
+          if (event) {
+            const btn = event.target.closest(".detail-action-groww");
+            if (btn) {
+              const originalText = btn.textContent;
+              btn.textContent = `Copied ${cleanSymbol}!`;
+              setTimeout(() => {
+                btn.textContent = originalText;
+              }, 1800);
+            }
+          }
+          if (!event || !event.target.closest("a[href]")) {
+            window.open(growwWebUrl, "_blank", "noopener,noreferrer");
+          }
+          return;
+        }
+
+        if (event) event.preventDefault();
+
+        const btn = event ? event.target.closest(".detail-action-groww") : null;
+        if (btn) {
+          const originalText = btn.textContent;
+          btn.textContent = `Opening Groww... (Copied ${cleanSymbol})`;
+          setTimeout(() => {
+            btn.textContent = originalText;
+          }, 3000);
+        }
+
+        if (isAndroid) {
+          const intentUrl = `intent://groww.in/search?q=${encodeURIComponent(cleanSymbol)}#Intent;scheme=https;package=com.nextbillion.groww;S.browser_fallback_url=${encodeURIComponent(growwWebUrl)};end`;
+          const start = Date.now();
+          window.location.href = intentUrl;
+
+          setTimeout(() => {
+            if (document.hidden || document.webkitHidden) return;
+            if (Date.now() - start < 2500) {
+              window.location.href = growwWebUrl;
+            }
+          }, 1500);
+          return;
+        }
+
+        if (isIOS) {
+          const appUrl = `groww://search?q=${encodeURIComponent(cleanSymbol)}`;
+          const start = Date.now();
+          window.location.href = appUrl;
+
+          setTimeout(() => {
+            if (document.hidden || document.webkitHidden) return;
+            if (Date.now() - start < 2500) {
+              window.location.href = growwWebUrl;
+            }
+          }, 1200);
+          return;
+        }
+
+        window.location.href = growwWebUrl;
+      }
+
       document.addEventListener("click", (event) => {
         const tvBtn = event.target.closest(".detail-action-tv");
         if (tvBtn) {
           const sym = tvBtn.dataset.tvSymbol;
           if (sym) {
             openTradingView(sym, event);
+          }
+        }
+        const growwBtn = event.target.closest(".detail-action-groww");
+        if (growwBtn) {
+          const sym = growwBtn.dataset.growwSymbol;
+          if (sym) {
+            openGroww(sym, event);
           }
         }
       });
