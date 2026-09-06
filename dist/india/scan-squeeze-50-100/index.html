@@ -2035,8 +2035,8 @@
               <label class="filter-field" id="slopeRisingField" style="display: none;">
                 <span>Post-Reversal Rise</span>
                 <select class="filter-select" id="slopeRisingSelect" aria-label="Filter by consecutive rising EMA sessions">
-                  <option value="all">All sessions</option>
-                  <option value="5">5 days rising EMA (5 sessions)</option>
+                  <option value="all">All stocks</option>
+                  <option value="5">5 days rising EMA (5-60 sessions)</option>
                 </select>
               </label>
               <label class="filter-field">
@@ -2051,7 +2051,7 @@
               <button type="button" class="slope-pill is-off" data-down-days="30">30+ days down <span class="filter-count" id="countDown30">0</span></button>
               <button type="button" class="slope-pill is-off" data-down-days="50">50+ days down <span class="filter-count" id="countDown50">0</span></button>
               <span class="slope-rules-title" style="margin-left: 8px;"><strong>Post-Reversal:</strong></span>
-              <button type="button" class="slope-pill is-off" id="btnRising5" data-rising-filter="5" title="Filter stocks whose 50 EMA rose for 5 consecutive trading sessions after listing, up to 5 sessions">5 days rising EMA (5 sessions) <span class="filter-count" id="countRising5">0</span></button>
+              <button type="button" class="slope-pill is-off" id="btnRising5" data-rising-filter="5" title="Filter stocks whose 50 EMA rose for 5 consecutive sessions after listing (active up to 60-day lifecycle)">5 days rising EMA <span class="filter-count" id="countRising5">0</span></button>
             </div>
             <div class="quality-rules" id="qualityRules" aria-label="Built-in quality filters — click to toggle">
               <button type="button" data-quality-check="bullishSetup" class="is-off"><strong>Built-in:</strong> Bullish only</button>
@@ -2690,7 +2690,11 @@
       function slopeRisingMatches(item) {
         if (activeScanId !== "slope-50" || activeRisingFilter === "all") return true;
         if (item._isSavedOnly) return true;
-        return Number(item.sessionsAgo) === 5;
+        if (item.emaRising5PostScan !== undefined) {
+          return Boolean(item.emaRising5PostScan);
+        }
+        const sessions = Number(item.sessionsAgo);
+        return sessions >= 5 && sessions <= 60;
       }
 
       function currentFilteredResults() {
@@ -2994,7 +2998,12 @@
         const c15 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 15).length;
         const c30 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 30).length;
         const c50 = latestResults.filter((r) => !r._isSavedOnly && (Number(r.negativeSlopeDays) || 0) >= 50).length;
-        const cRising5 = latestResults.filter((r) => !r._isSavedOnly && Number(r.sessionsAgo) === 5).length;
+        const cRising5 = latestResults.filter((r) => {
+          if (r._isSavedOnly) return false;
+          if (r.emaRising5PostScan !== undefined) return Boolean(r.emaRising5PostScan);
+          const s = Number(r.sessionsAgo);
+          return s >= 5 && s <= 60;
+        }).length;
         const el10 = document.getElementById("countDown10");
         const el15 = document.getElementById("countDown15");
         const el30 = document.getElementById("countDown30");

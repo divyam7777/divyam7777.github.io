@@ -16190,7 +16190,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "ALANKIT",
@@ -16288,7 +16289,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "AURUS",
@@ -16387,7 +16389,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "BAGFILMS",
@@ -16488,7 +16491,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "FABTECH",
@@ -16586,7 +16590,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GANESHCP",
@@ -16685,7 +16690,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GESHIP",
@@ -16784,7 +16790,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GTPL",
@@ -16883,7 +16890,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "IGL",
@@ -16983,7 +16991,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "INDIANCARD",
@@ -17082,7 +17091,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "IONEXCHANG",
@@ -17182,7 +17192,8 @@
           "RSI is in a strong but not overheated zone",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "JISLJALEQS",
@@ -17282,7 +17293,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "KSHITIJPOL",
@@ -17381,7 +17393,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "NAGREEKEXP",
@@ -17481,7 +17494,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "ONEPOINT",
@@ -17580,7 +17594,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "PNBGILTS",
@@ -17680,7 +17695,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RANEHOLDIN",
@@ -17780,7 +17796,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RHETAN",
@@ -17880,7 +17897,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RUBFILA",
@@ -17979,7 +17997,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RUCHIRA",
@@ -18079,7 +18098,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SAFARI",
@@ -18177,7 +18197,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SAMMAANCAP",
@@ -18277,7 +18298,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SANSTAR",
@@ -18376,7 +18398,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "TARC",
@@ -18474,7 +18497,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "TATACOMM",
@@ -18574,7 +18598,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "TATASTEEL",
@@ -18673,7 +18698,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "ZENITHSTL",
@@ -18773,7 +18799,8 @@
           "ADX confirms trend strength",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "AEPL",
@@ -18873,7 +18900,8 @@
           "ADX confirms trend strength",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "AFCONS",
@@ -18973,7 +19001,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "ANDHRAPAP",
@@ -19074,7 +19103,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "BEDMUTHA",
@@ -19174,7 +19204,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "BFINVEST",
@@ -19273,7 +19304,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "CEMPRO",
@@ -19374,7 +19406,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "CMPDI",
@@ -19475,7 +19508,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "CROWN",
@@ -19576,7 +19610,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "FOODSIN",
@@ -19675,7 +19710,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GMBREW",
@@ -19775,7 +19811,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GOACARBON",
@@ -19874,7 +19911,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GPTHEALTH",
@@ -19973,7 +20011,8 @@
           "Latest volume is at least 2x the 20-session average",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "GSFC",
@@ -20073,7 +20112,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "HGM",
@@ -20174,7 +20214,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "HIKAL",
@@ -20275,7 +20316,8 @@
           "RSI confirms bullish momentum without overextension",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "NUVOCO",
@@ -20375,7 +20417,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SATIA",
@@ -20475,7 +20518,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SMSPHARMA",
@@ -20575,7 +20619,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "STEELXIND",
@@ -20676,7 +20721,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "3PLAND",
@@ -20778,7 +20824,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "ANTELOPUS",
@@ -20878,7 +20925,8 @@
           "Latest volume is at least 2x the 20-session average",
           "High liquidity with Rs. 50 crore plus average turnover"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "BALAXI",
@@ -20979,7 +21027,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "BELRISE",
@@ -21079,7 +21128,8 @@
           "High liquidity with Rs. 50 crore plus average turnover",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "CENTUM",
@@ -21180,7 +21230,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SUPRIYA",
@@ -21281,7 +21332,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "XPROINDIA",
@@ -21383,7 +21435,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "AKI",
@@ -21485,7 +21538,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "ATLANTAA",
@@ -21587,7 +21641,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "JINDALPOLY",
@@ -21689,7 +21744,8 @@
           "ADX confirms trend strength",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "MVGJL",
@@ -21791,7 +21847,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RELIGARE",
@@ -21894,7 +21951,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RSYSTEMS",
@@ -21995,7 +22053,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "TNPL",
@@ -22096,7 +22155,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "AXISCADES",
@@ -22199,7 +22259,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "NOCIL",
@@ -22301,7 +22362,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "PODDARMENT",
@@ -22403,7 +22465,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "RNBDENIMS",
@@ -22506,7 +22569,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "SHIVAMAUTO",
@@ -22609,7 +22673,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "STAR",
@@ -22713,7 +22778,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": false
     },
     {
       "symbol": "EMKAY",
@@ -22817,7 +22883,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "EXXARO",
@@ -22918,7 +22985,8 @@
           "Crossover happened within the last 5 sessions",
           "Close is near the moving-average zone"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GEEKAYWIRE",
@@ -23021,7 +23089,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PRAENG",
@@ -23124,7 +23193,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SPAL",
@@ -23229,7 +23299,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "HINDOILEXP",
@@ -23333,7 +23404,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "LICHSGFIN",
@@ -23439,7 +23511,8 @@
           "RSI is in a strong but not overheated zone",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PLATIND",
@@ -23544,7 +23617,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SBC",
@@ -23650,7 +23724,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "WHIRLPOOL",
@@ -23755,7 +23830,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ASIANHOTNR",
@@ -23861,7 +23937,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BLKASHYAP",
@@ -23967,7 +24044,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "CEIGALL",
@@ -24074,7 +24152,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "INDOCO",
@@ -24179,7 +24258,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "LIBAS",
@@ -24285,7 +24365,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ORKLAINDIA",
@@ -24390,7 +24471,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RADIANTCMS",
@@ -24498,7 +24580,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "AHCL",
@@ -24605,7 +24688,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BANG",
@@ -24711,7 +24795,8 @@
           "Close is near the moving-average zone",
           "RSI confirms bullish momentum without overextension"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ELECTCAST",
@@ -24818,7 +24903,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "HCC",
@@ -24927,7 +25013,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MARATHON",
@@ -25035,7 +25122,8 @@
           "ADX confirms trend strength",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RATNAMANI",
@@ -25143,7 +25231,8 @@
           "RSI confirms bullish momentum without overextension",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "AXITA",
@@ -25250,7 +25339,8 @@
           "Close is near the moving-average zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MARSONS",
@@ -25360,7 +25450,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "NDL",
@@ -25467,7 +25558,8 @@
           "Close is near the moving-average zone",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PARAGMILK",
@@ -25576,7 +25668,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "QUADFUTURE",
@@ -25685,7 +25778,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SHANTIGEAR",
@@ -25793,7 +25887,8 @@
           "Latest volume confirms the breakout",
           "ADX shows a strong trend"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "UTKARSHBNK",
@@ -25901,7 +25996,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ASPINWALL",
@@ -26010,7 +26106,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "EFCIL",
@@ -26119,7 +26216,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GENCON",
@@ -26228,7 +26326,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ANIKINDS",
@@ -26338,7 +26437,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GOKUL",
@@ -26448,7 +26548,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "WHEELS",
@@ -26560,7 +26661,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BANARISUG",
@@ -26671,7 +26773,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GUJTHEM",
@@ -26782,7 +26885,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SOLARA",
@@ -26895,7 +26999,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RENUKA",
@@ -27007,7 +27112,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GODREJAGRO",
@@ -27120,7 +27226,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GPPL",
@@ -27234,7 +27341,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "KOHINOOR",
@@ -27346,7 +27454,8 @@
           "Close is near the moving-average zone",
           "ADX shows a strong trend"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "OBCL",
@@ -27459,7 +27568,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "TVSSRICHAK",
@@ -27571,7 +27681,8 @@
           "Close is near the moving-average zone",
           "Liquidity passes the Rs. 10 crore turnover filter"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "DWARKESH",
@@ -27685,7 +27796,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RAJSREESUG",
@@ -27799,7 +27911,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SALONA",
@@ -27914,7 +28027,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GICL",
@@ -28029,7 +28143,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "IDEA",
@@ -28146,7 +28261,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "JUBLCPL",
@@ -28262,7 +28378,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MOTILALOFS",
@@ -28379,7 +28496,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ESABINDIA",
@@ -28495,7 +28613,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "KAMATHOTEL",
@@ -28611,7 +28730,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MCX",
@@ -28728,7 +28848,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "UNITEDPOLY",
@@ -28845,7 +28966,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BALAJITELE",
@@ -28963,7 +29085,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MAHAPEXLTD",
@@ -29081,7 +29204,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MAXESTATES",
@@ -29198,7 +29322,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SYNCOMF",
@@ -29315,7 +29440,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BEML",
@@ -29434,7 +29560,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "KPIL",
@@ -29554,7 +29681,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "TREL",
@@ -29672,7 +29800,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "VPRPL",
@@ -29791,7 +29920,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "WINDMACHIN",
@@ -29910,7 +30040,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ALBERTDAVD",
@@ -30030,7 +30161,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ALLCARGO",
@@ -30148,7 +30280,8 @@
           "Close is near the moving-average zone",
           "Liquidity passes the Rs. 10 crore turnover filter"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "COHANCE",
@@ -30269,7 +30402,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "EDELWEISS",
@@ -30390,7 +30524,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PVP",
@@ -30507,7 +30642,8 @@
           "Crossover is still inside the 60-session window",
           "Close is near the moving-average zone"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "STYLEBAAZA",
@@ -30627,7 +30763,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "DBOL",
@@ -30747,7 +30884,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ENGINERSIN",
@@ -30869,7 +31007,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "HATSUN",
@@ -30989,7 +31128,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "KPRMILL",
@@ -31109,7 +31249,8 @@
           "Liquidity passes the Rs. 10 crore turnover filter",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PRECWIRE",
@@ -31229,7 +31370,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ROLEXRINGS",
@@ -31350,7 +31492,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "TDPOWERSYS",
@@ -31471,7 +31614,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "YUKEN",
@@ -31592,7 +31736,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "DCMNVL",
@@ -31713,7 +31858,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "JAYSREETEA",
@@ -31834,7 +31980,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PLAZACABLE",
@@ -31956,7 +32103,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PRINCEPIPE",
@@ -32077,7 +32225,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "STEELCITY",
@@ -32197,7 +32346,8 @@
           "Close is near the moving-average zone",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "CLEAN",
@@ -32320,7 +32470,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "IITL",
@@ -32441,7 +32592,8 @@
           "Close is near the moving-average zone",
           "RSI confirms bullish momentum without overextension"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "IRMENERGY",
@@ -32563,7 +32715,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "KRBL",
@@ -32687,7 +32840,8 @@
           "ADX shows a strong trend",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PRABHA",
@@ -32810,7 +32964,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RAMANEWS",
@@ -32932,7 +33087,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RANASUG",
@@ -33055,7 +33211,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "RBA",
@@ -33179,7 +33336,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "TOTAL",
@@ -33302,7 +33460,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BOSCH-HCIL",
@@ -33425,7 +33584,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "LUMAXIND",
@@ -33548,7 +33708,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "LUMAXTECH",
@@ -33673,7 +33834,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SEAMECLTD",
@@ -33796,7 +33958,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "VOLTAMP",
@@ -33921,7 +34084,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "LTFOODS",
@@ -34046,7 +34210,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SIRCA",
@@ -34171,7 +34336,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "VGUARD",
@@ -34296,7 +34462,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "AVONMORE",
@@ -34421,7 +34588,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GOKULAGRO",
@@ -34546,7 +34714,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "HALDER",
@@ -34671,7 +34840,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "JUBLFOOD",
@@ -34797,7 +34967,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ORISSAMINE",
@@ -34923,7 +35094,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "REGAAL",
@@ -35048,7 +35220,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SIGMA",
@@ -35171,7 +35344,8 @@
           "Crossover is still inside the 60-session window",
           "Close is near the moving-average zone"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ASHOKLEY",
@@ -35298,7 +35472,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "DEVYANI",
@@ -35426,7 +35601,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GAEL",
@@ -35555,7 +35731,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SHANTIGOLD",
@@ -35684,7 +35861,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SHIVATEX",
@@ -35814,7 +35992,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "CINELINE",
@@ -35944,7 +36123,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "VRLLOG",
@@ -36075,7 +36255,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ASHIMASYN",
@@ -36207,7 +36388,8 @@
           "Latest volume is at least 2x the 20-session average",
           "RSI confirms bullish momentum without overextension"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BODALCHEM",
@@ -36340,7 +36522,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MOL",
@@ -36472,7 +36655,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PNB",
@@ -36605,7 +36789,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MANOMAY",
@@ -36739,7 +36924,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BECTORFOOD",
@@ -36875,7 +37061,8 @@
           "ADX confirms trend strength",
           "Price is below the overextension limit"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SIEMENS",
@@ -37011,7 +37198,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GSPCROP",
@@ -37150,7 +37338,8 @@
           "ADX confirms trend strength",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "HEG",
@@ -37288,7 +37477,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "KIRIINDUS",
@@ -37426,7 +37616,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "AUSOMENT",
@@ -37565,7 +37756,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "PERSISTENT",
@@ -37704,7 +37896,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "BUILDPRO",
@@ -37845,7 +38038,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "DPABHUSHAN",
@@ -37983,7 +38177,8 @@
           "Crossover is still inside the 60-session window",
           "Close is near the moving-average zone"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "VIDHIING",
@@ -38124,7 +38319,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ECLERX",
@@ -38268,7 +38464,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MATRIMONY",
@@ -38412,7 +38609,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "AVADHSUGAR",
@@ -38559,7 +38757,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "ADVANCE",
@@ -38711,7 +38910,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is not too far above the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GLAXO",
@@ -38866,7 +39066,8 @@
           "ADX shows a strong trend",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "MACPOWER",
@@ -39020,7 +39221,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "GNA",
@@ -39175,7 +39377,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "HAL",
@@ -39332,7 +39535,8 @@
           "RSI is in a strong but not overheated zone",
           "ADX confirms trend strength"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SHANKARA",
@@ -39487,7 +39691,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "JYOTICNC",
@@ -39645,7 +39850,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "THEJO",
@@ -39802,7 +40008,8 @@
           "ADX confirms trend strength",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "UNITDSPR",
@@ -39959,7 +40166,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "EIMCOELECO",
@@ -40116,7 +40324,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "SUNDRMFAST",
@@ -40273,7 +40482,8 @@
           "RSI confirms bullish momentum without overextension",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     },
     {
       "symbol": "CHOLAFIN",
@@ -40432,7 +40642,8 @@
           "RSI is in a strong but not overheated zone",
           "Price is still close to the fast EMA"
         ]
-      }
+      },
+      "emaRising5PostScan": true
     }
   ],
   "failures": [],

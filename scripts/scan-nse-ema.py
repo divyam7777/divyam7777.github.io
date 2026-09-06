@@ -932,9 +932,24 @@ def find_slope_reversal(
             if neg_count < min_negative_days:
                 continue
 
-            # Ensure the slope remained strictly positive (> 0) from the reversal bar up to today
+            # Check if 50 EMA rose consecutively for the first 5 trading sessions immediately after reversal
+            sessions_ago = latest_index - index
+            ema_rising_5_post_scan = False
+            if sessions_ago >= 5:
+                rising_5 = True
+                for j in range(index + 1, index + 6):
+                    if None in (ema_values[j], ema_values[j - 1]):
+                        rising_5 = False
+                        break
+                    if float(ema_values[j]) <= float(ema_values[j - 1]):
+                        rising_5 = False
+                        break
+                ema_rising_5_post_scan = rising_5
+
+            # Do not check EMA slope after 5 trading sessions
+            check_until = min(latest_index, index + 5)
             remained_positive = True
-            for j in range(index, latest_index + 1):
+            for j in range(index, check_until + 1):
                 if None in (ema_values[j], ema_values[j - 1]):
                     continue
                 if float(ema_values[j]) <= float(ema_values[j - 1]):
@@ -1022,6 +1037,7 @@ def find_slope_reversal(
                 "sparkline": sparkline,
                 "emasRising5": False,
                 "emasRising10": False,
+                "emaRising5PostScan": ema_rising_5_post_scan,
             }
             result["quality"] = slope_quality_checks(result)
             result["score"] = signal_score(result, ema_period, ema_period)
