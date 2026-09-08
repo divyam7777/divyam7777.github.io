@@ -960,6 +960,11 @@ def find_slope_reversal(
 
             cross_close = float(closes[index])
             latest_close = float(closes[latest_index])
+            
+            close_after_5_days = float(closes[index + 5]) if index + 5 <= latest_index else None
+            price_change_after_5_days = (latest_close - close_after_5_days) if close_after_5_days else None
+            price_change_pct_after_5_days = (price_change_after_5_days / close_after_5_days * 100) if close_after_5_days else None
+
             price_change = latest_close - cross_close
             price_change_pct = (price_change / cross_close * 100) if cross_close else 0
             latest_timestamp = timestamps[latest_index] if timestamps else None
@@ -1016,6 +1021,8 @@ def find_slope_reversal(
                 "latestTimestamp": latest_timestamp,
                 "priceChange": round(price_change, 2),
                 "priceChangePct": round(price_change_pct, 2),
+                "closeAfter5Days": round(close_after_5_days, 2) if close_after_5_days is not None else None,
+                "priceChangePctAfter5Days": round(price_change_pct_after_5_days, 2) if price_change_pct_after_5_days is not None else None,
                 "volume": latest_volume,
                 "crossVolume": cross_volume,
                 "latestVolume": latest_volume,

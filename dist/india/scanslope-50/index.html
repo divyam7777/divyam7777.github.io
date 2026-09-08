@@ -2588,6 +2588,14 @@
       }
 
       function priceMoveStats(item) {
+        if (activeRisingFilter === "5" && item.closeAfter5Days !== undefined && item.closeAfter5Days !== null) {
+          const cross = Number(item.closeAfter5Days);
+          const latest = latestPrice(item);
+          if (cross === null || latest === null) return null;
+          const change = finiteNumber(item.priceChangeAfter5Days) ?? (latest - cross);
+          const percent = finiteNumber(item.priceChangePctAfter5Days) ?? (cross ? (change / cross) * 100 : 0);
+          return { cross, latest, change, percent };
+        }
         const cross = crossPrice(item);
         const latest = latestPrice(item);
         if (cross === null || latest === null) return null;
@@ -3040,9 +3048,14 @@
         const sessions = item.sessionsAgo !== undefined ? Number(item.sessionsAgo) : 0;
         if (sessions <= 10) return false;
 
-        const currentPct = Number(item.priceChangePct || 0);
-        const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
-        const evalPct = highPct >= 5 ? highPct : currentPct;
+        let evalPct = 0;
+        if (activeRisingFilter === "5" && item.priceChangePctAfter5Days !== undefined && item.priceChangePctAfter5Days !== null) {
+          evalPct = Number(item.priceChangePctAfter5Days);
+        } else {
+          const currentPct = Number(item.priceChangePct || 0);
+          const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
+          evalPct = highPct >= 5 ? highPct : currentPct;
+        }
 
         if (activeChatpataFilter === "50") return evalPct > 50;
         if (activeChatpataFilter === "30") return evalPct > 30 && evalPct <= 50;
@@ -3131,9 +3144,14 @@
             filtered.forEach(item => {
               const sessions = item.sessionsAgo !== undefined ? Number(item.sessionsAgo) : 0;
               if (sessions > 10) {
-                const currentPct = Number(item.priceChangePct || 0);
-                const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
-                const evalPct = highPct >= 5 ? highPct : currentPct;
+                let evalPct = 0;
+                if (activeRisingFilter === "5" && item.priceChangePctAfter5Days !== undefined && item.priceChangePctAfter5Days !== null) {
+                  evalPct = Number(item.priceChangePctAfter5Days);
+                } else {
+                  const currentPct = Number(item.priceChangePct || 0);
+                  const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
+                  evalPct = highPct >= 5 ? highPct : currentPct;
+                }
                 
                 if (evalPct > 50) c50++;
                 else if (evalPct > 30) c30++;
@@ -3286,7 +3304,7 @@
                     <div class="value">${freshnessText} <span class="sub">${actionText}</span></div>
                   </div>
                   <div class="stat-item">
-                    <div class="label">${isSlopeScan ? "Reversal price" : "Cross price"}</div>
+                    <div class="label">${activeRisingFilter === "5" ? "Price at 5d" : (isSlopeScan ? "Reversal price" : "Cross price")}</div>
                     <div class="value">${crossPriceVal ? crossPriceVal.toFixed(2) : '-'}</div>
                   </div>
                   <div class="stat-item">
