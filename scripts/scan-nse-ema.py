@@ -946,7 +946,9 @@ def find_slope_reversal(
                         break
                 ema_rising_5_post_scan = rising_5
 
-            # Do not check EMA slope after 5 trading sessions
+            # Check whether EMA slope remained positive for 5 sessions after reversal.
+            # Stored as metadata instead of gating — once a valid reversal is detected,
+            # it stays in results regardless of subsequent slope changes.
             check_until = min(latest_index, index + 5)
             remained_positive = True
             for j in range(index, check_until + 1):
@@ -955,9 +957,6 @@ def find_slope_reversal(
                 if float(ema_values[j]) <= float(ema_values[j - 1]):
                     remained_positive = False
                     break
-
-            if not remained_positive:
-                continue
 
             cross_close = float(closes[index])
             latest_close = float(closes[latest_index])
@@ -1038,6 +1037,7 @@ def find_slope_reversal(
                 "emasRising5": False,
                 "emasRising10": False,
                 "emaRising5PostScan": ema_rising_5_post_scan,
+                "slopeRemainedPositive5d": remained_positive,
             }
             result["quality"] = slope_quality_checks(result)
             result["score"] = signal_score(result, ema_period, ema_period)

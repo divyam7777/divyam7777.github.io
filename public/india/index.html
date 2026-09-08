@@ -3250,11 +3250,14 @@
               : (finiteNumber(item.highAfterCrossPct) || 0);
             
             const isSlopeScan = item._scanId === "slope-50" || activeScanId === "slope-50";
+            const slopeHeldText = isSlopeScan && !isSavedOnly && item.slopeRemainedPositive5d !== undefined
+              ? (item.slopeRemainedPositive5d ? " · ✓ held 5d" : " · ⚠ weakened")
+              : "";
             const freshnessText = isSavedOnly ? "No fresh cross" : `${item.sessionsAgo} session${item.sessionsAgo === 1 ? "" : "s"}`;
             const actionText = isSavedOnly
               ? "Tracking"
               : isSlopeScan
-                ? (item.negativeSlopeDays ? `${item.negativeSlopeDays}d down` : "Turned positive")
+                ? (item.negativeSlopeDays ? `${item.negativeSlopeDays}d down${slopeHeldText}` : `Turned positive${slopeHeldText}`)
                 : `${item.type === "bullish" ? "Above" : "Below"} ${slowPeriod}`;
             const dateText = isSavedOnly ? formatIsoDate(item._addedAt) : formatDate(item.timestamp);
             const watchText = isWatchlistPage ? "Remove" : (isSaved ? "Saved" : "Watch");
