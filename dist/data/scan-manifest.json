@@ -1,6 +1,6 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-09-08T13:24:59.106054+00:00",
+  "generatedAt": "2026-09-08T17:27:21.113831+00:00",
   "universeSize": 2304,
   "pricedUniverseSize": 2304,
   "failureCount": 0,
@@ -46,7 +46,7 @@
       "scanId": "slope-50",
       "label": "50 EMA slope reversal",
       "file": "ema-slope-50-crosses.json",
-      "resultCount": 529,
+      "resultCount": 1101,
       "rule": "50 EMA slope reversal (negative for >= 10 days, then turned positive) within last 60 daily sessions"
     }
   ]
