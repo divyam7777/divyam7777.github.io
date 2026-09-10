@@ -1,14 +1,14 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-09-10T11:18:50.035064+00:00",
+  "generatedAt": "2026-09-10T13:26:08.212617+00:00",
   "universeSize": 2294,
   "pricedUniverseSize": 2294,
   "failureCount": 0,
   "marketTrend": {
     "symbol": "^NSEI",
     "label": "Nifty 50",
-    "latestClose": 23431.5,
-    "ema200": 24310.65,
+    "latestClose": 23477.8,
+    "ema200": 24311.11,
     "timestamp": 1789011900,
     "isBullish": false,
     "filterApplied": true
