@@ -1,6 +1,6 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-09-11T13:23:17.882654+00:00",
+  "generatedAt": "2026-09-14T15:46:43.583837+00:00",
   "universeSize": 2292,
   "pricedUniverseSize": 2292,
   "failureCount": 0,
@@ -8,8 +8,8 @@
     "symbol": "^NSEI",
     "label": "Nifty 50",
     "latestClose": 23398.1,
-    "ema200": 24302.02,
-    "timestamp": 1789098300,
+    "ema200": 24293.03,
+    "timestamp": 1789357500,
     "isBullish": false,
     "filterApplied": true
   },
@@ -18,35 +18,35 @@
       "scanId": "50-100",
       "label": "50 / 100 EMA cross",
       "file": "ema-50-100-crosses.json",
-      "resultCount": 516,
+      "resultCount": 503,
       "rule": "Bullish 50 EMA / 100 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "50-200",
       "label": "50 / 200 EMA cross",
       "file": "ema-50-200-crosses.json",
-      "resultCount": 399,
+      "resultCount": 396,
       "rule": "Bullish 50 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "squeeze-50-100",
       "label": "50 / 100 EMA squeeze",
       "file": "ema-squeeze-50-100-crosses.json",
-      "resultCount": 34,
+      "resultCount": 37,
       "rule": "Bullish 50 EMA / 100 EMA squeeze (gap < 1.0%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "squeeze-50-200",
       "label": "50 / 200 EMA squeeze",
       "file": "ema-squeeze-50-200-crosses.json",
-      "resultCount": 21,
+      "resultCount": 18,
       "rule": "Bullish 50 EMA / 200 EMA squeeze (gap < 1.0%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "slope-50",
       "label": "50 EMA slope reversal",
       "file": "ema-slope-50-crosses.json",
-      "resultCount": 1058,
+      "resultCount": 1043,
       "rule": "50 EMA slope reversal (negative for >= 10 days, then turned positive) within last 60 daily sessions"
     }
   ]
