@@ -2128,6 +2128,18 @@
               </div>
             </div>
             <div style="flex: 1; min-width: 180px; background: var(--bg, #0d1117); border-radius: 8px; padding: 12px 16px; border: 1px solid var(--line, #2a2e38);">
+              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim, #9ca3af); margin-bottom: 6px;">After 3 Trading Sessions</div>
+              <div style="display: flex; align-items: baseline; gap: 10px;">
+                <span id="portfolio3DayReturn" style="font-size: 24px; font-weight: 700; color: var(--text, #e6edf3);">--</span>
+                <span id="portfolio3DayPct" style="font-size: 14px; font-weight: 500; color: var(--text-dim, #9ca3af);">--</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-dim, #9ca3af); margin-top: 4px;">
+                <span id="portfolio3DayWinners" style="color: #3fb950;">0 winners</span> &middot;
+                <span id="portfolio3DayLosers" style="color: #f85149;">0 losers</span> &middot;
+                <span id="portfolio3DayNA">0 N/A</span>
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 180px; background: var(--bg, #0d1117); border-radius: 8px; padding: 12px 16px; border: 1px solid var(--line, #2a2e38);">
               <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim, #9ca3af); margin-bottom: 6px;">After 5 Trading Sessions</div>
               <div style="display: flex; align-items: baseline; gap: 10px;">
                 <span id="portfolio5DayReturn" style="font-size: 24px; font-weight: 700; color: var(--text, #e6edf3);">--</span>
@@ -3240,11 +3252,16 @@
             const perStock = investment / count;
 
             let sum1d = 0, valid1d = 0, win1d = 0, lose1d = 0, na1d = 0;
+            let sum3d = 0, valid3d = 0, win3d = 0, lose3d = 0, na3d = 0;
             let sum5d = 0, valid5d = 0, win5d = 0, lose5d = 0, na5d = 0;
 
             filtered.forEach(item => {
-              const r1 = item.returnAfter1DayPct;
-              if (r1 !== undefined && r1 !== null) {
+              const r1 = item.returnAfter1DayPct !== undefined && item.returnAfter1DayPct !== null
+                ? item.returnAfter1DayPct
+                : (Number(item.sessionsAgo) === 1 && item.crossClose && item.latestClose
+                  ? ((item.latestClose - item.crossClose) / item.crossClose * 100)
+                  : null);
+              if (r1 !== null && r1 !== undefined) {
                 const pct = Number(r1);
                 sum1d += pct;
                 valid1d++;
@@ -3254,8 +3271,27 @@
                 na1d++;
               }
 
-              const r5 = item.returnAfter5DaysPct;
-              if (r5 !== undefined && r5 !== null) {
+              const r3 = item.returnAfter3DaysPct !== undefined && item.returnAfter3DaysPct !== null
+                ? item.returnAfter3DaysPct
+                : (Number(item.sessionsAgo) === 3 && item.crossClose && item.latestClose
+                  ? ((item.latestClose - item.crossClose) / item.crossClose * 100)
+                  : null);
+              if (r3 !== null && r3 !== undefined) {
+                const pct = Number(r3);
+                sum3d += pct;
+                valid3d++;
+                if (pct > 0) win3d++;
+                else if (pct < 0) lose3d++;
+              } else {
+                na3d++;
+              }
+
+              const r5 = item.returnAfter5DaysPct !== undefined && item.returnAfter5DaysPct !== null
+                ? item.returnAfter5DaysPct
+                : (Number(item.sessionsAgo) === 5 && item.crossClose && item.latestClose
+                  ? ((item.latestClose - item.crossClose) / item.crossClose * 100)
+                  : null);
+              if (r5 !== null && r5 !== undefined) {
                 const pct = Number(r5);
                 sum5d += pct;
                 valid5d++;
@@ -3268,6 +3304,8 @@
 
             const avg1d = valid1d > 0 ? sum1d / count : 0;
             const profit1d = investment * avg1d / 100;
+            const avg3d = valid3d > 0 ? sum3d / count : 0;
+            const profit3d = investment * avg3d / 100;
             const avg5d = valid5d > 0 ? sum5d / count : 0;
             const profit5d = investment * avg5d / 100;
 
@@ -3287,6 +3325,18 @@
             document.getElementById("portfolio1DayWinners").textContent = `${win1d} winners`;
             document.getElementById("portfolio1DayLosers").textContent = `${lose1d} losers`;
             document.getElementById("portfolio1DayNA").textContent = `${na1d} N/A`;
+
+            const el3Return = document.getElementById("portfolio3DayReturn");
+            el3Return.textContent = `\u20B9${fmt(profit3d)}`;
+            el3Return.style.color = color(profit3d);
+
+            const el3Pct = document.getElementById("portfolio3DayPct");
+            el3Pct.textContent = `(${fmt(avg3d)}%)`;
+            el3Pct.style.color = color(avg3d);
+
+            document.getElementById("portfolio3DayWinners").textContent = `${win3d} winners`;
+            document.getElementById("portfolio3DayLosers").textContent = `${lose3d} losers`;
+            document.getElementById("portfolio3DayNA").textContent = `${na3d} N/A`;
 
             const el5Return = document.getElementById("portfolio5DayReturn");
             el5Return.textContent = `\u20B9${fmt(profit5d)}`;

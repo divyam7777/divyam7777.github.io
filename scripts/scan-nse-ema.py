@@ -965,6 +965,10 @@ def find_slope_reversal(
             close_after_1_day = float(closes[index + 1]) if index + 1 <= latest_index else None
             return_after_1_day_pct = ((close_after_1_day - cross_close) / cross_close * 100) if close_after_1_day else None
 
+            # Price after exactly 3 trading sessions
+            close_after_3_days = float(closes[index + 3]) if index + 3 <= latest_index else None
+            return_after_3_days_pct = ((close_after_3_days - cross_close) / cross_close * 100) if close_after_3_days else None
+
             # Price after exactly 5 trading sessions
             close_after_5_days = float(closes[index + 5]) if index + 5 <= latest_index else None
             return_after_5_days_pct = ((close_after_5_days - cross_close) / cross_close * 100) if close_after_5_days else None
@@ -1026,6 +1030,7 @@ def find_slope_reversal(
                 "priceChange": round(price_change, 2),
                 "priceChangePct": round(price_change_pct, 2),
                 "returnAfter1DayPct": round(return_after_1_day_pct, 2) if return_after_1_day_pct is not None else None,
+                "returnAfter3DaysPct": round(return_after_3_days_pct, 2) if return_after_3_days_pct is not None else None,
                 "closeAfter5Days": round(close_after_5_days, 2) if close_after_5_days is not None else None,
                 "returnAfter5DaysPct": round(return_after_5_days_pct, 2) if return_after_5_days_pct is not None else None,
                 "volume": latest_volume,
