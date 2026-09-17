@@ -2007,12 +2007,13 @@
               <label class="filter-field">
                 <span>Freshness</span>
                 <select class="filter-select" id="sessionSelect">
-                  <option value="60">All sessions</option>
-                  <option value="30">Last 30 sessions</option>
-                  <option value="15">Last 15 sessions</option>
-                  <option value="5">Last 5 sessions</option>
                   <option value="0" selected>Fresh today</option>
+                  <option value="5">Last 5 sessions</option>
+                  <option value="15">Last 15 sessions</option>
+                  <option value="30">Last 30 sessions</option>
+                  <option value="60">All sessions</option>
                   <option value="custom">Custom range...</option>
+                  <option value="exact">Exact session ago...</option>
                 </select>
               </label>
               <label class="filter-field" id="customRangeField" style="display: none; flex-direction: row; align-items: center; gap: 8px; border-left: 1px solid var(--line); padding-left: 16px;">
@@ -2022,6 +2023,10 @@
                   <span>and</span>
                   <input type="number" class="filter-input" id="maxSessionsInput" min="0" max="60" value="60" style="width: 44px; padding: 0; text-align: center;">
                 </div>
+              </label>
+              <label class="filter-field" id="exactSessionField" style="display: none; flex-direction: row; align-items: center; gap: 8px; border-left: 1px solid var(--line); padding-left: 16px;">
+                <span>Session #</span>
+                <input type="number" class="filter-input" id="exactSessionInput" min="0" max="60" value="1" style="width: 50px; padding: 0; text-align: center;">
               </label>
               <label class="filter-field">
                 <span>Watchlist</span>
@@ -2255,6 +2260,7 @@
       let activeSessionWindow = 0;
       let activeMinSessions = 0;
       let activeMaxSessions = 60;
+      let activeExactSession = 1;
       let activeScoreFilter = "all";
       let activeMinPrice = "";
       let activeMaxPrice = "";
@@ -2482,8 +2488,17 @@
           nextUrl.searchParams.set("days", "custom");
           nextUrl.searchParams.set("minDays", String(activeMinSessions));
           nextUrl.searchParams.set("maxDays", String(activeMaxSessions));
+          nextUrl.searchParams.delete("exactDay");
+        } else if (activeSessionWindow === "exact") {
+          nextUrl.searchParams.set("days", "exact");
+          nextUrl.searchParams.set("exactDay", String(activeExactSession));
+          nextUrl.searchParams.delete("minDays");
+          nextUrl.searchParams.delete("maxDays");
         } else if (activeSessionWindow !== 0) {
           nextUrl.searchParams.set("days", String(activeSessionWindow));
+          nextUrl.searchParams.delete("minDays");
+          nextUrl.searchParams.delete("maxDays");
+          nextUrl.searchParams.delete("exactDay");
         } else {
           nextUrl.searchParams.delete("days");
           nextUrl.searchParams.delete("minDays");
@@ -2660,6 +2675,9 @@
 
       function sessionMatches(item) {
         if (item._isSavedOnly || item.sessionsAgo === null || item.sessionsAgo === undefined) return true;
+        if (activeSessionWindow === "exact") {
+          return Number(item.sessionsAgo) === activeExactSession;
+        }
         if (activeSessionWindow === "custom") {
           if (Number(item.sessionsAgo) < activeMinSessions || Number(item.sessionsAgo) > activeMaxSessions) return false;
         } else {
@@ -3461,14 +3479,22 @@
       const customRangeField = document.getElementById("customRangeField");
       const minSessionsInput = document.getElementById("minSessionsInput");
       const maxSessionsInput = document.getElementById("maxSessionsInput");
+      const exactSessionField = document.getElementById("exactSessionField");
+      const exactSessionInput = document.getElementById("exactSessionInput");
 
       sessionSelect.addEventListener("change", () => {
         if (sessionSelect.value === "custom") {
           activeSessionWindow = "custom";
           customRangeField.style.display = "flex";
+          exactSessionField.style.display = "none";
+        } else if (sessionSelect.value === "exact") {
+          activeSessionWindow = "exact";
+          customRangeField.style.display = "none";
+          exactSessionField.style.display = "flex";
         } else {
           activeSessionWindow = Number(sessionSelect.value);
           customRangeField.style.display = "none";
+          exactSessionField.style.display = "none";
         }
         renderResults();
         updateUrl(activeScanId);
@@ -3480,6 +3506,11 @@
       });
       maxSessionsInput.addEventListener("change", () => {
         activeMaxSessions = Number(maxSessionsInput.value);
+        renderResults();
+        updateUrl(activeScanId);
+      });
+      exactSessionInput.addEventListener("change", () => {
+        activeExactSession = Number(exactSessionInput.value);
         renderResults();
         updateUrl(activeScanId);
       });
@@ -4136,6 +4167,13 @@
         document.getElementById("customRangeField").style.display = "flex";
         document.getElementById("minSessionsInput").value = activeMinSessions;
         document.getElementById("maxSessionsInput").value = activeMaxSessions;
+      } else if (initialDays === "exact") {
+        activeSessionWindow = "exact";
+        sessionSelect.value = "exact";
+        const exactDay = params.get("exactDay");
+        if (exactDay) activeExactSession = Number(exactDay);
+        document.getElementById("exactSessionField").style.display = "flex";
+        document.getElementById("exactSessionInput").value = activeExactSession;
       } else if (["0", "5", "15", "30", "60"].includes(initialDays)) {
         activeSessionWindow = Number(initialDays);
         sessionSelect.value = initialDays;
