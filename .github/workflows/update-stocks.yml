@@ -31,35 +31,56 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Check if NSE market traded today
+        id: market_check
+        run: |
+          if python scripts/check-market-open.py; then
+            echo "is_open=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_open=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip notice (market closed)
+        if: steps.market_check.outputs.is_open == 'false'
+        run: echo "🚫 NSE market is closed today (holiday/weekend). Skipping scanner and deployment."
+
       - name: Generate full-market scanner data
+        if: steps.market_check.outputs.is_open == 'true'
         run: python scripts/scan-nse-ema.py
 
       - name: Generate marquee prices
+        if: steps.market_check.outputs.is_open == 'true'
         run: python scripts/fetch-marquee-prices.py
 
       - name: Setup Node
+        if: steps.market_check.outputs.is_open == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
       - name: Install dependencies
+        if: steps.market_check.outputs.is_open == 'true'
         run: npm ci
 
       - name: Build site with latest scanner data
+        if: steps.market_check.outputs.is_open == 'true'
         run: npm run build
 
       - name: Commit updated scanner data and Pages fallback
+        if: steps.market_check.outputs.is_open == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update NSE EMA scanner data"
           file_pattern: public/data/*.json dist/data/*.json data/*.json
 
       - name: Upload Pages artifact
+        if: steps.market_check.outputs.is_open == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
       - name: Deploy updated scanner to GitHub Pages
+        if: steps.market_check.outputs.is_open == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
