@@ -2097,6 +2097,50 @@
             <div class="return-count" id="countReturnsNeg">0</div>
           </div>
         </aside>
+        <div class="portfolio-return-panel" id="portfolioReturnPanel" hidden style="
+          background: var(--card-bg, #181c24);
+          border: 1px solid var(--line, #2a2e38);
+          border-radius: 12px;
+          padding: 16px 20px;
+          margin-bottom: 16px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          align-items: center;
+        ">
+          <div style="flex: 1 1 100%; margin-bottom: 4px;">
+            <h3 style="margin: 0; font-size: 15px; color: var(--text-dim, #9ca3af);">
+              Portfolio Return Calculator
+              <span style="font-weight: 400; font-size: 12px; opacity: 0.7;">&mdash; if invested equally across all <span id="portfolioStockCount">0</span> stocks</span>
+            </h3>
+          </div>
+          <div style="display: flex; gap: 24px; flex-wrap: wrap; width: 100%;">
+            <div style="flex: 1; min-width: 180px; background: var(--bg, #0d1117); border-radius: 8px; padding: 12px 16px; border: 1px solid var(--line, #2a2e38);">
+              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim, #9ca3af); margin-bottom: 6px;">After 1 Trading Session</div>
+              <div style="display: flex; align-items: baseline; gap: 10px;">
+                <span id="portfolio1DayReturn" style="font-size: 24px; font-weight: 700; color: var(--text, #e6edf3);">--</span>
+                <span id="portfolio1DayPct" style="font-size: 14px; font-weight: 500; color: var(--text-dim, #9ca3af);">--</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-dim, #9ca3af); margin-top: 4px;">
+                <span id="portfolio1DayWinners" style="color: #3fb950;">0 winners</span> &middot;
+                <span id="portfolio1DayLosers" style="color: #f85149;">0 losers</span> &middot;
+                <span id="portfolio1DayNA">0 N/A</span>
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 180px; background: var(--bg, #0d1117); border-radius: 8px; padding: 12px 16px; border: 1px solid var(--line, #2a2e38);">
+              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim, #9ca3af); margin-bottom: 6px;">After 5 Trading Sessions</div>
+              <div style="display: flex; align-items: baseline; gap: 10px;">
+                <span id="portfolio5DayReturn" style="font-size: 24px; font-weight: 700; color: var(--text, #e6edf3);">--</span>
+                <span id="portfolio5DayPct" style="font-size: 14px; font-weight: 500; color: var(--text-dim, #9ca3af);">--</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-dim, #9ca3af); margin-top: 4px;">
+                <span id="portfolio5DayWinners" style="color: #3fb950;">0 winners</span> &middot;
+                <span id="portfolio5DayLosers" style="color: #f85149;">0 losers</span> &middot;
+                <span id="portfolio5DayNA">0 N/A</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="results-grid" id="resultsGrid">
           <div class="empty">No result loaded yet. Select one scanner above to load the latest generated NSE scan.</div>
         </div>
@@ -2608,7 +2652,7 @@
           const latest = latestPrice(item);
           if (cross === null || latest === null) return null;
           const change = finiteNumber(item.priceChangeAfter5Days) ?? (latest - cross);
-          const percent = finiteNumber(item.priceChangePctAfter5Days) ?? (cross ? (change / cross) * 100 : 0);
+          const percent = finiteNumber(item.returnAfter5DaysPct) ?? (cross ? (change / cross) * 100 : 0);
           return { cross, latest, change, percent };
         }
         const cross = crossPrice(item);
@@ -3067,8 +3111,8 @@
         if (sessions <= 10) return false;
 
         let evalPct = 0;
-        if (activeRisingFilter === "5" && item.priceChangePctAfter5Days !== undefined && item.priceChangePctAfter5Days !== null) {
-          evalPct = Number(item.priceChangePctAfter5Days);
+        if (activeRisingFilter === "5" && item.returnAfter5DaysPct !== undefined && item.returnAfter5DaysPct !== null) {
+          evalPct = Number(item.returnAfter5DaysPct);
         } else {
           const currentPct = Number(item.priceChangePct || 0);
           const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
@@ -3163,8 +3207,8 @@
               const sessions = item.sessionsAgo !== undefined ? Number(item.sessionsAgo) : 0;
               if (sessions > 10) {
                 let evalPct = 0;
-                if (activeRisingFilter === "5" && item.priceChangePctAfter5Days !== undefined && item.priceChangePctAfter5Days !== null) {
-                  evalPct = Number(item.priceChangePctAfter5Days);
+                if (activeRisingFilter === "5" && item.returnAfter5DaysPct !== undefined && item.returnAfter5DaysPct !== null) {
+                  evalPct = Number(item.returnAfter5DaysPct);
                 } else {
                   const currentPct = Number(item.priceChangePct || 0);
                   const highPct = item.highAfterCrossPct !== undefined && item.highAfterCrossPct !== null ? Number(item.highAfterCrossPct) : currentPct;
@@ -3183,6 +3227,80 @@
             countReturns10.textContent = c10;
             countReturns0.textContent = c0;
             countReturnsNeg.textContent = cNeg;
+          }
+        }
+
+        // Portfolio Return Calculator (shown only in exact session mode)
+        const portfolioPanel = document.getElementById("portfolioReturnPanel");
+        if (portfolioPanel) {
+          if (activeSessionWindow === "exact" && filtered.length > 0) {
+            portfolioPanel.hidden = false;
+            const investment = 100;
+            const count = filtered.length;
+            const perStock = investment / count;
+
+            let sum1d = 0, valid1d = 0, win1d = 0, lose1d = 0, na1d = 0;
+            let sum5d = 0, valid5d = 0, win5d = 0, lose5d = 0, na5d = 0;
+
+            filtered.forEach(item => {
+              const r1 = item.returnAfter1DayPct;
+              if (r1 !== undefined && r1 !== null) {
+                const pct = Number(r1);
+                sum1d += pct;
+                valid1d++;
+                if (pct > 0) win1d++;
+                else if (pct < 0) lose1d++;
+              } else {
+                na1d++;
+              }
+
+              const r5 = item.returnAfter5DaysPct;
+              if (r5 !== undefined && r5 !== null) {
+                const pct = Number(r5);
+                sum5d += pct;
+                valid5d++;
+                if (pct > 0) win5d++;
+                else if (pct < 0) lose5d++;
+              } else {
+                na5d++;
+              }
+            });
+
+            const avg1d = valid1d > 0 ? sum1d / count : 0;
+            const profit1d = investment * avg1d / 100;
+            const avg5d = valid5d > 0 ? sum5d / count : 0;
+            const profit5d = investment * avg5d / 100;
+
+            const fmt = (v) => (v >= 0 ? "+" : "") + v.toFixed(2);
+            const color = (v) => v > 0 ? "#3fb950" : v < 0 ? "#f85149" : "var(--text, #e6edf3)";
+
+            document.getElementById("portfolioStockCount").textContent = count;
+
+            const el1Return = document.getElementById("portfolio1DayReturn");
+            el1Return.textContent = `\u20B9${fmt(profit1d)}`;
+            el1Return.style.color = color(profit1d);
+
+            const el1Pct = document.getElementById("portfolio1DayPct");
+            el1Pct.textContent = `(${fmt(avg1d)}%)`;
+            el1Pct.style.color = color(avg1d);
+
+            document.getElementById("portfolio1DayWinners").textContent = `${win1d} winners`;
+            document.getElementById("portfolio1DayLosers").textContent = `${lose1d} losers`;
+            document.getElementById("portfolio1DayNA").textContent = `${na1d} N/A`;
+
+            const el5Return = document.getElementById("portfolio5DayReturn");
+            el5Return.textContent = `\u20B9${fmt(profit5d)}`;
+            el5Return.style.color = color(profit5d);
+
+            const el5Pct = document.getElementById("portfolio5DayPct");
+            el5Pct.textContent = `(${fmt(avg5d)}%)`;
+            el5Pct.style.color = color(avg5d);
+
+            document.getElementById("portfolio5DayWinners").textContent = `${win5d} winners`;
+            document.getElementById("portfolio5DayLosers").textContent = `${lose5d} losers`;
+            document.getElementById("portfolio5DayNA").textContent = `${na5d} N/A`;
+          } else {
+            portfolioPanel.hidden = true;
           }
         }
 
