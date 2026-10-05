@@ -27,20 +27,20 @@
   "marketTrend": {
     "symbol": "^NSEI",
     "label": "Nifty 50",
-    "latestClose": 22421.95,
-    "ema200": 24125.46,
-    "timestamp": 1790912700,
+    "latestClose": 22555.75,
+    "ema200": 24109.84,
+    "timestamp": 1791171900,
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-10-02T15:33:32.207191+00:00",
+  "generatedAt": "2026-10-05T18:08:48.416164+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
     "capBuckets": "NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250; remaining NSE EQ securities are grouped as Other"
   },
-  "universeSize": 2319,
-  "pricedUniverseSize": 2319,
+  "universeSize": 2337,
+  "pricedUniverseSize": 2337,
   "universe": [
     {
       "symbol": "20MICRONS",
@@ -274,6 +274,13 @@
       "isin": "INE793A01012"
     },
     {
+      "symbol": "ACCURACY",
+      "name": "Accuracy Shipping Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE648Z01023"
+    },
+    {
       "symbol": "ACE",
       "name": "Action Construction Equipment Limited",
       "marketCap": "small",
@@ -286,6 +293,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE543V01017"
+    },
+    {
+      "symbol": "ACEVECTOR",
+      "name": "AceVector Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE580P01029"
     },
     {
       "symbol": "ACGL",
@@ -1618,6 +1632,13 @@
       "isin": "INE871C01038"
     },
     {
+      "symbol": "AVG",
+      "name": "AVG Logistics Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE680Z01018"
+    },
+    {
       "symbol": "AVL",
       "name": "Aditya Vision Limited",
       "marketCap": "other",
@@ -1966,6 +1987,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE373A01013"
+    },
+    {
+      "symbol": "BASML",
+      "name": "Bannari Amman Spinning Mills Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE186H01022"
     },
     {
       "symbol": "BATAINDIA",
@@ -3389,6 +3417,13 @@
       "isin": "INE509F01029"
     },
     {
+      "symbol": "CYBERTECH",
+      "name": "Cybertech Systems And Software Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE214A01019"
+    },
+    {
       "symbol": "CYIENT",
       "name": "Cyient Limited",
       "marketCap": "small",
@@ -3935,6 +3970,13 @@
       "isin": "INE266Y01019"
     },
     {
+      "symbol": "DPWIRES",
+      "name": "D P Wires Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE864X01013"
+    },
+    {
       "symbol": "DRAGARWQ",
       "name": "Dr Agarwals Eye Hospital Limited",
       "marketCap": "other",
@@ -4257,6 +4299,13 @@
       "isin": "INE296H01011"
     },
     {
+      "symbol": "EMMBI",
+      "name": "Emmbi Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE753K01015"
+    },
+    {
       "symbol": "EMMVEE",
       "name": "Emmvee Photovoltaic Power Limited",
       "marketCap": "small",
@@ -4474,6 +4523,13 @@
       "isin": "INE128A01029"
     },
     {
+      "symbol": "EVERESTIND",
+      "name": "Everest Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE295A01018"
+    },
+    {
       "symbol": "EXCELINDUS",
       "name": "Excel Industries Limited",
       "marketCap": "other",
@@ -4528,6 +4584,13 @@
       "marketCap": "mid",
       "sector": "Chemicals",
       "isin": "INE188A01015"
+    },
+    {
+      "symbol": "FAIRCHEMOR",
+      "name": "Fairchem Organics Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0DNW01011"
     },
     {
       "symbol": "FAZE3Q",
@@ -4696,6 +4759,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE360L01017"
+    },
+    {
+      "symbol": "FOCUS",
+      "name": "Focus Lighting and Fixtures Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE593W01028"
     },
     {
       "symbol": "FOODSIN",
@@ -4908,6 +4978,13 @@
       "isin": "INE199P01028"
     },
     {
+      "symbol": "GEECEE",
+      "name": "GeeCee Ventures Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE916G01016"
+    },
+    {
       "symbol": "GEEKAYWIRE",
       "name": "Geekay Wires Limited",
       "marketCap": "other",
@@ -4955,6 +5032,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE007B01023"
+    },
+    {
+      "symbol": "GERMAN",
+      "name": "German Green Steel and Power Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0D4501011"
     },
     {
       "symbol": "GESHIP",
@@ -5984,13 +6068,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE310C01029"
-    },
-    {
-      "symbol": "HINDCON",
-      "name": "Hindcon Chemicals Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE642Y01029"
     },
     {
       "symbol": "HINDCOPPER",
@@ -7692,6 +7769,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE029L01018"
+    },
+    {
+      "symbol": "KILITCH",
+      "name": "Kilitch Drugs (India) Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE729D01010"
     },
     {
       "symbol": "KIMS",
@@ -9780,6 +9864,13 @@
       "isin": "INE605D01012"
     },
     {
+      "symbol": "NECCLTD",
+      "name": "North Eastern Carrying Corporation Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE553C01016"
+    },
+    {
       "symbol": "NECLIFE",
       "name": "Nectar Lifesciences Limited",
       "marketCap": "other",
@@ -10263,6 +10354,13 @@
       "isin": "INE800H01010"
     },
     {
+      "symbol": "OMFREIGHT",
+      "name": "Om Freight Forwarders Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE1BZC01019"
+    },
+    {
       "symbol": "OMINFRAL",
       "name": "OM INFRA LIMITED",
       "marketCap": "other",
@@ -10387,6 +10485,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE607D01018"
+    },
+    {
+      "symbol": "ORIENTCABL",
+      "name": "Orient Cables (India) Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE0J1N01028"
     },
     {
       "symbol": "ORIENTCEM",
@@ -11110,6 +11215,13 @@
       "isin": "INE211R01019"
     },
     {
+      "symbol": "PPL",
+      "name": "Prakash Pipes Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE050001010"
+    },
+    {
       "symbol": "PPLPHARMA",
       "name": "Piramal Pharma Limited",
       "marketCap": "small",
@@ -11122,6 +11234,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE0I0M01023"
+    },
+    {
+      "symbol": "PRADPME",
+      "name": "Pradeep Metals Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE770A01010"
     },
     {
       "symbol": "PRAENG",
@@ -11530,6 +11649,13 @@
       "isin": "INE00KV01022"
     },
     {
+      "symbol": "RAJOOENG",
+      "name": "Rajoo Engineers Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE535F01024"
+    },
+    {
       "symbol": "RAJPALAYAM",
       "name": "Rajapalayam Mills Limited",
       "marketCap": "other",
@@ -11824,13 +11950,6 @@
       "isin": "INE688D01026"
     },
     {
-      "symbol": "RETAIL",
-      "name": "JHS Svendgaard Retail Ventures Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE03DD01011"
-    },
-    {
       "symbol": "RGL",
       "name": "Renaissance Global Limited",
       "marketCap": "other",
@@ -12097,13 +12216,6 @@
       "isin": "INE399K01017"
     },
     {
-      "symbol": "RTSPOWR",
-      "name": "RTS Power Corporation Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE005C01017"
-    },
-    {
       "symbol": "RUBFILA",
       "name": "Rubfila International Limited",
       "marketCap": "other",
@@ -12144,6 +12256,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE027T01023"
+    },
+    {
+      "symbol": "RUNWALENTR",
+      "name": "Runwal Enterprises Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE804W01029"
     },
     {
       "symbol": "RUPA",
@@ -13112,6 +13231,13 @@
       "isin": "INE551C01044"
     },
     {
+      "symbol": "SHYAMCENT",
+      "name": "Shyam Century Ferrous Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE979R01011"
+    },
+    {
       "symbol": "SHYAMMETL",
       "name": "Shyam Metalics and Energy Limited",
       "marketCap": "small",
@@ -14043,6 +14169,13 @@
       "isin": "INE428Q01011"
     },
     {
+      "symbol": "SUTLEJTEX",
+      "name": "Sutlej Textiles and Industries Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE645H01027"
+    },
+    {
       "symbol": "SUVEN",
       "name": "Suven Life Sciences Limited",
       "marketCap": "other",
@@ -14743,13 +14876,6 @@
       "isin": "INE107A01015"
     },
     {
-      "symbol": "TNTELE",
-      "name": "Tamilnadu Telecommunication Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE141D01018"
-    },
-    {
       "symbol": "TOKYOPLAST",
       "name": "Tokyo Plast International Limited",
       "marketCap": "other",
@@ -15317,6 +15443,13 @@
       "isin": "INE1CDF01017"
     },
     {
+      "symbol": "VARDHACRLC",
+      "name": "Vardhman Acrylics Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE116G01013"
+    },
+    {
       "symbol": "VARDMNPOLY",
       "name": "Vardhman Polytex Limited",
       "marketCap": "other",
@@ -15394,6 +15527,13 @@
       "isin": "INE484C01030"
     },
     {
+      "symbol": "VEEGALAND",
+      "name": "Veegaland Developers Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE1JTV01015"
+    },
+    {
       "symbol": "VENKEYS",
       "name": "Venky's (India) Limited",
       "marketCap": "other",
@@ -15413,13 +15553,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE0JA001018"
-    },
-    {
-      "symbol": "VENUSREM",
-      "name": "Venus Remedies Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE411B01019"
     },
     {
       "symbol": "VERANDA",
@@ -15863,13 +15996,6 @@
       "isin": "INE107F01022"
     },
     {
-      "symbol": "WARDINMOBI",
-      "name": "Wardwizard Innovations & Mobility Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE945P01024"
-    },
-    {
       "symbol": "WATERBASE",
       "name": "Waterbase Limited",
       "marketCap": "other",
@@ -16280,7 +16406,7 @@
     "large": 100,
     "mid": 149,
     "small": 245,
-    "other": 1825
+    "other": 1843
   },
   "sectorBuckets": {
     "Automobile and Auto Components": 40,
@@ -16303,11 +16429,11 @@
     "Services": 14,
     "Telecommunication": 9,
     "Textiles": 5,
-    "Unclassified": 1825
+    "Unclassified": 1843
   },
   "resultCount": 4,
   "failureCount": 0,
-  "skippedCount": 367,
+  "skippedCount": 371,
   "results": [
     {
       "symbol": "SATIA",
@@ -16316,25 +16442,25 @@
       "sector": "Unclassified",
       "isin": "INE170E01023",
       "type": "bullish",
-      "sessionsAgo": 0,
+      "sessionsAgo": 1,
       "fastEma": 64.04926577250164,
-      "slowEma": 64.63056113946188,
-      "latestFastEma": 64.05,
-      "latestSlowEma": 64.63,
+      "slowEma": 64.63056018534968,
+      "latestFastEma": 64.22,
+      "latestSlowEma": 64.67,
       "close": 68.33999633789062,
       "crossClose": 68.33999633789062,
-      "highAfterCross": 68.34,
-      "highAfterCrossPct": 0.0,
-      "highDaysAfterCross": 0,
-      "latestClose": 68.33999633789062,
-      "latestTimestamp": 1790912700,
-      "priceChange": 0.0,
-      "priceChangePct": 0.0,
-      "volume": 0,
+      "highAfterCross": 69.0,
+      "highAfterCrossPct": 0.97,
+      "highDaysAfterCross": 1,
+      "latestClose": 68.51000213623047,
+      "latestTimestamp": 1791171900,
+      "priceChange": 0.17,
+      "priceChangePct": 0.25,
+      "volume": 70953,
       "crossVolume": 0,
-      "latestVolume": 0,
+      "latestVolume": 70953,
       "crossAverageVolume20": 143606.75,
-      "averageVolume20": 143606.75,
+      "averageVolume20": 107459.4,
       "volumeMultiple": 0.0,
       "averageTurnover20": 9773651.68,
       "averageTurnover20Crore": 0.98,
@@ -16382,7 +16508,8 @@
         68.48,
         69.7,
         68.34,
-        68.34
+        68.34,
+        68.51
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -16415,11 +16542,11 @@
         ]
       },
       "score": {
-        "value": 95,
+        "value": 90,
         "grade": "A",
         "emaSpreadPct": 0.85,
         "reasons": [
-          "Fresh crossover in the latest daily candle",
+          "Crossover happened within the last 5 sessions",
           "EMA spread has started to separate",
           "Close is near the moving-average zone",
           "RSI is in a strong but not overheated zone",
@@ -16435,25 +16562,25 @@
       "sector": "Unclassified",
       "isin": "INE621L01012",
       "type": "bullish",
-      "sessionsAgo": 1,
+      "sessionsAgo": 2,
       "fastEma": 115.37695769097854,
-      "slowEma": 116.53375428440907,
-      "latestFastEma": 115.83,
+      "slowEma": 116.53375437350728,
+      "latestFastEma": 115.88,
       "latestSlowEma": 116.64,
       "close": 126.86000061035156,
       "crossClose": 126.86000061035156,
-      "highAfterCross": 126.86,
-      "highAfterCrossPct": 0.0,
-      "highDaysAfterCross": 0,
-      "latestClose": 126.86000061035156,
-      "latestTimestamp": 1790912700,
-      "priceChange": 0.0,
-      "priceChangePct": 0.0,
-      "volume": 0,
+      "highAfterCross": 128.99,
+      "highAfterCrossPct": 1.68,
+      "highDaysAfterCross": 2,
+      "latestClose": 117.18000030517578,
+      "latestTimestamp": 1791171900,
+      "priceChange": -9.68,
+      "priceChangePct": -7.63,
+      "volume": 5440099,
       "crossVolume": 4419603,
-      "latestVolume": 0,
+      "latestVolume": 5440099,
       "crossAverageVolume20": 3928663.6,
-      "averageVolume20": 3741331.75,
+      "averageVolume20": 3552871.75,
       "volumeMultiple": 1.12,
       "averageTurnover20": 483023832.62,
       "averageTurnover20Crore": 48.3,
@@ -16502,7 +16629,8 @@
         125.67,
         131.73,
         126.86,
-        126.86
+        126.86,
+        117.18
       ],
       "emasRising5": true,
       "emasRising10": false,
@@ -16536,16 +16664,16 @@
         ]
       },
       "score": {
-        "value": 91,
+        "value": 99,
         "grade": "A",
         "emaSpreadPct": 0.91,
         "reasons": [
           "Crossover happened within the last 5 sessions",
           "EMA spread has started to separate",
           "Close is near the moving-average zone",
+          "Latest volume confirms the breakout",
           "Liquidity passes the Rs. 10 crore turnover filter",
-          "RSI is in a strong but not overheated zone",
-          "ADX confirms trend strength"
+          "RSI is in a strong but not overheated zone"
         ]
       }
     },
@@ -16556,25 +16684,25 @@
       "sector": "Unclassified",
       "isin": "INE075D01018",
       "type": "bullish",
-      "sessionsAgo": 5,
+      "sessionsAgo": 6,
       "fastEma": 920.4522603428816,
-      "slowEma": 928.4060168032701,
-      "latestFastEma": 927.58,
-      "latestSlowEma": 929.95,
+      "slowEma": 928.4060343314195,
+      "latestFastEma": 928.38,
+      "latestSlowEma": 930.13,
       "close": 978.7999877929688,
       "crossClose": 978.7999877929688,
       "highAfterCross": 983.95,
       "highAfterCrossPct": 0.53,
       "highDaysAfterCross": 1,
-      "latestClose": 952.0,
-      "latestTimestamp": 1790912700,
-      "priceChange": -26.8,
-      "priceChangePct": -2.74,
-      "volume": 0,
+      "latestClose": 947.9000244140625,
+      "latestTimestamp": 1791171900,
+      "priceChange": -30.9,
+      "priceChangePct": -3.16,
+      "volume": 74566,
       "crossVolume": 73282,
-      "latestVolume": 0,
+      "latestVolume": 74566,
       "crossAverageVolume20": 36411.65,
-      "averageVolume20": 37553.45,
+      "averageVolume20": 36736.6,
       "volumeMultiple": 2.01,
       "averageTurnover20": 34063899.94,
       "averageTurnover20Crore": 3.41,
@@ -16627,7 +16755,8 @@
         962.95,
         966.95,
         952.0,
-        952.0
+        952.0,
+        947.9
       ],
       "emasRising5": true,
       "emasRising10": false,
@@ -16662,13 +16791,14 @@
         ]
       },
       "score": {
-        "value": 70,
-        "grade": "C",
+        "value": 77,
+        "grade": "B",
         "emaSpreadPct": 0.81,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 60-session window",
           "EMA spread has started to separate",
           "Close is near the moving-average zone",
+          "Latest volume is at least 2x the 20-session average",
           "Price is below the overextension limit"
         ]
       }
@@ -16680,25 +16810,25 @@
       "sector": "Unclassified",
       "isin": "INE995D01025",
       "type": "bullish",
-      "sessionsAgo": 11,
+      "sessionsAgo": 12,
       "fastEma": 182.99693503033052,
-      "slowEma": 184.66534709680212,
-      "latestFastEma": 184.3,
-      "latestSlowEma": 184.92,
+      "slowEma": 184.66534642347878,
+      "latestFastEma": 184.05,
+      "latestSlowEma": 184.85,
       "close": 196.17999267578125,
       "crossClose": 196.17999267578125,
       "highAfterCross": 203.45,
       "highAfterCrossPct": 3.71,
       "highDaysAfterCross": 1,
-      "latestClose": 177.63999938964844,
-      "latestTimestamp": 1790912700,
-      "priceChange": -18.54,
-      "priceChangePct": -9.45,
-      "volume": 0,
+      "latestClose": 177.94000244140625,
+      "latestTimestamp": 1791171900,
+      "priceChange": -18.24,
+      "priceChangePct": -9.3,
+      "volume": 4435,
       "crossVolume": 10490,
-      "latestVolume": 0,
+      "latestVolume": 4435,
       "crossAverageVolume20": 33669.15,
-      "averageVolume20": 33334.65,
+      "averageVolume20": 31888.55,
       "volumeMultiple": 0.31,
       "averageTurnover20": 6948337.72,
       "averageTurnover20Crore": 0.69,
@@ -16757,7 +16887,8 @@
         182.87,
         182.73,
         177.64,
-        177.64
+        177.64,
+        177.94
       ],
       "emasRising5": true,
       "emasRising10": false,
@@ -16822,6 +16953,10 @@
     },
     {
       "symbol": "ABMKNO",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "ACEVECTOR",
       "reason": "needs at least 260 daily candles"
     },
     {
@@ -17122,10 +17257,6 @@
     },
     {
       "symbol": "DCMSIL",
-      "reason": "needs at least 260 daily candles"
-    },
-    {
-      "symbol": "DECNGOLD",
       "reason": "needs at least 260 daily candles"
     }
   ]
