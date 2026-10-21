@@ -27,20 +27,20 @@
   "marketTrend": {
     "symbol": "^NSEI",
     "label": "Nifty 50",
-    "latestClose": 22888.95,
-    "ema200": 24003.98,
-    "timestamp": 1792381500,
+    "latestClose": 22811.35,
+    "ema200": 23992.11,
+    "timestamp": 1792554300,
     "isBullish": false,
     "filterApplied": true
   },
-  "generatedAt": "2026-10-19T16:35:23.902536+00:00",
+  "generatedAt": "2026-10-21T14:29:21.375727+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
     "capBuckets": "NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250; remaining NSE EQ securities are grouped as Other"
   },
-  "universeSize": 2351,
-  "pricedUniverseSize": 2351,
+  "universeSize": 2354,
+  "pricedUniverseSize": 2353,
   "universe": [
     {
       "symbol": "20MICRONS",
@@ -5923,6 +5923,13 @@
       "isin": "INE795G01014"
     },
     {
+      "symbol": "HDFIRE",
+      "name": "HD Fire Protect Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE18AK01028"
+    },
+    {
       "symbol": "HEADSUP",
       "name": "Heads UP Ventures Limited",
       "marketCap": "other",
@@ -6474,6 +6481,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE489L01022"
+    },
+    {
+      "symbol": "IIRM",
+      "name": "IIRM Holdings India Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE670C01026"
     },
     {
       "symbol": "IITL",
@@ -13000,6 +13014,13 @@
       "isin": "INE482J01021"
     },
     {
+      "symbol": "SHAHINVEST",
+      "name": "Shah Investor's Home Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE029N01014"
+    },
+    {
       "symbol": "SHAILY",
       "name": "Shaily Engineering Plastics Limited",
       "marketCap": "other",
@@ -13782,6 +13803,13 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE917H01012"
+    },
+    {
+      "symbol": "SRIT",
+      "name": "SRIT India Limited",
+      "marketCap": "other",
+      "sector": "Unclassified",
+      "isin": "INE307K01028"
     },
     {
       "symbol": "SRM",
@@ -16038,13 +16066,6 @@
       "isin": "INE825A01020"
     },
     {
-      "symbol": "VTMLTD",
-      "name": "VTM Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE222F01029"
-    },
-    {
       "symbol": "WAAREEENER",
       "name": "Waaree Energies Limited",
       "marketCap": "mid",
@@ -16504,7 +16525,7 @@
     "large": 100,
     "mid": 149,
     "small": 246,
-    "other": 1856
+    "other": 1859
   },
   "sectorBuckets": {
     "Automobile and Auto Components": 40,
@@ -16527,11 +16548,11 @@
     "Services": 14,
     "Telecommunication": 9,
     "Textiles": 5,
-    "Unclassified": 1856
+    "Unclassified": 1859
   },
   "resultCount": 6,
-  "failureCount": 0,
-  "skippedCount": 371,
+  "failureCount": 1,
+  "skippedCount": 372,
   "results": [
     {
       "symbol": "NELCAST",
@@ -16540,25 +16561,25 @@
       "sector": "Unclassified",
       "isin": "INE189I01024",
       "type": "bullish",
-      "sessionsAgo": 1,
+      "sessionsAgo": 2,
       "fastEma": 123.80615010758436,
-      "slowEma": 124.8302811323449,
-      "latestFastEma": 124.2,
-      "latestSlowEma": 124.92,
+      "slowEma": 124.83027757075101,
+      "latestFastEma": 124.19,
+      "latestSlowEma": 124.91,
       "close": 135.8699951171875,
       "crossClose": 135.8699951171875,
       "highAfterCross": 139.25,
       "highAfterCrossPct": 2.49,
       "highDaysAfterCross": 1,
-      "latestClose": 133.7899932861328,
-      "latestTimestamp": 1792381500,
-      "priceChange": -2.08,
-      "priceChangePct": -1.53,
-      "volume": 299885,
+      "latestClose": 124.08000183105469,
+      "latestTimestamp": 1792554300,
+      "priceChange": -11.79,
+      "priceChangePct": -8.68,
+      "volume": 220118,
       "crossVolume": 553139,
-      "latestVolume": 299885,
+      "latestVolume": 220118,
       "crossAverageVolume20": 650938.9,
-      "averageVolume20": 661601.65,
+      "averageVolume20": 670675.65,
       "volumeMultiple": 0.85,
       "averageTurnover20": 90058595.04,
       "averageTurnover20Crore": 9.01,
@@ -16607,7 +16628,8 @@
         134.22,
         130.12,
         135.87,
-        133.79
+        133.79,
+        124.08
       ],
       "emasRising5": true,
       "emasRising10": false,
@@ -16662,25 +16684,25 @@
       "sector": "Unclassified",
       "isin": "INE295A01018",
       "type": "bullish",
-      "sessionsAgo": 2,
+      "sessionsAgo": 3,
       "fastEma": 452.7928641660522,
-      "slowEma": 456.9247768461923,
-      "latestFastEma": 454.77,
-      "latestSlowEma": 457.35,
+      "slowEma": 456.92480419386044,
+      "latestFastEma": 455.03,
+      "latestSlowEma": 457.39,
       "close": 484.75,
       "crossClose": 484.75,
       "highAfterCross": 505.0,
       "highAfterCrossPct": 4.18,
       "highDaysAfterCross": 1,
-      "latestClose": 473.3500061035156,
-      "latestTimestamp": 1792381500,
-      "priceChange": -11.4,
-      "priceChangePct": -2.35,
-      "volume": 6372,
+      "latestClose": 461.3500061035156,
+      "latestTimestamp": 1792554300,
+      "priceChange": -23.4,
+      "priceChangePct": -4.83,
+      "volume": 6793,
       "crossVolume": 4570,
-      "latestVolume": 6372,
+      "latestVolume": 6793,
       "crossAverageVolume20": 20553.95,
-      "averageVolume20": 20893.8,
+      "averageVolume20": 20856.65,
       "volumeMultiple": 0.22,
       "averageTurnover20": 9731092.94,
       "averageTurnover20Crore": 0.97,
@@ -16730,7 +16752,8 @@
         503.5,
         484.75,
         483.9,
-        473.35
+        473.35,
+        461.35
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -16783,25 +16806,25 @@
       "sector": "Unclassified",
       "isin": "INE563J01010",
       "type": "bullish",
-      "sessionsAgo": 3,
+      "sessionsAgo": 4,
       "fastEma": 686.994867932744,
-      "slowEma": 693.7758529503603,
-      "latestFastEma": 689.67,
-      "latestSlowEma": 694.28,
+      "slowEma": 693.7759024292977,
+      "latestFastEma": 688.74,
+      "latestSlowEma": 694.0,
       "close": 721.3499755859375,
       "crossClose": 721.3499755859375,
       "highAfterCross": 735.7,
       "highAfterCrossPct": 1.99,
       "highDaysAfterCross": 1,
-      "latestClose": 696.25,
-      "latestTimestamp": 1792381500,
-      "priceChange": -25.1,
-      "priceChangePct": -3.48,
-      "volume": 28781,
+      "latestClose": 665.9000244140625,
+      "latestTimestamp": 1792554300,
+      "priceChange": -55.45,
+      "priceChangePct": -7.69,
+      "volume": 38896,
       "crossVolume": 15577,
-      "latestVolume": 28781,
+      "latestVolume": 38896,
       "crossAverageVolume20": 283454.4,
-      "averageVolume20": 230398.25,
+      "averageVolume20": 231207.15,
       "volumeMultiple": 0.05,
       "averageTurnover20": 214982569.92,
       "averageTurnover20Crore": 21.5,
@@ -16852,7 +16875,8 @@
         721.35,
         726.5,
         710.45,
-        696.25
+        696.25,
+        665.9
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -16905,25 +16929,25 @@
       "sector": "Unclassified",
       "isin": "INE426D01013",
       "type": "bullish",
-      "sessionsAgo": 5,
+      "sessionsAgo": 6,
       "fastEma": 391.07590754708195,
-      "slowEma": 394.6702767265853,
-      "latestFastEma": 394.02,
-      "latestSlowEma": 395.28,
+      "slowEma": 394.6702769609855,
+      "latestFastEma": 394.23,
+      "latestSlowEma": 395.32,
       "close": 406.04998779296875,
       "crossClose": 406.04998779296875,
       "highAfterCross": 426.0,
       "highAfterCrossPct": 4.91,
       "highDaysAfterCross": 3,
-      "latestClose": 408.20001220703125,
-      "latestTimestamp": 1792381500,
-      "priceChange": 2.15,
-      "priceChangePct": 0.53,
-      "volume": 7362,
+      "latestClose": 399.25,
+      "latestTimestamp": 1792554300,
+      "priceChange": -6.8,
+      "priceChangePct": -1.67,
+      "volume": 21848,
       "crossVolume": 17093,
-      "latestVolume": 7362,
+      "latestVolume": 21848,
       "crossAverageVolume20": 31922.0,
-      "averageVolume20": 20017.8,
+      "averageVolume20": 19436.55,
       "volumeMultiple": 0.54,
       "averageTurnover20": 12784891.98,
       "averageTurnover20Crore": 1.28,
@@ -16976,7 +17000,8 @@
         410.75,
         408.5,
         407.45,
-        408.2
+        408.2,
+        399.25
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -17009,11 +17034,11 @@
         ]
       },
       "score": {
-        "value": 85,
-        "grade": "A",
+        "value": 80,
+        "grade": "B",
         "emaSpreadPct": 0.89,
         "reasons": [
-          "Crossover happened within the last 5 sessions",
+          "Crossover is still inside the 60-session window",
           "EMA spread has started to separate",
           "Close is near the moving-average zone",
           "RSI confirms bullish momentum without overextension",
@@ -17029,25 +17054,25 @@
       "sector": "Unclassified",
       "isin": "INE02PY01013",
       "type": "bullish",
-      "sessionsAgo": 7,
+      "sessionsAgo": 8,
       "fastEma": 258.2143129160597,
-      "slowEma": 260.77654027582673,
-      "latestFastEma": 261.17,
-      "latestSlowEma": 261.43,
+      "slowEma": 260.77655086759336,
+      "latestFastEma": 260.68,
+      "latestSlowEma": 261.3,
       "close": 269.1499938964844,
       "crossClose": 269.1499938964844,
       "highAfterCross": 285.0,
       "highAfterCrossPct": 5.89,
       "highDaysAfterCross": 3,
-      "latestClose": 262.8999938964844,
-      "latestTimestamp": 1792381500,
-      "priceChange": -6.25,
-      "priceChangePct": -2.32,
-      "volume": 542858,
+      "latestClose": 248.6999969482422,
+      "latestTimestamp": 1792554300,
+      "priceChange": -20.45,
+      "priceChangePct": -7.6,
+      "volume": 358582,
       "crossVolume": 213742,
-      "latestVolume": 542858,
+      "latestVolume": 358582,
       "crossAverageVolume20": 424528.75,
-      "averageVolume20": 410649.6,
+      "averageVolume20": 423527.05,
       "volumeMultiple": 0.5,
       "averageTurnover20": 115931822.41,
       "averageTurnover20Crore": 11.59,
@@ -17102,7 +17127,8 @@
         274.65,
         270.3,
         270.9,
-        262.9
+        262.9,
+        248.7
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -17155,25 +17181,25 @@
       "sector": "Financial Services",
       "isin": "INE115A01026",
       "type": "bullish",
-      "sessionsAgo": 19,
+      "sessionsAgo": 20,
       "fastEma": 537.0116330490954,
-      "slowEma": 541.5331159442891,
-      "latestFastEma": 537.56,
-      "latestSlowEma": 541.2,
+      "slowEma": 541.5330866843085,
+      "latestFastEma": 536.24,
+      "latestSlowEma": 540.83,
       "close": 568.0,
       "crossClose": 568.0,
       "highAfterCross": 576.7,
       "highAfterCrossPct": 1.53,
       "highDaysAfterCross": 2,
-      "latestClose": 511.5,
-      "latestTimestamp": 1792381500,
-      "priceChange": -56.5,
-      "priceChangePct": -9.95,
-      "volume": 831449,
+      "latestClose": 503.75,
+      "latestTimestamp": 1792554300,
+      "priceChange": -64.25,
+      "priceChangePct": -11.31,
+      "volume": 1633303,
       "crossVolume": 3749732,
-      "latestVolume": 831449,
+      "latestVolume": 1633303,
       "crossAverageVolume20": 4308422.55,
-      "averageVolume20": 3514637.25,
+      "averageVolume20": 3408854.75,
       "volumeMultiple": 0.87,
       "averageTurnover20": 2342773803.7,
       "averageTurnover20Crore": 234.28,
@@ -17240,7 +17266,8 @@
         535.0,
         533.2,
         521.0,
-        511.5
+        511.5,
+        503.75
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -17286,7 +17313,12 @@
       }
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "symbol": "IIRM",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
   "skipped": [
     {
       "symbol": "3BBLACKBIO",
@@ -17509,10 +17541,6 @@
       "reason": "needs at least 260 daily candles"
     },
     {
-      "symbol": "BMWVENTLTD",
-      "reason": "needs at least 260 daily candles"
-    },
-    {
       "symbol": "BNAGROCHEM",
       "reason": "needs at least 260 daily candles"
     },
@@ -17606,6 +17634,10 @@
     },
     {
       "symbol": "CRAVATEX",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "CSM",
       "reason": "needs at least 260 daily candles"
     }
   ]
