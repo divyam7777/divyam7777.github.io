@@ -27,20 +27,20 @@
   "marketTrend": {
     "symbol": "^NSEI",
     "label": "Nifty 50",
-    "latestClose": 24536.6,
-    "ema200": 23911.73,
-    "timestamp": 1793850300,
+    "latestClose": 25030.35,
+    "ema200": 23922.86,
+    "timestamp": 1793936700,
     "isBullish": true,
     "filterApplied": true
   },
-  "generatedAt": "2026-11-05T17:12:45.571570+00:00",
+  "generatedAt": "2026-11-06T16:38:57.806752+00:00",
   "dataSource": {
     "universe": "https://archives.nseindia.com/content/equities/EQUITY_L.csv",
     "prices": "Yahoo Finance chart/spark daily candles",
     "capBuckets": "NIFTY 100, NIFTY Midcap 150, NIFTY Smallcap 250; remaining NSE EQ securities are grouped as Other"
   },
-  "universeSize": 2393,
-  "pricedUniverseSize": 2392,
+  "universeSize": 2390,
+  "pricedUniverseSize": 2390,
   "universe": [
     {
       "symbol": "20MICRONS",
@@ -8097,7 +8097,7 @@
       "name": "Knowledge Marine & Engineering Works Limited",
       "marketCap": "other",
       "sector": "Unclassified",
-      "isin": "INE0CJD01029"
+      "isin": "INE0CJD01037"
     },
     {
       "symbol": "KMSUGAR",
@@ -11626,13 +11626,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE689W01016"
-    },
-    {
-      "symbol": "PRIORITY",
-      "name": "Priority Jewels Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE15EH01014"
     },
     {
       "symbol": "PRITI",
@@ -15926,13 +15919,6 @@
       "isin": "INE0JA001018"
     },
     {
-      "symbol": "VENUSREM",
-      "name": "Venus Remedies Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE411B01019"
-    },
-    {
       "symbol": "VERTOZ",
       "name": "Vertoz Limited",
       "marketCap": "other",
@@ -16106,13 +16092,6 @@
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE946H01037"
-    },
-    {
-      "symbol": "VIRAT",
-      "name": "Virat Industries Limited",
-      "marketCap": "other",
-      "sector": "Unclassified",
-      "isin": "INE467D01017"
     },
     {
       "symbol": "VIRINCHI",
@@ -16798,7 +16777,7 @@
     "large": 100,
     "mid": 149,
     "small": 246,
-    "other": 1898
+    "other": 1895
   },
   "sectorBuckets": {
     "Automobile and Auto Components": 40,
@@ -16821,11 +16800,11 @@
     "Services": 14,
     "Telecommunication": 9,
     "Textiles": 5,
-    "Unclassified": 1898
+    "Unclassified": 1895
   },
-  "resultCount": 5,
-  "failureCount": 1,
-  "skippedCount": 378,
+  "resultCount": 4,
+  "failureCount": 0,
+  "skippedCount": 376,
   "results": [
     {
       "symbol": "HCLTECH",
@@ -16834,25 +16813,25 @@
       "sector": "Information Technology",
       "isin": "INE860A01027",
       "type": "bullish",
-      "sessionsAgo": 1,
+      "sessionsAgo": 2,
       "fastEma": 1324.2805494789784,
       "slowEma": 1336.8350115177404,
-      "latestFastEma": 1328.45,
-      "latestSlowEma": 1337.77,
+      "latestFastEma": 1332.82,
+      "latestSlowEma": 1338.78,
       "close": 1405.0,
       "crossClose": 1405.0,
-      "highAfterCross": 1457.5,
-      "highAfterCrossPct": 3.74,
-      "highDaysAfterCross": 1,
-      "latestClose": 1430.5,
-      "latestTimestamp": 1793850300,
-      "priceChange": 25.5,
-      "priceChangePct": 1.81,
-      "volume": 3773052,
+      "highAfterCross": 1469.0,
+      "highAfterCrossPct": 4.56,
+      "highDaysAfterCross": 2,
+      "latestClose": 1440.0,
+      "latestTimestamp": 1793936700,
+      "priceChange": 35.0,
+      "priceChangePct": 2.49,
+      "volume": 4185534,
       "crossVolume": 2366758,
-      "latestVolume": 3773052,
+      "latestVolume": 4185534,
       "crossAverageVolume20": 4793297.3,
-      "averageVolume20": 4891435.15,
+      "averageVolume20": 4975687.9,
       "volumeMultiple": 0.49,
       "averageTurnover20": 6510594780.08,
       "averageTurnover20Crore": 651.06,
@@ -16901,7 +16880,8 @@
         1434.0,
         1439.1,
         1405.0,
-        1430.5
+        1430.5,
+        1440.0
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -16952,7 +16932,7 @@
       "sector": "Unclassified",
       "isin": "INE308E01029",
       "type": "bullish",
-      "sessionsAgo": 2,
+      "sessionsAgo": 3,
       "fastEma": 3.6247352970971716,
       "slowEma": 3.654339167599502,
       "latestFastEma": 3.64,
@@ -16962,15 +16942,15 @@
       "highAfterCross": 4.0,
       "highAfterCrossPct": 2.3,
       "highDaysAfterCross": 1,
-      "latestClose": 3.799999952316284,
-      "latestTimestamp": 1793850300,
-      "priceChange": -0.11,
-      "priceChangePct": -2.81,
-      "volume": 40883,
+      "latestClose": 3.6700000762939453,
+      "latestTimestamp": 1793936700,
+      "priceChange": -0.24,
+      "priceChangePct": -6.14,
+      "volume": 16899,
       "crossVolume": 7870,
-      "latestVolume": 40883,
+      "latestVolume": 16899,
       "crossAverageVolume20": 81018.9,
-      "averageVolume20": 79160.75,
+      "averageVolume20": 71858.05,
       "volumeMultiple": 0.1,
       "averageTurnover20": 293118.12,
       "averageTurnover20Crore": 0.03,
@@ -17020,7 +17000,8 @@
         3.97,
         3.91,
         3.87,
-        3.8
+        3.8,
+        3.67
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -17073,25 +17054,25 @@
       "sector": "Unclassified",
       "isin": "INE068L01024",
       "type": "bullish",
-      "sessionsAgo": 4,
+      "sessionsAgo": 5,
       "fastEma": 242.31178899349925,
       "slowEma": 244.69062122209783,
-      "latestFastEma": 243.75,
-      "latestSlowEma": 244.97,
+      "latestFastEma": 244.25,
+      "latestSlowEma": 245.09,
       "close": 253.1999969482422,
       "crossClose": 253.1999969482422,
       "highAfterCross": 264.0,
       "highAfterCrossPct": 4.27,
       "highDaysAfterCross": 4,
-      "latestClose": 260.1499938964844,
-      "latestTimestamp": 1793850300,
-      "priceChange": 6.95,
-      "priceChangePct": 2.74,
-      "volume": 242903,
+      "latestClose": 256.3500061035156,
+      "latestTimestamp": 1793936700,
+      "priceChange": 3.15,
+      "priceChangePct": 1.24,
+      "volume": 130750,
       "crossVolume": 112498,
-      "latestVolume": 242903,
+      "latestVolume": 130750,
       "crossAverageVolume20": 173532.0,
-      "averageVolume20": 179041.3,
+      "averageVolume20": 180133.8,
       "volumeMultiple": 0.65,
       "averageTurnover20": 42556352.92,
       "averageTurnover20Crore": 4.26,
@@ -17143,7 +17124,8 @@
         249.25,
         246.3,
         251.8,
-        260.15
+        260.15,
+        256.35
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -17191,156 +17173,31 @@
       }
     },
     {
-      "symbol": "MPHASIS",
-      "name": "MphasiS Limited",
-      "marketCap": "mid",
-      "sector": "Information Technology",
-      "isin": "INE356A01018",
-      "type": "bullish",
-      "sessionsAgo": 6,
-      "fastEma": 2395.876318311871,
-      "slowEma": 2417.689633281079,
-      "latestFastEma": 2423.61,
-      "latestSlowEma": 2424.06,
-      "close": 2518.0,
-      "crossClose": 2518.0,
-      "highAfterCross": 2591.3,
-      "highAfterCrossPct": 2.91,
-      "highDaysAfterCross": 2,
-      "latestClose": 2510.0,
-      "latestTimestamp": 1793850300,
-      "priceChange": -8.0,
-      "priceChangePct": -0.32,
-      "volume": 664674,
-      "crossVolume": 486745,
-      "latestVolume": 664674,
-      "crossAverageVolume20": 727438.15,
-      "averageVolume20": 698551.35,
-      "volumeMultiple": 0.67,
-      "averageTurnover20": 1755278024.32,
-      "averageTurnover20Crore": 175.53,
-      "rsi14": 57.85,
-      "adx14": 30.12,
-      "plusDi14": 24.08,
-      "minusDi14": 13.2,
-      "distanceFromFastEmaPct": 5.1,
-      "fastEmaSlopePct": 0.208,
-      "marketTrendConfirmed": true,
-      "timestamp": 1793159100,
-      "sparkline": [
-        2422.0,
-        2369.1,
-        2355.0,
-        2307.5,
-        2291.7,
-        2295.0,
-        2378.0,
-        2316.7,
-        2320.0,
-        2300.4,
-        2296.2,
-        2265.0,
-        2259.0,
-        2248.2,
-        2234.0,
-        2237.5,
-        2154.4,
-        2154.4,
-        2250.2,
-        2297.1,
-        2298.0,
-        2289.0,
-        2303.4,
-        2360.0,
-        2353.5,
-        2466.3,
-        2435.3,
-        2453.2,
-        2500.0,
-        2500.0,
-        2575.0,
-        2499.5,
-        2480.0,
-        2557.6,
-        2618.4,
-        2518.0,
-        2561.3,
-        2525.6,
-        2563.7,
-        2535.3,
-        2468.4,
-        2510.0
-      ],
-      "emasRising5": true,
-      "emasRising10": true,
-      "quality": {
-        "passed": false,
-        "checks": {
-          "bullishSetup": true,
-          "priceAboveEmaStack": false,
-          "fastEmaSlopePositive": true,
-          "notOverextended": true,
-          "volumeConfirmed": false,
-          "liquidTurnover": true,
-          "rsiHealthy": true,
-          "diPlusAboveMinus": true,
-          "diPlus3xMinus": false,
-          "adxSuperTrend": false,
-          "rsiAdxRatio": true,
-          "diPlusNearAdx": false,
-          "emaStillBullish": false,
-          "emasRising5": true,
-          "emasRising10": true
-        },
-        "failed": [
-          "Close is above EMA stack",
-          "Volume is at least 1.5x 20-session average",
-          "+DI is at least 3x -DI",
-          "ADX is >= 32",
-          "+DI is within \u00b110% of ADX",
-          "50 EMA is still above 200 EMA today"
-        ]
-      },
-      "score": {
-        "value": 100,
-        "grade": "A",
-        "emaSpreadPct": 0.87,
-        "reasons": [
-          "Crossover is still inside the 60-session window",
-          "EMA spread has started to separate",
-          "Close is near the moving-average zone",
-          "High liquidity with Rs. 50 crore plus average turnover",
-          "RSI is in a strong but not overheated zone",
-          "ADX shows a strong trend"
-        ]
-      }
-    },
-    {
       "symbol": "DTIL",
       "name": "Dhunseri Tea & Industries Limited",
       "marketCap": "other",
       "sector": "Unclassified",
       "isin": "INE341R01014",
       "type": "bullish",
-      "sessionsAgo": 13,
+      "sessionsAgo": 14,
       "fastEma": 146.17197420689604,
       "slowEma": 147.51071435789981,
-      "latestFastEma": 146.75,
-      "latestSlowEma": 147.52,
+      "latestFastEma": 146.84,
+      "latestSlowEma": 147.54,
       "close": 152.0,
       "crossClose": 152.0,
       "highAfterCross": 154.45,
       "highAfterCrossPct": 1.61,
       "highDaysAfterCross": 13,
-      "latestClose": 149.00999450683594,
-      "latestTimestamp": 1793850300,
-      "priceChange": -2.99,
-      "priceChangePct": -1.97,
-      "volume": 1380,
+      "latestClose": 149.07000732421875,
+      "latestTimestamp": 1793936700,
+      "priceChange": -2.93,
+      "priceChangePct": -1.93,
+      "volume": 4163,
       "crossVolume": 1336,
-      "latestVolume": 1380,
+      "latestVolume": 4163,
       "crossAverageVolume20": 4184.3,
-      "averageVolume20": 1896.85,
+      "averageVolume20": 1945.55,
       "volumeMultiple": 0.32,
       "averageTurnover20": 629430.3,
       "averageTurnover20Crore": 0.06,
@@ -17401,7 +17258,8 @@
         146.84,
         147.34,
         148.69,
-        149.01
+        149.01,
+        149.07
       ],
       "emasRising5": true,
       "emasRising10": true,
@@ -17434,26 +17292,21 @@
         ]
       },
       "score": {
-        "value": 89,
+        "value": 100,
         "grade": "A",
         "emaSpreadPct": 0.88,
         "reasons": [
           "Crossover is still inside the 60-session window",
           "EMA spread has started to separate",
           "Close is near the moving-average zone",
+          "Latest volume is at least 2x the 20-session average",
           "RSI is in a strong but not overheated zone",
-          "ADX confirms trend strength",
-          "Price is not too far above the fast EMA"
+          "ADX confirms trend strength"
         ]
       }
     }
   ],
-  "failures": [
-    {
-      "symbol": "BRIGHTOUTD",
-      "error": "HTTP Error 404: Not Found"
-    }
-  ],
+  "failures": [],
   "skipped": [
     {
       "symbol": "3BBLACKBIO",
@@ -17465,10 +17318,6 @@
     },
     {
       "symbol": "ABANSENT",
-      "reason": "needs at least 260 daily candles"
-    },
-    {
-      "symbol": "ABCIND",
       "reason": "needs at least 260 daily candles"
     },
     {
@@ -17713,6 +17562,10 @@
     },
     {
       "symbol": "BRIGHTBR",
+      "reason": "needs at least 260 daily candles"
+    },
+    {
+      "symbol": "BRIGHTOUTD",
       "reason": "needs at least 260 daily candles"
     },
     {

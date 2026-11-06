@@ -1,15 +1,15 @@
 {
   "market": "NSE India",
-  "generatedAt": "2026-11-05T17:12:45.571570+00:00",
-  "universeSize": 2393,
-  "pricedUniverseSize": 2392,
-  "failureCount": 1,
+  "generatedAt": "2026-11-06T16:38:57.806752+00:00",
+  "universeSize": 2390,
+  "pricedUniverseSize": 2390,
+  "failureCount": 0,
   "marketTrend": {
     "symbol": "^NSEI",
     "label": "Nifty 50",
-    "latestClose": 24536.6,
-    "ema200": 23911.73,
-    "timestamp": 1793850300,
+    "latestClose": 25030.35,
+    "ema200": 23922.86,
+    "timestamp": 1793936700,
     "isBullish": true,
     "filterApplied": true
   },
@@ -18,35 +18,35 @@
       "scanId": "50-100",
       "label": "50 / 100 EMA cross",
       "file": "ema-50-100-crosses.json",
-      "resultCount": 285,
+      "resultCount": 278,
       "rule": "Bullish 50 EMA / 100 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "50-200",
       "label": "50 / 200 EMA cross",
       "file": "ema-50-200-crosses.json",
-      "resultCount": 214,
+      "resultCount": 213,
       "rule": "Bullish 50 EMA / 200 EMA crossover within last 60 daily sessions with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "squeeze-50-100",
       "label": "50 / 100 EMA squeeze",
       "file": "ema-squeeze-50-100-crosses.json",
-      "resultCount": 13,
+      "resultCount": 18,
       "rule": "Bullish 50 EMA / 100 EMA squeeze (gap < 1.0%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "squeeze-50-200",
       "label": "50 / 200 EMA squeeze",
       "file": "ema-squeeze-50-200-crosses.json",
-      "resultCount": 5,
+      "resultCount": 4,
       "rule": "Bullish 50 EMA / 200 EMA squeeze (gap < 1.0%) with RSI, ADX, volume, turnover, extension, and Nifty trend filters"
     },
     {
       "scanId": "slope-50",
       "label": "50 EMA slope reversal",
       "file": "ema-slope-50-crosses.json",
-      "resultCount": 1223,
+      "resultCount": 1227,
       "rule": "50 EMA slope reversal (negative for >= 10 days, then turned positive) within last 60 daily sessions"
     }
   ]
